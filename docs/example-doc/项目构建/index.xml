@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>项目构建 on 博客</title>
+    <link>http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/</link>
+    <description>Recent content in 项目构建 on 博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Webpack(上)</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/</guid>
+      <description>前端框架Webpack，前端最重要的工具之一。
+CRM法学webpack,通过11个任务学会webpack。
+webpack文档、npm文档
+ 工具
+webpack@4 和 webpack-dev-server本地预览
+本地预览httpserver没有webpack-dev-server功能强,parcel也能本地预览但与webpack不配套,所以只能用webpack-dev-server。
+webpack这么多插件怎么学？
+重要的&amp;quot;不是用什么&amp;quot;，而是&amp;quot;怎么知道用什么&amp;quot;，要学会搜+CRM法。
+🔍英文关键词+CRM法
+框架 Webpack功能
+转译代码(ES6转为ES5，SCSS转为css)
+构建build
+代码压缩
+代码分析
+安装依赖
+终端:yarn add webpack@4 webpack-cli@3 --dev //webpack-cli用于在命令行中运行webpack  目标一. 用webpack转译JS 1.调用webpack
+(1)新建文件webpack-demo并用vscode打开，新建终端：
+npm init -y //创建package.json yarn add webpack@4 webpack-cli@3 --dev //安装它的2个依赖 //会多个node_modules的目录。由于是本地安装，不是全局安装,文件在node_modules里的.bin目录下  (2)新建目录src、新建index.js、新建x.js
+import x from &#39;./x.js&#39; console.log(x) x.js export default &#39;fuck&#39;  (3)运行: 由于是本地安装，运行时只能用绝对路径调用webpack
+npx webpack //自动但可能不稳定 //或者./node_modules/.bin/webpack --version // 手动调用本地webpack  调用后会默认把index.js转变为 main.js。
+会分析js代码，然后将代码变成IE或低版本浏览器可以用的js。
+2.初始化webpack.config.js
+去除警告： 文档
+(1)新建文件webpack.config.js，打开文档复制粘贴
+const path = require(&#39;path&#39;); module.</description>
+    </item>
+    
+    <item>
+      <title>Webpack(下)</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/</guid>
+      <description>loader VS plugin 用webpack生成JS
+我们给它个js文件，这个js文件通过webpack得到了一个新的js文件。 内置了babel-loader(库),通过这个loader把js load到webpack里面，然后webpack就输出了另外一个js。
+用webpack生成CSS
+引入css(js import &amp;lsquo;./x.css&amp;rsquo;),通过&#39;style-loader&#39;和&#39;css-loader&#39;把css变成&amp;lt;style&amp;gt;标签 给我个css,通过插件MiniCssExtractPlugin,把css变成文件。把n个css变成1个文件。
+加载器与插件的区别？
+loader是加载器，plugin是插件。 loader永远是1对1，plugin是n对1。loader功能比较单一就是用来加载文件的，plugin功能丰富。
+用webpack生成html
+html是通过HtmlWebpackPlugin生成新的html，该html会自动引入css、js。
+面试题(必考)
+webpack loader与plugin的区别是什么？
+1.webpack loader是用来加载文件的，webpack plugin是用来扩展webpack的功能的。
+2.loader主要用来加载一个个的文件。比如说，它可以加载js文件把js文件转译成低版本浏览器可以支持的js。它也可以加载css文件，&#39;style-loader&#39;和&#39;css-loader&#39;把css变成页面上的&amp;lt;style&amp;gt;标签或其它的一些处理。它也可以加载图片文件，对图片进行一些优化。
+3.plugin是用来加强webpack功能的。
+比如说HtmlWebpackPlugin,它是用来生成html文件的，MiniCssExtractPlugin是用来抽取css代码把它变成一个css文件的。
+目标五. webapck引入SCSS 要点
+node-sass已经过时,请使用dart-sass。
+dart-sass已被重命名为sass
+步骤 🔍webpack scss loader
+1.yarn add sass-loader sass --dev 2.新建文件x.scss,并写好样式。 //scss语法,还是最原始的css 3.x.js import &amp;quot;./x.scss&amp;quot;; import &amp;quot;./y.scss&amp;quot;; 4.webpack.config.base.js添加 module: { rules: [{ test: /\.scss$/i, use: [ &amp;quot;style-loader&amp;quot;, &amp;quot;css-loader&amp;quot;, &amp;quot;sass-loader&amp;quot;, ],}, ], }, webpack.config.js添加 rules: [ ...base.module.rules,//先抄过来再覆盖 { test: /\.css$/i, use: [&#39;style-loader&#39;, &#39;css-loader&#39;] } ] webpack.config.prod.js添加 rules: [ .</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>React全解 on 博客</title>
+    <link>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/</link>
+    <description>Recent content in React全解 on 博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Class 组件详解</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/</guid>
+      <description>目录
+一.class组件的创建方式
+二.props和state
+三.生命周期Lifecycle
+ 创建 class 组件 两种方式 第1种.ES5方式(过时) import React from &#39;react&#39; const A = React.createClass({ render() { return ( &amp;lt;div&amp;gt;hi&amp;lt;/div&amp;gt; ) } }) export default A // 由于ES5不支持class,才会有这种方式 第2种.ES6方式(推荐) import React from &#39;react&#39;; class B extends React.Component { constructor(props) { super(props); } render() { return ( &amp;lt;div&amp;gt;hi&amp;lt;/div&amp;gt; ) } } export default B;  浏览器不支持ES6怎么办？
+用webpack+babel将ES6翻译成ES5即可
+props 对组件来说组件内就是内部，组件外就是外部。
+1.传入props给B组件
+(1)外部数据一般都来自父元素的state，state是怎么作为props的？ 把this.state.name作为B的外部属性。
+(2)把外面的onClick函数传给onClick属性,这个onClick不是state，就是类的一个方法。传的是地址，对象只会拷贝地址。
+(3)外部数据被包装为一个对象
+name、onClick会变成对象{name:&#39;frank&#39;,onClick:...,children:&#39;hi&#39;} children就是hi,如果里面写了2个东西，就会变成一个数组放在children里。
+(4)onClick就是回调
+2.props如何初始化
+class B extends React.Component { constructor(props) { //这个props是从外部父组件接收来的 super(props); //super会把props放到this上 //this.</description>
+    </item>
+    
+    <item>
+      <title>Hooks 原理解析</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/</guid>
+      <description>内容
+1.分析useState原理和源码
+2.useRef的作用
+3.useContext的作用
+4.Vue3 对比 React
+ 分析useState原理 import React from &amp;quot;react&amp;quot;; import ReactDOM from &amp;quot;react-dom&amp;quot;; const rootElement = document.getElementById(&amp;quot;root&amp;quot;); function App() { console.log(&amp;quot;App 运行了&amp;quot;) const [n, setN] = React.useState(0); console.log(`n:${n}`); return ( &amp;lt;div className=&amp;quot;App&amp;quot;&amp;gt; &amp;lt;p&amp;gt;{n}&amp;lt;/p&amp;gt; &amp;lt;p&amp;gt; &amp;lt;button onClick={() =&amp;gt; setN(n + 1)}&amp;gt;+1&amp;lt;/button&amp;gt; &amp;lt;/p&amp;gt; &amp;lt;/div&amp;gt; ); } ReactDOM.render(&amp;lt;App /&amp;gt;, rootElement);  点击button后会发生什么？
+首次渲染render &amp;lt;App/&amp;gt;
+调用App()
+得到一个对象(虚拟DIV)
+React就会把这个虚拟DIV变成页面中真实的&amp;lt;div&amp;gt;
+用户点击button就会调用onClick函数,执行setN(n+1)
+再次render &amp;lt;App/&amp;gt;,调用App()
+验证:添加console.log(&amp;quot;App 运行了&amp;quot;)看看App运行了几次
+第1次得到0时“App 运行了”，点button又执行“App 运行了”
+证明:这个函数每更新一次UI就会运行一次。
+会再次得到一个对象(虚拟DIV)
+把新的虚拟DIV跟旧的虚拟DIV对比，看哪里有变化DOM Diff，然后局部更新真&amp;lt;div&amp;gt;
+每次调用App(),都会执行useState(0)
+第1次运行与第2次运行结果是一样的吗？
+验证:添加console.log(n:${n});
+点刷新n=0,点+1n=1</description>
+    </item>
+    
+    <item>
+      <title>Hooks 各个击破</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/</guid>
+      <description>React文档
+Hooks：useState、useEffect、useLayoutEffect、useContext、useReducer、useMemo、React.memo、callCallback、useRef、useImperativeHandle、自定义Hook、useDebugValue
+ useState(最常用)  在React的函数组件里，默认只有属性，没有状态。
+ 1.使用状态
+//数组第1项是读接口，第2项是写接口，初始值0 const [n,setN] = React.useState(0) //数字 const [user,setUser] = React.useState({name:&#39;F&#39;}) //对象  2.注意事项(1):不可局部更新
+更新部分属性时，未更新的属性会消失。
+3.注意事项(2):地址要变
+setState(obj)如果obj对象地址不变，那么React就认为数据没有变化，因此不会帮你改变内容。
+4.useState接受函数
+5.setState接受函数
+例1:不可局部更新
+如果state是个对象，能否部分setState? 不行，因为setState不会帮我们合并属性。所以当只更新部分属性时，未更新的属性就会消失。
+那怎么解决&amp;quot;未更新的属性会消失&amp;quot;的问题？
+用...拷贝之前所有的属性，然后再覆盖属性。
+import React, {useState} from &amp;quot;react&amp;quot;; import ReactDOM from &amp;quot;react-dom&amp;quot;; function App() { const [user,setUser] = useState({name:&#39;Frank&#39;, age: 18}) const onClick = ()=&amp;gt;{ setUser({ ...user, //拷贝user的所有属性 name: &#39;Jack&#39; //覆盖name }) } return ( &amp;lt;div className=&amp;quot;App&amp;quot;&amp;gt; &amp;lt;h1&amp;gt;{user.name}&amp;lt;/h1&amp;gt; &amp;lt;h2&amp;gt;{user.age}&amp;lt;/h2&amp;gt; &amp;lt;button onClick={onClick}&amp;gt;Click&amp;lt;/button&amp;gt; &amp;lt;/div&amp;gt; ); } const rootElement = document.</description>
+    </item>
+    
+    <item>
+      <title>React 类组件和函数组件</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/</guid>
+      <description>目录
+1.类组件和函数组件
+2.如何使用 props 和 state
+3.如何绑定事件
+4.复习 this+ 两个面试题
+ 组件component 一.概念 Element VS Component (元素与组件)
+//不成文的约定:元素小写，组件大写 const div=React.createElement(&#39;div&#39;,...) 这是一个React元素(小写) const Div=()=&amp;gt;React.createElement(&#39;div&#39;,...) 这是一个React组件(大写)  什么是组件?
+能跟其他物件组合起来的物件，就是组件，组件并没有明确的定义。 就目前而言，一个返回值是React元素的函数就是组件
+Vue里，data、methods、render组合成的一个对象(构造选项)就可以表示一个组件
+React两种组件
+1.函数组件
+function Welcome(props){ return &amp;lt;h1&amp;gt;Hello,{props.name}&amp;lt;/h1&amp;gt; } 使用方法: &amp;lt;Welcome name=&amp;quot;frank&amp;quot;/&amp;gt;  2.类组件
+class Welcome extends React.Component { render() { return &amp;lt;h1&amp;gt;Hello, {this.props.name}&amp;lt;/h1&amp;gt; } } 使用方法: &amp;lt;Welcome name=&amp;quot;frank&amp;quot;/&amp;gt;  &amp;lt;Welcome /&amp;gt;会被翻译成什么？
+&amp;lt;div /&amp;gt;翻译为React.createElement(&#39;div&#39;) div是元素 &amp;lt;Welcome /&amp;gt;翻译为React.createElement(Welcome) Welcome是函数
+工具: babel online把标签翻译成JS
+React.createElement的逻辑
+React.createElement目前接收几种参数:
+1.如果传入一个字符串&amp;lsquo;div&amp;rsquo;,则会创建一个div(虚拟DOM元素)
+2.如果传入一个函数,则会调用该函数，获取其返回值
+3.如果传入一个类,则在类前面加个new(这会导致执行 constructor),获取一个组件对象，然后调用对象的render方法，获取其返回值</description>
+    </item>
+    
+    <item>
+      <title>React起手式</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/</guid>
+      <description>目录
+1.如何引入React
+2.函数的本质&amp;ndash;延迟 如何使用React里的函数？
+3.JSX的用法
+4.条件判断与循环
+ 引入React(3种方法) 1&amp;rsquo; CDN引入(不推荐)
+需要引入2个库：先引react 后引react-dom,注意顺序
+&amp;lt;body&amp;gt; &amp;lt;div id=&amp;quot;app&amp;quot;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;script src=&amp;quot;https://cdn.bootcss.com/react/16.10.2/umd/react.development.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script src=&amp;quot;https://cdn.bootcss.com/react-dom/16.10.2/umd/react-dom.development.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script src=&amp;quot;src/index.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; //引入之后就可以使用你自己的js了 &amp;lt;/body&amp;gt;  测试是否引用成功
+本地运行parcel src/index.html
+⚠️注意:CDN引入的都会变成全局变量window
+console.log(window.React); //打印出一个对象 console.log(window.React.createElement); //打印出一个函数 console.log(window.ReactDOM); //对象 console.log(window.ReactDOM.render); //函数  这种方法没人用，如果想升级就需要重新复制版本号，麻烦。
+其它
+1.cjs和umd的区别？(优先用umd)
+cjs全称CommonJS,是Node.js支持的模块规范。
+模块规范指&amp;quot;如何声明一个模块&amp;quot;,平时我们是const x = {...}然后导出export default x就声明一个可以被别人导入的模块。Node.js有自己的模块定义方法，这个方法就叫cjs。
+umd是统一模块定义，兼容各种模块规范(含浏览器) 理论上优先使用umd,同时兼容Node.js上的模块和浏览器模块。 最新的模块规范是使用import和export关键字。
+2&amp;rsquo; 通过webpack引入React(不推荐)
+这种方法需要配置webpack，也麻烦，不用。
+除webpack外，rollup、parcel也支持上面写法。这2个工具都支持，把浏览器不支持的JS变成浏览器支持的JS。
+3&amp;rsquo; 用命令行create-react-app (推荐)
+ create-react-app跟vue-cli是同一个级别的东西。
+新手用create-react-app,老手用webpack/rollup
+ 🔍create react app
+//打开终端工具iTerm yarn global add create-react-app cd ~/Desktop create-react-app react-demo //新建项目react-demo cd react-demo yarn start //启动服务 中断control+c，用VSCode打开项目 yarn start //启动服务  测试是否引用成功console.</description>
+    </item>
+    
+    <item>
+      <title>函数组件</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/</guid>
+      <description>内容
+1.创建方式
+2.函数组件没有state怎么办
+3.函数组件没有生命周期怎么办
+4.自定义hook函数
+ 函数组件的创建方式 两种形式 1&#39; 声明一个变量等于箭头函数 const Hello = (props) =&amp;gt; { return &amp;lt;div&amp;gt;{props.message}&amp;lt;/div&amp;gt; } //箭头函数可以缩写 const Hello = props =&amp;gt; &amp;lt;div&amp;gt;{props.message}&amp;lt;/div&amp;gt; 2&#39; 使用function function Hello(props){ return &amp;lt;div&amp;gt;{props.message}&amp;lt;/div&amp;gt; }  消除了this
+函数组件能代替Class组件吗？
+完全可以,但是目前不行,我们要学些新的东西，比如hooks API
+函数组件代替Class组件 面临两个问题
+1.函数组件没有state
+React v16.8.0推出Hooks API
+其中的一个API叫做useState可以解决问题
+2.函数组件没有生命周期
+React v16.8.0推出Hooks API
+其中的一个API叫做useEffect可以解决问题
+useEffect(函数式编程的专有名词)是专门用来解决生命周期的问题的。
+1.函数组件没有state怎么办？
+React提供了useState并提供读、写2个API,可以对数据进行读、写操作。
+第1个参数是读，第2个参数是写，初始值为0。
+需要引入useEffect或者直接React.useEffect
+const App = props =&amp;gt; { const [n, setN] = React.useState(0) const onClick = () =&amp;gt; { setN(n + 1) } return ( &amp;lt;div&amp;gt;{n} &amp;lt;button onClick={onClick}&amp;gt; +1 &amp;lt;/button&amp;gt; &amp;lt;/div&amp;gt; ) }  函数组件模拟生命周期  什么叫生命周期？</description>
+    </item>
+    
+    <item>
+      <title>手写 Redux</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/</guid>
+      <description>从零开始手写redux
+ 全局state的读写 例1.使用Context读写appState
+import React, { useState, useContext } from &amp;quot;react&amp;quot; import ReactDOM from &#39;react-dom&#39; import &#39;./style.css&#39; const appContext = React.createContext(null) const App = () =&amp;gt; { const [appState, setAppState] = useState({ user: { name: &#39;frank&#39;, age: 18 } }) const contextValue = { appState, setAppState } //封装成一个对象，塞给上下文 return ( &amp;lt;appContext.Provider value={contextValue}&amp;gt; &amp;lt;大儿子 /&amp;gt; &amp;lt;二儿子 /&amp;gt; &amp;lt;小儿子 /&amp;gt; &amp;lt;/appContext.Provider &amp;gt; ) } const 大儿子 = () =&amp;gt; &amp;lt;section&amp;gt;大儿子&amp;lt;User /&amp;gt;&amp;lt;/section&amp;gt; const 二儿子 = () =&amp;gt; &amp;lt;section&amp;gt;二儿子&amp;lt;UserModifier /&amp;gt;&amp;lt;/section&amp;gt; const 小儿子 = () =&amp;gt; &amp;lt;section&amp;gt;小儿子&amp;lt;/section&amp;gt; const User = () =&amp;gt; { //获取信息 const contextValue = useContext(appContext) return &amp;lt;div&amp;gt; User:{contextValue.</description>
+    </item>
+    
+  </channel>
+</rss>

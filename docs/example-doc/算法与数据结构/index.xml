@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>算法与数据结构 on 博客</title>
+    <link>http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+    <description>Recent content in 算法与数据结构 on 博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>数据结构</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
+      <description>目前我们用过的数据结构
+数组(选择排序、归并排序、快速排序)
+数组可以分为队列、栈等
+哈希表(计数排序)
+用来存储key-value对
+ 数据结构一:队列Queue 队列Queue:一种特殊的数组,先进先出的数组 什么是队列数据结构?
+队列数据结构就是个类似数组的东西，但是它只提供push()入队和shift()出队2个操作。你提供这样的结构和这样的2个操作，你就是队列。 队列专门用来解决排队的问题。
+用call改写
+//queue.push(n) queue.push.call(queue, n) //const m = queue.shift() const m = queue.shift.call(queue)  数据结构二:栈Stack 后进先出的数组 例子:坐电梯超重时，后进先出。 2个操作:压栈push()、弹栈pop()
+Queue和Stack都是用数组做的数据结构。
+数据结构三:链表Linked List 一个链一个 JS的每个对象实际上就是链表。
+这导致array能够直接访问数组原型的方法，比如说array.push()。 它也可以访问到对象原型上有的方法，比如说array.hasOwnProperty 这是一种非常简洁的实现继承的一种机制。
+链表的好处:可以随时把中间的某个链条给断掉。
+如何做到断掉数组原型？
+将array.__proto__指向对象原型,它就不会再有push这个方法了。
+对于修改东西比较方便。
+创建链表 如何创建链表，在链表上增删改查?
+1.创建只含有一个节点的link_list
+const createList = (value) =&amp;gt; { //创建只含有一个节点的link_list return { data: value, next: null } } const list = createList(10) console.log(list) 运行:parcel src/linked_list.html  2.新增其它节点
+const createList = (value) =&amp;gt; { return createNode(value) } const appendList = (list, value) =&amp;gt; { const node = createNode(value) list.</description>
+    </item>
+    
+  </channel>
+</rss>

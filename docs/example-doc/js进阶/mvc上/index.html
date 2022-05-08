@@ -1,0 +1,1974 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>MVC(上) | 目录 | 博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.1" />
+<link rel="stylesheet" href="http://lixueqin-4119.xyz/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
+<script defer src="http://lixueqin-4119.xyz/js/eureka.min.f1639ee98d6cbd85b2b5f034d27320da962002ff83159ed4e01dbc5948c42a1ab26c2d6e74c66e93f5cec4d24dbd166d.js" integrity="sha384-8WOe6Y1svYWytfA00nMg2pYgAv&#43;DFZ7U4B28WUjEKhqybC1udMZuk/XOxNJNvRZt"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+
+<script defer type="text/javascript" src="http://lixueqin-4119.xyz/js/fontawesome.min.7b735802cbde01152678cc4a867f0b4bb0597876e29adfcaf1e5b5e99d39d7af87f348fdfd91c7eaf9ed7dc1eece7c61.js" integrity="sha384-e3NYAsveARUmeMxKhn8LS7BZeHbimt/K8eW16Z0516&#43;H80j9/ZHH6vntfcHuznxh"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="MVC是进入Vue/React的必经之路，MVC本来就是模糊的，你觉得MVC是什么就是什么，只要能自圆其说即可。这就是抽象，抽象就是不具体。
+ 什么是MVC?  设计模式是个框，什么都能往里装，MVC是框里的一个东西。设计模式就是对通用代码取个名字而已。
+ 越抽象能解决的问题就越多。具体问题只能针对具体需求，但抽象问题能针对更多需求。mvc属于设计模式的一种，但我们并不把它称为设计模式。因为它太著名了，每个程序员都知道mvc,它就叫MVC。设计模式就是对通用代码取个名字而已。
+为什么要有设计模式？
+Don&rsquo;t repeat yourself.DRY原则
+哪里重复了？
+1.代码级别的重复
+你把相同的3行代码写了2遍，那么你就应该重构它。
+重构:把这3行代码取个名字放到函数里，到时再调用这个函数名。可以取消重复。
+2.页面级别
+你把类似的页面做了10遍，那么你就应该想出一个万金油写法。
+3.mvc就是一个万金油
+所有页面都可以使用MVC来优化代码结构
+不学MVC又怎样？
+1.意大利面条式代码
+2.你将变成外包式程序员
+不停重复自己，不懂得抽象。只会调用API，不能提升自己。
+只会写业务，不会封装，更不会造轮子，更不会加薪。
+MVC是啥？
+每个模块都可以写成3个对象，分别是M、V、C
+M Model(数据模型)负责操作所有数据
+V View(视图)负责所有UI界面
+C Controller(控制器)负责监听用户事件，然后调用M和V更新数据和视图
+面试题
+能说说你对MVC的理解吗？
+中英文全称(80分’)&#43;剩下全靠扯(20分’)
+Model(数据模型)负责操作所有数据,View(视图)负责所有UI界面,Controller(控制器)负责其它。
+示例代码 内容
+1.主要要引入2个东西:模块、类
+2.在index页面中做4个功能:加减乘除、tab切换、左晃右晃、悬浮变色
+3.演示如何用MVC让代码更严谨。
+运行:parcel src/index.html 用parcel前最好新建js文件，因为没有js可能有bug。  知识点
+1.用新方法:js import引入css
+main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import性能比较低
+新建单独的reset.css文件reset css，统一在main.js里引入。
+让app1占屏幕的1/4: 设置width和height各50vh
+2.用新方法:js import引入jquery
+ 点击&#43;1按钮实现&#43;1,用jquery实现,需要引入jquery
+之前是用&lt;script src=&quot;CDN地址&quot;&gt;引入，现在也用新方法js import
+ 方法: 先安装再使用
+安装: yarn init -y yarn add jquery //或npm i jquery 使用:import $ from &#39;jquery&#39; //引用jquery变量，使用时可直接用$代替jquery //import &#39;jquery&#39; 注:main.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"",
+      "item":"http://lixueqin-4119.xyz/docs/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"目录",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/"},{
+      "@type": "ListItem",
+      "position": 3 ,
+      "name":"JS进阶",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/"},{
+      "@type": "ListItem",
+      "position": 4 ,
+      "name":"MVC(上)",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/"
+    },
+    "headline": "MVC(上) | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
+    "dateModified": "2020-10-16T00:00:00+00:00",
+    "wordCount":  1094 ,
+    "publisher": {
+        "@type": "Person",
+        "name": "WANG Chucheng",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "http://lixueqin-4119.xyz/images/icon.png"
+        }
+        },
+    "description": "MVC是进入Vue\/React的必经之路，MVC本来就是模糊的，你觉得MVC是什么就是什么，只要能自圆其说即可。这就是抽象，抽象就是不具体。\n 什么是MVC?  设计模式是个框，什么都能往里装，MVC是框里的一个东西。设计模式就是对通用代码取个名字而已。\n 越抽象能解决的问题就越多。具体问题只能针对具体需求，但抽象问题能针对更多需求。mvc属于设计模式的一种，但我们并不把它称为设计模式。因为它太著名了，每个程序员都知道mvc,它就叫MVC。设计模式就是对通用代码取个名字而已。\n为什么要有设计模式？\nDon\u0026rsquo;t repeat yourself.DRY原则\n哪里重复了？\n1.代码级别的重复\n你把相同的3行代码写了2遍，那么你就应该重构它。\n重构:把这3行代码取个名字放到函数里，到时再调用这个函数名。可以取消重复。\n2.页面级别\n你把类似的页面做了10遍，那么你就应该想出一个万金油写法。\n3.mvc就是一个万金油\n所有页面都可以使用MVC来优化代码结构\n不学MVC又怎样？\n1.意大利面条式代码\n2.你将变成外包式程序员\n不停重复自己，不懂得抽象。只会调用API，不能提升自己。\n只会写业务，不会封装，更不会造轮子，更不会加薪。\nMVC是啥？\n每个模块都可以写成3个对象，分别是M、V、C\nM Model(数据模型)负责操作所有数据\nV View(视图)负责所有UI界面\nC Controller(控制器)负责监听用户事件，然后调用M和V更新数据和视图\n面试题\n能说说你对MVC的理解吗？\n中英文全称(80分’)\u002b剩下全靠扯(20分’)\nModel(数据模型)负责操作所有数据,View(视图)负责所有UI界面,Controller(控制器)负责其它。\n示例代码 内容\n1.主要要引入2个东西:模块、类\n2.在index页面中做4个功能:加减乘除、tab切换、左晃右晃、悬浮变色\n3.演示如何用MVC让代码更严谨。\n运行:parcel src\/index.html 用parcel前最好新建js文件，因为没有js可能有bug。  知识点\n1.用新方法:js import引入css\nmain.js import \u0027.\/app1.css\u0027 \/\/不是css import,没有@  补充:@import性能比较低\n新建单独的reset.css文件reset css，统一在main.js里引入。\n让app1占屏幕的1\/4: 设置width和height各50vh\n2.用新方法:js import引入jquery\n 点击\u002b1按钮实现\u002b1,用jquery实现,需要引入jquery\n之前是用\u0026lt;script src=\u0026quot;CDN地址\u0026quot;\u0026gt;引入，现在也用新方法js import\n 方法: 先安装再使用\n安装: yarn init -y yarn add jquery \/\/或npm i jquery 使用:import $ from \u0027jquery\u0027 \/\/引用jquery变量，使用时可直接用$代替jquery \/\/import \u0027jquery\u0027 注:main."
+}
+</script><meta property="og:title" content="MVC(上) | 目录 | 博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="http://lixueqin-4119.xyz/images/icon.png">
+
+
+<meta property="og:url" content="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/" />
+
+
+
+
+<meta property="og:description" content="MVC是进入Vue/React的必经之路，MVC本来就是模糊的，你觉得MVC是什么就是什么，只要能自圆其说即可。这就是抽象，抽象就是不具体。
+ 什么是MVC?  设计模式是个框，什么都能往里装，MVC是框里的一个东西。设计模式就是对通用代码取个名字而已。
+ 越抽象能解决的问题就越多。具体问题只能针对具体需求，但抽象问题能针对更多需求。mvc属于设计模式的一种，但我们并不把它称为设计模式。因为它太著名了，每个程序员都知道mvc,它就叫MVC。设计模式就是对通用代码取个名字而已。
+为什么要有设计模式？
+Don&rsquo;t repeat yourself.DRY原则
+哪里重复了？
+1.代码级别的重复
+你把相同的3行代码写了2遍，那么你就应该重构它。
+重构:把这3行代码取个名字放到函数里，到时再调用这个函数名。可以取消重复。
+2.页面级别
+你把类似的页面做了10遍，那么你就应该想出一个万金油写法。
+3.mvc就是一个万金油
+所有页面都可以使用MVC来优化代码结构
+不学MVC又怎样？
+1.意大利面条式代码
+2.你将变成外包式程序员
+不停重复自己，不懂得抽象。只会调用API，不能提升自己。
+只会写业务，不会封装，更不会造轮子，更不会加薪。
+MVC是啥？
+每个模块都可以写成3个对象，分别是M、V、C
+M Model(数据模型)负责操作所有数据
+V View(视图)负责所有UI界面
+C Controller(控制器)负责监听用户事件，然后调用M和V更新数据和视图
+面试题
+能说说你对MVC的理解吗？
+中英文全称(80分’)&#43;剩下全靠扯(20分’)
+Model(数据模型)负责操作所有数据,View(视图)负责所有UI界面,Controller(控制器)负责其它。
+示例代码 内容
+1.主要要引入2个东西:模块、类
+2.在index页面中做4个功能:加减乘除、tab切换、左晃右晃、悬浮变色
+3.演示如何用MVC让代码更严谨。
+运行:parcel src/index.html 用parcel前最好新建js文件，因为没有js可能有bug。  知识点
+1.用新方法:js import引入css
+main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import性能比较低
+新建单独的reset.css文件reset css，统一在main.js里引入。
+让app1占屏幕的1/4: 设置width和height各50vh
+2.用新方法:js import引入jquery
+ 点击&#43;1按钮实现&#43;1,用jquery实现,需要引入jquery
+之前是用&lt;script src=&quot;CDN地址&quot;&gt;引入，现在也用新方法js import
+ 方法: 先安装再使用
+安装: yarn init -y yarn add jquery //或npm i jquery 使用:import $ from &#39;jquery&#39; //引用jquery变量，使用时可直接用$代替jquery //import &#39;jquery&#39; 注:main." />
+
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="docs" />
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">简介</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于我</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+
+
+<div class="lg:pt-12">
+    <div class="flex flex-col md:flex-row bg-secondary-bg rounded">
+        <div class="md:w-1/4 lg:w-1/5 border-e">
+            <div class="sticky top-16 pt-6">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sidebar-title" class="md:hidden mx-4 px-2 pt-4 pb-2 md:border-b text-tertiary-text md:text-primary-text">
+    <span class="font-semibold">Table of Contents</span>
+    <i class='fas fa-caret-right ms-1'></i>
+</div>
+
+<div id="sidebar-toc"
+    class="hidden md:block overflow-y-auto mx-6 md:mx-0 pe-6 pt-2 md:max-h-doc-sidebar bg-primary-bg md:bg-transparent">
+    <div class="flex flex-wrap ms-4 -me-2 p-2 bg-secondary-bg md:bg-primary-bg rounded">
+        <a class=" hover:text-eureka"
+            href="http://lixueqin-4119.xyz/docs/example-doc/">目录</a>
+        
+        
+        
+
+
+    </div>
+    
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/">【HTML全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A0%87%E7%AD%BE/">HTML标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A6%82%E8%A7%88/">HTML概览</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E9%87%8D%E7%82%B9%E6%A0%87%E7%AD%BE/">HTML重点标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/%E6%89%8B%E6%9C%BA%E9%A2%84%E8%A7%88-%E8%B0%83%E8%AF%95/">手机预览 &amp; 调试</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/">HTTP 状态码</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/">URL 是什么</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/">请求和响应 &amp; Node.js Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/">JavaScript 的诞生</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/">JS函数</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/">JS对象</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/">JS对象分类</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">JS数据类型</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/">JS数组</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JS正则表达式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/">js获取屏幕宽高</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/">JS语法</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/">JS运算符</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/">DOM 编程</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/">DOM事件与事件委托</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/">jQuery 中的设计模式(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/">jQuery 中的设计模式(下)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/">手写DOM库(1)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" text-eureka  hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/">MVC(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/">MVC(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/">Class 组件详解</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">Hooks 原理解析</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/">Hooks 各个击破</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">React 类组件和函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/">React起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/">手写 Redux</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/">computed 和 watch</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/">Vue Router -前端路由实现的思路</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">数据响应式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/">构造选项</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/">模板、指令与修饰符</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">深入理解Vue动画原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/">表单与v-model</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/">起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/">进阶构造属性</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/">云服务器</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/">AJAX 的原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/">Ajax实战:Cookie、Session</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/">异步与Promise</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/">跨域、CORS、JSONP</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/">静态服务器Static Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/">Webpack(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/">Webpack(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+</ul>
+
+</div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <div class="w-full md:w-3/4 lg:w-4/5 pb-8 pt-2 md:pt-8">
+            <div class="flex">
+                <div class="w-full lg:w-3/4 px-6">
+                    <article class="prose">
+  <h1 class="mb-4">MVC(上)</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2020-10-16</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>6 min read</span>
+  </div>
+
+  
+
+  
+</div>
+
+
+  
+  
+
+  <blockquote>
+<p>MVC是进入Vue/React的必经之路，MVC本来就是模糊的，你觉得MVC是什么就是什么，只要能自圆其说即可。这就是抽象，抽象就是不具体。</p>
+</blockquote>
+<h3 id="什么是mvc">什么是MVC?</h3>
+<blockquote>
+<p>设计模式是个框，什么都能往里装，MVC是框里的一个东西。设计模式就是对通用代码取个名字而已。</p>
+</blockquote>
+<p>越抽象能解决的问题就越多。具体问题只能针对具体需求，但抽象问题能针对更多需求。mvc属于设计模式的一种，但我们并不把它称为设计模式。因为它太著名了，每个程序员都知道mvc,它就叫MVC。设计模式就是对通用代码取个名字而已。<br>
+<strong>为什么要有设计模式？</strong><br>
+Don&rsquo;t repeat yourself.DRY原则<br>
+<strong>哪里重复了？</strong><br>
+1.代码级别的重复<br>
+你把相同的3行代码写了2遍，那么你就应该重构它。<br>
+重构:把这3行代码取个名字放到函数里，到时再调用这个函数名。可以取消重复。<br>
+2.页面级别<br>
+你把类似的页面做了10遍，那么你就应该想出一个万金油写法。<br>
+3.mvc就是一个万金油<br>
+所有页面都可以使用MVC来优化代码结构<br>
+<strong>不学MVC又怎样？</strong><br>
+1.意大利面条式代码<br>
+2.你将变成外包式程序员<br>
+不停重复自己，不懂得抽象。只会调用API，不能提升自己。<br>
+只会写业务，不会封装，更不会造轮子，更不会加薪。</p>
+<p><strong>MVC是啥？</strong><br>
+每个模块都可以写成3个对象，分别是M、V、C<br>
+M Model(数据模型)负责操作所有数据<br>
+V View(视图)负责所有UI界面<br>
+C Controller(控制器)负责监听用户事件，然后调用M和V更新数据和视图</p>
+<p><strong>面试题</strong><br>
+<strong>能说说你对MVC的理解吗？</strong><br>
+中英文全称(80分’)+剩下全靠扯(20分’)<br>
+Model(数据模型)负责操作所有数据,View(视图)负责所有UI界面,Controller(控制器)负责其它。</p>
+<h3 id="示例代码httpsgithubcomlixueqin-4119js-demo1treemastersrc"><a href="https://github.com/lixueqin-4119/js-demo1/tree/master/src">示例代码</a></h3>
+<p><strong>内容</strong><br>
+1.主要要引入2个东西:模块、类<br>
+2.在index页面中做4个功能:加减乘除、tab切换、左晃右晃、悬浮变色<br>
+3.演示如何用MVC让代码更严谨。</p>
+<pre><code class="language-js">运行:parcel src/index.html
+用parcel前最好新建js文件，因为没有js可能有bug。
+</code></pre>
+<p><strong>知识点</strong><br>
+<strong>1.用新方法:js import引入css</strong></p>
+<pre><code class="language-js">main.js
+import './app1.css' //不是css import,没有@
+</code></pre>
+<p><strong>补充:@import性能比较低</strong><br>
+新建单独的reset.css文件reset css，统一在main.js里引入。<br>
+让app1占屏幕的1/4: 设置width和height各50vh<br>
+<strong>2.用新方法:js import引入jquery</strong></p>
+<blockquote>
+<p>点击<code>+1按钮</code>实现+1,用jquery实现,需要引入jquery<br>
+之前是用<code>&lt;script src=&quot;CDN地址&quot;&gt;</code>引入，现在也用新方法js import</p>
+</blockquote>
+<p><strong>方法:</strong>  先安装再使用</p>
+<pre><code class="language-js">安装: yarn init -y
+      yarn add jquery //或npm i jquery     
+使用:import $ from 'jquery' //引用jquery变量，使用时可直接用$代替jquery
+   //import 'jquery'  注:main.js
+</code></pre>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/24b1e4e2905a49699609802e08ac953a~tplv-k3u1fbpfcp-watermark.image?" alt="image.png"></p>
+<p>补充:会增加3个文件。其中package.json记录了版本号，防止下次安装时版本号跟这次不同而报错，版本不一样就会有bug。yarn.lock写明了jquery是从哪下载的，这样另外一个人安装时就知道要从哪下载。<br>
+<code>import 'jquery'</code> 中jquery要小写，<strong>跟目录保持一致。npm所有的包都是小写的</strong><br>
+<code>console.log($)</code>打印出了一个函数，证明已成功引用。</p>
+<p><strong>3.推荐插件:Code Spell Checker</strong> 用于VSCode单词拼错时自动提示\</p>
+<p><strong>4.变量为什么要初始化？</strong><br>
+内存是在操作系统的统一管理下使用的。<br>
+软件运行完后，操作系统将回收该内存空间(注意:操作系统并不清空该内存空间中遗留下来的数据)，以便再次分配给其他软件使用。所以，一个软件所分配到的空间中极可能存在以前其他软件使用后的残留数据，这些数据被称为垃圾数据。<br>
+所以，我们为一个变量或者数组分配好存储空间后，都要对该内存空间初始化。<br>
+<strong>5.所有操作系统的滚动条width:14px-19px;</strong><br>
+6.<strong>获取点击元素</strong><br>
+(1)<code>e.target</code>获取用户<strong>点击的元素</strong>，不含父元素。<br>
+例子<br>
+如果用户点击<code>&lt;li&gt;&lt;span&gt;111&lt;/span&gt;&lt;/li&gt;</code>那么console的就是<code>&lt;span&gt;111&lt;/span&gt;</code><br>
+(2)<code>e.currentTarget</code>获取用户<strong>点击的元素</strong>，含父元素。<br>
+例子<br>
+如果用户点击<code>&lt;li&gt;</code>那么console的就是<code>&lt;li&gt;&lt;span&gt;111&lt;/span&gt;&lt;/li&gt;</code><br>
+7.<strong>抽象思想:样式与行为分离</strong><br>
+js只管功能，css只管样式。<br>
+js可以直接操作css,API例如<code>.css()、.show()和.hide()</code>，但是永远不要用。用<code>.addClass()和.removeClass()</code>代替。<br>
+<strong>8.事件委托</strong></p>
+<pre><code class="language-js">const $tabBar = $('#app2 .tab-bar') 
+$tabBar.on('click', 'li', (e) =&gt; { ... }
+</code></pre>
+<p>9.<a href="https://www.w3school.com.cn/jquery/attributes_toggleclass.asp">toggleClass()方法</a><br>
+10.<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/localStorage">localStorage本地存储</a></p>
+<pre><code class="language-js">localStorage.getItem(变量 或'字符串') //读
+localStorage.setItem('n', n) //写,增加一个数据。第1个参数'n'自定义名字随便取
+localStorage.removeItem('myCat'); //移除localStorage项
+localStorage.clear();//移除所有的localStorage项
+</code></pre>
+<p><strong>11.默认事件</strong><br>
+.eq()等于下标、.trigger()触发事件</p>
+<pre><code class="language-js">$tabBar.children().eq(0).trigger('click')
+</code></pre>
+<p>12.<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Modules">JS模块</a><br>
+可以使用<code>export default x</code>将一个变量默认导出给外部使用<br>
+可以使用<code>import x from './xxx.js'</code>引用另一个模块导出的默认变量<br>
+可以使用<code>import {x} from './xxx.js'</code>引用另一个模块导出的名为x的变量</p>
+<h3 id="添加数据保存功能">添加数据保存功能</h3>
+<blockquote>
+<p>本地存储localStorage,刷新页面后还是当前的值。</p>
+</blockquote>
+<pre><code class="language-js">app2
+const localKey = 'app2.index'
+const index=localStorage.getItem(localKey) ||0 
+
+$tabBar.on('click', 'li', (e) =&gt; { 
+  ...
+  const index = $li.index() //获取下标
+  localStorage.setItem(localKey, index) //保存数据   
+}
+$tabBar.children().eq(index).trigger('click') //保底值0
+</code></pre>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/adf5dbcd0ea745baa1f1045013493a4f~tplv-k3u1fbpfcp-watermark.image?" alt="image.png"></p>
+<h2 id="mvc的抽象思维">MVC的抽象思维</h2>
+<blockquote>
+<p>内容:把代码全部改写成MVC</p>
+</blockquote>
+<p><strong>抽象思维1:最小知识原则</strong><br>
+阶段1：引入一个模块需要引入html、css、js<br>
+阶段2：引入一个模块需要引入html、js<br>
+阶段3：引入一个模块需要引入js<br>
+你需要知道的知识越少越少，模块化为这一点奠定了基础。<br>
+<strong>代价</strong><br>
+这样做会使页面一开始是空白的，没内容没样式<br>
+解决方法:加菊花、加骨架、加占位内容、SSR技术等</p>
+<h3 id="功能1加减乘除">功能1:加减乘除</h3>
+<p><strong>项目中是怎么体现最小知识原则的？</strong><br>
+最开始引入模块时需要在html里引入很多js,现在只需在main.js里引入每个模块的js，也不需要关心这个js里有没有css。</p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fa3c2cb9604e40578aa8e781e9008b94~tplv-k3u1fbpfcp-watermark.image?" alt="image.png"></p>
+<p><strong>阶段3.引入一个模块需要引入js</strong></p>
+<blockquote>
+<p>封装html，简化到js里。</p>
+</blockquote>
+<p>步骤:将首页关于app1的html剪切到它自己的app1.js里</p>
+<pre><code class="language-js">const html = `
+  //app1的html
+`
+//html得到的是字符串，需要变成节点标签，然后再prependTo添到page的最前面。
+const $element = $(html).prependTo($('body&gt;.page'))
+</code></pre>
+<p>这样的好处是，使用我这个模块的人根本不用关心html是怎样的。<br>
+剩下的模块也一样操作并用<code>appendTo</code>的插到元素的后面。<br>
+补充：插到元素的前面用<code>prependTo</code>，插到元素的后面用<code>appendTo</code>。<br>
+别人用我这个模版时只需要写个空的<code>&lt;div&gt;</code>,引入main.js,main.js里依次引入4个模块即可。</p>
+<p><br>
+<strong>页面空白的解决方法</strong></p>
+<blockquote>
+<p>加菊花、加骨架、加占位内容、SSR技术等</p>
+</blockquote>
+<p><strong>1.加菊花</strong></p>
+<p><a href="https://www.iconfont.cn/search/index?searchType=icon&amp;q=loading&amp;page=1&amp;fromCollection=-1&amp;fills=&amp;tag=">图标库</a> 🔍loading</p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2476635bd53944ce868db4bc90713fcf~tplv-k3u1fbpfcp-watermark.image?" alt="image.png"></p>
+<pre><code class="language-js">&lt;div class=&quot;page&quot;&gt;
+  &lt;img id=&quot;img&quot; src=&quot;./images/loading.png&quot; alt=&quot;&quot; /&gt;
+&lt;/div&gt;
+main.js
+img.remove() 
+</code></pre>
+<p><strong>2.加骨架</strong></p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e4bde0b52e7e4fef93c940b6c9ffdee2~tplv-k3u1fbpfcp-watermark.image?" alt="image.png"></p>
+<p><strong>3.SSR服务器端渲染技术(大公司会用)</strong><br>
+逻辑:把页面中的标记替换成字符串<br>
+比如，把app1的内容替换成html</p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d5e230ce5d8847869e5ed6e058e726a4~tplv-k3u1fbpfcp-watermark.image?" alt="image.png"></p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6b9136d98d7749ec8984a5e732646693~tplv-k3u1fbpfcp-watermark.image?" alt="image.png"></p>
+<h3 id="抽象思维2">抽象思维2</h3>
+<p><strong>以不变应万变</strong><br>
+既然每个模块都可以用m + v +c搞定<br>
+那么每个模块我就都这样写就好啦，不用再思考类似的需求该怎么做了<br>
+<strong>代价</strong><br>
+有时候会有一些多余的用不到代码<br>
+有时候遇到特殊情况不知道怎么变通，比如没有html的模块怎么做mvc<br>
+<strong>mvc的思维：写一个m对象、一个v对象和一个c对象。</strong><br>
+M 内容:数据相关的<br>
+V 内容:视图层，用户能看得见的<br>
+C 内容:控制层，非MV的，</p>
+<pre><code class="language-js">const v={ //对象里只能放属性
+  html:` ` //属性:值
+}
+</code></pre>
+<h3 id="bug1按钮无效点击按钮没反应">bug1:按钮无效，点击按钮没反应</h3>
+<p><strong>原因：</strong>  因为我们的button获取太早了。<br>
+浏览器看到了函数调用会立即调用它不会等，42行已经执行了这句话，而render是在第19行执行的。<br>
+<strong>解决：</strong>  写一个初始化方法，不让它立即调用。<br>
+<strong>修改前</strong></p>
+<pre><code class="language-js">//数据相关 M
+const m = {
+    data: {  n: localStorage.getItem('n') //初始化数据 }
+}
+//视图相关 V
+const v = {
+    html: `  ...  `,
+    update() { c.ui.number.text(m.data.n || 100) },
+    render() {
+        const $element = $(v.html).prependTo($('body&gt;.page'))
+    }
+}
+//其它 C
+const c = {
+    ui: {//找元素目的是为了绑定事件,绑定事件放哪，这个就放哪
+        button1: $('#add1'),
+        button2: $('#minus1'),
+        button3: $('#mul2'),
+        button4: $('#divide2'),
+        number: $('#number')
+    },
+    bindEvents() {
+        console.log(&quot;bindEvents执行了&quot;)
+        console.log(c.ui.button1)
+        c.ui.button1.on('click', () =&gt; {
+            //debugger
+            let n = parseInt(c.ui.number.text())
+            n += 1
+            localStorage.setItem('n', n)
+            c.ui.number.text(n)
+        })
+        c.ui.button2.on('click', () =&gt; {
+            let n = parseInt(c.ui.number.text())
+            n -= 1
+            localStorage.setItem('n', n)
+            c.ui.number.text(n)
+        })
+        c.ui.button3.on('click', () =&gt; {
+            let n = parseInt(c.ui.number.text())
+            n *= 2
+            localStorage.setItem('n', n)
+            c.ui.number.text(n)
+        })
+        c.ui.button4.on('click', () =&gt; {
+            let n = parseInt(c.ui.number.text())
+            n /= 2
+            localStorage.setItem('n', n)
+            c.ui.number.text(n)
+        })
+    }
+}
+//第一次渲染html
+v.render() //别忘了调用！转移前调用，转移后仍需要调用。
+c.bindEvents()
+</code></pre>
+<p><strong>初始化方法:添加init</strong></p>
+<pre><code class="language-js">const c = {
+  init() {
+    c.ui = {
+      //找元素目的是为了绑定事件,绑定事件放哪，这个就放哪
+      button1: $('#add1'),
+      button2: $('#minus1'),
+      button3: $('#mul2'),
+      button4: $('#divide2'),
+      number: $('#number')
+    }
+  },
+</code></pre>
+<p>在调用我初始化时，我再去取ui的这个属性。<br>
+这样就能保证我这时候取的就是现在取的。</p>
+<pre><code class="language-js">const c = {
+  init() {
+    c.ui = {
+      //找元素目的是为了绑定事件,绑定事件放哪，这个就放哪
+      button1: $('#add1'),
+      button2: $('#minus1'),
+      button3: $('#mul2'),
+      button4: $('#divide2'),
+      number: $('#number')
+    }
+      c.bindEvents()
+  },
+  ...
+  v.render()
+  c.init()
+</code></pre>
+<h3 id="bug2本地缓存失效">bug2:本地缓存失效</h3>
+<p>什么时候获取到n的？<code>n: localStorage.getItem('n')</code>时<br>
+获取后什么时候用它的?<br>
+在第1次渲染时把死的html渲染进去了，根本没用到n<code>const $element = $(v.html).prependTo($('body&gt;.page'))</code><br>
+<strong>1.做个替换操作:</strong>  html里加个占位符,然后在渲染时replace下</p>
+<pre><code class="language-js">&lt;span id=&quot;number&quot;&gt;{{n}}&lt;/span&gt;
+render() {
+  const $element = $(v.html.replace('{{n}}', m.data.n))
+                  .prependTo($('body&gt;.page'))
+    }
+</code></pre>
+<p><strong>2.既然render可以更新n,那update就不需要那么复杂,直接再次render就好了。</strong></p>
+<pre><code class="language-js">update(){
+  v.render()
+}
+</code></pre>
+<p>注意再次render时还没有把m.data.n改变,那是什么时候改变的呢？<br>
+代码有问题，我们应该改m的n而不是UI的text。<br>
+<strong>3.现在根本就不需要update,每次重新渲染就行了。把update(){}删掉。</strong></p>
+<pre><code class="language-js">bindEvents() {
+  c.ui.button1.on('click', () =&gt; { //功能1
+    //let n = m.data.n
+    //n += 1
+    //m.data.n = n  
+    //简化为
+     m.data.n += 1
+     v.render()
+  }
+}
+</code></pre>
+<p><strong>4.测试:我点击+1操作失败，为什么显示的是1001？</strong></p>
+<pre><code class="language-js">console.log(&quot;here&quot;)
+m.data.n += 1
+console.log(m.data.n) //1001
+v.render()
+</code></pre>
+<p>因为n是从localStorage里获取的，这玩意只能保存字符串，所以要parseInt下。</p>
+<pre><code class="language-js">const m = {
+  data: {
+    n: parseInt(localStorage.getItem('n'))
+    }
+}
+</code></pre>
+<p><strong>5.再测试:还是不行啊。点击后没有改原来的，而是再次创建个新的UI。</strong><br>
+思路:替换，不要原来的只要现在的。怎么替换我怎么知道原来有，难道要到页面里检测？<br>
+不，只需要做个标记。<br>
+将视图渲染的结果放到v上面，<code>el: null,//默认为空</code>。如果你render了，我就先看下有没有这个el,有的话就直接生成新的替换它</p>
+<pre><code class="language-js">const v = {
+  el: null, //默认为空
+  ...
+  render() {
+    if (v.el === null) { //没渲染过
+      v.el = $(v.html.replace('{{n}}', m.data.n)).prependTo($('body&gt;.page'))
+    } else { //更新el值
+      const newEl = $(v.html.replace('{{n}}', m.data.n))
+      v.el.replaceWith(newEl)
+      v.el = newEl
+    }
+  }
+}    
+</code></pre>
+<h3 id="最小知识原则">最小知识原则</h3>
+<blockquote>
+<p>模块不应该知道外面的选择器或page</p>
+</blockquote>
+<p>你怎么知道页面有个page呢？应该把它传进来<code>$('body&gt;.page')</code><br>
+<strong>如何接收它呢？</strong><br>
+将<code>v.render()</code>移到init的第1行，先渲染再初始化顺序还是没变，而且还能减少函数调用。最小知识原则再次体现作用。</p>
+<p><strong>init初始化时接收一个参数，把它渲染到页面的哪一块？</strong><br>
+告诉我个container，渲染时将container传给视图就能拿到container。</p>
+<pre><code class="language-js">const v = {
+  render(container) {
+    if (v.el === null) { 
+      v.el = $(v.html.replace('{{n}}', m.data.n)).prependTo($(container))
+    } else { ... }     
+    
+const c = {
+  init(container) {
+    v.render(container)
+    ...
+  },
+}
+</code></pre>
+<p>这样我们在初始化c<code>c.init()</code>时要得到一个东西，app1怎么知道外面有什么div呢？<br>
+<strong>方法:</strong>  先导出c,这样app1需要别人传一个参才能把自己给弄起来。<br>
+然后外面要导入并初始化它，给它个容器。这个容器是写死的，因为我不希望它自己创建个容器。</p>
+<pre><code class="language-js">app1.js
+export default c
+
+main.js
+import x from './app1.js'  //x就是c的地址，x就是我导出的c。
+x.init('#app1')//给它个容器
+
+index.html
+&lt;div class=&quot;page&quot;&gt;
+  &lt;section id=&quot;app1&quot;&gt;&lt;/section&gt; //这个容器是我自己写死的
+&lt;/div&gt;
+</code></pre>
+<p>既然这里写了app1，里面就不需要写了，去掉<code>id=&quot;app1&quot;</code></p>
+<pre><code class="language-js"> html: `
+    把&lt;section id=&quot;app1&quot;&gt; 改成 &lt;section&gt;`
+</code></pre>
+<h3 id="bug3完整代码httpsgithubcomlixueqin-4119js-demo44blobmastersrcapp1js"><a href="https://github.com/lixueqin-4119/js-demo44/blob/master/src/app1.js">bug3完整代码</a></h3>
+<p>第1次点击可以，第2次点击就不行了啊！这就要用到事件委托<br>
+为什么刷新后事件监听没了？<br>
+原因:页面刷新后,新的button不是之前那个button,<strong>那怎么绑定新的呢？</strong><br>
+绑定个不会更新的地方。<code>&lt;section&gt;</code>加个属性测试下，frank没消失证明这个元素没有被替换，可以绑定事件。</p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a57ff29f426f478baa93c268032407b5~tplv-k3u1fbpfcp-watermark.image?" alt="image.png"></p>
+<p>将container存下来，这样就能通过<code>v.container</code>获取了。<br>
+干脆把名改下: 调用的时改为<code>v.init(container)</code></p>
+<pre><code class="language-js">const v = {
+  init(container) {
+    v.container = $(container)
+    v.render()//刷新整个页面
+  },
+  render() {
+    if (v.el === null) { 
+      v.el = $(v.html.replace('{{n}}', m.data.n)).prependTo(v.container)//
+    } else {
+      const newEl = $(v.html.replace('{{n}}', m.data.n))
+      v.el.replaceWith(newEl)
+      v.el = newEl
+    } } }
+const c = {
+  init(container) {
+    v.init(container) //v.render(container)
+  }
+}
+</code></pre>
+<p><strong>将container存下来:</strong>  替换掉原来的。绑定事件是在视图的容器上，容器不会被替换，容器里面的东西才会被替换。所以只要容器不会替换，监听就不会失效。</p>
+<pre><code class="language-js">bindEvents() {
+  v.container.on('click', '#add1', () =&gt; {
+    m.data.n += 1
+    v.render()
+  })
+/*c.ui.button1.on('click', () =&gt; {
+    m.data.n += 1
+    v.render()
+  }*/
+)
+</code></pre>
+<p>同理，将其它按钮也替换下，代码如下:</p>
+<pre><code class="language-js">const c = {
+  init(container) {
+    v.init(container)
+  /*c.ui = { 直接删掉
+      找元素目的是为了绑定事件,绑定事件放哪，这个就放哪
+      button1: $('#add1'),
+      button2: $('#minus1'),
+      button3: $('#mul2'),
+      button4: $('#divide2'),
+      number: $('#number')
+    }*/
+    c.bindEvents()
+  },
+  bindEvents() {
+    v.container.on('click', '#add1', () =&gt; { //直接使用选择器，UI就不需要了删掉。
+      m.data.n += 1
+      v.render()
+    })
+    v.container.on('click', '#minus1', () =&gt; {
+      m.data.n -= 1
+      v.render()
+        })
+    v.container.on('click', '#mul2', () =&gt; {
+      m.data.n *= 2
+      v.render()
+        })
+    v.container.on('click', '#divide2', () =&gt; {
+      m.data.n /= 2
+      v.render()
+      //let n = parseInt(c.ui.number.text())
+      //n /= 2
+      //localStorage.setItem('n', n)
+      //c.ui.number.text(n)
+    })
+  }
+}
+</code></pre>
+<p><strong>总结：事件委托思路</strong><br>
+思路:首先要做到<strong>容器不可变:</strong>  这个容器放最外边。每次点击事件时只会更新里面的<code>&lt;div&gt;</code>。<br>
+绑的是最外面的元素<code>&lt;section&gt;</code>上，就算里面的变了，但id是死的不会变。</p>
+<pre><code class="language-js">v.container.on('click', '#add1', () =&gt; { ... })
+</code></pre>
+<p>这就叫事件委托，只绑定在最外面的元素上，不绑定在子元素上。</p>
+<p><strong>目前为止MVC到底给了我们什么好处呢？</strong><br>
+目前只有痛苦。以前很简单监听事件改变DOM元素就完了，现在它从一个非常高的角度说你应该用mvc,但你并不能发现它的好处，因为现在还缺少一些过程。现在还处于初级阶段，但等你实现好了就没有那么多弊端了。</p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cf5da71f7927448aa11ae67ce13de6f7~tplv-k3u1fbpfcp-watermark.image?" alt="image.png"></p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a777bc47a40d4b92b699e7c533854348~tplv-k3u1fbpfcp-watermark.image?" alt="image.png"></p>
+<p>MVC模版，经典的属性，这些属性在所有的MVC中都可以用。
+<strong>简化</strong><br>
+1.el和container都是元素说不定可以合并，因为container的第1个元素就是el。一开始没必要看el是不是null,直接看container里是不是null的。</p>
+<pre><code class="language-js">const v = {
+  render() {
+  /*if (v.container.children.length === 0) { //没渲染过
+      $(v.html.replace('{{n}}', m.data.n)).prependTo(v.container)
+    } else {//更新el值
+      v.container.empty() //直接清空不替换了
+      $(v.html.replace('{{n}}', m.data.n)).prependTo(v.container)
+    }
+  *///可以简化为
+    if (v.container.children.length !== 0) v.container.empty()
+    $(v.html.replace('{{n}}', m.data.n)).prependTo(v.container)
+  }
+}
+</code></pre>
+<p>2.container太长了改为el。(<strong>Vue就是这样的思路</strong>)</p>
+<h3 id="抽象思维3所有的视图就是渲染下数据">抽象思维3:所有的视图就是渲染下数据</h3>
+<p><strong>view=render(data)</strong><br>
+比起操作DOM对象，直接render简单多了<br>
+只要改变data，就可以得到对应的view</p>
+<pre><code class="language-js">//JS的思维
+  n=span.text
+  n +=1
+  span.text=n
+//MVC或者React的思维
+  n=100
+  render(n)
+  n+1=101
+  render(n)
+</code></pre>
+<p><strong>上面两种思维哪种更好？</strong><br>
+思维实验:如果我把下面这个思维做到极致了，我的代码能不能变的更好？<a href="https://github.com/lixueqin-4119/js-demo45/blob/master/src/app1.js">代码</a><br>
+<strong>先优化下代码，重复的太多</strong></p>
+<pre><code class="language-js">/*bindEvents() {
+  v.el.on('click', '#add1', () =&gt; {
+    m.data.n += 1
+    v.render(m.data.n)
+   })
+  v.el.on('click', '#minus1', () =&gt; {
+    m.data.n -= 1
+    v.render(m.data.n)
+   })
+  v.el.on('click', '#mul2', () =&gt; {
+    m.data.n *= 2
+    v.render(m.data.n)
+   })
+  v.el.on('click', '#divide2', () =&gt; {
+    m.data.n /= 2
+    v.render(m.data.n)
+  })    
+}*/
+//等价于
+const c = {
+  init(container) {
+    v.init(container)
+    v.render(m.data.n) //第1个view=render(data)
+    c.autoBindEvents()
+  },
+  events: {
+    'click #add1': 'add1',
+    'click #minus1 ': 'minus1',
+    'click #mul2 ': 'mul2',
+    'click #divide2 ': 'divide2'
+  },
+  add1() {
+      m.data.n += 1
+    //v.render(m.data.n)
+  },
+  minus1() {
+      m.data.n -= 1
+    //v.render(m.data.n)
+  },
+  mul2() {
+      m.data.n *= 2
+    //v.render(m.data.n)
+  },
+  divide2() {
+      m.data.n /= 2
+    //v.render(m.data.n)      
+  },
+autoBindEvents() {
+  for (let key in c.events) {
+    const value = c[c.events[key]] //c.events[key]取的是字符串，我要取的是方法
+    const spaceIndex = key.indexOf(' ')
+    const part1 = key.slice(0, spaceIndex + 1)//去掉多余的空格
+    const part2 = key.slice(spaceIndex)
+    console.log(part1, part2, value)
+    v.el.on(part1, part2, value) //拼凑操作
+  }
+}}
+</code></pre>
+<p>总结:这就是表驱动编程-自动绑定事件</p>
+<h3 id="eventbus-对象间通信">eventBus 对象间通信</h3>
+<blockquote>
+<p>上面只是+1操作并没有把结果渲染到页面，难道还是要把<code>v.render(m.data.n)</code>写4遍？<br>
+思考:我们的需求是<code>m.data.n +=1</code>时<code>m.data.n</code>值一变就自动render。<br>
+思路:监听n的变化,2种方法:<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">Vue2的Object.defineProperty()</a> 或者 eventBus对象间通信</p>
+</blockquote>
+<p><strong>步骤</strong><br>
+<strong>第1步.声明eventBus空对象</strong></p>
+<blockquote>
+<p>eventBus就是一个空对象。传一个空对象，因为我只需要获取它的2个API:<strong>trigger和on方法。</strong>  一个地方触发事件另一个地方监听事件，实现对象间通信。</p>
+</blockquote>
+<p><strong>第2步.对m创建增、删、改、查方法并触发事件</strong><br>
+<strong>第3步.监听事件</strong></p>
+<pre><code class="language-js">const eventBus = $({}) //第1步
+
+const m = { 
+  data: { n: parseInt(localStorage.getItem('n')) },
+  create() { }, //第2步.创建增删改查
+  delete() { },
+  update(data) {
+    Object.assign(m.data, data) //把data的所有属性一个一个的赋给m.data
+    eventBus.trigger(&quot;m:updated&quot;)//第2步.触发事件，注意事件不能有空格
+     localStorage.setItem('n', m.data.n)//保存数据,更新时把它存一下
+  },
+  get() { }
+}
+const c = { 
+  init(container) {
+    v.init(container)
+    v.render(m.data.n)
+    c.autoBindEvents()
+    eventBus.on('m:updated', () =&gt; { 第3步.注意事件必须与trigger保持一致
+      v.render(m.data.n)
+    })
+  },
+  add1() {
+    //m.data.n += 1
+    //v.render(m.data.n)
+    m.update({ n: m.data.n + 1 })//只有更新时才会触发update件
+    },
+  minus1() {
+    m.update({ n: m.data.n - 1 })
+  },
+  mul2() {
+    m.update({ n: m.data.n * 2 })
+  },
+  divide2() {
+    m.update({ n: m.data.n / 2 })
+  },    
+</code></pre>
+<p><a href="https://github.com/lixueqin-4119/js-demo46/blame/master/src/app1.js">功能1的MVC代码</a><br>
+<strong>知识点</strong></p>
+<p>1.Object.assign()//所有属性</p>
+<pre><code>Object.assign(m.data, date)//把data的所有属性一个一个的赋给m.data 
+</code></pre>
+<p>2.注意,事件不能有空格</p>
+<pre><code>eventBus.trigger(&quot;m:updated&quot;)
+</code></pre>
+<h3 id="功能2-tab切换">功能2: tab切换</h3>
+<blockquote>
+<p>参照app1.js的模版快速修改<a href="https://github.com/lixueqin-4119/js-demo47/blob/master/src/app2.js">功能2</a></p>
+</blockquote>
+<p><strong>获取当前点击的位置</strong></p>
+<p>除了&quot;遍历爸爸的儿子&quot;外，还有个更简单的方法<strong>用DOM做标记</strong><br>
+方法:用data-index绑定一个属性,然后用<code>e.currentTarget.dataset.index</code>即可获取当前下标。</p>
+<p><strong>MVC的第1个好处:</strong>  可以让你的操作恒定复杂度。操作很小时看不出区别，当操作很多时一下就能对比出区别了。</p>
+
+</article>
+
+                    
+                    
+                    
+
+                    
+
+
+
+                    
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+        <span class="text-primary-text block font-bold">Next</span>
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/" class="block">MVC(下)</a>
+      
+    </div>
+  </div>
+
+
+                    
+
+
+
+                </div>
+                
+                <div class="hidden lg:block lg:w-1/4">
+                    
+                    <div
+  class="
+    bg-secondary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>On This Page</h3>
+</div>
+<div
+  class="sticky-toc 
+    border-s
+   hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#什么是mvc">什么是MVC?</a></li>
+        <li><a href="#示例代码httpsgithubcomlixueqin-4119js-demo1treemastersrc"><a href="https://github.com/lixueqin-4119/js-demo1/tree/master/src">示例代码</a></a></li>
+        <li><a href="#添加数据保存功能">添加数据保存功能</a></li>
+      </ul>
+    </li>
+    <li><a href="#mvc的抽象思维">MVC的抽象思维</a>
+      <ul>
+        <li><a href="#功能1加减乘除">功能1:加减乘除</a></li>
+        <li><a href="#抽象思维2">抽象思维2</a></li>
+        <li><a href="#bug1按钮无效点击按钮没反应">bug1:按钮无效，点击按钮没反应</a></li>
+        <li><a href="#bug2本地缓存失效">bug2:本地缓存失效</a></li>
+        <li><a href="#最小知识原则">最小知识原则</a></li>
+        <li><a href="#bug3完整代码httpsgithubcomlixueqin-4119js-demo44blobmastersrcapp1js"><a href="https://github.com/lixueqin-4119/js-demo44/blob/master/src/app1.js">bug3完整代码</a></a></li>
+        <li><a href="#抽象思维3所有的视图就是渲染下数据">抽象思维3:所有的视图就是渲染下数据</a></li>
+        <li><a href="#eventbus-对象间通信">eventBus 对象间通信</a></li>
+        <li><a href="#功能2-tab切换">功能2: tab切换</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+                    
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        hljs.initHighlightingOnLoad();
+        changeSidebarHeight();
+        switchDocToc();
+    })
+</script>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2021 <a href="https://www.wangchucheng.com/">WANG Chucheng</a> and <a href="https://www.ruiqima.com/">MA Ruiqi</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>

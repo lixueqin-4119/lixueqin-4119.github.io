@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>React 类组件和函数组件 | 目录 | 博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.1" />
+<link rel="stylesheet" href="http://lixueqin-4119.xyz/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
+<script defer src="http://lixueqin-4119.xyz/js/eureka.min.f1639ee98d6cbd85b2b5f034d27320da962002ff83159ed4e01dbc5948c42a1ab26c2d6e74c66e93f5cec4d24dbd166d.js" integrity="sha384-8WOe6Y1svYWytfA00nMg2pYgAv&#43;DFZ7U4B28WUjEKhqybC1udMZuk/XOxNJNvRZt"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+
+<script defer type="text/javascript" src="http://lixueqin-4119.xyz/js/fontawesome.min.7b735802cbde01152678cc4a867f0b4bb0597876e29adfcaf1e5b5e99d39d7af87f348fdfd91c7eaf9ed7dc1eece7c61.js" integrity="sha384-e3NYAsveARUmeMxKhn8LS7BZeHbimt/K8eW16Z0516&#43;H80j9/ZHH6vntfcHuznxh"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="目录
+1.类组件和函数组件
+2.如何使用 props 和 state
+3.如何绑定事件
+4.复习 this&#43; 两个面试题
+ 组件component 一.概念 Element VS Component (元素与组件)
+//不成文的约定:元素小写，组件大写 const div=React.createElement(&#39;div&#39;,...) 这是一个React元素(小写) const Div=()=&gt;React.createElement(&#39;div&#39;,...) 这是一个React组件(大写)  什么是组件?
+能跟其他物件组合起来的物件，就是组件，组件并没有明确的定义。 就目前而言，一个返回值是React元素的函数就是组件
+Vue里，data、methods、render组合成的一个对象(构造选项)就可以表示一个组件
+React两种组件
+1.函数组件
+function Welcome(props){ return &lt;h1&gt;Hello,{props.name}&lt;/h1&gt; } 使用方法: &lt;Welcome name=&quot;frank&quot;/&gt;  2.类组件
+class Welcome extends React.Component { render() { return &lt;h1&gt;Hello, {this.props.name}&lt;/h1&gt; } } 使用方法: &lt;Welcome name=&quot;frank&quot;/&gt;  &lt;Welcome /&gt;会被翻译成什么？
+&lt;div /&gt;翻译为React.createElement(&#39;div&#39;) div是元素 &lt;Welcome /&gt;翻译为React.createElement(Welcome) Welcome是函数
+工具: babel online把标签翻译成JS
+React.createElement的逻辑
+React.createElement目前接收几种参数:
+1.如果传入一个字符串&lsquo;div&rsquo;,则会创建一个div(虚拟DOM元素)
+2.如果传入一个函数,则会调用该函数，获取其返回值
+3.如果传入一个类,则在类前面加个new(这会导致执行 constructor),获取一个组件对象，然后调用对象的render方法，获取其返回值">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"",
+      "item":"http://lixueqin-4119.xyz/docs/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"目录",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/"},{
+      "@type": "ListItem",
+      "position": 3 ,
+      "name":"React全解",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/"},{
+      "@type": "ListItem",
+      "position": 4 ,
+      "name":"React 类组件和函数组件",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/"
+    },
+    "headline": "React 类组件和函数组件 | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
+    "dateModified": "2020-10-16T00:00:00+00:00",
+    "wordCount":  1019 ,
+    "publisher": {
+        "@type": "Person",
+        "name": "WANG Chucheng",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "http://lixueqin-4119.xyz/images/icon.png"
+        }
+        },
+    "description": "目录\n1.类组件和函数组件\n2.如何使用 props 和 state\n3.如何绑定事件\n4.复习 this\u002b 两个面试题\n 组件component 一.概念 Element VS Component (元素与组件)\n\/\/不成文的约定:元素小写，组件大写 const div=React.createElement(\u0027div\u0027,...) 这是一个React元素(小写) const Div=()=\u0026gt;React.createElement(\u0027div\u0027,...) 这是一个React组件(大写)  什么是组件?\n能跟其他物件组合起来的物件，就是组件，组件并没有明确的定义。 就目前而言，一个返回值是React元素的函数就是组件\nVue里，data、methods、render组合成的一个对象(构造选项)就可以表示一个组件\nReact两种组件\n1.函数组件\nfunction Welcome(props){ return \u0026lt;h1\u0026gt;Hello,{props.name}\u0026lt;\/h1\u0026gt; } 使用方法: \u0026lt;Welcome name=\u0026quot;frank\u0026quot;\/\u0026gt;  2.类组件\nclass Welcome extends React.Component { render() { return \u0026lt;h1\u0026gt;Hello, {this.props.name}\u0026lt;\/h1\u0026gt; } } 使用方法: \u0026lt;Welcome name=\u0026quot;frank\u0026quot;\/\u0026gt;  \u0026lt;Welcome \/\u0026gt;会被翻译成什么？\n\u0026lt;div \/\u0026gt;翻译为React.createElement(\u0027div\u0027) div是元素 \u0026lt;Welcome \/\u0026gt;翻译为React.createElement(Welcome) Welcome是函数\n工具: babel online把标签翻译成JS\nReact.createElement的逻辑\nReact.createElement目前接收几种参数:\n1.如果传入一个字符串\u0026lsquo;div\u0026rsquo;,则会创建一个div(虚拟DOM元素)\n2.如果传入一个函数,则会调用该函数，获取其返回值\n3.如果传入一个类,则在类前面加个new(这会导致执行 constructor),获取一个组件对象，然后调用对象的render方法，获取其返回值"
+}
+</script><meta property="og:title" content="React 类组件和函数组件 | 目录 | 博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="http://lixueqin-4119.xyz/images/icon.png">
+
+
+<meta property="og:url" content="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/" />
+
+
+
+
+<meta property="og:description" content="目录
+1.类组件和函数组件
+2.如何使用 props 和 state
+3.如何绑定事件
+4.复习 this&#43; 两个面试题
+ 组件component 一.概念 Element VS Component (元素与组件)
+//不成文的约定:元素小写，组件大写 const div=React.createElement(&#39;div&#39;,...) 这是一个React元素(小写) const Div=()=&gt;React.createElement(&#39;div&#39;,...) 这是一个React组件(大写)  什么是组件?
+能跟其他物件组合起来的物件，就是组件，组件并没有明确的定义。 就目前而言，一个返回值是React元素的函数就是组件
+Vue里，data、methods、render组合成的一个对象(构造选项)就可以表示一个组件
+React两种组件
+1.函数组件
+function Welcome(props){ return &lt;h1&gt;Hello,{props.name}&lt;/h1&gt; } 使用方法: &lt;Welcome name=&quot;frank&quot;/&gt;  2.类组件
+class Welcome extends React.Component { render() { return &lt;h1&gt;Hello, {this.props.name}&lt;/h1&gt; } } 使用方法: &lt;Welcome name=&quot;frank&quot;/&gt;  &lt;Welcome /&gt;会被翻译成什么？
+&lt;div /&gt;翻译为React.createElement(&#39;div&#39;) div是元素 &lt;Welcome /&gt;翻译为React.createElement(Welcome) Welcome是函数
+工具: babel online把标签翻译成JS
+React.createElement的逻辑
+React.createElement目前接收几种参数:
+1.如果传入一个字符串&lsquo;div&rsquo;,则会创建一个div(虚拟DOM元素)
+2.如果传入一个函数,则会调用该函数，获取其返回值
+3.如果传入一个类,则在类前面加个new(这会导致执行 constructor),获取一个组件对象，然后调用对象的render方法，获取其返回值" />
+
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="docs" />
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">简介</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于我</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+
+
+<div class="lg:pt-12">
+    <div class="flex flex-col md:flex-row bg-secondary-bg rounded">
+        <div class="md:w-1/4 lg:w-1/5 border-e">
+            <div class="sticky top-16 pt-6">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sidebar-title" class="md:hidden mx-4 px-2 pt-4 pb-2 md:border-b text-tertiary-text md:text-primary-text">
+    <span class="font-semibold">Table of Contents</span>
+    <i class='fas fa-caret-right ms-1'></i>
+</div>
+
+<div id="sidebar-toc"
+    class="hidden md:block overflow-y-auto mx-6 md:mx-0 pe-6 pt-2 md:max-h-doc-sidebar bg-primary-bg md:bg-transparent">
+    <div class="flex flex-wrap ms-4 -me-2 p-2 bg-secondary-bg md:bg-primary-bg rounded">
+        <a class=" hover:text-eureka"
+            href="http://lixueqin-4119.xyz/docs/example-doc/">目录</a>
+        
+        
+        
+
+
+    </div>
+    
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/">【HTML全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A0%87%E7%AD%BE/">HTML标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A6%82%E8%A7%88/">HTML概览</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E9%87%8D%E7%82%B9%E6%A0%87%E7%AD%BE/">HTML重点标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/%E6%89%8B%E6%9C%BA%E9%A2%84%E8%A7%88-%E8%B0%83%E8%AF%95/">手机预览 &amp; 调试</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/">HTTP 状态码</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/">URL 是什么</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/">请求和响应 &amp; Node.js Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/">JavaScript 的诞生</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/">JS函数</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/">JS对象</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/">JS对象分类</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">JS数据类型</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/">JS数组</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JS正则表达式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/">js获取屏幕宽高</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/">JS语法</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/">JS运算符</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/">DOM 编程</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/">DOM事件与事件委托</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/">jQuery 中的设计模式(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/">jQuery 中的设计模式(下)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/">手写DOM库(1)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/">MVC(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/">MVC(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/">Class 组件详解</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">Hooks 原理解析</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/">Hooks 各个击破</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" text-eureka  hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">React 类组件和函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/">React起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/">手写 Redux</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/">computed 和 watch</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/">Vue Router -前端路由实现的思路</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">数据响应式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/">构造选项</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/">模板、指令与修饰符</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">深入理解Vue动画原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/">表单与v-model</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/">起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/">进阶构造属性</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/">云服务器</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/">AJAX 的原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/">Ajax实战:Cookie、Session</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/">异步与Promise</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/">跨域、CORS、JSONP</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/">静态服务器Static Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/">Webpack(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/">Webpack(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+</ul>
+
+</div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <div class="w-full md:w-3/4 lg:w-4/5 pb-8 pt-2 md:pt-8">
+            <div class="flex">
+                <div class="w-full lg:w-3/4 px-6">
+                    <article class="prose">
+  <h1 class="mb-4">React 类组件和函数组件</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2020-10-16</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>5 min read</span>
+  </div>
+
+  
+
+  
+</div>
+
+
+  
+  
+
+  <blockquote>
+<p><strong>目录</strong></p>
+<p>1.类组件和<strong>函数组件</strong></p>
+<p>2.如何使用 props 和 state</p>
+<p>3.如何绑定事件</p>
+<p>4.复习 this+ 两个面试题</p>
+</blockquote>
+<h2 id="组件component">组件component</h2>
+<h3 id="一概念"><strong>一.概念</strong></h3>
+<p><strong>Element VS Component (元素与组件)</strong></p>
+<pre><code class="language-js">//不成文的约定:元素小写，组件大写
+const div=React.createElement('div',...)
+这是一个React元素(小写)
+const Div=()=&gt;React.createElement('div',...) 
+这是一个React组件(大写)
+</code></pre>
+<p><strong>什么是组件?</strong></p>
+<p>能跟其他物件组合起来的物件，就是组件，组件并没有明确的定义。
+就目前而言，一个返回值是React元素的函数就是组件</p>
+<p>Vue里，<code>data、methods、render</code>组合成的一个对象(构造选项)就可以表示一个组件</p>
+<p><strong>React两种组件</strong></p>
+<p><strong>1.函数组件</strong></p>
+<pre><code class="language-js">function Welcome(props){
+  return &lt;h1&gt;Hello,{props.name}&lt;/h1&gt;
+}
+使用方法: &lt;Welcome name=&quot;frank&quot;/&gt;
+</code></pre>
+<p><strong>2.类组件</strong></p>
+<pre><code class="language-js">class Welcome extends React.Component {
+  render() {
+    return &lt;h1&gt;Hello, {this.props.name}&lt;/h1&gt;
+  }
+}
+使用方法: &lt;Welcome name=&quot;frank&quot;/&gt;
+</code></pre>
+<p><strong><code>&lt;Welcome /&gt;</code>会被翻译成什么？</strong></p>
+<p><code>&lt;div /&gt;</code>翻译为<code>React.createElement('div')</code> div是元素
+<code>&lt;Welcome /&gt;</code>翻译为<code>React.createElement(Welcome)</code> Welcome是函数</p>
+<p>工具: <a href="https://babeljs.io/repl#?browsers=&amp;build=&amp;builtIns=false&amp;corejs=3.21&amp;spec=false&amp;loose=false&amp;code_lz=DwEwlgbgBAxgNgQwM5IHIILYFMC8AiAJyxDwD4A7YAenAlKA&amp;debug=false&amp;forceAllTransforms=false&amp;shippedProposals=false&amp;circleciRepo=&amp;evaluate=false&amp;fileSize=false&amp;timeTravel=false&amp;sourceType=module&amp;lineWrap=true&amp;presets=es2015%2Creact%2Cstage-2&amp;prettier=false&amp;targets=&amp;version=7.17.9&amp;externalPlugins=&amp;assumptions=%7B%7D">babel online</a>把标签翻译成JS</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6263c53ee4e4492ab29e6af62287da5d~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>React.createElement的逻辑</strong><br>
+<code>React.createElement</code>目前接收几种参数:<br>
+1.如果传入一个<strong>字符串</strong>&lsquo;div&rsquo;,则会创建一个div(虚拟DOM元素)<br>
+2.如果传入一个<strong>函数</strong>,则会调用该函数，获取其<strong>返回值</strong><br>
+3.如果传入一个<strong>类</strong>,则在类前面加个new(这会导致执行
+constructor),获取一个组件<strong>对象</strong>，然后调用对象的<strong>render方法，获取其返回值</strong></p>
+<pre><code class="language-js">class Welcome extends React.Component{ 
+  constructor(){
+    super()
+    this.state={n:0}
+  }
+  render(){
+    return &lt;div&gt;hi&lt;/div&gt;
+  }
+}
+使用类
+new Welcome()
+</code></pre>
+<h3 id="二使用react的2种组件">二.使用React的2种组件</h3>
+<p>React2种组件的书写方式: <code>class</code>类组件和<code>function</code>函数组件。</p>
+<p>例子</p>
+<pre><code class="language-js">import React from &quot;react&quot;;
+import ReactDOM from &quot;react-dom&quot;;
+
+function App() { 
+  return ( 
+    &lt;div className=&quot;App&quot;&gt; 
+      爸爸
+      &lt;Son /&gt; 
+    &lt;/div&gt;
+  );
+}
+
+class Son extends React.Component { 
+  constructor() { 
+    super(); 
+    this.state = { 
+      n: 0
+    };
+  }
+  add() {
+    // this.state.n += 1 为什么不行
+    this.setState({ n: this.state.n + 1 }); 
+  }
+  render() {
+    return ( 
+      &lt;div className=&quot;Son&quot;&gt;
+        儿子 n: {this.state.n}
+        &lt;button onClick={() =&gt; this.add()}&gt;+1&lt;/button&gt; 
+        &lt;Grandson /&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+
+const Grandson = () =&gt; {
+//声明一个state初始值为0,用n代表0，用setN对0进行修改，每次setN时都会得到一个新的n(不是改变原有的n)
+  const [n, setN] = React.useState(0); //析构写法
+  return (
+    &lt;div className=&quot;Grandson&quot;&gt;
+      孙子 n:{n}
+      &lt;button onClick={() =&gt; setN(n + 1)}&gt;+1&lt;/button&gt;
+    &lt;/div&gt;
+  );
+};
+
+const rootElement = document.getElementById(&quot;root&quot;);
+ReactDOM.render(&lt;App /&gt;, rootElement);
+</code></pre>
+<h3 id="如何使用-props外部数据">如何使用 props(外部数据)？</h3>
+<p><strong>类组件和函数组件使用 props:</strong><br>
+<strong>类组件</strong>直接读取<strong>属性</strong><code>this.props.xxx</code><br>
+<strong>函数组件</strong>直接读取<strong>参数</strong><code>props.xxx</code><br>
+外部数据props不能写，只能读。</p>
+<p><strong>一.class类组件添加外部数据props</strong><br>
+<strong>1&rsquo; 传字符串</strong><br>
+传: 接收方添加<code>messageForSon=&quot;字符串&quot;</code><br>
+接收: <code>{this.props.messageForSon}</code><br>
+<strong>2&rsquo; 传变量</strong><br>
+传: 接收方添加<code>messageForSon={1+1}</code><br>
+接收: <code>{this.props.messageForSon}</code></p>
+<p>例子:爸爸传props给Son</p>
+<pre><code class="language-js">function App() {
+const a=10
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      爸爸
+      &lt;Son messageForSon=&quot;儿子你好&quot; /&gt; 
+    //&lt;Son messageForSon={a} /&gt;
+    &lt;/div&gt;
+  );
+}
+class Son extends React.Component {
+  render() {
+    return (
+      &lt;div className=&quot;Son&quot;&gt;
+        我是儿子，我爸对我说「{this.props.messageForSon}」
+        &lt;Grandson messageForGrandson=&quot;孙贼你好&quot; /&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+</code></pre>
+<p><strong>二.函数组件</strong><br>
+同样的，要么使用<code>&quot;&quot;</code>表示字符串，要么使用<code>{}</code>表示JS的表达式。<br>
+<strong>1&rsquo; 传字符串</strong><br>
+传: 接收方添加<code>messageForGrandson=&quot;字符串&quot;</code><br>
+接收: 需要传一个参数props 和 接收<code>{props.messageForGrandson}</code><br>
+React会自动把<code>messageForGrandson=&quot;字符串&quot;</code>变成一个对象然后放到第一个参数props里，props可自定义,叫x也行，一般叫props。</p>
+<p><strong>2&rsquo; 传变量</strong><br>
+传: 接收方添加<code>messageForGrandson={a}</code><br>
+接收: <code>{props.messageForGrandson}</code></p>
+<p>例子:儿子传props给Grandson</p>
+<pre><code class="language-js">class Son extends React.Component {
+  render() {
+    var a=10
+    return (
+      &lt;div className=&quot;Son&quot;&gt;
+        我是儿子，我爸对我说「{this.props.messageForSon}」
+        &lt;Grandson messageForGrandson=&quot;孙贼你好&quot; /&gt; 
+      //&lt;Grandson messageForGrandson={a} /&gt; 添加messageForGrandson
+      &lt;/div&gt;
+    );
+  }
+}
+const Grandson = props =&gt; { 
+  var a=10
+  return (
+    &lt;div className=&quot;Grandson&quot;&gt;
+      我是孙子，我爸对我说「{props.messageForGrandson}」//接收string或变量
+    &lt;/div&gt;
+  );
+};
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4c7030c413bc4055a61bd0f92758c55e~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<h3 id="如何使用-state内部数据">如何使用 state(内部数据)？</h3>
+<p><strong>类组件和函数组件使用 state:</strong><br>
+<strong>类组件</strong>用<code>this.state</code>读，<code>this.setState</code>写
+<strong>函数组件</strong>用<code>useState</code>返回数组，第一项读，第二项写</p>
+<p><strong>一.类组件如何使用内部数据state？</strong><br>
+关注数据时关注它的3个条件：
+1.如何初始化？2.如何读？3.如何写？</p>
+<pre><code class="language-js">class Son extends React.Component {
+  constructor() {
+    super();
+    this.state = { //1.初始化
+      n: 0
+    };
+  }
+  add() {
+ // this.state.n += 1 为什么不行？
+    this.setState({ n: this.state.n + 1 }); //2.写
+  }
+  render() {
+    return (
+      &lt;div className=&quot;Son&quot;&gt;
+        儿子 n: {this.state.n} //3.读
+        &lt;button onClick={() =&gt; this.add()}&gt;+1&lt;/button&gt;
+        &lt;Grandson /&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+</code></pre>
+<p><strong><code>this.state.n += 1</code>为什么不行？</strong><br>
+因为Vue会监听n,而React根本不会监听n,所以就算n变化了React也不知道.</p>
+<p><strong>那怎么才能通知React我修改了数据呢？</strong><br>
+用<code>setState</code>。<br>
+数据不可变的思维:不要改变以前的对象，要改的话你就产生一个新的对象。React理念就是数据不可变，你如果要改变就产生一个新的对象，新的对象去容纳新的东西，然后传给setState。</p>
+<pre><code class="language-js">add() {
+  //this.state.n +=1
+  //this.setState(this.state); 
+  //这种虽然也生效但不要用，违反了数据不可变的思维
+    this.setState({ n: this.state.n + 1 }); 
+  }
+</code></pre>
+<p>这就是在类组件里，如何使用state:<br>
+1.在constructor的super下面进行初始化<br>
+2.读的时候用<code>this.state.n</code>
+3.写的时候用<code>this.setState</code>,最好用一个新的对象，而不是在原有的对象上修改。<br>
+<strong>牛X的前端用<code>setState(函数)</code>，他一般会写成一个函数。</strong></p>
+<pre><code class="language-js">add() {
+  //this.setState({ n: this.state.n + 1 }); 
+  //console.log(this.state.n) 
+  //打印出0,setState不会马上改变n的值，而是等一会console执行完后才去覆盖n的值。
+  //所以说，setState是异步的更新UI的过程，不会立即执行而是过一会执行，新手不理解易bug,老手为了避开这个问题这样写,避免混淆新的、旧的state。
+    this.setState( state =&gt; { //旧的n
+      const n=state.n+1
+      console.log(n)
+      return { n } //新的n
+      }
+    )  
+  }
+</code></pre>
+<p>这种写法能更好的理解旧state、新state，而且不容易出错，避免异步造成的误解。
+使用state时注意一个事情，setState不会马上改state，最好使用函数去读新的值，它会让你更容易区分新旧state。</p>
+<p><strong>二.函数组件如何使用内部数据state？</strong></p>
+<p>关注数据时关注它的3个条件：1.如何初始化？2.如何读？3.如何写？</p>
+<pre><code class="language-js">const Grandson = () =&gt; {
+  const [n, setN] = React.useState(0); //1.初始值
+  //你返回的这个数组的第1项就是用来读的，第2项就是用来写的。一个读接口一个写接口，就2项。名字可写但一般就叫n、setN。
+  return (
+    &lt;div className=&quot;Grandson&quot;&gt;
+      孙子 n:{n} //2.读
+      &lt;button onClick={() =&gt; setN(n + 1)}&gt;+1&lt;/button&gt; 
+    //3.写,setN永远不会改变n,它会产生一个新的n。
+    &lt;/div&gt;
+  );
+};
+</code></pre>
+<p>类组件的setState会等一会再改变state，函数组件的setN永远都不会改变n。</p>
+<p><strong>函数组件注意事项</strong><br>
+<strong>1.跟类组件类似的地方</strong><br>
+也要通过setX(新值)来更新UI<br>
+<strong>2.跟类组件不同的地方</strong><br>
+没有this,一律用参数和变量，搞不懂this的就可以用函数组件。</p>
+<h3 id="vue-对比-react">Vue 对比 React</h3>
+<p><strong>两种编程模型</strong><br>
+Vue: 我对数据的修改会直接映射到UI上。Vue监听了n的变化，当n变化时，Vue就把n出现的地方全部都变一遍。</p>
+<p>React: 一开始给我个state<code>{n:0}</code>,我把这个state变成一个UI。
+如果你想改变n,要注意不能修改之前的n。应该直接新建一个新的对象，对应一个新的UI。</p>
+<p>React就会将这2个UI进行<strong>对比</strong>(DOM diff)区别，然后进行局部更新。</p>
+<h2 id="复杂-state-怎么处理">复杂 state 怎么处理</h2>
+<p>所谓复杂就是state是个对象，如果state是个复杂的对象怎么办？</p>
+<p>如果state里不止有n怎么办？</p>
+<p><strong>一.类组件里有<code>n</code>和<code>m</code></strong></p>
+<p>1.类组件的setState<strong>会自动合并第一层属性</strong>:</p>
+<p>当类组件里有<code>n</code>和<code>m</code>时，setState时可以只setState一部分，因为它会自动延用之前的属性。</p>
+<p>2.类组件的setState<strong>不会合并第二层属性</strong>。</p>
+<p><strong>二.函数组件里有<code>n</code>和<code>m</code></strong></p>
+<p>函数组件的setState<strong>不会自动合并</strong>，当多个setState放一起时要记得用<code>...操作符</code>把之前的复制过来。函数组件的setState完全不会帮你自动合并，不管你是第一层还是第二层，要合并只能自己用&hellip;操作符。</p>
+<h3 id="一类组件里有n和m"><strong>一.类组件里有<code>n</code>和<code>m</code></strong></h3>
+<p><strong>1.类组件的setState<code>会自动合并第一层属性</code></strong></p>
+<p>例子</p>
+<pre><code class="language-js">function App() {
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      爸爸
+      &lt;Son /&gt;
+    &lt;/div&gt;
+  );
+}
+
+class Son extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      n: 0,
+      m: 0
+    };
+  }
+  addN() {
+    this.setState({ n: this.state.n + 1 });
+    // m 会被覆盖为 undefined 吗？
+  }
+  addM() {
+    this.setState({ m: this.state.m + 1 });
+    // n 会被覆盖为 undefined 吗？
+  }
+  render() {
+    return (
+      &lt;div className=&quot;Son&quot;&gt;
+        儿子 n: {this.state.n}
+        &lt;button onClick={() =&gt; this.addN()}&gt;n+1&lt;/button&gt;
+        m: {this.state.m}
+        &lt;button onClick={() =&gt; this.addM()}&gt;m+1&lt;/button&gt;
+        &lt;Grandson /&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+
+const Grandson = () =&gt; {
+  const [n, setN] = React.useState(0);
+  return (
+    &lt;div className=&quot;Grandson&quot;&gt;
+      孙子 n:{n}
+      &lt;button onClick={() =&gt; setN(n + 1)}&gt;+1&lt;/button&gt;
+    &lt;/div&gt;
+  );
+};
+
+const rootElement = document.getElementById(&quot;root&quot;);
+ReactDOM.render(&lt;App /&gt;, rootElement);
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6f882eed6ba34c04aa3d4ea53e2008a8~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>总结:类组件里的setState,如果你对其中一部分进行修改那么其他的部分会自动延用上一次的值，而不会被<code>undefined</code>覆盖。</p>
+<pre><code class="language-js">addN() {
+    this.setState({ n: this.state.n + 1 });
+/*相当于写
+  this.setState({...this.state, n: this.state.n + 1 });
+  当只设置n时，m会自动延用上一次的值，m不会被覆盖为undefined
+  React会自动帮你写`...this.state`:把之前所有值拷过来再将n变成n+1
+*/
+  }
+</code></pre>
+<h4 id="2类组件的setstate不会合并第二层属性">2.类组件的setState不会合并第二层属性</h4>
+<p>类组件的setState<code>会自动合并第一层属性</code>，但是不会合并第二层属性。</p>
+<p><strong>解决方法:</strong> 使用<code>Object.assign</code>或者<code>...操作符</code>，二选一。</p>
+<p><strong>1&rsquo; 使用<code>...操作符</code>(推荐)</strong></p>
+<pre><code class="language-js">class Son extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      n: 0, //第1层，设置n时不要管m
+      m: 0,
+      user: {
+        name: &quot;frank&quot;, //第2层，设置name时必须管age
+        age: 18
+      }
+    };
+  }
+  ...
+  changeUser() {
+    this.setState({
+    //m和n不会被置空
+      user: {
+        ...this.state.user, //防止age被置空的解决方法
+        name: &quot;jack&quot;
+      //坑:age会被置空，解决方法:`...this.state.user`
+      }
+    });
+  }
+  render() {
+    return (
+      &lt;div className=&quot;Son&quot;&gt;
+        儿子 n: {this.state.n}
+        &lt;button onClick={() =&gt; this.addN()}&gt;n+1&lt;/button&gt;
+        m: {this.state.m}
+        &lt;button onClick={() =&gt; this.addM()}&gt;m+1&lt;/button&gt;
+        &lt;hr /&gt;
+        &lt;div&gt;user.name: {this.state.user.name}&lt;/div&gt;
+        &lt;div&gt;user.age: {this.state.user.age}&lt;/div&gt;
+        &lt;button onClick={() =&gt; this.changeUser()}&gt;change user&lt;/button&gt;
+        &lt;Grandson /&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+</code></pre>
+<p><code>...操作法</code>是React经常会用到的技巧</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7a40562ebc504dcd9f977794ba66f417~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>2&rsquo; 使用<code>Object.assign</code></strong></p>
+<pre><code class="language-js">class Son extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      n: 0,
+      m: 0,
+      user: {
+        name: &quot;frank&quot;,
+        age: 18
+      }
+    };
+  }
+  changeUser() {
+  //Object.assign把之前user的所有属性复制到新对象上
+    const user = Object.assign({}, this.state.user); 
+  //等价于const user={...this.state.user}
+    user.name = &quot;jack&quot;;
+    this.setState({
+      // m 和 n 不会被置空
+      user: user
+    });
+  }
+  render() {
+    return (
+      &lt;div className=&quot;Son&quot;&gt;
+        儿子 n: {this.state.n}
+        &lt;button onClick={() =&gt; this.addN()}&gt;n+1&lt;/button&gt;
+        m: {this.state.m}
+        &lt;button onClick={() =&gt; this.addM()}&gt;m+1&lt;/button&gt;
+        &lt;hr /&gt;
+        &lt;div&gt;user.name: {this.state.user.name}&lt;/div&gt;
+        &lt;div&gt;user.age: {this.state.user.age}&lt;/div&gt;
+        &lt;button onClick={() =&gt; this.changeUser()}&gt;change user&lt;/button&gt;
+        &lt;Grandson /&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+
+const Grandson = () =&gt; {
+  const [n, setN] = React.useState(0);
+  return (
+    &lt;div className=&quot;Grandson&quot;&gt;
+      孙子 n:{n}
+      &lt;button onClick={() =&gt; setN(n + 1)}&gt;+1&lt;/button&gt;
+    &lt;/div&gt;
+  );
+};
+</code></pre>
+<h3 id="二函数组件里有n和m"><strong>二.函数组件里有<code>n</code>和<code>m</code></strong></h3>
+<p><strong>同样的需求下，用函数组件更简便，类组件已经过时了，尽量用函数组件</strong>。
+例子</p>
+<pre><code class="language-js">//第1种写法
+const Grandson = () =&gt; {
+  const [n, setN] = React.useState(0);
+  const [m, setM] = React.useState(0);
+  return (
+    &lt;div className=&quot;Grandson&quot;&gt;
+      孙子 n:{n}
+      &lt;button onClick={() =&gt; setN(n + 1)}&gt;n+1&lt;/button&gt;
+      m:{m}
+      &lt;button onClick={() =&gt; setM(m + 1)}&gt;m+1&lt;/button&gt;
+    &lt;/div&gt;
+  );
+};
+</code></pre>
+<p>函数组件另一种不推荐的写法，你会发现m被质空:</p>
+<pre><code class="language-js">//不要这样写，当你setState`n`时，`m`就会`undefined`.
+const Grandson = () =&gt; {
+  const [state, setState] = React.useState({
+    n:0,m:0
+  });
+  return (
+    &lt;div className=&quot;Grandson&quot;&gt;
+      孙子 n:{state.n}
+      &lt;button onClick={() =&gt; setState({n:state.n + 1})}&gt;n+1&lt;/button&gt;
+      m:{state.m}
+      &lt;button onClick={() =&gt; setState({m:state.m + 1})}&gt;m+1&lt;/button&gt;
+    &lt;/div&gt;
+  );
+};
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d26a994208db469f926509da744c50e2~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>如果你要用函数组件的setState就不要搞个对象在这里。如果你非要弄个对象那每次赋值时要记得先拷贝之前的。</p>
+<pre><code class="language-js">//第2种写法
+const Grandson = () =&gt; {
+  const [state, setState] = React.useState({
+    n:0,m:0
+  });
+  return (
+    &lt;div className=&quot;Grandson&quot;&gt;
+      孙子 n:{state.n}
+      &lt;button onClick={() =&gt; setState({...state,n:state.n + 1})}&gt;n+1&lt;/button&gt;
+      m:{state.m}
+      &lt;button onClick={() =&gt; setState({...state,m:state.m + 1})}&gt;m+1&lt;/button&gt;
+    &lt;/div&gt;
+  );
+};
+</code></pre>
+<p><strong>总结:
+类组件会自动合并第1层，不会合并第2层。函数组件不会自动合并。所以不要依赖自动合并。</strong></p>
+<h2 id="事件绑定">事件绑定</h2>
+<blockquote>
+<p>React组件里事件绑定的各种写法:onClick,onKeyPress&hellip;</p>
+</blockquote>
+<p><strong>一.类组件的事件绑定</strong></p>
+<p><code>&lt;button onClick={()=&gt;this.addN()}&gt;</code></p>
+<p>示例</p>
+<pre><code class="language-js">//最终写法:这种写法this不会变成window
+class Son extends React.Component {
+  addN=()=&gt; this.setState({n:this.state.n+1}) //绑定
+//上面的写法是下面的语法糖,2种写法完全等价
+//constructor(){
+//  this.addN = () =&gt; this.setState({n:this.state.n+1})
+//}
+  render(){
+    &lt;button onClick={this.addN()}&gt; //使用
+  }
+}
+</code></pre>
+<p>constructor里的this<code>this.addN </code>指的是当前对象。
+这种写法函数会被定义到对象本身身上，这意味着每个Son组件都有自己的addN,如果有两个Son,就有2个addN。</p>
+<pre><code class="language-js">//补充
+//1.箭头函数上的this是不会变的，因为箭头函数不支持this
+addN=()=&gt;{this.setState({n:this.state.n+1})}
+
+//2.constructor里的this`this.addN `指的是当前对象Son。
+class Son extends React.Component {
+  constructor(){
+    this.addN = () =&gt; this.setState({n:this.state.n+1})
+  }
+}
+</code></pre>
+<h3 id="复习this">复习this</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/23804247">1.this的值到底是什么？</a>给this定性</p>
+<p><a href="https://zhuanlan.zhihu.com/p/25991271">2.你怎么还没搞懂this?</a> 如何确定this</p>
+<p><a href="https://zhuanlan.zhihu.com/p/30164164">3.JS里为什么会有this?</a> 为什么要设计this</p>
+<p><strong>为什么this会变/不会变？</strong></p>
+<p>所有函数的this都是参数，由调用决定，所以可变</p>
+<p>唯独箭头函数的this不变，因为箭头函数不接受this</p>
+<p>React的特点:能不做的，我都不做。</p>
+<p>Vue的特点:能帮你做的，都帮你做了。</p>
+<p><strong>this面试题1</strong></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d86c48365feb45369d75a43e45aec262~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>this面试题2</strong></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5885e804ccf6426b8640b43cba02a2d2~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>总结</strong></p>
+<p>React是面向类和函数，Vue更像是面向对象。</p>
+<p><strong>React提供的是JSX语法(2点):</strong></p>
+<p>1.普通属性用标签</p>
+<p>2.非普通属性也就是跟JS相关的，都写在{}里。</p>
+<p>{}之外都是标签，{}之内是JS。</p>
+<p><strong>面试题</strong><br>
+<strong>React与Vue的区别？</strong><br>
+<strong>相同点</strong><br>
+1.都是对视图的封装，React是用类和函数表示一个组件，而Vue是通过构造选项构造一个组件。<br>
+2.都提供了createElement的XML简写，React提供的是JSX语法，而Vue是提供的是template模版写法(语法巨多)<br>
+<strong>不同点</strong><br>
+React是把HTML放在JS里写(HTML in JS),而Vue是把JS放在HTML里写(JS in HTML)</p>
+
+</article>
+
+                    
+                    
+                    
+
+                    
+
+
+
+                    
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+        <span class="text-primary-text block font-bold"
+          >Previous</span
+        >
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/" class="block">Hooks 各个击破</a>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+        <span class="text-primary-text block font-bold">Next</span>
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/" class="block">React起手式</a>
+      
+    </div>
+  </div>
+
+
+                    
+
+
+
+                </div>
+                
+                <div class="hidden lg:block lg:w-1/4">
+                    
+                    <div
+  class="
+    bg-secondary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>On This Page</h3>
+</div>
+<div
+  class="sticky-toc 
+    border-s
+   hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#组件component">组件component</a>
+      <ul>
+        <li><a href="#一概念"><strong>一.概念</strong></a></li>
+        <li><a href="#二使用react的2种组件">二.使用React的2种组件</a></li>
+        <li><a href="#如何使用-props外部数据">如何使用 props(外部数据)？</a></li>
+        <li><a href="#如何使用-state内部数据">如何使用 state(内部数据)？</a></li>
+        <li><a href="#vue-对比-react">Vue 对比 React</a></li>
+      </ul>
+    </li>
+    <li><a href="#复杂-state-怎么处理">复杂 state 怎么处理</a>
+      <ul>
+        <li><a href="#一类组件里有n和m"><strong>一.类组件里有<code>n</code>和<code>m</code></strong></a>
+          <ul>
+            <li><a href="#2类组件的setstate不会合并第二层属性">2.类组件的setState不会合并第二层属性</a></li>
+          </ul>
+        </li>
+        <li><a href="#二函数组件里有n和m"><strong>二.函数组件里有<code>n</code>和<code>m</code></strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#事件绑定">事件绑定</a>
+      <ul>
+        <li><a href="#复习this">复习this</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+                    
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        hljs.initHighlightingOnLoad();
+        changeSidebarHeight();
+        switchDocToc();
+    })
+</script>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2021 <a href="https://www.wangchucheng.com/">WANG Chucheng</a> and <a href="https://www.ruiqima.com/">MA Ruiqi</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>

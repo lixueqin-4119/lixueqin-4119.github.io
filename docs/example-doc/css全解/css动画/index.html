@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>css动画 | 目录 | 博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.1" />
+<link rel="stylesheet" href="http://lixueqin-4119.xyz/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
+<script defer src="http://lixueqin-4119.xyz/js/eureka.min.f1639ee98d6cbd85b2b5f034d27320da962002ff83159ed4e01dbc5948c42a1ab26c2d6e74c66e93f5cec4d24dbd166d.js" integrity="sha384-8WOe6Y1svYWytfA00nMg2pYgAv&#43;DFZ7U4B28WUjEKhqybC1udMZuk/XOxNJNvRZt"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+
+<script defer type="text/javascript" src="http://lixueqin-4119.xyz/js/fontawesome.min.7b735802cbde01152678cc4a867f0b4bb0597876e29adfcaf1e5b5e99d39d7af87f348fdfd91c7eaf9ed7dc1eece7c61.js" integrity="sha384-e3NYAsveARUmeMxKhn8LS7BZeHbimt/K8eW16Z0516&#43;H80j9/ZHH6vntfcHuznxh"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="将div左右移动的例子
+原理
+每过段时间(用setInterval做到)
+将div移动一小段距离
+直到移动到目标点
+注意性能
+绿色表示重新绘制(repaint)了
+css渲染过程依次包含布局，绘制，合成
+其中布局和绘制有可能被省略
+第2种方式
+前端高手不用left做动画，用transform(变形)，性能会好很多
+原理
+transform:translateX(0=&gt;300px)
+直接修改会被合成，需要等一会修改
+transition过渡属性可以自动脑补中间帧
+注意性能
+并没有repaint重新绘制
+比改left性能好
+使用transform让浏览器渲染次数变少了，性能好
+浏览器渲染原理 查看浏览器渲染
+开发者工具，选中任意一个tab,按esc键,勾选Paint flashing。
+刷新页面，绿色出现的次数，就是浏览器渲染的次数
+浏览器渲染过程
+根据HTML构建HTML树(DOM)
+根据CSS构建CSS树(CSSOM)
+将两棵树合并成一颗渲染树
+Layout布局(文档流，盒模型，计算大小和位置)
+Paint绘制(把边框颜色，文字颜色，阴影等画出来)
+Compose合成(根据层叠关系展示画面) 
+如何更新样式
+一般用JS来更新样式
+比如div.style.background=&#39;red&#39; 比如div.style.display=&#39;none&#39; 比如div.classList.add(&#39;red&#39;)  加类比加样式更好！高手都是加类更快，新手才加style。工作中也是直接加类
+比如div.remove()直接删掉节点
+这些方法有什么不同吗？
+用js更新样式有3种不同的渲染更新方式
+第一种，全走
+div.remove()会触发当前消失，其它元素relayout
+第二种，跳过layout
+改变背景颜色，直接repaint&#43;composite
+第三种，跳过layout和paint
+改变transform，只需composite
+ 不同属性有不同的渲染流程，怎么知道每个属性触发什么流程？
+CSS Triggers
+浏览器渲染性能优化  js/css/样式/Layout布局/Paint绘制/Composited合成
+  5个过程每一个都可以被优化
+ 1.优化JavaScript执行(优化js)
+TL;DR
+  对于动画效果的实现，避免使用 setTimeout 或 setInterval，请使用 requestAnimationFrame。
+  将长时间运行的 JavaScript 从主线程移到 Web Worker。">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"",
+      "item":"http://lixueqin-4119.xyz/docs/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"目录",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/"},{
+      "@type": "ListItem",
+      "position": 3 ,
+      "name":"CSS全解",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/"},{
+      "@type": "ListItem",
+      "position": 4 ,
+      "name":"css动画",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/"
+    },
+    "headline": "css动画 | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
+    "dateModified": "2020-10-16T00:00:00+00:00",
+    "wordCount":  299 ,
+    "publisher": {
+        "@type": "Person",
+        "name": "WANG Chucheng",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "http://lixueqin-4119.xyz/images/icon.png"
+        }
+        },
+    "description": "将div左右移动的例子\n原理\n每过段时间(用setInterval做到)\n将div移动一小段距离\n直到移动到目标点\n注意性能\n绿色表示重新绘制(repaint)了\ncss渲染过程依次包含布局，绘制，合成\n其中布局和绘制有可能被省略\n第2种方式\n前端高手不用left做动画，用transform(变形)，性能会好很多\n原理\ntransform:translateX(0=\u0026gt;300px)\n直接修改会被合成，需要等一会修改\ntransition过渡属性可以自动脑补中间帧\n注意性能\n并没有repaint重新绘制\n比改left性能好\n使用transform让浏览器渲染次数变少了，性能好\n浏览器渲染原理 查看浏览器渲染\n开发者工具，选中任意一个tab,按esc键,勾选Paint flashing。\n刷新页面，绿色出现的次数，就是浏览器渲染的次数\n浏览器渲染过程\n根据HTML构建HTML树(DOM)\n根据CSS构建CSS树(CSSOM)\n将两棵树合并成一颗渲染树\nLayout布局(文档流，盒模型，计算大小和位置)\nPaint绘制(把边框颜色，文字颜色，阴影等画出来)\nCompose合成(根据层叠关系展示画面) \n如何更新样式\n一般用JS来更新样式\n比如div.style.background=\u0027red\u0027 比如div.style.display=\u0027none\u0027 比如div.classList.add(\u0027red\u0027)  加类比加样式更好！高手都是加类更快，新手才加style。工作中也是直接加类\n比如div.remove()直接删掉节点\n这些方法有什么不同吗？\n用js更新样式有3种不同的渲染更新方式\n第一种，全走\ndiv.remove()会触发当前消失，其它元素relayout\n第二种，跳过layout\n改变背景颜色，直接repaint\u002bcomposite\n第三种，跳过layout和paint\n改变transform，只需composite\n 不同属性有不同的渲染流程，怎么知道每个属性触发什么流程？\nCSS Triggers\n浏览器渲染性能优化  js\/css\/样式\/Layout布局\/Paint绘制\/Composited合成\n  5个过程每一个都可以被优化\n 1.优化JavaScript执行(优化js)\nTL;DR\n  对于动画效果的实现，避免使用 setTimeout 或 setInterval，请使用 requestAnimationFrame。\n  将长时间运行的 JavaScript 从主线程移到 Web Worker。"
+}
+</script><meta property="og:title" content="css动画 | 目录 | 博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="http://lixueqin-4119.xyz/images/icon.png">
+
+
+<meta property="og:url" content="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/" />
+
+
+
+
+<meta property="og:description" content="将div左右移动的例子
+原理
+每过段时间(用setInterval做到)
+将div移动一小段距离
+直到移动到目标点
+注意性能
+绿色表示重新绘制(repaint)了
+css渲染过程依次包含布局，绘制，合成
+其中布局和绘制有可能被省略
+第2种方式
+前端高手不用left做动画，用transform(变形)，性能会好很多
+原理
+transform:translateX(0=&gt;300px)
+直接修改会被合成，需要等一会修改
+transition过渡属性可以自动脑补中间帧
+注意性能
+并没有repaint重新绘制
+比改left性能好
+使用transform让浏览器渲染次数变少了，性能好
+浏览器渲染原理 查看浏览器渲染
+开发者工具，选中任意一个tab,按esc键,勾选Paint flashing。
+刷新页面，绿色出现的次数，就是浏览器渲染的次数
+浏览器渲染过程
+根据HTML构建HTML树(DOM)
+根据CSS构建CSS树(CSSOM)
+将两棵树合并成一颗渲染树
+Layout布局(文档流，盒模型，计算大小和位置)
+Paint绘制(把边框颜色，文字颜色，阴影等画出来)
+Compose合成(根据层叠关系展示画面) 
+如何更新样式
+一般用JS来更新样式
+比如div.style.background=&#39;red&#39; 比如div.style.display=&#39;none&#39; 比如div.classList.add(&#39;red&#39;)  加类比加样式更好！高手都是加类更快，新手才加style。工作中也是直接加类
+比如div.remove()直接删掉节点
+这些方法有什么不同吗？
+用js更新样式有3种不同的渲染更新方式
+第一种，全走
+div.remove()会触发当前消失，其它元素relayout
+第二种，跳过layout
+改变背景颜色，直接repaint&#43;composite
+第三种，跳过layout和paint
+改变transform，只需composite
+ 不同属性有不同的渲染流程，怎么知道每个属性触发什么流程？
+CSS Triggers
+浏览器渲染性能优化  js/css/样式/Layout布局/Paint绘制/Composited合成
+  5个过程每一个都可以被优化
+ 1.优化JavaScript执行(优化js)
+TL;DR
+  对于动画效果的实现，避免使用 setTimeout 或 setInterval，请使用 requestAnimationFrame。
+  将长时间运行的 JavaScript 从主线程移到 Web Worker。" />
+
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="docs" />
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">简介</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于我</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+
+
+<div class="lg:pt-12">
+    <div class="flex flex-col md:flex-row bg-secondary-bg rounded">
+        <div class="md:w-1/4 lg:w-1/5 border-e">
+            <div class="sticky top-16 pt-6">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sidebar-title" class="md:hidden mx-4 px-2 pt-4 pb-2 md:border-b text-tertiary-text md:text-primary-text">
+    <span class="font-semibold">Table of Contents</span>
+    <i class='fas fa-caret-right ms-1'></i>
+</div>
+
+<div id="sidebar-toc"
+    class="hidden md:block overflow-y-auto mx-6 md:mx-0 pe-6 pt-2 md:max-h-doc-sidebar bg-primary-bg md:bg-transparent">
+    <div class="flex flex-wrap ms-4 -me-2 p-2 bg-secondary-bg md:bg-primary-bg rounded">
+        <a class=" hover:text-eureka"
+            href="http://lixueqin-4119.xyz/docs/example-doc/">目录</a>
+        
+        
+        
+
+
+    </div>
+    
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/">【HTML全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A0%87%E7%AD%BE/">HTML标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A6%82%E8%A7%88/">HTML概览</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E9%87%8D%E7%82%B9%E6%A0%87%E7%AD%BE/">HTML重点标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/%E6%89%8B%E6%9C%BA%E9%A2%84%E8%A7%88-%E8%B0%83%E8%AF%95/">手机预览 &amp; 调试</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" text-eureka  hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/">HTTP 状态码</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/">URL 是什么</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/">请求和响应 &amp; Node.js Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/">JavaScript 的诞生</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/">JS函数</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/">JS对象</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/">JS对象分类</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">JS数据类型</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/">JS数组</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JS正则表达式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/">js获取屏幕宽高</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/">JS语法</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/">JS运算符</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/">DOM 编程</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/">DOM事件与事件委托</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/">jQuery 中的设计模式(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/">jQuery 中的设计模式(下)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/">手写DOM库(1)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/">MVC(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/">MVC(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/">Class 组件详解</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">Hooks 原理解析</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/">Hooks 各个击破</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">React 类组件和函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/">React起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/">手写 Redux</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/">computed 和 watch</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/">Vue Router -前端路由实现的思路</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">数据响应式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/">构造选项</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/">模板、指令与修饰符</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">深入理解Vue动画原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/">表单与v-model</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/">起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/">进阶构造属性</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/">云服务器</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/">AJAX 的原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/">Ajax实战:Cookie、Session</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/">异步与Promise</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/">跨域、CORS、JSONP</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/">静态服务器Static Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/">Webpack(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/">Webpack(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+</ul>
+
+</div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <div class="w-full md:w-3/4 lg:w-4/5 pb-8 pt-2 md:pt-8">
+            <div class="flex">
+                <div class="w-full lg:w-3/4 px-6">
+                    <article class="prose">
+  <h1 class="mb-4">css动画</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2020-10-16</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>2 min read</span>
+  </div>
+
+  
+
+  
+</div>
+
+
+  
+  
+
+  <p><strong>将div左右移动的例子</strong></p>
+<p><strong>原理</strong></p>
+<p>每过段时间(用setInterval做到)</p>
+<p>将div移动一小段距离</p>
+<p>直到移动到目标点</p>
+<p><strong>注意性能</strong></p>
+<p>绿色表示重新绘制(repaint)了</p>
+<p>css渲染过程依次包含布局，绘制，合成</p>
+<p>其中布局和绘制有可能被省略</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21487050-50dae1e1d471c5de.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><strong>第2种方式</strong></p>
+<p>前端高手不用left做动画，用transform(变形)，性能会好很多</p>
+<p><strong>原理</strong></p>
+<p>transform:translateX(0=&gt;300px)</p>
+<p>直接修改会被合成，需要等一会修改</p>
+<p>transition过渡属性可以自动脑补中间帧</p>
+<p><strong>注意性能</strong></p>
+<p>并没有repaint重新绘制</p>
+<p>比改left性能好</p>
+<p>使用transform让浏览器渲染次数变少了，性能好</p>
+<h3 id="浏览器渲染原理">浏览器渲染原理</h3>
+<p>查看浏览器渲染</p>
+<p>开发者工具，选中任意一个tab,按esc键,勾选Paint flashing。</p>
+<p>刷新页面，绿色出现的次数，就是浏览器渲染的次数</p>
+<p><strong>浏览器渲染过程</strong></p>
+<p>根据HTML构建HTML树(DOM)</p>
+<p>根据CSS构建CSS树(CSSOM)</p>
+<p>将两棵树合并成一颗渲染树</p>
+<p>Layout布局(文档流，盒模型，计算大小和位置)</p>
+<p>Paint绘制(把边框颜色，文字颜色，阴影等画出来)</p>
+<p>Compose合成(根据层叠关系展示画面)
+<br/></p>
+<p><strong>如何更新样式</strong></p>
+<p>一般用JS来更新样式</p>
+<pre><code>比如div.style.background='red'
+比如div.style.display='none'
+比如div.classList.add('red') 
+</code></pre>
+<p>加类比加样式更好！高手都是加类更快，新手才加style。工作中也是直接加类</p>
+<p>比如div.remove()直接删掉节点</p>
+<p><strong>这些方法有什么不同吗？</strong></p>
+<p>用js更新样式有3种不同的渲染更新方式</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21487050-11372ba624143ed6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>第一种，全走</p>
+<p>div.remove()会触发当前消失，其它元素relayout</p>
+<p>第二种，跳过layout</p>
+<p>改变背景颜色，直接repaint+composite</p>
+<p>第三种，跳过layout和paint</p>
+<p>改变transform，只需composite</p>
+<br/>
+<p><strong>不同属性有不同的渲染流程，怎么知道每个属性触发什么流程？</strong></p>
+<p><a href="https://link.zhihu.com/?target=https%3A//csstriggers.com/">CSS Triggers</a></p>
+<h3 id="浏览器渲染性能优化httpslinkzhihucomtargethttps3adevelopersgooglecomwebfundamentalsperformancerendering"><a href="https://link.zhihu.com/?target=https%3A//developers.google.com/web/fundamentals/performance/rendering">浏览器渲染性能优化</a></h3>
+<blockquote>
+<p>js/css/样式/Layout布局/Paint绘制/Composited合成</p>
+</blockquote>
+<blockquote>
+<p>5个过程每一个都可以被优化</p>
+</blockquote>
+<p><strong>1.优化JavaScript执行(优化js)</strong></p>
+<p>TL;DR</p>
+<ul>
+<li>
+<p>对于动画效果的实现，避免使用 setTimeout 或 setInterval，请使用 requestAnimationFrame。</p>
+</li>
+<li>
+<p>将长时间运行的 JavaScript 从主线程移到 Web Worker。</p>
+</li>
+<li>
+<p>使用微任务来执行对多个帧的 DOM 更改。</p>
+</li>
+<li>
+<p>使用 Chrome DevTools 的 Timeline 和 JavaScript 分析器来评估 JavaScript 的影响。</p>
+</li>
+</ul>
+<p><strong>2.缩小样式计算的范围并降低其复杂性(优化style计算范围)</strong></p>
+<p>TL;DR</p>
+<ul>
+<li>
+<p>降低选择器的复杂性；使用以类为中心的方法，例如 BEM。</p>
+</li>
+<li>
+<p>减少必须计算其样式的元素数量。</p>
+</li>
+</ul>
+<p><strong>3.避免大型、复杂的布局和布局抖动(优化布局layout)</strong></p>
+<p>TL;DR</p>
+<ul>
+<li>
+<p>布局的作用范围一般为整个文档。</p>
+</li>
+<li>
+<p>DOM 元素的数量将影响性能；应尽可能避免触发布局。</p>
+</li>
+<li>
+<p>评估布局模型的性能；新版 Flexbox 一般比旧版 Flexbox 或基于浮动的布局模型更快。</p>
+</li>
+<li>
+<p>避免强制同步布局和布局抖动；先读取样式值，然后进行样式更改。</p>
+</li>
+</ul>
+<p><strong>4.简化绘制的复杂度、减小绘制区域(优化绘制paint)</strong></p>
+<p>TL;DR</p>
+<ul>
+<li>
+<p>除 transform 或 opacity 属性之外，更改任何属性始终都会触发绘制。</p>
+</li>
+<li>
+<p>绘制通常是像素管道中开销最大的部分；应尽可能避免绘制。</p>
+</li>
+<li>
+<p>通过层的提升和动画的编排来减少绘制区域。</p>
+</li>
+<li>
+<p>使用 Chrome DevTools 绘制分析器来评估绘制的复杂性和开销；应尽可能降低复杂性并减少开销。</p>
+</li>
+</ul>
+<p><strong>5.坚持仅合成器的属性和管理层计数(优化合成composite)</strong></p>
+<p>TL;DR</p>
+<ul>
+<li>
+<p>坚持使用 transform 和 opacity 属性更改来实现动画。</p>
+</li>
+<li>
+<p>使用 will-change 或 translateZ 提升移动的元素。</p>
+</li>
+<li>
+<p>避免过度使用提升规则；各层都需要内存和管理开销。</p>
+</li>
+</ul>
+<h3 id="transform变形">transform(变形)</h3>
+<p><strong>4个常用功能</strong></p>
+<pre><code>位移 transform:translate
+缩放 transform:scale 放大/缩小
+旋转 transform:rotate
+倾斜 transform:skew
+</code></pre>
+<p><strong>经验</strong></p>
+<p>一般都需要配合transition过渡 代码:transition:all 1s;</p>
+<p>inline元素不支持transform,需要先变成block</p>
+<p><strong>一.transform:translate位移(常用)</strong></p>
+<p>常用写法</p>
+<pre><code>translate(&lt;length-percentage&gt;,&lt;length-percentage&gt;?)
+translateX(&lt;length-percentage&gt;)
+translateY(&lt;length-percentage&gt;)
+垂直于视点translateZ(&lt;length&gt;)且父容器 perspective
+translate3d(x,y,z)
+</code></pre>
+<p><strong>经验</strong></p>
+<p>1.translate(-50%,-50%)可做绝对定位元素的居中</p>
+<p>可用于场景:loading加载中&hellip;</p>
+<p>不支持IE 其它都支持</p>
+<p>2.要学会看懂MDN的语法示例</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21487050-d047d01e200c1902.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>？表示该值可省略</p>
+<p>长度length 百分数percentage 角度angle(例:360deg)</p>
+<p><strong>二.transform:scale 缩放</strong></p>
+<p>常用写法</p>
+<pre><code>scaleX(&lt;number&gt;)需要配合transition:all 1s;过渡
+scaleY(&lt;number&gt;)
+scale(&lt;number&gt;,&lt;number&gt;?)
+</code></pre>
+<p><strong>经验</strong></p>
+<p>用的较少，因为容易出现模糊</p>
+<pre><code>代码：transition:all 1s;过渡
+     transform: scale(1.5);
+</code></pre>
+<p><strong>三.transform:rotate旋转</strong></p>
+<p>常用写法</p>
+<pre><code>rotate([&lt;angle&gt;|&lt;zero&gt;])
+rotateX([&lt;angle&gt;|&lt;zero&gt;])
+rotateY([&lt;angle&gt;|&lt;zero&gt;])
+rotateZ([&lt;angle&gt;|&lt;zero&gt;])
+rotate3d太复杂，无法用语言表述
+</code></pre>
+<p><strong>经验</strong></p>
+<p>1.一般用于360度旋转制作loading或者按钮的交互</p>
+<p>2.用到时再搜索rotate mdn看文档</p>
+<pre><code>代码 transform: rotate(45deg);
+</code></pre>
+<p><strong>四.transform:skew倾斜</strong></p>
+<p><strong>常用写法</strong></p>
+<pre><code>skewX([&lt;angle&gt;|&lt;zero&gt;])
+skewY([&lt;angle&gt;|&lt;zero&gt;])
+skew([&lt;angle&gt;|&lt;zero&gt;],[&lt;angle&gt;|&lt;zero&gt;]?)
+</code></pre>
+<p><strong>经验</strong></p>
+<p>用的较少</p>
+<p>用时再搜skew mdn</p>
+<p>transform多重效果</p>
+<p><strong>组合使用</strong></p>
+<pre><code>transform:scale(0.5)translate(-100%,-100%);
+transform:none;取消所有
+</code></pre>
+<h3 id="transition过渡">transition过渡</h3>
+<blockquote>
+<p>其它</p>
+<p>1.#demo.end 注意不能有空格，表示demo拥有end的时候(#demo .end表示demo后代里面的end)</p>
+<p>意思是用css给demo增加一个class=&ldquo;end&rdquo;</p>
+<p>注意要配合js</p>
+<p>button.onclick=()=&gt;{</p>
+<p>demo.classList.add(&lsquo;start&rsquo;)</p>
+<p>}</p>
+</blockquote>
+<p><strong>作用</strong></p>
+<p>补充中间帧</p>
+<p><strong>语法</strong></p>
+<p>1.transition:属性名 时长 过渡方式 延迟 //4个值</p>
+<pre><code>  transition:left 200ms linear
+</code></pre>
+<p>2.可以用逗号分隔两个不同属性</p>
+<pre><code>  transition:left 200ms,top 400ms
+</code></pre>
+<p>3.可以用all代表所有属性</p>
+<pre><code>  transition:all 200ms ease-in-out 300ms;//再延迟300ms淡入淡出
+</code></pre>
+<p>4.过渡方式有:</p>
+<pre><code>  linear|ease|ease-in|ease-out|ease-in-out|cubic-bezier|step-start|step-end|steps
+</code></pre>
+<p><strong>变态</strong></p>
+<p>注意，并不是所有属性都能过渡</p>
+<p>display:none;=&gt;block没法过渡</p>
+<p>一般改成visibility:hidden=&gt;visible</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21487050-371614968d4b7e44.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<h3 id="animation动画">animation动画</h3>
+<blockquote>
+<p>过渡必须要有起始</p>
+<p>一般只有一次动画,比如hover和非hover状态的过渡</p>
+<p>接下来介绍两次动画animation(更高级的过渡效果)</p>
+</blockquote>
+<p><strong>语法</strong></p>
+<pre><code>animation:时长|过渡方式|延迟|次数|方向|填充模式|是否暂停|动画名;
+</code></pre>
+<p>时长:1s</p>
+<p>过渡方式:跟transition一样，如linear</p>
+<p>次数：3或者infinite</p>
+<p>方向:reverse|alternate|alternate-reverse</p>
+<p>填充模式:forwards|none|backwards|both</p>
+<p>是否暂停:paused|running</p>
+<p><strong>以上所有属性都有对应的单独属性(都可单独设置)</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21487050-50dbf144d566def4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><strong>两种办法</strong></p>
+<p><strong>1&rsquo;使用两次transform也可实现两次动画</strong></p>
+<p>.a===transform===&gt;.b</p>
+<p>.b===transform===&gt;.c</p>
+<p>如何知道到了中间点呢？</p>
+<p>用setTimeout或者监听transitionend事件</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21487050-8b35b601b64018fd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><strong>2&rsquo;使用animation</strong></p>
+<p>声明关键帧@keyframes</p>
+<p>添加动画</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21487050-6965ab1db8bb5bbe.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><strong>@keyframes完整语法</strong></p>
+<p><strong>标准写法</strong></p>
+<p>一种写法是from to</p>
+<p>另一种写法是百分数(更广泛)</p>
+<pre><code> @keyframes slidein {
+  from {
+    transform: translateX(0%); 
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes identifier {
+  0% { top: 0; left: 0; }
+  30% { top: 50px; }
+  68%, 72% { left: 50px; }
+  100% { top: 100px; left: 100%; }
+}
+</code></pre>
+
+</article>
+
+                    
+                    
+                    
+
+                    
+
+
+
+                    
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+        <span class="text-primary-text block font-bold">Next</span>
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/" class="block">css基础</a>
+      
+    </div>
+  </div>
+
+
+                    
+
+
+
+                </div>
+                
+                <div class="hidden lg:block lg:w-1/4">
+                    
+                    <div
+  class="
+    bg-secondary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>On This Page</h3>
+</div>
+<div
+  class="sticky-toc 
+    border-s
+   hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#浏览器渲染原理">浏览器渲染原理</a></li>
+        <li><a href="#浏览器渲染性能优化httpslinkzhihucomtargethttps3adevelopersgooglecomwebfundamentalsperformancerendering"><a href="https://link.zhihu.com/?target=https%3A//developers.google.com/web/fundamentals/performance/rendering">浏览器渲染性能优化</a></a></li>
+        <li><a href="#transform变形">transform(变形)</a></li>
+        <li><a href="#transition过渡">transition过渡</a></li>
+        <li><a href="#animation动画">animation动画</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+                    
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        hljs.initHighlightingOnLoad();
+        changeSidebarHeight();
+        switchDocToc();
+    })
+</script>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2021 <a href="https://www.wangchucheng.com/">WANG Chucheng</a> and <a href="https://www.ruiqima.com/">MA Ruiqi</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>

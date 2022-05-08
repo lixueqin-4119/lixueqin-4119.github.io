@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>数据响应式 | 目录 | 博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.1" />
+<link rel="stylesheet" href="http://lixueqin-4119.xyz/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
+<script defer src="http://lixueqin-4119.xyz/js/eureka.min.f1639ee98d6cbd85b2b5f034d27320da962002ff83159ed4e01dbc5948c42a1ab26c2d6e74c66e93f5cec4d24dbd166d.js" integrity="sha384-8WOe6Y1svYWytfA00nMg2pYgAv&#43;DFZ7U4B28WUjEKhqybC1udMZuk/XOxNJNvRZt"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+
+<script defer type="text/javascript" src="http://lixueqin-4119.xyz/js/fontawesome.min.7b735802cbde01152678cc4a867f0b4bb0597876e29adfcaf1e5b5e99d39d7af87f348fdfd91c7eaf9ed7dc1eece7c61.js" integrity="sha384-e3NYAsveARUmeMxKhn8LS7BZeHbimt/K8eW16Z0516&#43;H80j9/ZHH6vntfcHuznxh"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="主要原理:深入响应式原理
+内容:深入理解options.data
+ Vue对data做了什么？ const myData = { n: 0 }; console.log(myData); new Vue({ data: myData, template: ` &lt;div&gt;{{n}}&lt;/div&gt; ` }).$mount(&quot;#app&quot;); setTimeout(() =&gt; { myData.n &#43;= 10; console.log(myData); }, 3000);  3s后n变成10，这次没有在vm里面加，而是在外面，说明在外面也可以变更myData。
+一般我们是在vm内变更myData的
+new Vue({ template:` &lt;div&gt; {{n}} &lt;button @click=&quot;add&quot;&gt; &#43;1 &lt;/button&gt; &lt;/div&gt; `, methods:{ add(){ //this.n &#43;=10 myData.n &#43;=10 } } }).$mount(&quot;#app&quot;)  平常我们都用this.n，今天试试myData.n。
+分别打印出myData刚声明和3s后的结果，如果第1次是n:0,那第2次就应该是n:10， 看下结果:
+第2次并不是n:10，那这个n:(...)是什么呢？
+我们需要先学习ES6的getter、setter
+示例:要想得到姓名就要调用函数obj1.姓名()所以括号不能省，但是ES6的get语法可以实现obj1.姓名删掉括号。
+// 需求一，姓名不要括号也能得出值 let obj1 = { 姓: &quot;高&quot;, 名: &quot;圆圆&quot;, get 姓名() { //以函数的形式定义的属性 return this.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"",
+      "item":"http://lixueqin-4119.xyz/docs/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"目录",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/"},{
+      "@type": "ListItem",
+      "position": 3 ,
+      "name":"Vue2 全解",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/"},{
+      "@type": "ListItem",
+      "position": 4 ,
+      "name":"数据响应式",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/"
+    },
+    "headline": "数据响应式 | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
+    "dateModified": "2020-10-16T00:00:00+00:00",
+    "wordCount":  542 ,
+    "publisher": {
+        "@type": "Person",
+        "name": "WANG Chucheng",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "http://lixueqin-4119.xyz/images/icon.png"
+        }
+        },
+    "description": "主要原理:深入响应式原理\n内容:深入理解options.data\n Vue对data做了什么？ const myData = { n: 0 }; console.log(myData); new Vue({ data: myData, template: ` \u0026lt;div\u0026gt;{{n}}\u0026lt;\/div\u0026gt; ` }).$mount(\u0026quot;#app\u0026quot;); setTimeout(() =\u0026gt; { myData.n \u002b= 10; console.log(myData); }, 3000);  3s后n变成10，这次没有在vm里面加，而是在外面，说明在外面也可以变更myData。\n一般我们是在vm内变更myData的\nnew Vue({ template:` \u0026lt;div\u0026gt; {{n}} \u0026lt;button @click=\u0026quot;add\u0026quot;\u0026gt; \u002b1 \u0026lt;\/button\u0026gt; \u0026lt;\/div\u0026gt; `, methods:{ add(){ \/\/this.n \u002b=10 myData.n \u002b=10 } } }).$mount(\u0026quot;#app\u0026quot;)  平常我们都用this.n，今天试试myData.n。\n分别打印出myData刚声明和3s后的结果，如果第1次是n:0,那第2次就应该是n:10， 看下结果:\n第2次并不是n:10，那这个n:(...)是什么呢？\n我们需要先学习ES6的getter、setter\n示例:要想得到姓名就要调用函数obj1.姓名()所以括号不能省，但是ES6的get语法可以实现obj1.姓名删掉括号。\n\/\/ 需求一，姓名不要括号也能得出值 let obj1 = { 姓: \u0026quot;高\u0026quot;, 名: \u0026quot;圆圆\u0026quot;, get 姓名() { \/\/以函数的形式定义的属性 return this."
+}
+</script><meta property="og:title" content="数据响应式 | 目录 | 博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="http://lixueqin-4119.xyz/images/icon.png">
+
+
+<meta property="og:url" content="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/" />
+
+
+
+
+<meta property="og:description" content="主要原理:深入响应式原理
+内容:深入理解options.data
+ Vue对data做了什么？ const myData = { n: 0 }; console.log(myData); new Vue({ data: myData, template: ` &lt;div&gt;{{n}}&lt;/div&gt; ` }).$mount(&quot;#app&quot;); setTimeout(() =&gt; { myData.n &#43;= 10; console.log(myData); }, 3000);  3s后n变成10，这次没有在vm里面加，而是在外面，说明在外面也可以变更myData。
+一般我们是在vm内变更myData的
+new Vue({ template:` &lt;div&gt; {{n}} &lt;button @click=&quot;add&quot;&gt; &#43;1 &lt;/button&gt; &lt;/div&gt; `, methods:{ add(){ //this.n &#43;=10 myData.n &#43;=10 } } }).$mount(&quot;#app&quot;)  平常我们都用this.n，今天试试myData.n。
+分别打印出myData刚声明和3s后的结果，如果第1次是n:0,那第2次就应该是n:10， 看下结果:
+第2次并不是n:10，那这个n:(...)是什么呢？
+我们需要先学习ES6的getter、setter
+示例:要想得到姓名就要调用函数obj1.姓名()所以括号不能省，但是ES6的get语法可以实现obj1.姓名删掉括号。
+// 需求一，姓名不要括号也能得出值 let obj1 = { 姓: &quot;高&quot;, 名: &quot;圆圆&quot;, get 姓名() { //以函数的形式定义的属性 return this." />
+
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="docs" />
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">简介</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于我</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+
+
+<div class="lg:pt-12">
+    <div class="flex flex-col md:flex-row bg-secondary-bg rounded">
+        <div class="md:w-1/4 lg:w-1/5 border-e">
+            <div class="sticky top-16 pt-6">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sidebar-title" class="md:hidden mx-4 px-2 pt-4 pb-2 md:border-b text-tertiary-text md:text-primary-text">
+    <span class="font-semibold">Table of Contents</span>
+    <i class='fas fa-caret-right ms-1'></i>
+</div>
+
+<div id="sidebar-toc"
+    class="hidden md:block overflow-y-auto mx-6 md:mx-0 pe-6 pt-2 md:max-h-doc-sidebar bg-primary-bg md:bg-transparent">
+    <div class="flex flex-wrap ms-4 -me-2 p-2 bg-secondary-bg md:bg-primary-bg rounded">
+        <a class=" hover:text-eureka"
+            href="http://lixueqin-4119.xyz/docs/example-doc/">目录</a>
+        
+        
+        
+
+
+    </div>
+    
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/">【HTML全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A0%87%E7%AD%BE/">HTML标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A6%82%E8%A7%88/">HTML概览</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E9%87%8D%E7%82%B9%E6%A0%87%E7%AD%BE/">HTML重点标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/%E6%89%8B%E6%9C%BA%E9%A2%84%E8%A7%88-%E8%B0%83%E8%AF%95/">手机预览 &amp; 调试</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/">HTTP 状态码</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/">URL 是什么</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/">请求和响应 &amp; Node.js Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/">JavaScript 的诞生</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/">JS函数</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/">JS对象</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/">JS对象分类</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">JS数据类型</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/">JS数组</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JS正则表达式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/">js获取屏幕宽高</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/">JS语法</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/">JS运算符</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/">DOM 编程</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/">DOM事件与事件委托</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/">jQuery 中的设计模式(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/">jQuery 中的设计模式(下)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/">手写DOM库(1)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/">MVC(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/">MVC(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/">Class 组件详解</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">Hooks 原理解析</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/">Hooks 各个击破</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">React 类组件和函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/">React起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/">手写 Redux</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/">computed 和 watch</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/">Vue Router -前端路由实现的思路</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" text-eureka  hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">数据响应式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/">构造选项</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/">模板、指令与修饰符</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">深入理解Vue动画原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/">表单与v-model</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/">起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/">进阶构造属性</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/">云服务器</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/">AJAX 的原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/">Ajax实战:Cookie、Session</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/">异步与Promise</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/">跨域、CORS、JSONP</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/">静态服务器Static Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/">Webpack(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/">Webpack(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+</ul>
+
+</div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <div class="w-full md:w-3/4 lg:w-4/5 pb-8 pt-2 md:pt-8">
+            <div class="flex">
+                <div class="w-full lg:w-3/4 px-6">
+                    <article class="prose">
+  <h1 class="mb-4">数据响应式</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2020-10-16</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>3 min read</span>
+  </div>
+
+  
+
+  
+</div>
+
+
+  
+  
+
+  <blockquote>
+<p>主要原理:<a href="https://cn.vuejs.org/v2/guide/reactivity.html">深入响应式原理</a></p>
+<p>内容:深入理解options.data</p>
+</blockquote>
+<h2 id="vue对data做了什么">Vue对data做了什么？</h2>
+<pre><code class="language-js">const myData = {
+  n: 0
+};
+console.log(myData); 
+
+new Vue({
+  data: myData,
+  template: `
+    &lt;div&gt;{{n}}&lt;/div&gt;
+  `
+}).$mount(&quot;#app&quot;);
+
+setTimeout(() =&gt; {
+  myData.n += 10;
+  console.log(myData); 
+}, 3000);
+
+</code></pre>
+<p>3s后n变成10，这次没有在vm里面加，而是在外面，说明在外面也可以变更myData。</p>
+<p><strong>一般我们是在vm内变更myData的</strong></p>
+<pre><code class="language-js">new Vue({
+  template:`
+  &lt;div&gt;
+    {{n}}
+    &lt;button @click=&quot;add&quot;&gt; +1 &lt;/button&gt;
+  &lt;/div&gt;
+  `,
+  methods:{
+    add(){
+    //this.n +=10
+      myData.n +=10
+    }
+  }
+}).$mount(&quot;#app&quot;)
+</code></pre>
+<p>平常我们都用<code>this.n</code>，今天试试<code>myData.n</code>。</p>
+<p>分别打印出myData刚声明和3s后的结果，如果第1次是n:0,那第2次就应该是n:10，
+看下结果:</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2771ec25574140009b4344b3316927ed~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>第2次并不是n:10，那这个<code>n:(...)</code>是什么呢？</strong></p>
+<p>我们需要先学习<a href="https://fangyinghang.com/es-6-tutorials/">ES6</a>的<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Object_initializer#ECMAScript_6%E6%96%B0%E6%A0%87%E8%AE%B0">getter、setter</a></p>
+<p>示例:要想得到姓名就要调用函数<code>obj1.姓名()</code>所以括号不能省，但是ES6的get语法可以实现<code>obj1.姓名</code>删掉括号。</p>
+<pre><code class="language-js">// 需求一，姓名不要括号也能得出值
+let obj1 = {
+  姓: &quot;高&quot;,
+  名: &quot;圆圆&quot;,
+  get 姓名() { //以函数的形式定义的属性
+    return this.姓 + this.名; 
+  }
+};
+console.log(&quot;需求一：&quot; + obj1.姓名);
+// 总结:getter就是不加括号的函数而已。
+
+// 需求二：姓名可以被写
+let obj2 = {
+  姓: &quot;高&quot;,
+  名: &quot;圆圆&quot;,
+  get 姓名() {
+    return this.姓 + this.名;
+  },
+  set 姓名(xxx){
+    this.姓 = xxx[0]
+    this.名 = xxx.substring(1)
+  }
+};
+obj2.姓名 = '高媛媛'
+console.log(`需求二：姓 ${obj2.姓}，名 ${obj2.名}`)
+// 总结:setter用= xxx触发set函数
+</code></pre>
+<p><strong>把obj2打出来</strong></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/99788346ebb6434e89e2ac422f7e478b~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>浏览器说你确实可以对姓名进行读和写，但是并不存在一个叫姓名的属性。但是你可以通过get和set设置它。</p>
+<p><strong>推断1:</strong> 由此推断之前得到的n也是一个<code>getter、setter</code>
+<code>get 姓名、set 姓名</code>说明<code>姓名:(...)</code>不是一个真实的属性</p>
+<p><strong>推断2:</strong><code>n:(...)</code>并不存在属性n,而是有个<code>get n、set n</code>,它们来模拟对n的读写操作。</p>
+<p><strong>那为什么要把n变成<code>get n、set n</code>呢？</strong></p>
+<p>需要再学下<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">Object.defineProperty()</a></p>
+<p>之前在使用<code>getter、setter</code>时，是在定义这个对象时直接使用的。在定义完一个对象之后，要想再添加新的get set时只能用<code>Object.defineProperty()</code></p>
+<pre><code class="language-js">Object.defineProperty(obj2,'xxx',{ 
+//给obj2添加虚拟属性xxx，注意xxx是不存在的。
+  var _xxx=0 //_xxx是用来存放set值的
+  get(){
+    return _xxx
+  },
+  set(value){
+    _xxx=value
+  }
+})
+</code></pre>
+<pre><code class="language-js">let data0 = { n: 0 }
+// 需求一:用Object.defineProperty定义n
+let data1 = {}
+Object.defineProperty(data1, 'n', { //给data1添加虚拟属性n,n=0
+  value: 0
+})
+console.log(`需求一：${data1.n}`) //0
+// 这语法把事情搞复杂了？非也，继续看。
+
+// 需求二：n不能小于0
+let data2 = {}
+data2._n = 0 //用_n存储n的值
+Object.defineProperty(data2, 'n', {
+  get(){
+    return this._n
+  },
+  set(value){ 
+  //set可以添加判断:小于0直接return,否则将n值置为最新value
+    if(value &lt; 0) return 
+    this._n = value 
+  }
+})
+console.log(`需求二：${data2.n}`)
+data2.n = -1
+console.log(`需求二：${data2.n} 设置为 -1 失败`)
+data2.n = 1
+console.log(`需求二：${data2.n} 设置为 1 成功`)
+// 那如果对方直接用data2._n呢？_n可以直接设置为-1呀
+
+// 需求三：使用代理obj
+//括号里是匿名对象,直接改为没有名字的对象{n:0}，data可有可无
+let data3 = proxy({ data:{n:0} }) 
+function proxy({data}){ //接收data属性
+  const obj = {}
+  //理论应该遍历data的所有key，这里做了简化
+  Object.defineProperty(obj, 'n', { 
+    get(){
+      return data.n //当你取obj.n,就返回data.n
+    },
+    set(value){
+      if(value&lt;0)return
+      data.n = value //当你设置obj.n,就设置data.n
+    }
+  })
+  return obj
+}
+// data3 就是 obj
+console.log(`需求三：${data3.n}`)
+data3.n = -1
+console.log(`需求三：${data3.n}，设置为 -1 失败`)
+data3.n = 1
+console.log(`需求三：${data3.n}，设置为 1 成功`)
+//杠精说,你看下面代码
+
+// 需求四：绕过代理，通过引用
+let myData = {n:0}
+let data4 = proxy({ data:myData })//括号里是匿名对象，无法访问
+console.log(`杠精：${data4.n}`)
+myData.n = -1
+console.log(`杠精：${data4.n}，设置为 -1 失败了吗！？`)
+
+// 需求五：就算用户擅自修改myData，也要拦截他
+let myData5 = {n:0}
+let data5 = proxy2({ data:myData5 }) //data5就是myData5的代理对象
+//监听data
+function proxy2({data}){ 
+  let value = data.n //拿到n,记录下来
+  Object.defineProperty(data, 'n', { 
+    get(){ return value },
+    set(newValue){
+      if(newValue&lt;0)return
+      value = newValue
+    }
+  })
+//代理的逻辑
+  const obj = {}
+  Object.defineProperty(obj, 'n', {
+    get(){ return data.n },
+    set(value){
+      if(value&lt;0)return
+      data.n = value //通过替身value就不能直接修改data.n啦
+    }
+  })
+  return obj
+}
+console.log(`需求五：${data5.n}`)
+myData5.n = -1
+console.log(`需求五：${data5.n}，设置为 -1 失败了`)
+myData5.n = 1
+console.log(`需求五：${data5.n}，设置为 1 成功了`)
+
+// 这代码看着眼熟吗？
+let data5 = proxy2({ data:myData5 }) 
+let vm = new Vue({data: myData})
+现在我们可以说说 new Vue 做了什么了
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e91bb7b65b9447db8c3396bfd0b0b004~tplv-k3u1fbpfcp-zoom-1.image" alt=""></p>
+<h3 id="小结">小结</h3>
+<p><strong>4.Object.defineProperty</strong></p>
+<p>可以给对象添加属性value</p>
+<p>可以给对象添加getter/setter</p>
+<p>getter/setter用于对属性的读写进行监控</p>
+<p><strong>啥是代理(设计模式)</strong></p>
+<p>对myData对象的属性读写，全权由另一个对象vm负责</p>
+<p>那么vm就是myData的代理</p>
+<p>比如myData.n不用，偏要用vm.n来操作myData.n</p>
+<p><strong>vm = new Vue({data: myData})</strong></p>
+<p><strong>一.会让vm成为myData的代理(proxy)</strong></p>
+<p><strong>二.会对myData的所有属性进行监控</strong></p>
+<p>为什么要监控，为了防止myData的属性变了，vm不知道</p>
+<p>vm知道了又如何？</p>
+<p>知道属性变了可以render(data)刷新呀</p>
+<p>UI=render(data)</p>
+<p><strong>注意:</strong> 全程这个对象<code>n:0</code>都没有被我扔掉过，一直在改这个对象里面的东西，不是搞出了一个新对象。我是把这个对象的n给覆盖掉了，变成get n、set n,我没有把这个对象删掉，因为如果我把这个对象删掉生成新的对象，那关联就断开了，不是同一个对象了。</p>
+<p>我全程都是在这个对象上面修改，修改后得到一个被修改的对象。然后在被修改的基础上，生成了一个新的代理。</p>
+<p><strong>明白2件事</strong></p>
+<p>1.Vue会对data后面的<code>{n:0}</code>进行窜改，给它加监听。</p>
+<p>2.会新生成一个对象，这个对象会代理篡改后的对象。</p>
+<p><strong>Object.defineProperty</strong></p>
+<p>可以给对象添加属性value</p>
+<p>可以给对象添加getter/setter</p>
+<p>getter/setter用于对属性的读写进行监控</p>
+<p><strong>数据响应式</strong></p>
+<blockquote>
+<p>若一个物体能对外界的刺激做出反应，它就是响应式的</p>
+</blockquote>
+<p><strong>Vue的data是响应式</strong></p>
+<p><code>const vm=new Vue({data:{n:0}})</code></p>
+<p>我如果修改vm.n,那么UI中的n就会响应我</p>
+<p>Vue 2通过<code>Object.defineProperty</code>来实现数据响应式</p>
+<p><strong>响应式网页是啥？</strong></p>
+<p>如果我改变窗口大小，网页内容会做出响应，那就是响应式网页。</p>
+<h3 id="vue的data的bug">Vue的data的bug</h3>
+<blockquote>
+<p>目前你已经知道了数据响应式，但面试不会考常态一般考变态。</p>
+</blockquote>
+<p><strong><code>Object.defineProperty</code>的问题</strong></p>
+<p><code>Object.defineProperty(obj,'n',{...})</code></p>
+<p>必须要有一个&rsquo;n&rsquo;，才能监听 &amp; 代理obj.n对吧</p>
+<p>如果前端开发者比较水，没有给n怎么办</p>
+<p><strong>示例1.</strong> Vue会给出一个警告</p>
+<pre><code class="language-js">new Vue({
+  data: {},
+  template: `
+    &lt;div&gt;{{n}}&lt;/div&gt;
+  `
+}).$mount(&quot;#app&quot;);
+</code></pre>
+<p><strong>示例2.</strong> Vue只会检查第一层属性</p>
+<pre><code class="language-js">new Vue({
+  data: {
+    obj: {
+      a: 0 //obj.a会被Vue监听 &amp; 代理
+    //b:undefined  
+    }
+  },
+  template: `
+    &lt;div&gt;
+      {{obj.b}}
+      &lt;button @click=&quot;setB&quot;&gt;set b&lt;/button&gt;
+    &lt;/div&gt;
+  `,
+  methods: {
+    setB() {
+      this.obj.b = 1; //页面中不会显示1
+    //Vue.set(this.obj,'b'，1)
+    //this.$set(this.obj,'b'，1) 
+    }
+  }
+}).$mount(&quot;#app&quot;);
+</code></pre>
+<p><strong>解决办法</strong></p>
+<p><strong>1.把k都声明好，后面不再加属性</strong> 比如<code>b:undefined</code></p>
+<p><strong>2.使用Vue.set或者this.$set</strong></p>
+<p><code>$</code>是为了防止重名</p>
+<p>比如<code>Vue.set(this.obj,'b')</code>或者<code>this.$set(this.obj,'b'，1)</code></p>
+<p><strong>Vue.set和this.$set作用:</strong></p>
+<p>新增key</p>
+<p>自动创建代理和监听(如果没有创建过)</p>
+<p>触发UI更新(但不会立刻更新)</p>
+<h3 id="数组的变异方法">数组的变异方法</h3>
+<p><strong>data中有数组，没法提前声明所有key怎么办？</strong></p>
+<p>示例</p>
+<pre><code class="language-js">new Vue({
+  data: {
+    array: [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]
+  },
+  template: `
+    &lt;div&gt;
+      {{array}}
+      &lt;button @click=&quot;setD&quot;&gt;set d&lt;/button&gt;
+    &lt;/div&gt;
+  `,
+  methods: {
+    setD() {
+    //this.array[3] = &quot;d&quot;; 页面中不会显示'd'
+    //this.$set(this.array,3,'d') 增加下标的方式实现添加
+    this.array.push('d')//尤雨溪的做法
+    console.log(this.array)
+    }
+  }
+}).$mount(&quot;#app&quot;);
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0705b3c1e3874c09b5d10c9ee15dc054~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>尤雨溪的做法:</strong><a href="https://cn.vuejs.org/v2/guide/list.html#s-authing">篡改数组的API</a></p>
+<p>Vue在这个对象，你以为这个是数组对象，你传给Vue之后，Vue就会篡改这个数组。它会<strong>在中间加一层原型</strong>。这个原型有7个方法，这7个方法跟以前是同名的但是代码被尤雨溪改了,会帮你set(监听,每次push都会通知Vue)。也就是说push会做2件事情:调以前的push,调完后通知Vue添加监听和代理。</p>
+<p><strong>这7个API都会被Vue篡改，调用后会更新UI</strong></p>
+<p><strong>总结</strong></p>
+<p><strong>1.对象中新增的key</strong></p>
+<p>Vue无法事先监听和代理</p>
+<p>要使用set来新增key,创建监听和代理,更新UI</p>
+<p>最好提前把属性都写出来，不要新增key</p>
+<p>但数组做不到「不新增key」</p>
+<p><strong>2.数组中新增的key</strong></p>
+<p>也可用set来新增key,更新UI</p>
+<p>不过尤雨溪篡改了7个API方便你对数组进行增删</p>
+<p>这7个API会<strong>自动处理监听和代理</strong>，并更新UI</p>
+<p>结论:数组新增key最后通过7个API</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/747dd91fdf354b1eb0055a0d2905105c~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>面试题</strong><br>
+<strong>说说你对Vue数据响应式的理解</strong><br>
+Vue数据响应式,使得数据更新时得到及时的渲染。vue通过<code>Object.defineProperty()</code>给数据对象添加value属性，设置getter和setter监控属性的读写，并使用vm对象负责数据对象的代理，当属性更新时，调用rander()更新。</p>
+
+</article>
+
+                    
+                    
+                    
+
+                    
+
+
+
+                    
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+        <span class="text-primary-text block font-bold"
+          >Previous</span
+        >
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/" class="block">Vue Router -前端路由实现的思路</a>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+        <span class="text-primary-text block font-bold">Next</span>
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/" class="block">构造选项</a>
+      
+    </div>
+  </div>
+
+
+                    
+
+
+
+                </div>
+                
+                <div class="hidden lg:block lg:w-1/4">
+                    
+                    <div
+  class="
+    bg-secondary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>On This Page</h3>
+</div>
+<div
+  class="sticky-toc 
+    border-s
+   hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#vue对data做了什么">Vue对data做了什么？</a>
+      <ul>
+        <li><a href="#小结">小结</a></li>
+        <li><a href="#vue的data的bug">Vue的data的bug</a></li>
+        <li><a href="#数组的变异方法">数组的变异方法</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+                    
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        hljs.initHighlightingOnLoad();
+        changeSidebarHeight();
+        switchDocToc();
+    })
+</script>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2021 <a href="https://www.wangchucheng.com/">WANG Chucheng</a> and <a href="https://www.ruiqima.com/">MA Ruiqi</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>

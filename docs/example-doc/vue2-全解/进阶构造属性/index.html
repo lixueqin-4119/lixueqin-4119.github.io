@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>进阶构造属性 | 目录 | 博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.1" />
+<link rel="stylesheet" href="http://lixueqin-4119.xyz/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
+<script defer src="http://lixueqin-4119.xyz/js/eureka.min.f1639ee98d6cbd85b2b5f034d27320da962002ff83159ed4e01dbc5948c42a1ab26c2d6e74c66e93f5cec4d24dbd166d.js" integrity="sha384-8WOe6Y1svYWytfA00nMg2pYgAv&#43;DFZ7U4B28WUjEKhqybC1udMZuk/XOxNJNvRZt"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+
+<script defer type="text/javascript" src="http://lixueqin-4119.xyz/js/fontawesome.min.7b735802cbde01152678cc4a867f0b4bb0597876e29adfcaf1e5b5e99d39d7af87f348fdfd91c7eaf9ed7dc1eece7c61.js" integrity="sha384-e3NYAsveARUmeMxKhn8LS7BZeHbimt/K8eW16Z0516&#43;H80j9/ZHH6vntfcHuznxh"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="Vue构造属性: directives、mixins、extends、provide、inject
+ 1.Directives 指令 2种写法
+1&rsquo; 声明一个全局指令
+Vue.directive(&#39;x&#39;,directiveOptions)  例子: 造出v-x，点击即打印x。
+声明指令x,当元素被插入到页面中之后，我们就监听它的click事件。
+1.先声明 main.js Vue.directive(&#39;x&#39;,{ //单个directive inserted:function(el){ el.addEventListener(&#39;click&#39;,()=&gt;{console.log(&#39;x&#39;)}) }, }) 2.再使用x指令 进入App.vue组件 &lt;template&gt; &lt;img v-x width=&quot;25%&quot; src=&quot;./assets/logo.png&quot;&gt; &lt;HelloWorld msg=&quot;Hello Vue&quot;/&gt; //让HelloWorld也响应:进入HelloWorld.vue组件添加`&lt;h1 v-x&gt;`,再次点击&lt;h1&gt;控制台就会输出x。 &lt;/template&gt;  你可以在任何组件里用v-x了。 inserted你把el放哪个元素上，el就是哪个元素，比如放&lt;img&gt;上，el就是&lt;img&gt;
+2&rsquo; 声明一个局部指令 v-x只能在该实例中用
+new Vue({ ..., directives:{ &quot;x&quot;:directiveOptions } })  例子: 只能在HelloWord.vue组件里用 x
+HelloWord.vue &lt;template&gt; &lt;div class=&quot;hello&quot;&gt; &lt;h1 v-x&gt;{{ msg }}&lt;/h1&gt; //使用 &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { directives: { //可声明多个directives &#39;x&#39;: { inserted(el) { el.addEventListener(&quot;click&quot;, () =&gt; {console.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"",
+      "item":"http://lixueqin-4119.xyz/docs/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"目录",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/"},{
+      "@type": "ListItem",
+      "position": 3 ,
+      "name":"Vue2 全解",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/"},{
+      "@type": "ListItem",
+      "position": 4 ,
+      "name":"进阶构造属性",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/"
+    },
+    "headline": "进阶构造属性 | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
+    "dateModified": "2020-10-16T00:00:00+00:00",
+    "wordCount":  819 ,
+    "publisher": {
+        "@type": "Person",
+        "name": "WANG Chucheng",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "http://lixueqin-4119.xyz/images/icon.png"
+        }
+        },
+    "description": "Vue构造属性: directives、mixins、extends、provide、inject\n 1.Directives 指令 2种写法\n1\u0026rsquo; 声明一个全局指令\nVue.directive(\u0027x\u0027,directiveOptions)  例子: 造出v-x，点击即打印x。\n声明指令x,当元素被插入到页面中之后，我们就监听它的click事件。\n1.先声明 main.js Vue.directive(\u0027x\u0027,{ \/\/单个directive inserted:function(el){ el.addEventListener(\u0027click\u0027,()=\u0026gt;{console.log(\u0027x\u0027)}) }, }) 2.再使用x指令 进入App.vue组件 \u0026lt;template\u0026gt; \u0026lt;img v-x width=\u0026quot;25%\u0026quot; src=\u0026quot;.\/assets\/logo.png\u0026quot;\u0026gt; \u0026lt;HelloWorld msg=\u0026quot;Hello Vue\u0026quot;\/\u0026gt; \/\/让HelloWorld也响应:进入HelloWorld.vue组件添加`\u0026lt;h1 v-x\u0026gt;`,再次点击\u0026lt;h1\u0026gt;控制台就会输出x。 \u0026lt;\/template\u0026gt;  你可以在任何组件里用v-x了。 inserted你把el放哪个元素上，el就是哪个元素，比如放\u0026lt;img\u0026gt;上，el就是\u0026lt;img\u0026gt;\n2\u0026rsquo; 声明一个局部指令 v-x只能在该实例中用\nnew Vue({ ..., directives:{ \u0026quot;x\u0026quot;:directiveOptions } })  例子: 只能在HelloWord.vue组件里用 x\nHelloWord.vue \u0026lt;template\u0026gt; \u0026lt;div class=\u0026quot;hello\u0026quot;\u0026gt; \u0026lt;h1 v-x\u0026gt;{{ msg }}\u0026lt;\/h1\u0026gt; \/\/使用 \u0026lt;\/div\u0026gt; \u0026lt;\/template\u0026gt; \u0026lt;script\u0026gt; export default { directives: { \/\/可声明多个directives \u0027x\u0027: { inserted(el) { el.addEventListener(\u0026quot;click\u0026quot;, () =\u0026gt; {console."
+}
+</script><meta property="og:title" content="进阶构造属性 | 目录 | 博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="http://lixueqin-4119.xyz/images/icon.png">
+
+
+<meta property="og:url" content="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/" />
+
+
+
+
+<meta property="og:description" content="Vue构造属性: directives、mixins、extends、provide、inject
+ 1.Directives 指令 2种写法
+1&rsquo; 声明一个全局指令
+Vue.directive(&#39;x&#39;,directiveOptions)  例子: 造出v-x，点击即打印x。
+声明指令x,当元素被插入到页面中之后，我们就监听它的click事件。
+1.先声明 main.js Vue.directive(&#39;x&#39;,{ //单个directive inserted:function(el){ el.addEventListener(&#39;click&#39;,()=&gt;{console.log(&#39;x&#39;)}) }, }) 2.再使用x指令 进入App.vue组件 &lt;template&gt; &lt;img v-x width=&quot;25%&quot; src=&quot;./assets/logo.png&quot;&gt; &lt;HelloWorld msg=&quot;Hello Vue&quot;/&gt; //让HelloWorld也响应:进入HelloWorld.vue组件添加`&lt;h1 v-x&gt;`,再次点击&lt;h1&gt;控制台就会输出x。 &lt;/template&gt;  你可以在任何组件里用v-x了。 inserted你把el放哪个元素上，el就是哪个元素，比如放&lt;img&gt;上，el就是&lt;img&gt;
+2&rsquo; 声明一个局部指令 v-x只能在该实例中用
+new Vue({ ..., directives:{ &quot;x&quot;:directiveOptions } })  例子: 只能在HelloWord.vue组件里用 x
+HelloWord.vue &lt;template&gt; &lt;div class=&quot;hello&quot;&gt; &lt;h1 v-x&gt;{{ msg }}&lt;/h1&gt; //使用 &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { directives: { //可声明多个directives &#39;x&#39;: { inserted(el) { el.addEventListener(&quot;click&quot;, () =&gt; {console." />
+
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="docs" />
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">简介</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于我</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+
+
+<div class="lg:pt-12">
+    <div class="flex flex-col md:flex-row bg-secondary-bg rounded">
+        <div class="md:w-1/4 lg:w-1/5 border-e">
+            <div class="sticky top-16 pt-6">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sidebar-title" class="md:hidden mx-4 px-2 pt-4 pb-2 md:border-b text-tertiary-text md:text-primary-text">
+    <span class="font-semibold">Table of Contents</span>
+    <i class='fas fa-caret-right ms-1'></i>
+</div>
+
+<div id="sidebar-toc"
+    class="hidden md:block overflow-y-auto mx-6 md:mx-0 pe-6 pt-2 md:max-h-doc-sidebar bg-primary-bg md:bg-transparent">
+    <div class="flex flex-wrap ms-4 -me-2 p-2 bg-secondary-bg md:bg-primary-bg rounded">
+        <a class=" hover:text-eureka"
+            href="http://lixueqin-4119.xyz/docs/example-doc/">目录</a>
+        
+        
+        
+
+
+    </div>
+    
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/">【HTML全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A0%87%E7%AD%BE/">HTML标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A6%82%E8%A7%88/">HTML概览</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E9%87%8D%E7%82%B9%E6%A0%87%E7%AD%BE/">HTML重点标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/%E6%89%8B%E6%9C%BA%E9%A2%84%E8%A7%88-%E8%B0%83%E8%AF%95/">手机预览 &amp; 调试</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/">HTTP 状态码</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/">URL 是什么</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/">请求和响应 &amp; Node.js Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/">JavaScript 的诞生</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/">JS函数</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/">JS对象</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/">JS对象分类</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">JS数据类型</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/">JS数组</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JS正则表达式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/">js获取屏幕宽高</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/">JS语法</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/">JS运算符</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/">DOM 编程</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/">DOM事件与事件委托</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/">jQuery 中的设计模式(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/">jQuery 中的设计模式(下)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/">手写DOM库(1)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/">MVC(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/">MVC(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/">Class 组件详解</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">Hooks 原理解析</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/">Hooks 各个击破</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">React 类组件和函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/">React起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/">手写 Redux</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/">computed 和 watch</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/">Vue Router -前端路由实现的思路</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">数据响应式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/">构造选项</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/">模板、指令与修饰符</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">深入理解Vue动画原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/">表单与v-model</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/">起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" text-eureka  hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/">进阶构造属性</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/">云服务器</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/">AJAX 的原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/">Ajax实战:Cookie、Session</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/">异步与Promise</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/">跨域、CORS、JSONP</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/">静态服务器Static Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/">Webpack(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/">Webpack(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+</ul>
+
+</div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <div class="w-full md:w-3/4 lg:w-4/5 pb-8 pt-2 md:pt-8">
+            <div class="flex">
+                <div class="w-full lg:w-3/4 px-6">
+                    <article class="prose">
+  <h1 class="mb-4">进阶构造属性</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2020-10-16</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>4 min read</span>
+  </div>
+
+  
+
+  
+</div>
+
+
+  
+  
+
+  <blockquote>
+<p><strong>Vue构造属性: directives、mixins、extends、provide、inject</strong></p>
+</blockquote>
+<h3 id="1directives-指令httpscnvuejsorgv2apivue-directive">1.<a href="https://cn.vuejs.org/v2/api/#Vue-directive">Directives 指令</a></h3>
+<p><strong>2种写法</strong></p>
+<p><strong>1&rsquo; 声明一个全局指令</strong></p>
+<pre><code class="language-js">Vue.directive('x',directiveOptions)
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4f4b484634fe4a778bfa878f2a0c2db7~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>例子:</strong> 造出v-x，点击即打印x。</p>
+<p>声明指令x,当元素被<strong>插入</strong>到页面中之后，我们就监听它的click事件。</p>
+<pre><code class="language-js">1.先声明
+main.js
+Vue.directive('x',{ //单个directive
+  inserted:function(el){
+    el.addEventListener('click',()=&gt;{console.log('x')})
+  },
+})
+
+2.再使用x指令
+进入App.vue组件
+&lt;template&gt;
+  &lt;img v-x width=&quot;25%&quot; src=&quot;./assets/logo.png&quot;&gt;
+  &lt;HelloWorld msg=&quot;Hello Vue&quot;/&gt; 
+//让HelloWorld也响应:进入HelloWorld.vue组件添加`&lt;h1 v-x&gt;`,再次点击&lt;h1&gt;控制台就会输出x。
+&lt;/template&gt;
+</code></pre>
+<p><strong>你可以在任何组件里用<code>v-x</code>了。</strong>
+inserted你把<strong>el</strong>放哪个元素上，el就是哪个元素，比如放<code>&lt;img&gt;</code>上，el就是<code>&lt;img&gt;</code></p>
+<p><strong>2&rsquo; 声明一个局部指令</strong>
+<strong><code>v-x</code>只能在该实例中用</strong></p>
+<pre><code class="language-js">new Vue({
+ ...,
+ directives:{
+   &quot;x&quot;:directiveOptions
+ }
+})
+</code></pre>
+<p><strong>例子:</strong> 只能在HelloWord.vue组件里用 x</p>
+<pre><code class="language-js">HelloWord.vue
+&lt;template&gt;
+  &lt;div class=&quot;hello&quot;&gt;
+    &lt;h1 v-x&gt;{{ msg }}&lt;/h1&gt; //使用
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+  directives: { //可声明多个directives
+    'x': {
+       inserted(el) {
+         el.addEventListener(&quot;click&quot;, () =&gt; {console.log(&quot;x&quot;)});
+      },
+    },
+  },
+&lt;/script&gt;
+</code></pre>
+<h3 id="directiveoptions的其它属性">directiveOptions的其它属性</h3>
+<blockquote>
+<p><strong>常用的钩子函数:bind、inserted、unbind</strong></p>
+</blockquote>
+<p>文档: <a href="https://cn.vuejs.org/v2/guide/custom-directive.html#%E9%92%A9%E5%AD%90%E5%87%BD%E6%95%B0">钩子函数</a>、<a href="https://cn.vuejs.org/v2/guide/custom-directive.html#%E9%92%A9%E5%AD%90%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0">钩子函数参数</a>
+<img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8647e73a9fbd4e1f8d25d8920154ed3a~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>函数接收的参数</strong>,都是Vue传给我们的:<code>el、info、vnode、oldVnode</code></p>
+<p><strong>1.el</strong> 就是你把v-x绑到哪个元素上去了</p>
+<p><strong>2.info</strong> 就是除了传元素外，你还传了哪些东西。info包含了很多详细的消息，基本上你要的东西都在第2个参数里。</p>
+<p>原文是binding对象:</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5c35c8ddd15940079f85fafbe4491486~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>3.vnode 元素对应的虚拟节点</p>
+<p>4.oldVnode 之前的虚拟节点，有可能这个元素是从旧到新</p>
+<p><strong>例子:</strong> 模仿v-on，自制v-on2指令</p>
+<pre><code class="language-js">new Vue({
+  directives: {
+    on2: {
+      inserted(el, info) {
+        //console.log(el); 打印出&lt;button&gt;点我&lt;/button&gt;
+        //console.log(info); 打印出一个对象
+        console.log(info.arg);
+        el.addEventListener(info.arg, info.value);
+      },
+      unbind(el, info) { //unbind用于清理垃圾，删除监听
+        el.removeEventListener(info.arg, info.value);
+      }
+    }
+  },
+  template: `
+    &lt;button v-on2:click=&quot;hi&quot;&gt;点我&lt;/button&gt;
+  `,
+  methods: {
+    hi() {
+      console.log(&quot;hi&quot;);
+    }
+  }
+}).$mount(&quot;#app&quot;);
+</code></pre>
+<p><code>addEventListener</code>时无法确定是否是<code>click</code>，因为还有可能是其它事件，比如keyup。此时可以利用第2个参数拿到用户传的事件。用<code>info</code>得到用户传的事件</p>
+<p><strong><code>info</code>拿到的是个对象</strong>
+<img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/23f9df86b76d4b889e93e65b451ac91f~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>当元素被插入到页面中时，我们就监听这个元素的事件和对应的方法。</p>
+<p><a href="https://cn.vuejs.org/v2/guide/custom-directive.html#%E5%87%BD%E6%95%B0%E7%AE%80%E5%86%99">函数简写</a>不推荐</p>
+<p><strong>指令的作用</strong></p>
+<p><strong>1.主要用于DOM操作</strong></p>
+<p>Vue实例/组件用于数据绑定、事件监听、DOM更新</p>
+<p>Vue指令主要目的就是原生DOM操作</p>
+<p><strong>2.减少重复</strong></p>
+<p>如果某个DOM操作你经常使用，就可以封装为指令</p>
+<p>如果某个DOM操作比较复杂，也可以封装为指令</p>
+<p><strong>解析</strong></p>
+<p><strong>1.主要用于DOM操作</strong></p>
+<p>平时在用Vue时从来不做DOM操作，只是改数据，数据自动更新UI。但是我们在实际开发中有时不得不写DOM操作，这时可以<strong>把DOM操作封装成一个指令，然后只传个函数给这个指令</strong>这样就可以永远不去接触DOM操作了。</p>
+<p><code>new Vue({})</code>一般会传data、methods、钩子函数主要用途就是数据绑定、事件监听、DOM更新。DOM更新不是通过DOM API更新，而是直接通过<code>监听器</code>去更新。如果你要进行DOM操作，就只能用Vue指令，Vue组件和Vue指令各司其职。</p>
+<h3 id="mixins-混入">mixins 混入</h3>
+<p><strong>mixins目的也是为了减少重复,就是把一些属性复制到你的组件上。</strong></p>
+<p><strong>类比</strong></p>
+<p>1.directives的作用是减少DOM操作的重复</p>
+<p>2.mixins的作用是减少data、methods、钩子的重复，也就是减少构造函数的重复。</p>
+<p><strong><a href="https://codesandbox.io/s/brave-dijkstra-memmm?file=/src/components/Child1.vue">示例</a>
+使用mixins减少重复</strong></p>
+<pre><code class="language-js">App.vue
+&lt;template&gt;
+  &lt;div id=&quot;app&quot;&gt;
+    &lt;Child1 v-if=&quot;child1Visible&quot;/&gt;
+    &lt;button @click=&quot;child1Visible = false&quot;&gt;x&lt;/button&gt;
+    &lt;Child2 v-if=&quot;child2Visible&quot;/&gt;
+    &lt;button @click=&quot;child2Visible = false&quot;&gt;x&lt;/button&gt;
+    &lt;Child3 v-if=&quot;child3Visible&quot;/&gt;
+    &lt;button @click=&quot;child3Visible = false&quot;&gt;x&lt;/button&gt;
+    &lt;Child4 v-if=&quot;child4Visible&quot;/&gt;
+    &lt;button @click=&quot;child4Visible = false&quot;&gt;x&lt;/button&gt;
+    &lt;Child5 v-if=&quot;child5Visible&quot;/&gt;
+    &lt;button @click=&quot;child5Visible = false&quot;&gt;x&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+import Child1 from &quot;./components/Child1.vue&quot;;
+import Child2 from &quot;./components/Child2.vue&quot;;
+import Child3 from &quot;./components/Child3.vue&quot;;
+import Child4 from &quot;./components/Child4.vue&quot;;
+import Child5 from &quot;./components/Child5.vue&quot;;
+export default {
+  name: &quot;App&quot;,
+  data() {
+    return {
+      child1Visible: true,
+      child2Visible: true,
+      child3Visible: true,
+      child4Visible: true,
+      child5Visible: true
+    };
+  },
+  components: {
+    Child1,
+    Child2,
+    Child3,
+    Child4,
+    Child5
+  }
+};
+&lt;/script&gt;
+
+Child1.vue
+&lt;template&gt;
+  &lt;div&gt;Child1&lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+import log from &quot;../mixins/log.js&quot;;
+export default {
+  data() {
+    return {
+      name: &quot;Child1&quot;, //name自己传
+    };
+  },
+  created() {
+    console.log(&quot;Child 1 的 created&quot;);
+  },
+  mixins: [log],
+};
+&lt;/script&gt;
+
+Child2.vue
+&lt;template&gt;
+  &lt;div&gt;Child2&lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+import log from &quot;../mixins/log.js&quot;;
+export default {
+  data() {
+    return {
+      name: &quot;Child2&quot; //name自己传
+    };
+  },
+  mixins: [log]
+};
+&lt;/script&gt;
+Child3.vue、Child4.vue、Child5.vue代码略...
+
+log.js
+const log = { //log必须是对象
+  data() { //2个data会智能合并
+    return {
+      name: undefined,
+      time: undefined
+    };
+  },
+  created() {
+    if (!this.name) { 
+      throw new Error(&quot;need name&quot;);
+    }
+    this.time = new Date();
+    console.log(`${this.name}出生了`);
+  },
+  beforeDestroy() {
+    const now = new Date();
+    console.log(`${this.name}死亡了，共生存了 ${now - this.time} ms`);
+  }
+};
+export default log;
+</code></pre>
+<h4 id="mixins的实现思路">mixins的实现思路</h4>
+<p>五个组件都有构造函数<code>data、created、beforeDestroy</code>,那我们就把公共的抽到一个地方。</p>
+<p><strong>步骤</strong></p>
+<p><strong>1.新建目录mixins、新建文件log.js,然后将共有的剪切到log.js里。</strong></p>
+<p>log.js代码参照上面</p>
+<p><strong>2.使用log</strong></p>
+<p>Child1.vue代码参考上面</p>
+<pre><code class="language-js">&lt;script&gt;
+import log from &quot;../mixins/log.js&quot;;
+export default {
+  mixins: [log], //把log里的内容复制到我这里
+};
+&lt;/script&gt;
+</code></pre>
+<p><strong>mixins技巧</strong></p>
+<p>选项智能合并<a href="https://cn.vuejs.org/v2/guide/mixins.html#%E9%80%89%E9%A1%B9%E5%90%88%E5%B9%B6">文档</a></p>
+<p>也可以使用<a href="https://cn.vuejs.org/v2/api/#Vue-mixin">全局Vue.mixin</a> 但不推荐使用</p>
+<h3 id="extends-继承扩展">extends 继承、扩展</h3>
+<p><strong>extends也是构造选项里的一个选项，跟mixins很像，也是复制减少重复但形式不同。
+<strong>extends更抽象高级，但还是</strong>推荐用mixins</strong>。</p>
+<p><strong>步骤</strong></p>
+<p><strong>1.新建文件MyVue.js，这不是Vue组件。</strong></p>
+<pre><code class="language-js">import Vue from &quot;vue&quot;
+const MyVue = Vue.extend({ //继承Vue,MyVue就是Vue的一个扩展
+  data(){ return {name:'',time:undefined} },
+  created(){
+    if(!this.name){console.error('no name!')}
+    this.time = new Date()
+  },
+  beforeDestroy(){
+    const duration = (new Date()) - this.time
+    console.log(`${this.name} ${duration}`)
+  },
+  //mixins:[log] 也可以使用mixins
+})
+export default MyVue
+</code></pre>
+<p><strong>2.导入+继承</strong></p>
+<pre><code class="language-js">Child1.vue
+&lt;template&gt;
+  &lt;div&gt;Child1&lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+import MyVue from &quot;../MyVue.js&quot;;
+export default{
+  extends:MyVue,
+  data(){
+    return {
+      name:&quot;Child1&quot;
+    }
+  }
+}
+&lt;/script&gt;
+</code></pre>
+<p>extends是比mixins更抽象一点的封装。如果你嫌写5次mixins麻烦，可以考虑extends一次，不过实际工作中用的很少。</p>
+<h3 id="provide提供-和-inject注入">provide(提供) 和 inject(注入)</h3>
+<p><a href="https://codesandbox.io/s/fragrant-rain-h8lm6?file=/src/main.js">例子</a></p>
+<pre><code class="language-js">App.vue
+&lt;template&gt;
+  &lt;div :class=&quot;`app theme-${themeName} fontSize-${fontSizeName}`&quot;&gt;
+//同时添加3个class
+//注意: :class=&quot;&quot;双引号是XML的双引号，不是JS的双引号。``这是JS的引号
+    &lt;Child1/&gt;
+    &lt;button&gt;x&lt;/button&gt;
+    &lt;Child2/&gt;
+    &lt;button&gt;x&lt;/button&gt;
+    &lt;Child3/&gt;
+    &lt;button&gt;x&lt;/button&gt;
+    &lt;Child4/&gt;
+    &lt;button&gt;x&lt;/button&gt;
+    &lt;Child5/&gt;
+    &lt;button&gt;x&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+import Child1 from &quot;./components/Child1.vue&quot;;
+import Child2 from &quot;./components/Child2.vue&quot;;
+import Child3 from &quot;./components/Child3.vue&quot;;
+import Child4 from &quot;./components/Child4.vue&quot;;
+import Child5 from &quot;./components/Child5.vue&quot;;
+export default {
+  name: &quot;App&quot;,
+  provide() {
+    return {
+      themeName: this.themeName,
+      fontSizeNmae: this.fontSizeName,
+      changeTheme: this.changeTheme, 
+      changeFontSize: this.changeFontSize
+    };
+  },
+  data() {
+    return {
+      themeName: &quot;blue&quot;, // 'red'
+    //blue和red存在themeName里，点击换肤时会切换blue、red
+      fontSizeName: &quot;normal&quot; // 'big' | 'small'
+    };
+  },
+  methods: {
+    changeTheme() {
+      if (this.themeName === &quot;blue&quot;) {
+        this.themeName = &quot;red&quot;;
+      } else {
+        this.themeName = &quot;blue&quot;;
+      }
+    },
+    changeFontSize(size) {
+    //name在这3个中时下标才会 &gt;= 0,不在下标是-1
+      if ([&quot;normal&quot;, &quot;big&quot;, &quot;small&quot;].indexOf(size) === -1) {
+        throw new Error(`wront size: ${size}`);
+      }
+      this.fontSizeName = size;
+    }
+  },
+  components: {
+    Child1,
+    Child2,
+    Child3,
+    Child4,
+    Child5
+  }
+};
+&lt;/script&gt;
+&lt;style&gt;
+.app {
+  font-family: &quot;Avenir&quot;, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+//换肤的实现是用CSS
+//如果一个元素能同时满足app和theme-blue,就设置button为蓝色
+.app.theme-blue button {
+  background: blue;
+  color: white;
+}
+.app.theme-blue {
+  color: darkblue;
+}
+.app.theme-red button {
+  background: red;
+  color: white;
+}
+.app.theme-red {
+  color: darkred;
+}
+.app.fontSize-normal {
+  font-size: 16px;
+}
+.app button {
+  font-size: inherit;
+}
+.app.fontSize-small {
+  font-size: 12px;
+}
+.app.fontSize-big {
+  font-size: 20px;
+}
+&lt;/style&gt;
+</code></pre>
+<p><strong>流程</strong></p>
+<p><strong>1.新建ChangeThemeButton组件</strong>:新建ChangeThemeButton.vue</p>
+<pre><code class="language-js">ChangeThemeButton.vue
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;button @click=&quot;changeTheme&quot;&gt;换肤&lt;/button&gt;
+    &lt;button @click=&quot;changeFontSize('big')&quot;&gt;大字&lt;/button&gt;
+    &lt;button @click=&quot;changeFontSize('small')&quot;&gt;小字&lt;/button&gt;
+    &lt;button @click=&quot;changeFontSize('normal')&quot;&gt;正常字&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+
+};
+  inject: [&quot;themeName&quot;, &quot;changeTheme&quot;, &quot;changeFontSize&quot;]
+};
+&lt;/script&gt;
+
+Child1.vue
+&lt;template&gt;
+  &lt;div&gt;Child 1
+    &lt;change-theme-button/&gt; //这样也能找到组件，Vue会自己找
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+import ChangeThemeButton from &quot;./ChangeThemeButton.vue&quot;;
+export default {
+  components: { ChangeThemeButton }
+};
+&lt;/script&gt;
+</code></pre>
+<p><strong>2.App.vue完善需求实现切肤</strong></p>
+<p>代码参考上面App.vue</p>
+<p><strong>3.provide + inject</strong></p>
+<p>App组件(App.vue)只要切换自己的“data的themeName值”就能换肤，那如何在按钮里(ChangeThemeButton组件)改变App的data？自己只能改变自己的data,怎么才能改变别人的data？用provide实现改变别人的data。</p>
+<p><strong>(1)provide:在提供数据的地方写provide，提供给别人改</strong></p>
+<pre><code class="language-js">App.vue
+&lt;script&gt;
+export default {
+  name: &quot;App&quot;,
+  provide() {
+    return {
+      themeName: this.themeName, //提供给别人用或改
+      fontSizeNmae: this.fontSizeName, //提供给别人用或改
+      changeTheme: this.changeTheme,  //提供给别人用或改
+      changeFontSize: this.changeFontSize //提供给别人用或改
+    };
+  },
+</code></pre>
+<p><strong>(2)inject:<strong>把别人提供的东西注入到我的组件来，使用</strong>provide</strong></p>
+<pre><code class="language-js">ChangeThemeButton.vue
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;button&gt;当前主题色：{{themeName}},换肤&lt;/button&gt;
+&lt;/template&gt;    
+&lt;script&gt;
+export default {
+  inject: [&quot;themeName&quot;]//注入
+};
+&lt;/script&gt;
+</code></pre>
+<p><strong>注意:<strong>provide提供的是字符串的复制品，拿到的是string,不能改，应该把改的函数传过来，拿到</strong>函数的引用</strong>调用它就行(changeTheme)。</p>
+<pre><code class="language-js">App.vue
+provide() {
+    return {
+      themeName: this.themeName,//提供给别人用或改
+      changeTheme: this.changeTheme,//提供给别人用或改
+    };
+  },
+methods: {
+    changeTheme() {
+      if (this.themeName === &quot;blue&quot;) {
+        this.themeName = &quot;red&quot;;
+      } else {
+        this.themeName = &quot;blue&quot;;
+      }
+    },
+    
+ChangeThemeButton.vue
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;button @click=&quot;z&quot;&gt;当前主题色：{{themeName}},换肤&lt;/button&gt;
+&lt;/template&gt;  
+&lt;script&gt;
+export default {
+  inject: [&quot;themeName&quot;, &quot;changeTheme&quot;],
+  methods:{
+    z(){
+      this.changeTheme()
+    }
+  }
+};
+&lt;/script&gt;    
+</code></pre>
+<p>字符串拿来时已经复制了，改复制品没用，也可以用<strong>对象的引用</strong>,但不推荐。因为当这样做的人多了之后就没法控制量了，变量被到处改，无法知道变量处于什么状态，容易失控。</p>
+<p><strong>知识点</strong></p>
+<p>1.<code>:class=&quot;&quot;</code>双引号是XML的双引号，不是JS的双引号。</p>
+<p>``这是JS的引号</p>
+<pre><code class="language-js">&lt;div :class=&quot;`app theme-${themeName} fontSize-${fontSizeName}`&quot;&gt;
+解析:第1个class是app。第2个class是theme-${themeName}，blue和red存在themeName里。
+    第3个class是fontSize-${fontSizeName}
+</code></pre>
+<p><strong>2.CSS选择器</strong></p>
+<pre><code class="language-js">&lt;div :class=&quot;`app theme-${themeName}`&quot;&gt;同时设置多个class
+.app.theme-blue{ background：blue }
+//如果一个元素同时满足这2个选择器，一个class为app,一个class为theme-blue，那么就设置为blue
+
+.app.theme-blue button{ background：blue } 
+//如果一个元素能同时满足app和theme-blue,那么它里面的button就是蓝色
+
+.app .theme-blue 
+//如果app里面有theme-blue
+</code></pre>
+
+</article>
+
+                    
+                    
+                    
+
+                    
+
+
+
+                    
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+        <span class="text-primary-text block font-bold"
+          >Previous</span
+        >
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/" class="block">起手式</a>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+    </div>
+  </div>
+
+
+                    
+
+
+
+                </div>
+                
+                <div class="hidden lg:block lg:w-1/4">
+                    
+                    <div
+  class="
+    bg-secondary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>On This Page</h3>
+</div>
+<div
+  class="sticky-toc 
+    border-s
+   hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1directives-指令httpscnvuejsorgv2apivue-directive">1.<a href="https://cn.vuejs.org/v2/api/#Vue-directive">Directives 指令</a></a></li>
+        <li><a href="#directiveoptions的其它属性">directiveOptions的其它属性</a></li>
+        <li><a href="#mixins-混入">mixins 混入</a>
+          <ul>
+            <li><a href="#mixins的实现思路">mixins的实现思路</a></li>
+          </ul>
+        </li>
+        <li><a href="#extends-继承扩展">extends 继承、扩展</a></li>
+        <li><a href="#provide提供-和-inject注入">provide(提供) 和 inject(注入)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+                    
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        hljs.initHighlightingOnLoad();
+        changeSidebarHeight();
+        switchDocToc();
+    })
+</script>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2021 <a href="https://www.wangchucheng.com/">WANG Chucheng</a> and <a href="https://www.ruiqima.com/">MA Ruiqi</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>

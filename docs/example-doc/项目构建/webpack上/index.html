@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>Webpack(上) | 目录 | 博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.1" />
+<link rel="stylesheet" href="http://lixueqin-4119.xyz/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
+<script defer src="http://lixueqin-4119.xyz/js/eureka.min.f1639ee98d6cbd85b2b5f034d27320da962002ff83159ed4e01dbc5948c42a1ab26c2d6e74c66e93f5cec4d24dbd166d.js" integrity="sha384-8WOe6Y1svYWytfA00nMg2pYgAv&#43;DFZ7U4B28WUjEKhqybC1udMZuk/XOxNJNvRZt"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+
+<script defer type="text/javascript" src="http://lixueqin-4119.xyz/js/fontawesome.min.7b735802cbde01152678cc4a867f0b4bb0597876e29adfcaf1e5b5e99d39d7af87f348fdfd91c7eaf9ed7dc1eece7c61.js" integrity="sha384-e3NYAsveARUmeMxKhn8LS7BZeHbimt/K8eW16Z0516&#43;H80j9/ZHH6vntfcHuznxh"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="前端框架Webpack，前端最重要的工具之一。
+CRM法学webpack,通过11个任务学会webpack。
+webpack文档、npm文档
+ 工具
+webpack@4 和 webpack-dev-server本地预览
+本地预览httpserver没有webpack-dev-server功能强,parcel也能本地预览但与webpack不配套,所以只能用webpack-dev-server。
+webpack这么多插件怎么学？
+重要的&quot;不是用什么&quot;，而是&quot;怎么知道用什么&quot;，要学会搜&#43;CRM法。
+🔍英文关键词&#43;CRM法
+框架 Webpack功能
+转译代码(ES6转为ES5，SCSS转为css)
+构建build
+代码压缩
+代码分析
+安装依赖
+终端:yarn add webpack@4 webpack-cli@3 --dev //webpack-cli用于在命令行中运行webpack  目标一. 用webpack转译JS 1.调用webpack
+(1)新建文件webpack-demo并用vscode打开，新建终端：
+npm init -y //创建package.json yarn add webpack@4 webpack-cli@3 --dev //安装它的2个依赖 //会多个node_modules的目录。由于是本地安装，不是全局安装,文件在node_modules里的.bin目录下  (2)新建目录src、新建index.js、新建x.js
+import x from &#39;./x.js&#39; console.log(x) x.js export default &#39;fuck&#39;  (3)运行: 由于是本地安装，运行时只能用绝对路径调用webpack
+npx webpack //自动但可能不稳定 //或者./node_modules/.bin/webpack --version // 手动调用本地webpack  调用后会默认把index.js转变为 main.js。
+会分析js代码，然后将代码变成IE或低版本浏览器可以用的js。
+2.初始化webpack.config.js
+去除警告： 文档
+(1)新建文件webpack.config.js，打开文档复制粘贴
+const path = require(&#39;path&#39;); module.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"",
+      "item":"http://lixueqin-4119.xyz/docs/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"目录",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/"},{
+      "@type": "ListItem",
+      "position": 3 ,
+      "name":"项目构建",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/"},{
+      "@type": "ListItem",
+      "position": 4 ,
+      "name":"Webpack(上)",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/"
+    },
+    "headline": "Webpack(上) | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
+    "dateModified": "2020-10-16T00:00:00+00:00",
+    "wordCount":  587 ,
+    "publisher": {
+        "@type": "Person",
+        "name": "WANG Chucheng",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "http://lixueqin-4119.xyz/images/icon.png"
+        }
+        },
+    "description": "前端框架Webpack，前端最重要的工具之一。\nCRM法学webpack,通过11个任务学会webpack。\nwebpack文档、npm文档\n 工具\nwebpack@4 和 webpack-dev-server本地预览\n本地预览httpserver没有webpack-dev-server功能强,parcel也能本地预览但与webpack不配套,所以只能用webpack-dev-server。\nwebpack这么多插件怎么学？\n重要的\u0026quot;不是用什么\u0026quot;，而是\u0026quot;怎么知道用什么\u0026quot;，要学会搜\u002bCRM法。\n🔍英文关键词\u002bCRM法\n框架 Webpack功能\n转译代码(ES6转为ES5，SCSS转为css)\n构建build\n代码压缩\n代码分析\n安装依赖\n终端:yarn add webpack@4 webpack-cli@3 --dev \/\/webpack-cli用于在命令行中运行webpack  目标一. 用webpack转译JS 1.调用webpack\n(1)新建文件webpack-demo并用vscode打开，新建终端：\nnpm init -y \/\/创建package.json yarn add webpack@4 webpack-cli@3 --dev \/\/安装它的2个依赖 \/\/会多个node_modules的目录。由于是本地安装，不是全局安装,文件在node_modules里的.bin目录下  (2)新建目录src、新建index.js、新建x.js\nimport x from \u0027.\/x.js\u0027 console.log(x) x.js export default \u0027fuck\u0027  (3)运行: 由于是本地安装，运行时只能用绝对路径调用webpack\nnpx webpack \/\/自动但可能不稳定 \/\/或者.\/node_modules\/.bin\/webpack --version \/\/ 手动调用本地webpack  调用后会默认把index.js转变为 main.js。\n会分析js代码，然后将代码变成IE或低版本浏览器可以用的js。\n2.初始化webpack.config.js\n去除警告： 文档\n(1)新建文件webpack.config.js，打开文档复制粘贴\nconst path = require(\u0027path\u0027); module."
+}
+</script><meta property="og:title" content="Webpack(上) | 目录 | 博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="http://lixueqin-4119.xyz/images/icon.png">
+
+
+<meta property="og:url" content="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/" />
+
+
+
+
+<meta property="og:description" content="前端框架Webpack，前端最重要的工具之一。
+CRM法学webpack,通过11个任务学会webpack。
+webpack文档、npm文档
+ 工具
+webpack@4 和 webpack-dev-server本地预览
+本地预览httpserver没有webpack-dev-server功能强,parcel也能本地预览但与webpack不配套,所以只能用webpack-dev-server。
+webpack这么多插件怎么学？
+重要的&quot;不是用什么&quot;，而是&quot;怎么知道用什么&quot;，要学会搜&#43;CRM法。
+🔍英文关键词&#43;CRM法
+框架 Webpack功能
+转译代码(ES6转为ES5，SCSS转为css)
+构建build
+代码压缩
+代码分析
+安装依赖
+终端:yarn add webpack@4 webpack-cli@3 --dev //webpack-cli用于在命令行中运行webpack  目标一. 用webpack转译JS 1.调用webpack
+(1)新建文件webpack-demo并用vscode打开，新建终端：
+npm init -y //创建package.json yarn add webpack@4 webpack-cli@3 --dev //安装它的2个依赖 //会多个node_modules的目录。由于是本地安装，不是全局安装,文件在node_modules里的.bin目录下  (2)新建目录src、新建index.js、新建x.js
+import x from &#39;./x.js&#39; console.log(x) x.js export default &#39;fuck&#39;  (3)运行: 由于是本地安装，运行时只能用绝对路径调用webpack
+npx webpack //自动但可能不稳定 //或者./node_modules/.bin/webpack --version // 手动调用本地webpack  调用后会默认把index.js转变为 main.js。
+会分析js代码，然后将代码变成IE或低版本浏览器可以用的js。
+2.初始化webpack.config.js
+去除警告： 文档
+(1)新建文件webpack.config.js，打开文档复制粘贴
+const path = require(&#39;path&#39;); module." />
+
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="docs" />
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">简介</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于我</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+
+
+<div class="lg:pt-12">
+    <div class="flex flex-col md:flex-row bg-secondary-bg rounded">
+        <div class="md:w-1/4 lg:w-1/5 border-e">
+            <div class="sticky top-16 pt-6">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sidebar-title" class="md:hidden mx-4 px-2 pt-4 pb-2 md:border-b text-tertiary-text md:text-primary-text">
+    <span class="font-semibold">Table of Contents</span>
+    <i class='fas fa-caret-right ms-1'></i>
+</div>
+
+<div id="sidebar-toc"
+    class="hidden md:block overflow-y-auto mx-6 md:mx-0 pe-6 pt-2 md:max-h-doc-sidebar bg-primary-bg md:bg-transparent">
+    <div class="flex flex-wrap ms-4 -me-2 p-2 bg-secondary-bg md:bg-primary-bg rounded">
+        <a class=" hover:text-eureka"
+            href="http://lixueqin-4119.xyz/docs/example-doc/">目录</a>
+        
+        
+        
+
+
+    </div>
+    
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/">【HTML全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A0%87%E7%AD%BE/">HTML标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A6%82%E8%A7%88/">HTML概览</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E9%87%8D%E7%82%B9%E6%A0%87%E7%AD%BE/">HTML重点标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/%E6%89%8B%E6%9C%BA%E9%A2%84%E8%A7%88-%E8%B0%83%E8%AF%95/">手机预览 &amp; 调试</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/">HTTP 状态码</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/">URL 是什么</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/">请求和响应 &amp; Node.js Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/">JavaScript 的诞生</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/">JS函数</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/">JS对象</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/">JS对象分类</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">JS数据类型</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/">JS数组</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JS正则表达式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/">js获取屏幕宽高</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/">JS语法</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/">JS运算符</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/">DOM 编程</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/">DOM事件与事件委托</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/">jQuery 中的设计模式(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/">jQuery 中的设计模式(下)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/">手写DOM库(1)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/">MVC(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/">MVC(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/">Class 组件详解</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">Hooks 原理解析</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/">Hooks 各个击破</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">React 类组件和函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/">React起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/">手写 Redux</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/">computed 和 watch</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/">Vue Router -前端路由实现的思路</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">数据响应式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/">构造选项</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/">模板、指令与修饰符</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">深入理解Vue动画原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/">表单与v-model</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/">起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/">进阶构造属性</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/">云服务器</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/">AJAX 的原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/">Ajax实战:Cookie、Session</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/">异步与Promise</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/">跨域、CORS、JSONP</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/">静态服务器Static Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" text-eureka  hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/">Webpack(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/">Webpack(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+</ul>
+
+</div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <div class="w-full md:w-3/4 lg:w-4/5 pb-8 pt-2 md:pt-8">
+            <div class="flex">
+                <div class="w-full lg:w-3/4 px-6">
+                    <article class="prose">
+  <h1 class="mb-4">Webpack(上)</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2020-10-16</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>3 min read</span>
+  </div>
+
+  
+
+  
+</div>
+
+
+  
+  
+
+  <blockquote>
+<p>前端框架Webpack，前端最重要的工具之一。<br>
+<strong>CRM法学webpack,通过11个任务学会webpack。</strong><br>
+<a href="https://www.webpackjs.com/guides/getting-started/#%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85">webpack文档</a>、<a href="https://docs.npmjs.com/cli/v8/configuring-npm/package-json">npm文档</a></p>
+</blockquote>
+<p><strong>工具</strong><br>
+<strong>webpack@4 和 webpack-dev-server</strong>本地预览<br>
+本地预览httpserver没有webpack-dev-server功能强,parcel也能本地预览但与webpack不配套,所以只能用webpack-dev-server。</p>
+<p><strong>webpack这么多插件怎么学？</strong><br>
+重要的&quot;不是用什么&quot;，而是&quot;怎么知道用什么&quot;，要学会搜+CRM法。<br>
+🔍英文关键词+CRM法</p>
+<h3 id="框架">框架</h3>
+<p><strong>Webpack功能</strong><br>
+转译代码(ES6转为ES5，SCSS转为css)<br>
+构建build<br>
+代码压缩<br>
+代码分析</p>
+<p><strong>安装依赖</strong></p>
+<pre><code>终端:yarn add webpack@4 webpack-cli@3 --dev //webpack-cli用于在命令行中运行webpack
+</code></pre>
+<h3 id="目标一-用webpack转译jshttpswwwwebpackjscomguidesgetting-startede59fbae69cace5ae89e8a385">目标一. <a href="https://www.webpackjs.com/guides/getting-started/#%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85">用webpack转译JS</a></h3>
+<p><strong>1.调用webpack</strong><br>
+<strong>(1)新建文件webpack-demo并用vscode打开，新建终端：</strong></p>
+<pre><code>npm init -y //创建package.json
+yarn add webpack@4 webpack-cli@3 --dev //安装它的2个依赖
+//会多个node_modules的目录。由于是本地安装，不是全局安装,文件在node_modules里的.bin目录下
+</code></pre>
+<p><strong>(2)新建目录src、新建index.js、新建x.js</strong></p>
+<pre><code>import x from './x.js'
+console.log(x)
+x.js
+export default 'fuck'
+</code></pre>
+<p><strong>(3)运行:</strong>  由于是本地安装，运行时只能用绝对路径调用webpack</p>
+<pre><code>npx webpack //自动但可能不稳定
+//或者./node_modules/.bin/webpack --version // 手动调用本地webpack
+</code></pre>
+<p>调用后会默认把index.js转变为 main.js。<br>
+会分析js代码，然后将代码变成IE或低版本浏览器可以用的js。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8c59f6134c494f59b3218deecf741aaa~tplv-k3u1fbpfcp-zoom-1.image" alt="图片"></p>
+<p><strong>2.初始化webpack.config.js</strong><br>
+<strong>去除警告：</strong> <a href="https://webpack.js.org/concepts/configuration/">文档</a></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2507fcb159404eedb189cdb310bf779d~tplv-k3u1fbpfcp-zoom-1.image" alt="图片"></p>
+<p><strong>(1)新建文件webpack.config.js，打开<a href="https://webpack.js.org/concepts/configuration/">文档</a>复制粘贴</strong></p>
+<pre><code>const path = require('path');
+
+module.exports = {
+    mode: 'development' //'production'
+};
+</code></pre>
+<p>会设置main.js为开发者模式,方便自己阅读或者debug调试。如果是正在<strong>开发中</strong>可以设置为development，如果你正要<strong>发布</strong>可以设置为production用户模式，给用户看的，内容最少。<br>
+<strong>3.重新运行<code>npx webpack</code></strong></p>
+<h3 id="目标二-理解文件名中hash的用途">目标二. 理解文件名中hash的用途</h3>
+<p><strong>附加知识</strong><br>
+HTTP响应头中的Cache-Control</p>
+<p><strong>1.webpack配置entry和output(入口和出口)</strong><br>
+还是webpack.config.js文件，复制<a href="https://webpack.js.org/concepts/configuration/">文档</a></p>
+<pre><code>const path = require('path');
+
+module.exports = {
+    mode: 'development',
+    entry: './src/index.js',//你的入口文件
+    output: {
+        filename: 'main.js',//'index.js'
+    },
+};
+</code></pre>
+<p>entry是你的入口文件名。index.js转义后会默认生成main.js，output是转义后的文件名(默认是main.js)，可与入口名保持一致。<br>
+<strong>重新运行<code>npx webpack</code></strong></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fdd6576635b24389b809aa681edae2fe~tplv-k3u1fbpfcp-zoom-1.image" alt="图片"></p>
+<p><strong>2.更多配置</strong><br>
+🔍<a href="https://webpack.js.org/guides/caching/#output-filenames">webpack filename hash</a></p>
+<pre><code>filename: '[name].[contenthash].js',
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9b39a673b3104024b139fe28d2838329~tplv-k3u1fbpfcp-zoom-1.image" alt="图片"></p>
+<p>这涉及到<strong>HTTP缓存的意义</strong><br>
+当你访问百度时，它会给你返回几个文件,当你第2次访问时它会重新再加载一遍。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bb82c090f68043c79bff873a3c45b2e3~tplv-k3u1fbpfcp-zoom-1.image" alt="图片"></p>
+<p><strong>设置缓存头的好处</strong><br>
+比如在1.css、2.css、1.js、2.js<strong>缓存头内</strong>设置一年内只需下载1次缓存，且一年内不会修改。<br>
+当你第2次访问baidu.com时就只需要下载index.html，然后它会从内存里得到1.css、2.css&hellip;</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/74b0d13b50594598b326514067034caa~tplv-k3u1fbpfcp-zoom-1.image" alt="图片"></p>
+<p>每次修改后再次发布webpack，webpack就会重新生成个新的文件。浏览器一看请求(文件名)不一样就会立刻请求新的文件，放弃之前的缓存用新的缓存,从而实现更新。<br>
+利用webpack，对文件内容做一个哈希 md5(在线解密加密)，webpack就会自动做这件事情。</p>
+<p><strong>问题2：为什么首页不缓存呢？</strong><br>
+因为首页需要通知浏览器给其它文件设置缓存的入口。</p>
+<p><strong>问题3：</strong>  每次修改都会得到新的，<strong>那dist里的文件不是越来越多吗？</strong><br>
+它会根据内容产生哈希，这样只要内容变了，就会得到新的文件。<br>
+<strong>方法:</strong>  每次更新时删掉旧的，或者怕忘记可以添加到package.json里。<br>
+npx webpack可简写成webpack。</p>
+<pre><code>package.json
+&quot;scripts&quot;: {
+    &quot;build&quot;:&quot;rm -rf dist &amp;&amp; webpack&quot;,
+    &quot;test&quot;: &quot;echo &quot;Error: no test specified&quot; &amp;&amp; exit 1&quot;
+  },
+</code></pre>
+<p><strong>以后每次打包时直接运行</strong></p>
+<pre><code>yarn build //npm run build
+</code></pre>
+<p><br>
+<strong>总结<br>
+hash的用途:便于你去添加缓存，这个缓存是http协议里规定的Cache-Control,浏览器自动支持</strong>。</p>
+<h3 id="目标三-webpack插件自动生成html">目标三. webpack插件自动生成HTML</h3>
+<p><strong>要点</strong><br>
+如何自动改文件名</p>
+<p><strong>1.安装html插件 html-webpack-plugin</strong><br>
+🔍<a href="https://webpack.docschina.org/plugins/html-webpack-plugin/#installation">webpack create html page</a><br>
+<strong>步骤</strong></p>
+<pre><code>(1)安装:yarn add html-webpack-plugin --dev
+(2)使用:webpack.config.js添加plugins
+   const HtmlWebpackPlugin = require('html-webpack-plugin');
+   module.exports = {
+     plugins: [new HtmlWebpackPlugin()],
+   }
+(3)运行:yarn build //npm run build
+</code></pre>
+<p>在安装HtmlWebpackPlugin后重启时报错：Cannot read property &rsquo;tap&rsquo; of undefined。<br>
+<strong>原因:</strong>  html-webpack-plugin与webpack版本不一致</p>
+<pre><code>(1)先复制下面的package.json覆盖你的&quot;devDependencies&quot;。
+&quot;devDependencies&quot;: {
+    &quot;css-loader&quot;: &quot;^3.2.0&quot;,
+    &quot;dart-sass&quot;: &quot;^1.23.7&quot;,
+    &quot;file-loader&quot;: &quot;^5.0.2&quot;,
+    &quot;html-webpack-plugin&quot;: &quot;^3.2.0&quot;,
+    &quot;less&quot;: &quot;^3.10.3&quot;,
+    &quot;less-loader&quot;: &quot;^5.0.0&quot;,
+    &quot;mini-css-extract-plugin&quot;: &quot;^0.8.0&quot;,
+    &quot;sass-loader&quot;: &quot;^8.0.0&quot;,
+    &quot;style-loader&quot;: &quot;^1.0.1&quot;,
+    &quot;stylus&quot;: &quot;^0.54.7&quot;,
+    &quot;stylus-loader&quot;: &quot;^3.0.2&quot;,
+    &quot;webpack&quot;: &quot;^4.41.2&quot;,
+    &quot;webpack-cli&quot;: &quot;^3.3.10&quot;,
+    &quot;webpack-dev-server&quot;: &quot;^3.9.0&quot;
+  }
+(2)然后
+yarn install
+yarn build
+</code></pre>
+<p>dist目录下会生成一个空的index.html，并引入了你的main.xxxxxxxxxxxxx.js。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bd4bba9287604823a41b22e0736d96da~tplv-k3u1fbpfcp-zoom-1.image" alt="图片"></p>
+<p><strong>js文件名可修改</strong></p>
+<pre><code>webpack.config.js
+filename: 'index.[contenthash].js'
+//filename: '[name].[contenthash].js'
+
+重新打包:yarn build
+</code></pre>
+<p>这就是网站首页生成的原理,自动化,全是自动生成的。</p>
+<p><strong>2.如何自动改文件名</strong><br>
+修改index.js的内容并重新打包yarn build,index.xxxxxxxx.js会自动更新地址的。<br>
+index.html就是个空框架想加点东西都不行。dist目录下所有东西都是生成的，你加了之后下次打包就不见了。</p>
+<p><strong>3.如何在index.html里加个div？<a href="https://github.com/jantimon/html-webpack-plugin#options">抄文档</a></strong><br>
+<strong>先试试加个title:</strong></p>
+<pre><code>1.webpack.config.js
+new HtmlWebpackPlugin({
+  title: 'My App'
+})
+2.重新运行:yarn build
+</code></pre>
+<p><strong>再加个<code>&lt;div&gt;</code></strong> <a href="https://github.com/jantimon/html-webpack-plugin#generating-multiple-html-files">抄文档</a><br>
+模仿文档:新建目录assets表示资源,再新建index.html</p>
+<pre><code>1.webpack.config.js
+plugins: [new HtmlWebpackPlugin({
+  title: '小李子',
+  template: 'src/assets/index.html'
+})]
+2.yarn build
+</code></pre>
+<p><strong>用我给你的模版来生成html。</strong><br>
+它真的用了我们的模版。因为我们的模版是空的，所以只有一个<code>&lt;script&gt;</code></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fbd412e9af4b446284e2aa58ffc5615e~tplv-k3u1fbpfcp-zoom-1.image" alt="图片"></p>
+<p><strong>现在完善下我们自己的模版</strong></p>
+<p>再看下生成的index.html</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/40a23c77280d496d8e824a16d2066e17~tplv-k3u1fbpfcp-zoom-1.image" alt="图片"></p>
+<p><strong>4.怎么用配置webpack.config.js里的title？<a href="https://github.com/jantimon/html-webpack-plugin#writing-your-own-templates">抄文档</a></strong></p>
+<pre><code>1.修改配置文件webpack.config.js,写好需要展示的内容.
+  title: '前端框架 -webpack',
+2.修改assets目录下的index.html
+  &lt;title&gt;&lt;%= htmlWebpackPlugin.options.title %&gt;&lt;/title&gt;
+3.yarn build
+</code></pre>
+<p>dist目录下的index.html就会被设置好。<br>
+<strong>5.重置meta:vp</strong></p>
+<pre><code>assets目录下的index.html
+重置它的meta:vp
+</code></pre>
+<p>assets目录下的index.html随便设计，到时候生成就会按你这个写的。<br>
+它只是会帮你插入js的入口文件而已。</p>
+<h3 id="目标四-webapck引入css">目标四. webapck引入CSS</h3>
+<p><strong>要点</strong><br>
+可以使用JS生成style。<br>
+也可以把CSS抽成文件。</p>
+<h4 id="1用js生成style">1.用JS生成style</h4>
+<blockquote>
+<p>html既然是自动插入的，我们就使用模块化的css</p>
+</blockquote>
+<p><strong>步骤</strong></p>
+<pre><code>第1步.新建x.css  body { background: red; }
+第2步.在x.js里引入  import './x.css'
+第3步.yarn build
+</code></pre>
+<p><strong>错误1</strong> 它把css当成js来处理了。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2d5c1816fb64490bbb99b9bbbb94971a~tplv-k3u1fbpfcp-zoom-1.image" alt="图片"></p>
+<p><strong>解决</strong>🔍<a href="https://www.webpackjs.com/loaders/css-loader/#%E5%AE%89%E8%A3%85">webpack css-loader</a></p>
+<pre><code>(1)yarn add css-loader --dev //今天的所有依赖(loader)都是--dev。因为webpack的东西，用户是用不到的.
+(2)webpack.config.js添加module。
+//解析:如果你的文件名是以.css结尾就使用'css-loader'
+module: {
+  rules: [
+    {
+      test: /.css$/,
+      use: ['style-loader', 'css-loader']
+    }
+  ]
+}
+(3)yarn add style-loader --dev
+(4)yarn build
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6b06fedc4784429f9943cb6f04b0436d~tplv-k3u1fbpfcp-zoom-1.image" alt="图片"></p>
+<p><strong>错误2</strong>:插件与webpack版本不搭</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8205ec6bf5bb4e9ebfa2ec22aad32b00~tplv-k3u1fbpfcp-zoom-1.image" alt="图片"></p>
+<pre><code>plugin和loader部分遇到报错时(遇到警告3步走):
+(1)请复制上面的package.json覆盖你的&quot;devDependencies&quot;。
+(2)yarn install
+(3)yarn build 
+</code></pre>
+<p>2个错误搞定！
+<strong>第4步.预览css</strong><br>
+查看dist下的index是否成功引入css</p>
+<pre><code>cd dist    
+hs -c-1   //当前目录
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a6e49cfb51c1488cadeac91faeef5af2~tplv-k3u1fbpfcp-zoom-1.image" alt="图片"></p>
+<p>原理:<code>style-loader</code>创建了<code>&lt;style&gt;</code>标签<br>
+webpack配置:如果发现以.css结尾的文件就用<code>css-loader</code>先将文件读到js里。<br>
+然后<code>style-loader</code>会将读到的内容，变成<code>&lt;style&gt;</code>标签放到head里。</p>
+<p>每次<strong>修改</strong>都要中断http-server,退出dist目录,重新运行,太麻烦.</p>
+<pre><code>快捷键:control+c
+cd ..
+yarn build
+</code></pre>
+<h3 id="2用webpack-dev-server代替hs配置devserverhttpsv4webpackdocschinaorgguidesdevelopmente4bdbfe794a8-webpack-dev-server">2.用webpack-dev-server代替hs，配置<a href="https://v4.webpack.docschina.org/guides/development/#%E4%BD%BF%E7%94%A8-webpack-dev-server">devServer</a></h3>
+<blockquote>
+<p>注意:webpack-dev-server不依赖dist目录文件，直接在内存中搞定。不会生成dist目录。<br>
+会读你的index.js并转义成可运行的js,然后读到内存里。</p>
+</blockquote>
+<pre><code>1.cd ..  //中断并退出dist目录 
+2.yarn add webpack-dev-server --dev
+//npm info webpack-dev-server
+3.webpack.config.js添加
+  devtool: 'inline-source-map',
+  devServer: {
+     contentBase: './dist'
+   },
+4.package.json添加
+ &quot;scripts&quot;: { 
+     &quot;start&quot;: &quot;webpack-dev-server --open&quot;,
+            //&quot;webpack-dev-server&quot;, 是否帮你打开浏览器
+   }
+5.yarn start
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/76cc051f4f5647cdaa64f31d0d834be8~tplv-k3u1fbpfcp-zoom-1.image" alt="图片"></p>
+<p><strong>遇到警告3步走&hellip;</strong></p>
+<p>保存即刷新。</p>
+<h3 id="3使用插件提取css文件">3.使用插件提取CSS文件</h3>
+<blockquote>
+<p>每次操作前记得提交代码防止挂掉</p>
+</blockquote>
+<p>🔍<a href="https://webpack.docschina.org/plugins/mini-css-extract-plugin/">webpack css extract plugin</a> 中文易过时</p>
+<pre><code>1.安装:yarn add mini-css-extract-plugin --dev
+2.webpack.config.js添加
+const MiniCssExtractPlugin=require(&quot;mini-css-extract-plugin&quot;);
+  
+  plugins: [new MiniCssExtractPlugin()],
+  module: {
+    rules: [{
+        test: /.css$/i,
+        use: [MiniCssExtractPlugin.loader, &quot;css-loader&quot;]//抽成文件
+      //use: [&quot;style-loader&quot;, &quot;css-loader&quot;] //放到页面
+      }],
+  },
+3.yarn build      
+</code></pre>
+<p>放到页面或抽成文件，只能2选1。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d6d6367f4d7b4b6bbd1a2ec95f48554b~tplv-k3u1fbpfcp-zoom-1.image" alt="图片"></p>
+<p><strong>遇到警告3步走&hellip;</strong></p>
+<p>dist目录下会多个main.css。<br>
+html自动生成时，会自动帮你加该引入的东西。</p>
+<p><a href="https://webpack.docschina.org/plugins/mini-css-extract-plugin/#publicpath">4.如何缓存css文件？</a></p>
+<pre><code>1.webpack.config.js添加
+  new MiniCssExtractPlugin({
+     filename: '[name].[contenthash].css',
+     chunkFilename: '[id].[contenthash].css',
+  }),
+2.yarn build
+3.预览:yarn start
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7a7572a058af47d4be05cecafea1ec8d~tplv-k3u1fbpfcp-zoom-1.image" alt="图片"></p>
+<h3 id="使用两个webpack-config文件">使用两个webpack config文件</h3>
+<h3 id="第1部分切换模式">第1部分.切换模式</h3>
+<blockquote>
+<p><strong>切换模式:</strong>  生产环境上线代码<code>yarn build</code>,开发<code>yarn start</code>。</p>
+</blockquote>
+<pre><code>package.json
+&quot;script&quot;:{
+  &quot;start&quot;: &quot;webpack serve&quot;,
+  &quot;build&quot;: &quot;rm -rf dist; webpack&quot;,
+}
+</code></pre>
+<p><strong>思路:</strong> <code>build</code>和<code>start</code>对应不同的命令，可以设置它们用不同的config，实现2个插件的切换。<br>
+<strong>步骤</strong><br>
+1.生产环境webpack.config.prod.js<br>
+复制webpack.config.js重命名为webpack.config.prod.js。</p>
+<pre><code>mode: 'production',
+use: [MiniCssExtractPlugin.loader, &quot;css-loader&quot;]
+</code></pre>
+<p>2.开发环境webpack.config.js</p>
+<pre><code>use: ['style-loader', 'css-loader'] //将&lt;script&gt;标签插到页面,速度更快
+</code></pre>
+<p><strong>3.通过命令选择要切换的文件</strong></p>
+<pre><code>npx webpack --help //帮助文档
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/322b12c1a40f452eb957b09d4c7080f3~tplv-k3u1fbpfcp-zoom-1.image" alt="图片"></p>
+<pre><code>package.json
+&quot;scripts&quot;: {
+  &quot;start&quot;: &quot;webpack-dev-server --open&quot;,
+  &quot;build&quot;: &quot;rm -rf dist &amp;&amp; webpack --config webpack.config.prod.js&quot;,
+ //当build时用生产配置
+}
+</code></pre>
+<p><strong>4.测试</strong></p>
+<pre><code>yarn start //开发 &lt;style&gt;标签
+再开一个终端
+yarn build //生产 &lt;link/&gt;标签,打开dist目录查看index.html
+</code></pre>
+<h3 id="第2部分优化">第2部分.优化</h3>
+<blockquote>
+<p>两个webpack config文件80%的内容都是相同的，用继承的思想简化</p>
+</blockquote>
+<p>1.新建文件<a href="https://github.com/lixueqin-4119/js-demo51/blob/master/webpack.config.base.js">webpack.config.base.js</a>并归纳共有属性。<br>
+2.<a href="https://github.com/lixueqin-4119/js-demo51/blob/master/webpack.config.js">webpack.config.js</a>继承base</p>
+<pre><code>const base = require('./webpack.config.base.js')
+module.exports = {
+  ...base,//把base的所有属性抄到这来
+  devtool: 'inline-source-map',
+  devServer: {
+    contentBase: './dist'
+  },
+  mode: 'development',
+  module: {
+    rules: [{
+      test: /.css$/i,
+      use: ['style-loader', 'css-loader']
+    }]
+  }
+};
+</code></pre>
+<p>3.<a href="https://github.com/lixueqin-4119/js-demo51/blob/master/webpack.config.prod.js">webpack.config.prod.js</a>继承base</p>
+<pre><code>const base = require('./webpack.config.base.js')
+module.exports = {
+  ...base,
+  mode: 'production',
+  plugins: [
+    ...base.plugins,//把base之前的抄过来
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css',
+      chunkFilename: '[id].[contenthash].css',
+    }),
+  ],
+  module: { //直接覆盖
+    rules: [{
+      test: /.css$/i,
+      use: [MiniCssExtractPlugin.loader, &quot;css-loader&quot;],
+    }]
+  }
+};
+</code></pre>
+<p><strong>webpack的高级使用方法</strong><br>
+🔍<a href="https://github.com/survivejs/webpack-merge">webpack config merge</a> CRM法</p>
+
+</article>
+
+                    
+                    
+                    
+
+                    
+
+
+
+                    
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+        <span class="text-primary-text block font-bold">Next</span>
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/" class="block">Webpack(下)</a>
+      
+    </div>
+  </div>
+
+
+                    
+
+
+
+                </div>
+                
+                <div class="hidden lg:block lg:w-1/4">
+                    
+                    <div
+  class="
+    bg-secondary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>On This Page</h3>
+</div>
+<div
+  class="sticky-toc 
+    border-s
+   hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#框架">框架</a></li>
+        <li><a href="#目标一-用webpack转译jshttpswwwwebpackjscomguidesgetting-startede59fbae69cace5ae89e8a385">目标一. <a href="https://www.webpackjs.com/guides/getting-started/#%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85">用webpack转译JS</a></a></li>
+        <li><a href="#目标二-理解文件名中hash的用途">目标二. 理解文件名中hash的用途</a></li>
+        <li><a href="#目标三-webpack插件自动生成html">目标三. webpack插件自动生成HTML</a></li>
+        <li><a href="#目标四-webapck引入css">目标四. webapck引入CSS</a>
+          <ul>
+            <li><a href="#1用js生成style">1.用JS生成style</a></li>
+          </ul>
+        </li>
+        <li><a href="#2用webpack-dev-server代替hs配置devserverhttpsv4webpackdocschinaorgguidesdevelopmente4bdbfe794a8-webpack-dev-server">2.用webpack-dev-server代替hs，配置<a href="https://v4.webpack.docschina.org/guides/development/#%E4%BD%BF%E7%94%A8-webpack-dev-server">devServer</a></a></li>
+        <li><a href="#3使用插件提取css文件">3.使用插件提取CSS文件</a></li>
+        <li><a href="#使用两个webpack-config文件">使用两个webpack config文件</a></li>
+        <li><a href="#第1部分切换模式">第1部分.切换模式</a></li>
+        <li><a href="#第2部分优化">第2部分.优化</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+                    
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        hljs.initHighlightingOnLoad();
+        changeSidebarHeight();
+        switchDocToc();
+    })
+</script>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2021 <a href="https://www.wangchucheng.com/">WANG Chucheng</a> and <a href="https://www.ruiqima.com/">MA Ruiqi</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>

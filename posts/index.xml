@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on 博客</title>
+    <link>http://lixueqin-4119.xyz/posts/</link>
+    <description>Recent content in Posts on 博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Sat, 07 May 2022 13:11:22 +0800</lastBuildDate><atom:link href="http://lixueqin-4119.xyz/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>前言</title>
+      <link>http://lixueqin-4119.xyz/posts/diagram-support/</link>
+      <pubDate>Sat, 07 May 2022 13:11:22 +0800</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/posts/diagram-support/</guid>
+      <description>一个前端小白的学习历程 🤓
+内容包括但不限于
+硬技能: Git入门、html全解、css全解、HTTP全解、JS全解、JS编程接口、前后分离、JS进阶、
+Webpack、算法与数据结构、Vue2 全解、React全解、移动端、工程化、模块化等。
+软技能: 调试、服务器部署、搜索等
+其它: 遇到的坑、一些实用的技巧与经验、项目的记录、前端面试题、简历模版等
+ 每篇文章都很详细，通俗易懂，非常适合小白,基本涵盖了从前端入门到工作的各个阶段。 如果觉得有用就点个Star吧，你的鼓励对我来说很重要! 😜</description>
+    </item>
+    
+  </channel>
+</rss>

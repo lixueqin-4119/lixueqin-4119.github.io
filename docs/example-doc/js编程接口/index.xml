@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JS编程接口 on 博客</title>
+    <link>http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/</link>
+    <description>Recent content in JS编程接口 on 博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DOM 编程</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/</guid>
+      <description>网页其实是颗树,JS如何操作这棵树?
+JS操作不了。让浏览器往window上加一个document。
+JS用document操作网页
+&amp;ldquo;用document对象操作整个网页&amp;quot;这种思想就叫做文档对象模型(Document Object Model)
+记住一个事实：DOM很难用
+下节课我们会想办法解决这个难题(封装)。
+如果你觉得DOM很傻，不要怀疑自己，你觉得是对的。
+DOM的接口设计的非常反人类，导致前端程序员不得不使用jQuery去操作DOM。后来Vue、React相继问世。我们便用Vue或React来代替操作DOM。
+我们从来不会用DOM自带的功能操作DOM，因为实在是反人类。
+但是我们还是要学DOM,不然看不懂 虚拟DOM 和 jQuery。
+其它
+1.箭头函数不支持this，有箭头函数就不能有this！
+2.在html里，不管有多少空格都会缩成一个空格。
+3.JS里面的属性统称为properties,HTML里面的属性统称为attributes。
+DOM提供的所有函数(API) 一.获取任意元素  标签又叫元素，获取元素的API
+ 有很多API
+1.window.id或者直接id //最快 2.document.getElementById(&#39;id&#39;) 3.document.getElementsByTagName(&#39;div&#39;)[0] //找到所有标签名为div的&#39;第1个&#39;元素 4.document.getElementsByClassName(&#39;red&#39;)[0] //找到所有class名为red的&#39;第1个&#39;元素 5.document.querySelector(&#39;#id&#39;) 6.document.querySelectorAll(&#39;#id&#39;)[0]  用哪一个
+1.工作中用querySelector和querySelectorAll
+2.做demo直接用id
+3.要兼容IE的才用getElement(s)ByXXX
+id=&amp;quot;kw&amp;quot; window.kw 或者 kw document.querySelector(&#39;#id&#39;) //(css选择器的写法) 例如：document.querySelector(&#39;div&amp;gt;span:nth-child(2)&#39;)  二.获取特定元素 1.获取html元素:document.documentElement 获取标签名 document.documentElement.tagName 2.获取head元素:ducument.head 3.获取body元素:ducument.body 4.获取窗口(窗口不是元素):window 代码:window.onclick=()=&amp;gt;{console.log(&#39;hi&#39;)} //获取window,添加事件监听 5.获取所有元素 document.all //获取当前页面所有标签  变态
+ document.all是IE发明的奇葩，第6个falsy值。 document.all以前用来区分是否是IE(现在document.all默认为假)  if(document.all){console.log(&#39;ie浏览器&#39;); 只能在ie运行} else{console.log(&#39;其它浏览器&#39;); 只能在非ie运行} 结果:其它浏览器 不做判断时可以直接用 document.all[2]  获取到的元素是个啥？
+都是对象。</description>
+    </item>
+    
+    <item>
+      <title>DOM事件与事件委托</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/</guid>
+      <description>点击事件 第一部分.概念
+&amp;lt;div class=爷爷&amp;gt; &amp;lt;div class=爸爸&amp;gt; &amp;lt;div class=儿子&amp;gt;文字&amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt;  给3个div分别添加事件监听fnYe/fnBa/fnEr
+提问一：点击了谁？
+点击文字，算不算点击儿子？
+点击文字，算不算点击爸爸？
+点击文字，算不算点击爷爷？
+都算
+提问二：调用顺序
+点击文字，最先调用fnYe/fnBa/fnEr中的哪个函数？
+都行
+IE5认为先调fnEr，网景认为先调fnYe,然后掐上了，最后闹到了W3C
+和事佬W3C 2002年，W3C发布标准，文档名为&amp;quot;DOM Level 2 Events Specification&amp;quot;
+规定浏览器应该同时支持两种调用顺序
+首先按爷爷=&amp;gt;爸爸=&amp;gt;儿子顺序看有没有函数监听
+然后按儿子=&amp;gt;爸爸=&amp;gt;爷爷顺序看有没有函数监听
+捕获总是在冒泡前面
+这个过程是固定的，只是看中间有没有函数。
+有监听函数就调用，并提供事件信息，没有就掉过。
+术语 从外向内找监听函数，叫事件捕获 从内向外找监听函数，叫事件冒泡
+冒泡是IE创建的事件模型(一般要冒泡)
+疑问：那岂不是fnYe/fnBa/fnEr都调用两次?非也！
+开发者自己选择把fnYe放在捕获阶段还是冒泡阶段
+DOM事件机制图 第二部分.代码实践 addEventListener函数
+事件绑定API
+IE5*:baba.attachEvent(&amp;lsquo;onclick&amp;rsquo;,fn) //冒泡
+网景:baba.addEventListener(&amp;lsquo;click&amp;rsquo;,fn) //捕获
+W3C:baba.addEventListener(&amp;lsquo;click&amp;rsquo;,fn,bool)
+如果bool不传或为falsy(类似于false的值)
+就让fn走冒泡，即当浏览器在冒泡阶段发现baba有fn监听函数，就会调用fn,并提供事件信息
+如果bool为true
+就让fn走捕获，即当浏览器在捕获阶段发现baba有fn监听函数，就会调用fn,并提供事件信息
+注意:走冒泡阶段不是说只走这个阶段。而是说捕获、冒泡这个阶段是一定要走的，只不过是你在哪边执行函数的问题。传false就是把fn放冒泡阶段执行，传true就是把fn放捕获阶段执行。
+例子 代码
+1.css
+div[class^=level] { border: 1px solid; border-radius: 50%; display: inline-flex; }  2.e会在事件结束后自动消亡，e只存在于事件点击的那一瞬间。
+1秒钟之后就没有这个点击事件了。
+e是空的。
+保存e 代码：const t=e.currentTarget
+let n=1 level1.</description>
+    </item>
+    
+    <item>
+      <title>jQuery 中的设计模式(上)</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/</guid>
+      <description>手写 DOM 库(2)，上一次我们用对象风格封装DOM操作(原生js)，这次用jQuery风格重新封装。
+ 其它
+1.window.jQuery=function(){}
+jQuery是全局变量可以直接使用jQuery()
+jQuery核心思想
+接受一个selector。
+根据这个选择器得到一些元素。
+return 一个对象。
+这个对象有些方法可以操作这个元素。
+2.旧语法key:value //&amp;ldquo;addClass&amp;rdquo;:function(参数){}
+ES6新语法 //addClass(参数) {}
+3.声明一个对象api，再return这个对象。
+其实可以直接return这个对象！
+4.当变量声明后只使用一次时，可省略不用声明。
+5.array3 = array1.concat(array2); //concat里是伪数组
+相当于array3 = array1 + array2
+concat方法创建一个新的数组，它由被调用的对象中的元素组成。
+将伪数组变成数组 Array.from()
+6.伪数组
+7.const不能重复赋值，而且在声明时必须赋值
+可以用let
+if (typeof selectorOrArray === &#39;string&#39;) { ... } else if (selectorOrArray instanceof Array) { //x instanceof object ... }  对象用instanceof
+9.语法 arr.indexOf(searchElement[, fromIndex]) //fromIndex可选，示例略
+indexOf()方法返回在数组中可以找到一个给定元素的第一个索引。
+&amp;gt;=0表示存在，===-1表示不存在。
+const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;]; console.log(beasts.indexOf(&#39;bison&#39;)); // 1 console.log(beasts.indexOf(&#39;giraffe&#39;)); // -1  10.</description>
+    </item>
+    
+    <item>
+      <title>jQuery 中的设计模式(下)</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/</guid>
+      <description>1.文章 阮一峰 、中文文档(jQuery有哪些功能)
+2.完整代码
+1.简写jQuery window.$=window.jQuery  方法:页面最后添加window.$=window.jQuery,任意地方就可以直接使用$
+代码：$(&#39;.test&#39;).children().print()
+类似于bash alias,添加一个别名即可。
+window.jQuery=function(selectorOrArrayOrtemplate){...} window.$=window.jQuery 这两句可以合成下面一句 window.$=window.jQuery=function(selectorOrArrayOrtemplate){...}  执行顺序：当两个=在同一行时,那么是从右边开始执行的。
+也就是说，先执行window.jQuery=function(selectorOrArrayOrtemplate){&amp;hellip;}，
+得到window.jQuery的值后，再将值赋值给window.$。
+2.命名风格 下面的代码令人误解
+const div1=$(&#39;.test&#39;) const div2=document.querySelector(&#39;.test&#39;)  我们会误以为div1是一个DOM,实际上div1是jQuery构造的api对象。
+DOM对象只能用DOM API 如querySelector、appendChild
+jQuery对象只能用jQuery的API 如find、each
+错误用法：div1.document.querySelector(&amp;rsquo;.test&#39;)
+怎么避免这种误解，如何区分？
+jQuery API加$ ,DOM API 加el或不加 。
+const $div1=$(&#39;.test&#39;) const elDiv2=document.querySelector(&#39;.test&#39;) 或者 const div2=document.querySelector(&#39;.test&#39;)  $开头的变量都是jQuery对象
+3.链式风格 jQuery.prototyppe
+jQuery实际上就是调用dom api,除此之外就是加一些if/for循环
+一.增
+$(&#39;&amp;lt;div&amp;gt;&amp;lt;span&amp;gt;1&amp;lt;/span&amp;gt;&amp;lt;/div&amp;gt;&#39;) .appendTo(document.body) 插入到body中  思路:
+const $div=$(&#39;&amp;lt;div&amp;gt;&amp;lt;/div&amp;gt;&#39;) $div.appendTo(document.body)  二.删
+$div.remove() $div.empty()  三.改
+1.`$div.text(?)`读写文本内容 2.`$div.html?)`读写html内容 3.`$div.attr(&#39;title&#39;,?)`读写属性 4.`$div.css({color:&#39;red&#39;})`读写style 5.`$div.addClass(&#39;blue&#39;)`添加class 6.`$div.on(&#39;click&#39;,fn)` 添加事件监听 7.</description>
+    </item>
+    
+    <item>
+      <title>手写DOM库(1)</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/</guid>
+      <description>手把手教你封装DOM，封装出一些接口，用来操作DOM(页面的节点)。
+把一个复杂的东西打包成服务，然后只需要简单的命令就可以操作它。
+ 什么叫封装
+举例
+笔记本电脑就是CPU、内存、硬盘、主板、显卡的封装
+用户只需要接触显示器、键盘、鼠标、触控板等设备，即可操作复杂的计算机。
+接口
+被封装的东西需要暴露一些功能给外部
+这些功能就是接口，如USB接口、HDMI接口。
+这些接口都有规范的文档来说明。文档内容包含功能和实现的细节，别人就可以根据文档内容仿制。
+设备只要支持这些接口，即可与被封装的东西通讯
+比如键盘、鼠标支持USB接口，显示器支持HDMI接口
+封装和接口的关系，如下图所示：
+术语
+库
+我们把提供给其他人用的工具代码叫做库(很多函数放到一起给别人用就叫做库)
+比如jQuery、Underscore
+API
+库暴露出来的函数或属性叫做 API应用编程接口
+框架
+当你的库变的很大，并且需要学习才能看懂，
+那么这个库就叫框架，比如Vue/React
+其它
+1.工具parcel
+yarn global add parcel //yarn global add parcel @1.12.3 指定版本 parcel --version 使用:parcel src/index.html //启动一个服务器，这个服务器会自动刷新  2.简写
+window.dom.create = function () { } 可以简写成 window.dom = { create() { } } const childNodes = node.childNodes 可以简写成 const { childNodes } = node  3.template标签可以放任意元素,但不会在页面显示，是专门用来容纳的
+4.trim()去掉字符串两边的空格
+const div =dom.create(&amp;quot; &amp;lt;td&amp;gt;&amp;lt;/td&amp;gt;&amp;quot;);  5.</description>
+    </item>
+    
+  </channel>
+</rss>

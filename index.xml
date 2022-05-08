@@ -1,0 +1,1837 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>博客</title>
+    <link>http://lixueqin-4119.xyz/</link>
+    <description>Recent content on 博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Sat, 07 May 2022 13:11:22 +0800</lastBuildDate><atom:link href="http://lixueqin-4119.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>前言</title>
+      <link>http://lixueqin-4119.xyz/posts/diagram-support/</link>
+      <pubDate>Sat, 07 May 2022 13:11:22 +0800</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/posts/diagram-support/</guid>
+      <description>一个前端小白的学习历程 🤓
+内容包括但不限于
+硬技能: Git入门、html全解、css全解、HTTP全解、JS全解、JS编程接口、前后分离、JS进阶、
+Webpack、算法与数据结构、Vue2 全解、React全解、移动端、工程化、模块化等。
+软技能: 调试、服务器部署、搜索等
+其它: 遇到的坑、一些实用的技巧与经验、项目的记录、前端面试题、简历模版等
+ 每篇文章都很详细，通俗易懂，非常适合小白,基本涵盖了从前端入门到工作的各个阶段。 如果觉得有用就点个Star吧，你的鼓励对我来说很重要! 😜</description>
+    </item>
+    
+    <item>
+      <title>用hugo搭建个人博客</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</link>
+      <pubDate>Sat, 07 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</guid>
+      <description>目录 第一章 第1节.创建Hugo 第2节.插入图片 第3节.创建第2篇博客 第二章.购买域名 第三章.配置DNS
+ 第一章 第1节.创建Hugo  Hugo文档 工具: Hugo是用Go语言实现的一个博客生成器，目前世界上最快的博客生成器。
+ 步骤
+第1步.安装hugo (Mac用户) brew install hugo hugo version  Windows用户安装:
+1.去Hugo releases页面下载hugo_xxx_Windows-64bit.zip
+2.解压，把hugo.exe放到D:/Software/hugo/hugo.exe
+3.把D:/Software/hugo/加到PATH
+4.重启终端，运行hugo version 用VSCode打开终端运行hugo -v，看到版本号即成功安装。
+第2步.创建博客的生成器 博客名是你github用户名,全小写
+hugo new site lixueqin-4119.github.io-creator //rm -rf lixueqin-4119.github.io/ 写错可以删掉 ls code lixueqin-4119.github.io-creator/  第3步.添加主题 cd lixueqin-4119.github.io-creator/ git init //安装主题 git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke echo theme = \&amp;quot;ananke\&amp;quot; &amp;gt;&amp;gt; config.toml //ananke主题  第4步.创建新的文章 hugo new posts/开博大吉.md code .  上面的原信息不能改，draft默认不会公布，写完笔记后记得改为false。</description>
+    </item>
+    
+    <item>
+      <title>AJAX 的原理</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/</guid>
+      <description>js三座大山之Ajax
+Ajax的全部内容: 用js控制浏览器发请求和收响应
+ 背景(原理)
+1.Ajax是浏览器推出的一个功能
+浏览器可以发请求，收响应
+浏览器在window上加了一个XMLHttpRequest全局函数
+用这个构造函数(类)可以构造出一个对象
+JS通过它实现发请求，收响应
+typeof window.XMLHttpRequest &#39;function&#39;  实际上跟window.Object是一样的。
+window.Object用来创建普通对象，window.XMLHttpRequest用来创建XMLRequest对象。
+XMLHttpRequest也是一个构造函数，可以构造出一个对象。
+2.准备一个服务器，用来接收请求
+使用server.js作为我们的服务器
+启动node server.js 8888
+添加index.html/main.js两个路由
+工具 node-dev 是一个node.js开发工具，当文件被修改时会自动重启node进程。
+Installation安装:yarn global add node-dev Usage使用: node-dev src/server.js  用node-dev代替node方便开发，node-dev修改时会自动保存重启Restarting
+node-dev 已经出 bug 没人修理了，不要使用，请直接使用 node 并手动重启。
+添加index.html/main.js两个路由
+http://localhost:8888/index.html 注意浏览器路径要一致！ if (path === &#39;/index.html&#39;) { //1.添加index.html response.statusCode = 200 response.setHeader(&#39;Content-Type&#39;, &#39;text/html;charset=utf-8&#39;) response.write(`\n &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;Ajax&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;h1&amp;gt;Ajax demo&amp;lt;/h1&amp;gt; &amp;lt;script src=&amp;quot;main.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; `) response.end() } else if (path === &#39;/main.</description>
+    </item>
+    
+    <item>
+      <title>Ajax实战:Cookie、Session</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/</guid>
+      <description>文档：Node.js中文档、Set-Cookie响应头
+内容：动态服务器
+ 什么是动态服务器? 静态服务器(网页) VS 动态服务器(网页)
+判断依据
+是否请求了数据库。
+没有请求数据库，就是静态服务器。请求了数据库，就是动态服务器。
+今天直接用json文件当作数据库。
+步骤 查看代码
+1.新建目录db和文件users.json
+[ {&amp;quot;id&amp;quot;:1,&amp;quot;name&amp;quot;:&amp;quot;李白&amp;quot;,&amp;quot;password&amp;quot;:&amp;quot;xxx&amp;quot;,&amp;quot;age&amp;quot;:18}, {&amp;quot;id&amp;quot;:2,&amp;quot;name&amp;quot;:&amp;quot;李宇春&amp;quot;,&amp;quot;password&amp;quot;:&amp;quot;yyy&amp;quot;,&amp;quot;age&amp;quot;:20} ]  2.读数据库
+新建test.js用来测试数据
+fs用来读文件的，要想获取文件数据，首先要引入fs。
+const fs = require(&#39;fs&#39;) //引入fs const usersString = fs.readFileSync(&#39;./db/users.json&#39;).toString() console.log(usersString)  toString() 方法返回一个表示该对象的字符串。
+运行:node test.js
+把字符串变成数组
+const usersArray = JSON.parse(usersString) console.log(typeof usersString) console.log(usersString) console.log(typeof usersArray) console.log(usersArray) console.log(usersArray instanceof Array)  3.写数据库
+const user3 = { id: 3, name: &#39;李明&#39;, password: &#39;zzz&#39;, age: 25 } usersArray.push(user3)  存到数据库。我们的数据库是文件，文件只能存字符串
+console.log(typeof user3) //object const string = JSON.</description>
+    </item>
+    
+    <item>
+      <title>Class 组件详解</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/</guid>
+      <description>目录
+一.class组件的创建方式
+二.props和state
+三.生命周期Lifecycle
+ 创建 class 组件 两种方式 第1种.ES5方式(过时) import React from &#39;react&#39; const A = React.createClass({ render() { return ( &amp;lt;div&amp;gt;hi&amp;lt;/div&amp;gt; ) } }) export default A // 由于ES5不支持class,才会有这种方式 第2种.ES6方式(推荐) import React from &#39;react&#39;; class B extends React.Component { constructor(props) { super(props); } render() { return ( &amp;lt;div&amp;gt;hi&amp;lt;/div&amp;gt; ) } } export default B;  浏览器不支持ES6怎么办？
+用webpack+babel将ES6翻译成ES5即可
+props 对组件来说组件内就是内部，组件外就是外部。
+1.传入props给B组件
+(1)外部数据一般都来自父元素的state，state是怎么作为props的？ 把this.state.name作为B的外部属性。
+(2)把外面的onClick函数传给onClick属性,这个onClick不是state，就是类的一个方法。传的是地址，对象只会拷贝地址。
+(3)外部数据被包装为一个对象
+name、onClick会变成对象{name:&#39;frank&#39;,onClick:...,children:&#39;hi&#39;} children就是hi,如果里面写了2个东西，就会变成一个数组放在children里。
+(4)onClick就是回调
+2.props如何初始化
+class B extends React.Component { constructor(props) { //这个props是从外部父组件接收来的 super(props); //super会把props放到this上 //this.</description>
+    </item>
+    
+    <item>
+      <title>computed 和 watch</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/</guid>
+      <description>Vue2 options文档
+ 响应式原理options.data
+1.data会被Vue监听
+2.会被Vue实例代理,vm就是data的代理
+3.每次对data的读写都会被Vue监控。不管你是读写它的本身还是读写代理都会被监控，data对象会被篡改,本来的n会变成get n和set n。
+4.Vue会在data变化时更新UI
+data变化时除了更新UI，还能做些啥？
+一.Computed 计算属性  1.用途:被计算出来的属性就是计算属性
+2.缓存： 如果依赖的属性没有变化，就不会重新计算
+getter/setter默认不会做缓存，Vue做了特殊处理
+ 例1:用户名展示
+new Vue({ data: { user: { email: &amp;quot;1231231231@qq.com&amp;quot;, nickname: &amp;quot;小白&amp;quot;, phone: &amp;quot;13812345678&amp;quot;//手机号用string存，因为有时候会出现+86 } }, computed: { //计算属性 displayName: { get() { const user = this.user; return user.nickname || user.email || user.phone; }, set(value) { console.log(value); this.user.nickname = value; } } }, // Don&#39;t repeat yourself // 用 computed 来计算 displayName template: ` &amp;lt;div&amp;gt; {{displayName}} &amp;lt;!</description>
+    </item>
+    
+    <item>
+      <title>css动画</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/</guid>
+      <description>将div左右移动的例子
+原理
+每过段时间(用setInterval做到)
+将div移动一小段距离
+直到移动到目标点
+注意性能
+绿色表示重新绘制(repaint)了
+css渲染过程依次包含布局，绘制，合成
+其中布局和绘制有可能被省略
+第2种方式
+前端高手不用left做动画，用transform(变形)，性能会好很多
+原理
+transform:translateX(0=&amp;gt;300px)
+直接修改会被合成，需要等一会修改
+transition过渡属性可以自动脑补中间帧
+注意性能
+并没有repaint重新绘制
+比改left性能好
+使用transform让浏览器渲染次数变少了，性能好
+浏览器渲染原理 查看浏览器渲染
+开发者工具，选中任意一个tab,按esc键,勾选Paint flashing。
+刷新页面，绿色出现的次数，就是浏览器渲染的次数
+浏览器渲染过程
+根据HTML构建HTML树(DOM)
+根据CSS构建CSS树(CSSOM)
+将两棵树合并成一颗渲染树
+Layout布局(文档流，盒模型，计算大小和位置)
+Paint绘制(把边框颜色，文字颜色，阴影等画出来)
+Compose合成(根据层叠关系展示画面) 
+如何更新样式
+一般用JS来更新样式
+比如div.style.background=&#39;red&#39; 比如div.style.display=&#39;none&#39; 比如div.classList.add(&#39;red&#39;)  加类比加样式更好！高手都是加类更快，新手才加style。工作中也是直接加类
+比如div.remove()直接删掉节点
+这些方法有什么不同吗？
+用js更新样式有3种不同的渲染更新方式
+第一种，全走
+div.remove()会触发当前消失，其它元素relayout
+第二种，跳过layout
+改变背景颜色，直接repaint+composite
+第三种，跳过layout和paint
+改变transform，只需composite
+ 不同属性有不同的渲染流程，怎么知道每个属性触发什么流程？
+CSS Triggers
+浏览器渲染性能优化  js/css/样式/Layout布局/Paint绘制/Composited合成
+  5个过程每一个都可以被优化
+ 1.优化JavaScript执行(优化js)
+TL;DR
+  对于动画效果的实现，避免使用 setTimeout 或 setInterval，请使用 requestAnimationFrame。
+  将长时间运行的 JavaScript 从主线程移到 Web Worker。</description>
+    </item>
+    
+    <item>
+      <title>css基础</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/</guid>
+      <description>体系化学习
+1.学一门语言必须学会什么
+语法
+如何调试
+在哪查资料
+标准制定者是谁
+2.如何学 -CRM
+copy
+run
+modify
+ 前言
+css 全称叫层叠样式表，是由李爵士的挪威同事赖先生提出的。
+层叠 表现在 &amp;ldquo;样式层叠&amp;rdquo; &amp;ldquo;选择器层叠&amp;rdquo; 和 “文件层叠”。
+2004～2011年的css2.1版本是使用 最广泛的版本 (IE支持)。 从css3开始 分模块升级，不存在css4了。
+如何知道哪些浏览器支持哪些特性？ 使用caniuse.com
+一.语法 语法一:样式语法
+选择器{ 属性名:属性值; /* 注释 */ }  语法二：at语法
+@charset &amp;quot;UTF-8&amp;quot;; 必须放在第一行且分号;不能丢 @import url(2.css); 分号不能丢 @media (min-width:100px)and(max-width:200px;){ 语法一 }  @charset &amp;ldquo;UTF-8&amp;quot;指定当前文件的字符编码（或字符集)
+二.如何调试css css不会报错，怎么知道自己有没有写错？
+(1)学会使用开发者工具
+找到你脑中的标签
+看它是否有选择器
+看它的样式是否被划掉
+看它的样式是否有警告
+(2)Border调试法
+怀疑某个元素有问题
+就给这个元素加border：1px solid red;
+(3)使用vscode/webstorm看颜色
+(3)工具搜索 🔍w3c css validator在线调试
+三.在哪查资料 1.MDN
+🔍flex mdn
+2.css tricks</description>
+    </item>
+    
+    <item>
+      <title>css定位</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/</guid>
+      <description>布局与定位的区别：布局是屏幕平面上的，定位是垂直于屏幕的。
+ 一个div的分层:
+自底向上依次为background, border ,块级子元素(div), 浮动元素(float), 内联子元素(文字)
+后出来的内联子元素(文字)会盖住先出来的内联子元素(文字)
+新属性 position 总结
+position属性值:
+static默认值，待在文档流里
+relative相对定位，升起来，但不脱离文档流
+absolute绝对定位，定位基准是祖先里的非static
+fixed固定定位，定位基准是viewport(有诈)
+sticky粘滞定位，不好描述直接举例
+经验
+如果你写了absolute，一般都得补一个relative
+如果你写了absolute或fixed，一定要补top和left
+sticky兼容性很差
+position:relative; 1.使用场景
+(1)用于做位移(很少用)
+(2)用于给absolute元素做爸爸
+用法1:占的位置不变，只是你显示的地方跟之前有所偏移(很少用)
+用法2:跟absolute结合使用,给absolute元素做爸爸
+给爸爸加上position:relative;儿子上加position:absolute;
+匹配后close就会以container为依据去定位。
+2.relative配合z-index
+z-index:auto默认值，不创建新重叠上下文
+z-index:0/1/2
+z-index:-1/-2
+z-index与relative配合可以让后出来的div被覆盖
+只要比其他的元素多一个数，就会压制其它的元素。这就是相对定位互相压制的办法
+默认每个元素的z-index是auto，auto计算出来值是0。但是不能写0，auto是auto 0是0。
+position:absolute; 其它
+1.文字内容不许换行 white-space: nowrap;(经常用!)
+2.transform: translateX(-50%);
+3.calc() bottom: calc(100% + 10px);计算下100%+10px
+transform: scale(0.9);
+4.left:30%;
+5.absolute是相对于祖先元素中最近的一个定位元素 定位的，只要不是static就是定位元素。
+1.使用场景
+(1)脱离原来位置另起一层,用绝对定位做关闭按钮(很常用!)
+relative跟absolute结合使用
+(2)鼠标悬浮才显示&amp;quot;提示内容&amp;quot;的功能
+1.文字内容不许换行white-space: nowrap;
+2.transform: translateX(-50%);
+3.calc() bottom: calc(100% + 10px);计算下100%+10px
+2.配合Z-index
+3.经验
+1.很多人都以为absolute是相对于relative定位的
+错！absolute是相对于祖先元素中最近的一个定位元素 定位的，只要不是static就是定位元素。
+2.某些浏览器上如果不写top/left会位置错落(一定要记住)</description>
+    </item>
+    
+    <item>
+      <title>css布局</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/</guid>
+      <description>布局就是把页面分成一块一块,按左中右，上中下等排列
+ 布局一般分为3类
+1’固定宽度布局，一般宽度为960/1000/1024px
+例如淘宝
+2’不固定宽度布局，主要靠文档流的原理来布局
+一般在手机上用
+补充：文档流本来就是自适应的，不需要加额外的样式
+3’响应式布局
+PC上固定宽度，手机上不固定宽度
+也就是一种混合布局
+ 布局的两种思路
+1’从大到小(老手) 先定下大局，然后完善每个部分的小布局
+2‘从小到大(新手) 先完成小布局，然后组合成大布局
+css布局  css布局(div+css布局) 用章节标签代替div(header main section aside footer)
+ 3种css布局技术
+1.float布局
+需要兼容IE9及以下(需要PC网页)，必要时采用负margin(常用技巧)
+用在IE布局,老浏览器用float
+2.flex布局
+不需要兼容IE(不需要PC网页)，只做手机H5页面,要兼容旧手机浏览器。必要时采用负margin(常用技巧)
+只要不需要兼容IE,就可以在所有地方用,新浏览器用flex。
+3.grid布局
+不需要兼容IE(不需要PC网页)，只做手机H5页面,只兼容最新浏览器。
+Grid布局功能最强大，尤其适合“不规则布局”。
+ float布局  其它
+1.调试 outline:1px solid red;
+2.取消默认样式 *{margin:0; padding:0; box-sizing:border-box;}
+ float布局两步走
+第1步 在子元素上加float:left 和 width
+第2步 在父元素上加.clearfix。clearfix内容如下
+ .clearfix:after{ content:&#39;&#39;; display:block; clear:both; }  想用float布局做个导航栏但hearder高度为0怎么办？ 
+答：用.clearfix。一个块级元素的高度是由它内部文档流元素的总和决定的，header高度是由内部的文档流元素div nav决定的。float可以让元素脱离文档流。header里没有文档流元素，那么header高度就为0 
+老手的经验：
+1.最后一个不设width(会自适应)，可以加个max-width:100px;
+2.如果用了float布局，就不需要再想响应式了。
+因为手机上不用IE，float布局是专门为IE准备的，所以不需要做响应式。 
+3.IE6/7存在双倍margin bug</description>
+    </item>
+    
+    <item>
+      <title>DOM 编程</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/</guid>
+      <description>网页其实是颗树,JS如何操作这棵树?
+JS操作不了。让浏览器往window上加一个document。
+JS用document操作网页
+&amp;ldquo;用document对象操作整个网页&amp;quot;这种思想就叫做文档对象模型(Document Object Model)
+记住一个事实：DOM很难用
+下节课我们会想办法解决这个难题(封装)。
+如果你觉得DOM很傻，不要怀疑自己，你觉得是对的。
+DOM的接口设计的非常反人类，导致前端程序员不得不使用jQuery去操作DOM。后来Vue、React相继问世。我们便用Vue或React来代替操作DOM。
+我们从来不会用DOM自带的功能操作DOM，因为实在是反人类。
+但是我们还是要学DOM,不然看不懂 虚拟DOM 和 jQuery。
+其它
+1.箭头函数不支持this，有箭头函数就不能有this！
+2.在html里，不管有多少空格都会缩成一个空格。
+3.JS里面的属性统称为properties,HTML里面的属性统称为attributes。
+DOM提供的所有函数(API) 一.获取任意元素  标签又叫元素，获取元素的API
+ 有很多API
+1.window.id或者直接id //最快 2.document.getElementById(&#39;id&#39;) 3.document.getElementsByTagName(&#39;div&#39;)[0] //找到所有标签名为div的&#39;第1个&#39;元素 4.document.getElementsByClassName(&#39;red&#39;)[0] //找到所有class名为red的&#39;第1个&#39;元素 5.document.querySelector(&#39;#id&#39;) 6.document.querySelectorAll(&#39;#id&#39;)[0]  用哪一个
+1.工作中用querySelector和querySelectorAll
+2.做demo直接用id
+3.要兼容IE的才用getElement(s)ByXXX
+id=&amp;quot;kw&amp;quot; window.kw 或者 kw document.querySelector(&#39;#id&#39;) //(css选择器的写法) 例如：document.querySelector(&#39;div&amp;gt;span:nth-child(2)&#39;)  二.获取特定元素 1.获取html元素:document.documentElement 获取标签名 document.documentElement.tagName 2.获取head元素:ducument.head 3.获取body元素:ducument.body 4.获取窗口(窗口不是元素):window 代码:window.onclick=()=&amp;gt;{console.log(&#39;hi&#39;)} //获取window,添加事件监听 5.获取所有元素 document.all //获取当前页面所有标签  变态
+ document.all是IE发明的奇葩，第6个falsy值。 document.all以前用来区分是否是IE(现在document.all默认为假)  if(document.all){console.log(&#39;ie浏览器&#39;); 只能在ie运行} else{console.log(&#39;其它浏览器&#39;); 只能在非ie运行} 结果:其它浏览器 不做判断时可以直接用 document.all[2]  获取到的元素是个啥？
+都是对象。</description>
+    </item>
+    
+    <item>
+      <title>DOM事件与事件委托</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/</guid>
+      <description>点击事件 第一部分.概念
+&amp;lt;div class=爷爷&amp;gt; &amp;lt;div class=爸爸&amp;gt; &amp;lt;div class=儿子&amp;gt;文字&amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt;  给3个div分别添加事件监听fnYe/fnBa/fnEr
+提问一：点击了谁？
+点击文字，算不算点击儿子？
+点击文字，算不算点击爸爸？
+点击文字，算不算点击爷爷？
+都算
+提问二：调用顺序
+点击文字，最先调用fnYe/fnBa/fnEr中的哪个函数？
+都行
+IE5认为先调fnEr，网景认为先调fnYe,然后掐上了，最后闹到了W3C
+和事佬W3C 2002年，W3C发布标准，文档名为&amp;quot;DOM Level 2 Events Specification&amp;quot;
+规定浏览器应该同时支持两种调用顺序
+首先按爷爷=&amp;gt;爸爸=&amp;gt;儿子顺序看有没有函数监听
+然后按儿子=&amp;gt;爸爸=&amp;gt;爷爷顺序看有没有函数监听
+捕获总是在冒泡前面
+这个过程是固定的，只是看中间有没有函数。
+有监听函数就调用，并提供事件信息，没有就掉过。
+术语 从外向内找监听函数，叫事件捕获 从内向外找监听函数，叫事件冒泡
+冒泡是IE创建的事件模型(一般要冒泡)
+疑问：那岂不是fnYe/fnBa/fnEr都调用两次?非也！
+开发者自己选择把fnYe放在捕获阶段还是冒泡阶段
+DOM事件机制图 第二部分.代码实践 addEventListener函数
+事件绑定API
+IE5*:baba.attachEvent(&amp;lsquo;onclick&amp;rsquo;,fn) //冒泡
+网景:baba.addEventListener(&amp;lsquo;click&amp;rsquo;,fn) //捕获
+W3C:baba.addEventListener(&amp;lsquo;click&amp;rsquo;,fn,bool)
+如果bool不传或为falsy(类似于false的值)
+就让fn走冒泡，即当浏览器在冒泡阶段发现baba有fn监听函数，就会调用fn,并提供事件信息
+如果bool为true
+就让fn走捕获，即当浏览器在捕获阶段发现baba有fn监听函数，就会调用fn,并提供事件信息
+注意:走冒泡阶段不是说只走这个阶段。而是说捕获、冒泡这个阶段是一定要走的，只不过是你在哪边执行函数的问题。传false就是把fn放冒泡阶段执行，传true就是把fn放捕获阶段执行。
+例子 代码
+1.css
+div[class^=level] { border: 1px solid; border-radius: 50%; display: inline-flex; }  2.e会在事件结束后自动消亡，e只存在于事件点击的那一瞬间。
+1秒钟之后就没有这个点击事件了。
+e是空的。
+保存e 代码：const t=e.currentTarget
+let n=1 level1.</description>
+    </item>
+    
+    <item>
+      <title>Git远程仓库 -GitHub</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/</guid>
+      <description>Git 包括 本地仓库 和 远程仓库github, git 这个工具有个特点, 它的本地与远程是完全隔开的。在学习远程之前必须先搞熟本地。
+代码需要储存在云端，比如你需要在公司和家里写代码，比如你的笔记本被奶茶泡坏了，比如你不小心运行了rm-rf/ …
+ Github可以存储你的代码，只需要2行命令：
+git remote add origin git@xxxxxxxx git push -u origin master  一.SSH key验证身份  GitHub 是如何知道是 &amp;ldquo;你&amp;quot;在操作 “你的代码”?
+有人说可以通过验证用户名和密码呀。每次上传时都要输入用户名和密码过于繁琐，有没有别的能验证身份的方式？ 有，SSH key验证
+ 那SSH key怎么验证的？
+如上图所示，我们需要生成一个公钥上传到GitHub，然后生成一个私钥放到电脑上。当我们上传代码时，代码会用这个私钥加密代码上传。GitHub看不懂加密后的代码便用账号里面的公钥解密。如果能解开就证明是本人，解不开就是别人想偷你代码伪造上传的。公钥私钥是配对的，公钥加密只能找私钥解，私钥加秘只能找公钥。
+如何生成ssh key? Github帮助文档
+过程如下
+1.终端运行
+ssh-keygen -t ed25519 -C &amp;quot;your_email@example.com&amp;quot; //修改为你的邮箱  接下来一直回车即可。
+出现下图所示即代表成功。
+进入.ssh目录可查看当前目录，id_rsa.pub 公钥可以给任何人看, id_rsa私钥 泄露别人就能伪造你的身份篡改你的代码！ 2.打出公钥id_rsa.pub的内容并复制其内容
+cat ~/.ssh/id_rsa.pub  3.打开GitHub，在设置页面的“SSH and GPG keys”选项卡里填入公钥：
+点击按钮“New SSH key”，把copy好的公钥粘贴进 Key，点击“Add SSH key”
+测试公私钥是否配对成功
+ssh -T git@github.com  这里GitHub也给我一个公钥证明它是它，我们两方都在证明自己的身份，输入yes接受它的公钥。当出现“Hi xxx!</description>
+    </item>
+    
+    <item>
+      <title>Hooks 原理解析</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/</guid>
+      <description>内容
+1.分析useState原理和源码
+2.useRef的作用
+3.useContext的作用
+4.Vue3 对比 React
+ 分析useState原理 import React from &amp;quot;react&amp;quot;; import ReactDOM from &amp;quot;react-dom&amp;quot;; const rootElement = document.getElementById(&amp;quot;root&amp;quot;); function App() { console.log(&amp;quot;App 运行了&amp;quot;) const [n, setN] = React.useState(0); console.log(`n:${n}`); return ( &amp;lt;div className=&amp;quot;App&amp;quot;&amp;gt; &amp;lt;p&amp;gt;{n}&amp;lt;/p&amp;gt; &amp;lt;p&amp;gt; &amp;lt;button onClick={() =&amp;gt; setN(n + 1)}&amp;gt;+1&amp;lt;/button&amp;gt; &amp;lt;/p&amp;gt; &amp;lt;/div&amp;gt; ); } ReactDOM.render(&amp;lt;App /&amp;gt;, rootElement);  点击button后会发生什么？
+首次渲染render &amp;lt;App/&amp;gt;
+调用App()
+得到一个对象(虚拟DIV)
+React就会把这个虚拟DIV变成页面中真实的&amp;lt;div&amp;gt;
+用户点击button就会调用onClick函数,执行setN(n+1)
+再次render &amp;lt;App/&amp;gt;,调用App()
+验证:添加console.log(&amp;quot;App 运行了&amp;quot;)看看App运行了几次
+第1次得到0时“App 运行了”，点button又执行“App 运行了”
+证明:这个函数每更新一次UI就会运行一次。
+会再次得到一个对象(虚拟DIV)
+把新的虚拟DIV跟旧的虚拟DIV对比，看哪里有变化DOM Diff，然后局部更新真&amp;lt;div&amp;gt;
+每次调用App(),都会执行useState(0)
+第1次运行与第2次运行结果是一样的吗？
+验证:添加console.log(n:${n});
+点刷新n=0,点+1n=1</description>
+    </item>
+    
+    <item>
+      <title>Hooks 各个击破</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/</guid>
+      <description>React文档
+Hooks：useState、useEffect、useLayoutEffect、useContext、useReducer、useMemo、React.memo、callCallback、useRef、useImperativeHandle、自定义Hook、useDebugValue
+ useState(最常用)  在React的函数组件里，默认只有属性，没有状态。
+ 1.使用状态
+//数组第1项是读接口，第2项是写接口，初始值0 const [n,setN] = React.useState(0) //数字 const [user,setUser] = React.useState({name:&#39;F&#39;}) //对象  2.注意事项(1):不可局部更新
+更新部分属性时，未更新的属性会消失。
+3.注意事项(2):地址要变
+setState(obj)如果obj对象地址不变，那么React就认为数据没有变化，因此不会帮你改变内容。
+4.useState接受函数
+5.setState接受函数
+例1:不可局部更新
+如果state是个对象，能否部分setState? 不行，因为setState不会帮我们合并属性。所以当只更新部分属性时，未更新的属性就会消失。
+那怎么解决&amp;quot;未更新的属性会消失&amp;quot;的问题？
+用...拷贝之前所有的属性，然后再覆盖属性。
+import React, {useState} from &amp;quot;react&amp;quot;; import ReactDOM from &amp;quot;react-dom&amp;quot;; function App() { const [user,setUser] = useState({name:&#39;Frank&#39;, age: 18}) const onClick = ()=&amp;gt;{ setUser({ ...user, //拷贝user的所有属性 name: &#39;Jack&#39; //覆盖name }) } return ( &amp;lt;div className=&amp;quot;App&amp;quot;&amp;gt; &amp;lt;h1&amp;gt;{user.name}&amp;lt;/h1&amp;gt; &amp;lt;h2&amp;gt;{user.age}&amp;lt;/h2&amp;gt; &amp;lt;button onClick={onClick}&amp;gt;Click&amp;lt;/button&amp;gt; &amp;lt;/div&amp;gt; ); } const rootElement = document.</description>
+    </item>
+    
+    <item>
+      <title>HTML标签</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A0%87%E7%AD%BE/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A0%87%E7%AD%BE/</guid>
+      <description>推荐书籍和工具 1.书籍《网道HTML教程》
+2.推荐个VSCode小插件
+格式化工具 Prettier Code formatter
+安装后开启自动格式化:
+文件-&amp;gt; 首选项-&amp;gt; 设置-&amp;gt; 1’搜索“auto save”选择onFocusChange-&amp;gt; 搜索并勾选&amp;quot;format on save&amp;quot;
+3.在线编码工具 沙盒
+一.标签详解 1.html起手式 Emment感叹号
+UTF-8支持所有人类语言，GBK只支持亚洲一些国家。
+content=&amp;ldquo;IE=edge&amp;quot;告诉浏览器使用最新版本(内核)
+2.章节标签 文章/书的层级
+标题h1~h6 章节section 文章article 段落p 头部header 脚步footer 主要内容main 旁支内容aside 划分div  二.全局属性 所有标签都有的属性叫做全局属性。
+class contenteditable 可编辑的 hidden id style tabindex title  解析
+1.class可写多个
+class=&amp;ldquo;middle bordered&amp;rdquo;
+使用：.middle{ } .bordered{}  2.contenteditable 可以使任意一个元素被编辑
+用户可直接编辑页面上的文字，大部分时候没用。但是contenteditable可以用来做个自己的编辑器。
+3.style标签默认不显示，有办法可以让它显示吗？
+可以，但是要把style挪到body下。
+4.结合contenteditabl 与 display:block; 可以实现让用户自己修改样式！
+这也是一种好用的调试技巧，可以用来调试代码！
+... &amp;lt;body&amp;gt; &amp;lt;style contenteditable&amp;gt; style{display:block; border:1px solid red;} .middle{background: red;} .bordered{ border:1px solid red; } &amp;lt;/style&amp;gt; &amp;lt;/body&amp;gt; .</description>
+    </item>
+    
+    <item>
+      <title>HTML概览</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A6%82%E8%A7%88/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A6%82%E8%A7%88/</guid>
+      <description>一.HTML5概述  WWW指万维网(WWW=URL+HTTP+HTML),是1990年由李爵士发明的,17年被颁发图灵奖
+WWW的直观感受，如何使用万维网:你输入网址，看到网页，看不见的部分由HTTP搞定。
+MDN HTML5权威指南
+ 李爵士做了啥？
+自己写了第一个浏览器，第一个服务器，用自己写的浏览器访问了自己写的服务器。发明了WWW,同时发明了HTML HTTP和URL。
+李爵士这么做有什么意义？
+让每个人输入网址就能看到网页。没有网址就发明URL,没有网页就发明HTML，为了让系统更完善发明了HTTP。
+万维网与互联网的关系
+万维网是基于互联网实现的，输入地址就能看到网页的一个网络。
+制作网页需要的知识： 域名知识 + HTTP服务器知识 + HTML知识 + 其它
+二.HTML5技术集 html5分 狭义Html5和 广义Html5
+1.狭义指 Html5新增的+旧的，大概 110 个标签。
+ 核心标签
+元数据：meta
+章节：section nav artical aside header footer main
+内容层次:ol+li ul+li dl+dt+dd
+文字：a
+嵌入内容：image video canvas svg
+表格：table tbody thead tfoot tr td th
+表单：form label input button select option textarea
+ 2.广义标签包括 Html5和其它技术(包括CSS 3和javascript等)
+三. HTML的语法 标签
+&amp;lt;!DOCTYPE html&amp;gt; //文档类型 &amp;lt;tag attr=value&amp;gt;内容&amp;lt;/tag&amp;gt; //属性值加引号的规则 &amp;lt;tag attr&amp;gt;内容&amp;lt;/tag&amp;gt; //没有值的属性 &amp;lt;tag attr=value&amp;gt; //直接闭合  细节</description>
+    </item>
+    
+    <item>
+      <title>HTML重点标签</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E9%87%8D%E7%82%B9%E6%A0%87%E7%AD%BE/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E9%87%8D%E7%82%B9%E6%A0%87%E7%AD%BE/</guid>
+      <description>推荐2个打开超链接(预览html)的工具
+1’http-server
+安装 yarn global add http-server 使用 http-server . -c-1 (缩写hs -c-1)  然后在浏览器的地址栏中录入index的路径
+补充:手机电脑同一wifi下，手机也可以访问index页面
+2’parcel
+安装 yarn global add parcel 使用 parcel index.html  注意parcel有个bug,不引入js的的话，parcel是不会帮你自动打包的。
+control+c中断
+一.a标签  属性
+href
+target 指定在哪个窗口打开这个超链接
+download 下载网页，很多浏览器不支持没用
+rel=noopener 为了防止一个bug
+作用
+跳转外部页面/跳转内部锚点/跳转到邮箱或电话
+ 1.属性href取值有8种
+解析:
+(1)//google.com 无协议网址
+最高级。会自动选择使用http/https
+(2)路径
+绝对路径href=&amp;quot;/a/b/c&amp;quot; 以及 相对路径href=&amp;ldquo;a/b/c&amp;rdquo;
+index.html 以及./index.html
+注意不要通过双击打开链接，不然地址按绝对路径方式出错。因为链接的路径是file。
+vs code里的路径是基于文件的。浏览器里的路径是http服务的根目录。这2种链接地址不一样
+为什么用浏览器打开地址不出错？因为它会以当前文件为根目录！
+(3)伪协议写法 就是为了执行js用的。
+&amp;lt;a href=&amp;quot;javascript:alert(1);&amp;quot;&amp;gt;javascript伪协议&amp;lt;/a&amp;gt; //现在基本不用了  现在只用下面这个
+需求:什么都不做的a标签。
+&amp;lt;a href=&amp;quot;javascript:;&amp;quot;&amp;gt;空的伪协议&amp;lt;/a&amp;gt; //什么都不做的a标签  (4)跳转到指定标签。可以加id ,例子：href=&amp;quot;#xxx&amp;quot;
+(5)发邮件 &amp;lt;a href=&amp;ldquo;mailto:xxx@163.com&amp;quot;&amp;gt;发邮件给自己&amp;lt;/&amp;gt;
+打电话 打电话给我</description>
+    </item>
+    
+    <item>
+      <title>HTTP 状态码</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/</guid>
+      <description>面试题 -常见状态码
+ HTTP 状态码(HTTP Status Code)是用来表示 HTTP 响应状态的 3 位数字代码。
+概览
+消息 100~199
+成功 200-299
+重定向 300 -399
+客户端出错 400-499
+服务器出错 500-599
+详解  #100 ~ 199 消息
+ 100 Continue
+服务器已经收到请求头，请求者应当继续提出请求。服务器返回此代码表示已收到请求的第一部分，正在等待其余部分
+101 Switching Protocol
+服务端已经理解了客户的请求，并通过 Ugrade 消息头通知客户端采用不同的协议来完成这个请求
+102 Processing(WebDAV)
+此代码表示服务器已收到并正在处理该请求，但没有响应可用。
+103 Early Hints
+此状态代码主要用于与Link 链接头一起使用，以允许用户代理在服务器仍在准备响应时开始预加载资源。
+ #200 ~ 299 成功
+ 200 OK
+请求成功。已成功处理了请求,出现此状态码表示正常状态
+201 Created
+该请求已成功，并因此创建了一个新的资源。这通常是在POST请求，或是某些PUT请求之后返回的响应。
+202 Accepted
+服务器已接受请求，但尚未处理，没有结果。
+意味着不会有一个异步的响应去表明当前请求的结果，预期另外的进程和服务去处理请求，或者批处理。
+203 Non-Authoritative Information
+服务器已成功处理了请求，但返回的实体头部元信息不是在原始服务器上有效的确定集合，而是来自本地或者第三方的拷贝。
+204 No Content
+服务器成功处理了请求，但不需要返回任何实体内容。
+205 Reset Content</description>
+    </item>
+    
+    <item>
+      <title>JavaScript 的诞生</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/</guid>
+      <description>JavaScript（通常缩写为JS）是一种高级的、解释型的编程语言。 JavaScript是一门基于原型、头等函数的语言，是一门多范式的语言，它支持面向对象程序设计，指令式编程，以及函数式编程。 它提供语法来操控文本、数组、日期以及正则表达式等，不支持I/O，比如网络、存储和图形等，但这些都可以由它的宿主环境提供支持。 它已经由ECMA（欧洲电脑制造商协会）通过ECMAScript实现语言的标准化。它被世界上的绝大多数网站所使用，也被世界主流浏览器（Chrome、IE、Firefox、Safari、Opera）支持。
+  JavaScript与Java在名字或语法上都有很多相似性，但这两门编程语言从设计之初就有很大的不同，JavaScript的语言设计主要受到了Self（一种基于原型的编程语言）和Scheme（一门函数式编程语言）的影响。 在语法结构上它又与C语言有很多相似（例如if条件语句、switch语句、while循环、do-while循环等）。
+  在客户端，JavaScript在传统意义上被实现为一种解释语言，但在最近，它已经可以被即时编译（JIT）执行。 随着最新的HTML5和CSS3语言标准的推行它还可用于游戏、桌面和移动应用程序的开发和在服务器端网络环境运行，如Node.js。
+ Javascript的历史   1995年，Netscape（网景）公司的布兰登·艾奇（Brendan Eich）在网景导航者浏览器上首次设计出了JavaScript。 Netscape最初将这个脚本语言命名为LiveScript，后来Netscape公司与Sun公司（2009年被Oracle公司收购）合作之后将其改名为JavaScript，这是由于当时Sun公司推出的Java语言备受关注，Netscape公司为了营销借用了Java这个名称，但实际上JavaScript与Java的关系就像“雷锋”与“雷峰塔”，它们本质上是两种不同的编程语言。 在设计之初，JavaScript是一种可以嵌入到网页中的编程语言，用来控制浏览器的行为。随着JavaScript的发展，JavaScript的用途已经不仅局限于浏览器了。 Node.js 的出现使得开发人员能够在服务器端编写JavaScript代码，使得JavaScript的应用更加广泛。
+ 概论  完整的JavaScript包括以下几个部分：
+ ECMAScript，描述了该语言的语法和基本对象 文档对象模型（DOM），描述处理网页内容的方法和接口 浏览器对象模型（BOM），描述与浏览器进行交互的方法和接口  JavaScript的基本特点：
+ 是一种解释性脚本语言。 主要用来向HTML页面添加交互行为。 可以直接嵌入HTML页面，但写成单独的js文件有利于结构和行为的分离。  JavaScript常用来完成以下任务：
+ 嵌入动态文本于HTML页面 对浏览器事件作出响应 读写HTML元素 在数据被提交到服务器之前验证数据 检测访客的浏览器信息 控制cookie，包括创建和修改等  特性   不同于服务器端脚本语言，例如PHP与ASP，JavaScript主要被作为客户端脚本语言在用户的浏览器上运行，不需要服务器的支持。所以在早期程序员比较青睐于JavaScript以减少对服务器的负担，而与此同时也带来另一个问题：安全性。 随着服务器变得强大，现在的程序员更喜欢运行于服务端的脚本以保证安全，但JavaScript仍然以其跨平台、容易上手等优势大行其道。 同时，有些特殊功能（如AJAX）必须依赖JavaScript在客户端进行支持。随着引擎V8和框架Node.js的发展，及其事件驱动及异步IO等特性，JavaScript逐渐被用来编写服务器端程序。 在近几年中，Node.js的出世，让JavaScript也具有了一定的服务器功能。
+ 以下是 ECMAScript通常实现所共有的特性。
+指令式与结构化
+ JavaScript从支持许多C语言的结构化编程语法（例如if条件语句、while循环、switch语句、do-while循环等）。 但作用域是一个例外：JavaScript在过去只支持使用var关键字来定义变量的函数作用域。 ECMAScript 2015加入了let关键字来支持块级作用域。意味着JavaScript现在既支持函数作用域又支持块级作用域。 和C语言一样，JavaScript中的表达式和语句是不同的。有一点格式上的不同，JavaScript支持自动在语句末添加分号，因此允许忽略语句末尾的分号。
+ 弱类型
+ Javascript是弱类型的，这意味着变量可以被隐式地转换为另一个类型。 二元运算符+会把两个操作数转换为字符串，除非两个操作数都为数字类型。这是因为+也表示字符串连接操作。 二元操作符-会把两个操作数转换为数字类型。 一元操作符，包括+和-，都会把操作数转换为数字。 下列为变量转换为字符串的例子：
+ 字符串类型不变。 数字会转换为其字符串表示。 数组的元素会转换为字符串，然后连接成通过逗号,分隔的长字符串。 其它对象会转换为[object Object]，其中Object中该对象的构造函数名</description>
+    </item>
+    
+    <item>
+      <title>jQuery 中的设计模式(上)</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/</guid>
+      <description>手写 DOM 库(2)，上一次我们用对象风格封装DOM操作(原生js)，这次用jQuery风格重新封装。
+ 其它
+1.window.jQuery=function(){}
+jQuery是全局变量可以直接使用jQuery()
+jQuery核心思想
+接受一个selector。
+根据这个选择器得到一些元素。
+return 一个对象。
+这个对象有些方法可以操作这个元素。
+2.旧语法key:value //&amp;ldquo;addClass&amp;rdquo;:function(参数){}
+ES6新语法 //addClass(参数) {}
+3.声明一个对象api，再return这个对象。
+其实可以直接return这个对象！
+4.当变量声明后只使用一次时，可省略不用声明。
+5.array3 = array1.concat(array2); //concat里是伪数组
+相当于array3 = array1 + array2
+concat方法创建一个新的数组，它由被调用的对象中的元素组成。
+将伪数组变成数组 Array.from()
+6.伪数组
+7.const不能重复赋值，而且在声明时必须赋值
+可以用let
+if (typeof selectorOrArray === &#39;string&#39;) { ... } else if (selectorOrArray instanceof Array) { //x instanceof object ... }  对象用instanceof
+9.语法 arr.indexOf(searchElement[, fromIndex]) //fromIndex可选，示例略
+indexOf()方法返回在数组中可以找到一个给定元素的第一个索引。
+&amp;gt;=0表示存在，===-1表示不存在。
+const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;]; console.log(beasts.indexOf(&#39;bison&#39;)); // 1 console.log(beasts.indexOf(&#39;giraffe&#39;)); // -1  10.</description>
+    </item>
+    
+    <item>
+      <title>jQuery 中的设计模式(下)</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/</guid>
+      <description>1.文章 阮一峰 、中文文档(jQuery有哪些功能)
+2.完整代码
+1.简写jQuery window.$=window.jQuery  方法:页面最后添加window.$=window.jQuery,任意地方就可以直接使用$
+代码：$(&#39;.test&#39;).children().print()
+类似于bash alias,添加一个别名即可。
+window.jQuery=function(selectorOrArrayOrtemplate){...} window.$=window.jQuery 这两句可以合成下面一句 window.$=window.jQuery=function(selectorOrArrayOrtemplate){...}  执行顺序：当两个=在同一行时,那么是从右边开始执行的。
+也就是说，先执行window.jQuery=function(selectorOrArrayOrtemplate){&amp;hellip;}，
+得到window.jQuery的值后，再将值赋值给window.$。
+2.命名风格 下面的代码令人误解
+const div1=$(&#39;.test&#39;) const div2=document.querySelector(&#39;.test&#39;)  我们会误以为div1是一个DOM,实际上div1是jQuery构造的api对象。
+DOM对象只能用DOM API 如querySelector、appendChild
+jQuery对象只能用jQuery的API 如find、each
+错误用法：div1.document.querySelector(&amp;rsquo;.test&#39;)
+怎么避免这种误解，如何区分？
+jQuery API加$ ,DOM API 加el或不加 。
+const $div1=$(&#39;.test&#39;) const elDiv2=document.querySelector(&#39;.test&#39;) 或者 const div2=document.querySelector(&#39;.test&#39;)  $开头的变量都是jQuery对象
+3.链式风格 jQuery.prototyppe
+jQuery实际上就是调用dom api,除此之外就是加一些if/for循环
+一.增
+$(&#39;&amp;lt;div&amp;gt;&amp;lt;span&amp;gt;1&amp;lt;/span&amp;gt;&amp;lt;/div&amp;gt;&#39;) .appendTo(document.body) 插入到body中  思路:
+const $div=$(&#39;&amp;lt;div&amp;gt;&amp;lt;/div&amp;gt;&#39;) $div.appendTo(document.body)  二.删
+$div.remove() $div.empty()  三.改
+1.`$div.text(?)`读写文本内容 2.`$div.html?)`读写html内容 3.`$div.attr(&#39;title&#39;,?)`读写属性 4.`$div.css({color:&#39;red&#39;})`读写style 5.`$div.addClass(&#39;blue&#39;)`添加class 6.`$div.on(&#39;click&#39;,fn)` 添加事件监听 7.</description>
+    </item>
+    
+    <item>
+      <title>JS函数</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/</guid>
+      <description>本节课主要讲解函数对象，JS的第二座大山this
+ 其它
+1.对象:object对象、数组对象、函数对象(函数是一种特殊的对象)
+2.for循环里的i是字符串下标。
+定义函数  4种方式:具名函数、匿名函数、箭头函数、用构造函数
+ 1.具名函数
+全局作用域
+function 函数名(形式参数1，形式参数2){ 语句 return 返回值 }  2.匿名函数
+上面的具名函数，去掉函数名就是匿名函数
+let a=function(x,y){return x+y}  等于号右边又叫函数表达式
+面试题
+let a=function fn(x,y){return x+y} fn(1,2) //作用域  请问fn能成功调用吗？
+不能。函数在等于号右边，那么fn作用域只能在等于号右边，要用的话也只能用a。
+3.箭头函数
+let f1 = x =&amp;gt; x*x  箭头=&amp;gt;左边是输入参数，右边是输出参数
+let f2 = (x,y) =&amp;gt; x+y  当有2个参数时需要扩起来
+let f3 = (x,y) =&amp;gt; { x+y }  2个语句需要用{}括起来,并且要return
+let f4 = (x,y) =&amp;gt; ({name:x,age:y}) //括号内表示是一个整体  直接返回对象会出错，必须加个圆括号
+4.用构造函数(没人用)
+let f=new Function(&#39;x&#39;,&#39;y&#39;,&#39;return x+y&#39;)  基本没人用，但是能让你知道函数是谁构造的</description>
+    </item>
+    
+    <item>
+      <title>JS对象</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/</guid>
+      <description>本节课主要讲解js的第7种数据类型，唯一一种复杂类型:对象object
+  其它
+  1.新手学js的三座大山:原型、this、ajax
+  2.读对象的属性时(重要知识点)
+  (1)如果使用[ ]语法，那么JS 先求[ ]中表达式的值，注意区分表达式是&amp;quot;变量&amp;quot;还是常量。
+  (2)如果使用点语法，那么点后面一定是 string 常量。
+  3.7种数据类型:4基2空1对象
+  string number bool symbol undefined null object
+  除了bool的false外，其它数据类型也有假的值。
+  5个falsy值:：2个空2个数字1个字符串
+  undefined null 0 NaN &amp;lsquo;&amp;rsquo;(空字符串)
+  4.打印出一个对象的所有key
+ var obj={ 2:&#39;22222&#39; } Object.keys(obj) 输出结果:[&#39;2&#39;]   5.若一个属性不存在则它的值为undefined。
+  6.log返回的值永远是undefined
+  7.原型是对象，原型包含了共有属性。
+ 对象object 前6种是简单类型，不能包含其它任何东西。
+对象是复杂类型，可以包含其它的6种东西甚至包括自己。
+语法
+1.定义
+无序的数据集合
+键值对的集合
+2.写法</description>
+    </item>
+    
+    <item>
+      <title>JS对象分类</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/</guid>
+      <description>其它
+1.推荐文章
+你可以不会class，但是一定要学会prototype
+JS的new到底是干什么的？
+JS中proto和prototype存在的意义是什么？
+ES6 所有新特性
+2.构造函数就是可以构造出对象的函数
+3.封装:把细节写到一个函数里，别人只需要调用函数并且传个参数(宽度)
+4.函数也是对象
+5.js之父为了让new可以运行提前规定:
+所有js里的函数自带prototype属性。
+prototype属性自带constructor。
+constructor的值等于函数本身。
+6.共有属性与原型的关系：包含与被包含。
+共有属性这整个对象叫做原型。
+对象的地址就是原型的地址，里面的每一个属性叫共有属性。
+对象需要分类吗？  需求：输出各种形状的面积和周长
+ 正方形 分析 正方形有三个属性:边长、面积、周长 let square={ width:5, getArea(){ return this.width * this.width }, getLength(){ return this.width * 4 } }  来一打正方形
+let squareList=[] for(let i=0;i&amp;lt;12;i++){ squareList[1]={ width:5, getArea(){ return this.width * this.width }, getLength(){ return this.width * 4 } } }  width不全是5怎么办？
+let squareList=[] let widthList=[5,6,7,8,5,6,7,5,5,4,5,6] for(let i=0;i&amp;lt;12;i++){ squareList[i]={ width:widthList[i], getArea(){ return this.width * this.</description>
+    </item>
+    
+    <item>
+      <title>JS数据类型</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
+      <description>其它
+1.推荐阅读《我用了两个月的时间才理解 let》
+2.markdown如何输入上下标 输入上标，如x^2 , 则输入x^2
+3.键盘怎么打顿号？中文状态下点击&amp;quot;|&amp;ldquo;键
+4.二进制只有0和1
+5.前6种类型都是简单类型，只有object叫做复杂类型
+6.JS秘密花园收录了JS的各种bug
+7.JS新增了一种类型bigint 因为太新了用得很少,面试基本不考。
+ 数据为什么需要类型？ 数字与字符串
+(1)功能不同
+数字是数字，字符串是字符串，要严谨
+数字能加减乘除，字符串不行
+字符串能表示电话号码(有时候电话号码还可以有字母)，数字不同
+(2)存储形式不同
+JS中，数字是用64位浮点数的形式存储的
+JS中，字符串是用类似UTF8形式存储的(UCS-2)
+JS是如何存数字的？ 就是把所有数字变成二进制存下来，再用十六进制简化。
+把所有的十进制都转为二进制
+补充：内存里只能存0和1，2都存不了。2就要把它变成1或0。
+二进制
+1.十进制转二进制
+例子：31变成二进制 31 = ?x2^5 + ?x2^4 + ?x2^3 + ?x2^2 + ?x2^1 + ?x2^0
+经过一番尝试 31=0x2^5 + 1x2^4 + 1x2^3 + 1x2^2 + 1x2^1 + 1x2^0
+所以31(十进制)=01 1111(二进制)
+2.二进制转十进制
+例子：100011变成十进制 每位数乘以2的N次方，然后加起来即可
+100011=2^5 + 2^1 + 2^0=35
+用十六进制表示二进制
+十六进制是二进制的简写(把每4位改写成1位)
+十六进制：0 1 2 3 4 5 6 7 8 9 A B C D E F</description>
+    </item>
+    
+    <item>
+      <title>JS数组</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/</guid>
+      <description>object可以分很多类，其中最著名的2个类是数组和函数。
+数组对象是一种特殊的对象，所以对象能做的事情，数组都能做。
+2021年12月24日js其实没有真正的数组，只是用对象模拟数组。
+ 其它
+1.第1层__proto__是共有属性，第2层是构造该Object的prorotype
+2.let divList=document.querySelectorAll(&amp;lsquo;div&amp;rsquo;) 获取所有div
+3.一个对象提供的函数就叫做API
+4.${} 意思是可以插入一个变量
+5.for循环里的i是字符串下标的值
+6.数组中reduce和splice功能特别强大,最重要
+7.n % 2 === 1? sum += n : false
+8.x%2只有2个值0或1,0偶数1奇数
+9.js中各种类型的toString方法
+js中定义了7种数据类型，在这7种数据类型中，除了undefined和null类型之外，都有toString方法。
+JS的数组不是典型数组 典型的数组
+元素的数据类型相同
+使用连续的内存存储
+通过数字下标获取元素
+但JS的数组不这样
+元素的数据类型可以不同
+内存不一定是连续的(对象是随机存储的)
+不能通过数字下标,而是通过字符串下标
+这意味着数组可以有任何key
+比如
+let arr=[1,2,3]
+arr[&amp;lsquo;xxx&amp;rsquo;]=1 //&amp;lsquo;xxx&amp;rsquo;是字符串下标哦
+js的所有数组并不是数组，假的，它实际上还是个对象。
+注意：下标是字符串，没有数字
+创建一个数组 方式一：
+let arr=[1,2,3]
+let arr=new Array(1,2,3) //参数只有1个就是长度，多个就是元素
+let arr=new Array[3] //长度为3
+方式二：通过字符串创建数组
+转化
+let arr=&amp;lsquo;1,2,3&amp;rsquo;.split(&amp;rsquo;,&amp;rsquo;)
+let arr=&amp;lsquo;123&amp;rsquo;.split(&amp;rsquo;&amp;rsquo;)
+Array.from(&amp;lsquo;123&amp;rsquo;)
+要满足条件才能够转化：有&amp;quot;0123下标&amp;quot;和&amp;quot;length属性&amp;quot;
+js会自动将数字.toString()成字符串
+变态
+1.如果下标与length不一致呢？
+Array.from({0:&#39;a&#39;,1:&#39;b&#39;,2:&#39;c&#39;,3:&#39;d&#39;,length:2}) 输出结果：[&#39;a&#39;, &#39;b&#39;]  2.伪数组
+伪数组的原型链中并没有数组的原型
+第1层__proto__是共有属性，第2层是构造该Object的prorotype。</description>
+    </item>
+    
+    <item>
+      <title>JS正则表达式</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</guid>
+      <description>文档 30分钟入门正则表达式、菜鸟教程
+工具 在线测试
+ 概念 在编写处理字符串的程序或网页时，经常会有查找符合某些复杂规则的字符串的需要。正则表达式就是用于描述这些规则的工具。换句话说，正则表达式就是记录文本规则的代码，通过特殊字符（称为&amp;quot;元字符&amp;quot;）+普通字符（例如，a 到 z 之间的字母）来进行模式描述，方便提取我们想要的信息。
+正则表达式目前被集成到了各种文本编辑器/文本处理工具当中。
+简介
+也许你并没有接触过正则表达式，但你一定使用过不涉及脚本的某些正则表达式概念。比如用 ? 和 * 通配符来查找硬盘上的文件。? 通配符匹配文件名中的 0 个或 1 个字符，而 * 通配符匹配零个或多个字符。
+像 data(\w)?.dat 这样的模式将查找下列文件：
+data.dat data1.dat datax.dat dataN.dat  使用 * 字符代替 ? 字符扩大了找到的文件的数量。data.*.dat 匹配下列所有文件：
+data.dat data1.dat data12.dat datax.dat dataXYZ.dat  尽管这种搜索方法很有用，但有限。通过理解 * 通配符的工作原理，引入了正则表达式所依赖的概念，但正则表达式功能更强大，而且更加灵活。
+示例：
+^ 为匹配输入字符串的开始位置。
+[0-9]+匹配多个数字， [0-9] 匹配单个数字，+ 匹配一个或者多个。
+abc$匹配字母 abc 并以 abc 结尾，$ 为匹配输入字符串的结束位置。
+我们在写用户注册表单时，只允许用户名包含字符、数字、下划线和连接字符(-)，并设置用户名的长度，我们就可以使用以下正则表达式来设定。 以上的正则表达式可以匹配 runoob、runoob1、run-oob、run_oob， 但不匹配 ru，因为它包含的字母太短了，小于 3 个无法匹配。也不匹配 runoob$, 因为它包含特殊字符。
+正则表达式能做什么？ 1.测试字符串内的模式
+例如，可以测试输入字符串，以查看字符串内是否出现电话号码模式或信用卡号码模式。这称为数据验证。
+2.替换文本
+可以使用正则表达式来识别文档中的特定文本，完全删除该文本或者用其他文本替换它。</description>
+    </item>
+    
+    <item>
+      <title>js获取屏幕宽高</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/</guid>
+      <description>BODY对象宽和高度 document.body.clientWidth document.body.clientHeight 可见区域宽和高度 document.documentElement.clientWidth document.documentElement.clientHeight 网页可见区域宽和高(包含边线的宽和高) document.body.offsetWidth document.body.offsetHeight 网页正文全文宽和高 document.body.scrollWidth document.body.scrollHeight 网页被卷去的高 document.body.scrollTop 网页被卷去的左 document.body.scrollLeft 网页正文部分上 window.screenTop 网页正文部分左 window.screenLeft 屏幕分辨率的宽和高 window.screen.width window.screen.height 屏幕可用工作区宽和高 window.screen.availWidth window.screen.availHeight - - - - jQuery函数 - - - - 浏览器时下窗口可视区域宽和高 $(window).width() $(window).height() 浏览器时下窗口文档的宽和高 $(document).width() $(document).height()　浏览器时下窗口文档body的宽和高 $(document.body).width()　$(document.body).height() 浏览器时下窗口文档body的总宽高度(包含margin padding border) $(document.body).outerWidth(true) $(document.body).outerHeight(true) HTML精确定位 scrollWidth 获取对象的滚动宽度 scrollHeight获取对象的滚动高度 scrollLeft:设置或获取位于对象左边界和窗口中目前可见内容的最左端之间的距离 scrollTop:设置或获取位于对象最顶端和窗口中可见内容的最顶端之间的距离 offsetHeight:获取对象相对于版面或由父坐标 offsetParent 属性指定的父坐标的高度 offsetLeft:获取对象相对于版面或由 offsetParent 属性指定的父坐标的计算左侧位置 offsetTop:获取对象相对于版面或由 offsetTop 属性指定的父坐标的计算顶端位置 相对文档的水平和垂直座标 event.clientX event.clientY 相对容器的水平和垂直坐标 event.offsetX event.offsetY document.documentElement.scrollTop 垂直方向滚动的值 event.clientX+document.documentElement.scrollTop 相对文档的水平座标+垂直方向滚动的量  </description>
+    </item>
+    
+    <item>
+      <title>JS语法</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/</guid>
+      <description>前言
+1.这节课教的JS版本是ES 6
+2.对ES 6的评价
+为啥说ES 6一半垃圾一半好？
+JS的原创之处并不优秀，JS的优秀之处并非原创。
+因为 ES 不能删除以前的特性，要兼容网站。
+也就是说以前能运行的网站，以后都要能运行。
+优点兼容，稳定。升级的时候以前的代码不需要重写。
+3.JS与ECMAScript(缩写ES)的关系
+ECMAScript是纸上的标准，JS是浏览器的实现。
+纸上标准往往落后于浏览器，先实现，再写进标准。
+4.chrome控制台换行不执行命令快捷键:shift+enter
+5.推荐书籍 阮一峰的免费教程
+适合入门《网道 JavaScript 教程》
+适合进阶《你不知道的 JavaScript（上卷）》
+ 表达式、语句、标识符 一.表达式与语句 1.表达式
+(1)1+2表达式的值是3
+(2)函数调用add(1,2)，这个函数调用也是表达式。它的值为函数的返回值。
+补充：值与返回值是不一样的。只有函数才有返回值。  (3)console.log表达式(属于函数表达式)的值为函数本身
+console.log是函数,注意没()。函数表达式的值为函数本身。 console.log表达式的值就是console.log  (4)面试题
+console.log(3)表达式的值为？undefined  解析:跟add(1,2)一样都是“函数+()”，函数调用的值为函数的返回值。
+所以log(3)函数的返回值是undefined。console.log(3)打印出来的东西是3。
+2.语句
+var a=1是一个语句
+语句没有值，表达式才有值。语句主要是用来改变环境的。
+例子: var a=1 输出结果:undefined  二者的区别
+(1)表达式一般都有值，语句可能有也可能没有
+(2)语句一般会改变环境(声明，赋值)
+(3)上面两句话并不是绝对的
+总结
+1.关于表达式
+重要:一定要搞清什么是值，什么是返回值，什么是打印出来的东西！
+二.大小写敏感 var a 和 var A是不同的
+object 和 Object是不同的
+function 和 Function是不同的
+window 和 Window是不同的。平时只用window，大Window从来不用
+三.空格 大部分空格没有实际意义</description>
+    </item>
+    
+    <item>
+      <title>JS运算符</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/</guid>
+      <description>目录
+ 算术运算符 比较运算符 布尔运算符 二进制位运算符 其它运算符  其它 1.!n //表示n不存在 2.简写
+let f= (x) =&amp;gt;{ return x+1 } 简写let f= x =&amp;gt; x+1  一.算术运算符 1.number运算
+加减乘除`+-*/` 余数x%7 指数x**3 自增自减x++/++x/x--/--x 求值运算符+x 负数运算符-x  2.string运算
+连接运算 &#39;123&#39;+&#39;456&#39;  解析：
+1.除法不能除以0 例：-5/0 输出结果：-infinity //负无穷大
+2.10%7=3、-7%7=-0、-12%7=-5
+3.7**2=49 7的平方，n的n次方
+4.自增自减
+let a=10 let b=a++ //b=10 let b=++a //b=11  a在前，表达式的值取之前的状态。a在后，表达式的值取之后的状态。
+a在前，值为前。a在后，值为后。
+let a=10 let b=a-- //b=10 let b=--a //b=9  a在前值为前。a在后值为后。
+忠告：尽量少用自增自减，a++可以写成a +=1
+for循环可以写，因为大家都知道for（let i=0;i&amp;lt;10;i++）{}
+5.求值运算符+
+let a=8 +a 输出结果:8  只是表示求一下这个数的值</description>
+    </item>
+    
+    <item>
+      <title>MVC(上)</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/</guid>
+      <description>MVC是进入Vue/React的必经之路，MVC本来就是模糊的，你觉得MVC是什么就是什么，只要能自圆其说即可。这就是抽象，抽象就是不具体。
+ 什么是MVC?  设计模式是个框，什么都能往里装，MVC是框里的一个东西。设计模式就是对通用代码取个名字而已。
+ 越抽象能解决的问题就越多。具体问题只能针对具体需求，但抽象问题能针对更多需求。mvc属于设计模式的一种，但我们并不把它称为设计模式。因为它太著名了，每个程序员都知道mvc,它就叫MVC。设计模式就是对通用代码取个名字而已。
+为什么要有设计模式？
+Don&amp;rsquo;t repeat yourself.DRY原则
+哪里重复了？
+1.代码级别的重复
+你把相同的3行代码写了2遍，那么你就应该重构它。
+重构:把这3行代码取个名字放到函数里，到时再调用这个函数名。可以取消重复。
+2.页面级别
+你把类似的页面做了10遍，那么你就应该想出一个万金油写法。
+3.mvc就是一个万金油
+所有页面都可以使用MVC来优化代码结构
+不学MVC又怎样？
+1.意大利面条式代码
+2.你将变成外包式程序员
+不停重复自己，不懂得抽象。只会调用API，不能提升自己。
+只会写业务，不会封装，更不会造轮子，更不会加薪。
+MVC是啥？
+每个模块都可以写成3个对象，分别是M、V、C
+M Model(数据模型)负责操作所有数据
+V View(视图)负责所有UI界面
+C Controller(控制器)负责监听用户事件，然后调用M和V更新数据和视图
+面试题
+能说说你对MVC的理解吗？
+中英文全称(80分’)+剩下全靠扯(20分’)
+Model(数据模型)负责操作所有数据,View(视图)负责所有UI界面,Controller(控制器)负责其它。
+示例代码 内容
+1.主要要引入2个东西:模块、类
+2.在index页面中做4个功能:加减乘除、tab切换、左晃右晃、悬浮变色
+3.演示如何用MVC让代码更严谨。
+运行:parcel src/index.html 用parcel前最好新建js文件，因为没有js可能有bug。  知识点
+1.用新方法:js import引入css
+main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import性能比较低
+新建单独的reset.css文件reset css，统一在main.js里引入。
+让app1占屏幕的1/4: 设置width和height各50vh
+2.用新方法:js import引入jquery
+ 点击+1按钮实现+1,用jquery实现,需要引入jquery
+之前是用&amp;lt;script src=&amp;quot;CDN地址&amp;quot;&amp;gt;引入，现在也用新方法js import
+ 方法: 先安装再使用
+安装: yarn init -y yarn add jquery //或npm i jquery 使用:import $ from &#39;jquery&#39; //引用jquery变量，使用时可直接用$代替jquery //import &#39;jquery&#39; 注:main.</description>
+    </item>
+    
+    <item>
+      <title>MVC(下)</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/</guid>
+      <description>主要内容:使用类优化代码
+1.引入类(class)
+2.引入继承(class继承class)
+3.初识Vue
+抽象思维四:事不过三 同样的代码写三遍，就应该抽成一个函数
+同样的属性写三遍，就应该做成共用属性(原型或类)
+同样的原型写三遍，就应该用继承
+代价
+有的时候会造成继承层级太深，无法一下看懂代码
+可以通过写文档、画类图解决
+步骤
+对比MVC的app1.js 和 app2.js，属性几乎一模一样。
+何不把公共的属性抽成公共属性/原型，在js里公共属性就是原型。
+它们两个v的属性一模一样，可以抽成原型。
+它们两个c的公共属性抽到公共属性里。
+第一部分:先抽m 步骤
+(1)新建目录base存放基础代码，新建文件Model.js(js中的类都大写)。
+class Model { }  (2)抽离共用的
+ 分析里面的属性或接口是共用的还是独享的。
+app1的data 与app2的data完全没有关系，是独享的不能抽。4个函数可以抽。
+可以用原型的思想或类的思想，这里用类的思想。
+ //(2)所有的model都有增删改查4个属性，不需要实现。 class Model { constructor(options) { //data初始化时给我 this.data = options.data } create() { console?.error?.(&amp;quot;你还没实现create&amp;quot;)//兼容IE } delete() { console?.error?.(&amp;quot;你还没实现delete&amp;quot;) } update() { console?.error?.(&amp;quot;你还没实现update&amp;quot;) } get() { console?.error?.(&amp;quot;你还没实现get&amp;quot;) } } export default Model  (3)使用
+app1.js import Model from &#39;./base/Model.js&#39; //.js可加可不加 const m = new Model({ //使用 data: { n: parseInt(localStorage.</description>
+    </item>
+    
+    <item>
+      <title>React 类组件和函数组件</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/</guid>
+      <description>目录
+1.类组件和函数组件
+2.如何使用 props 和 state
+3.如何绑定事件
+4.复习 this+ 两个面试题
+ 组件component 一.概念 Element VS Component (元素与组件)
+//不成文的约定:元素小写，组件大写 const div=React.createElement(&#39;div&#39;,...) 这是一个React元素(小写) const Div=()=&amp;gt;React.createElement(&#39;div&#39;,...) 这是一个React组件(大写)  什么是组件?
+能跟其他物件组合起来的物件，就是组件，组件并没有明确的定义。 就目前而言，一个返回值是React元素的函数就是组件
+Vue里，data、methods、render组合成的一个对象(构造选项)就可以表示一个组件
+React两种组件
+1.函数组件
+function Welcome(props){ return &amp;lt;h1&amp;gt;Hello,{props.name}&amp;lt;/h1&amp;gt; } 使用方法: &amp;lt;Welcome name=&amp;quot;frank&amp;quot;/&amp;gt;  2.类组件
+class Welcome extends React.Component { render() { return &amp;lt;h1&amp;gt;Hello, {this.props.name}&amp;lt;/h1&amp;gt; } } 使用方法: &amp;lt;Welcome name=&amp;quot;frank&amp;quot;/&amp;gt;  &amp;lt;Welcome /&amp;gt;会被翻译成什么？
+&amp;lt;div /&amp;gt;翻译为React.createElement(&#39;div&#39;) div是元素 &amp;lt;Welcome /&amp;gt;翻译为React.createElement(Welcome) Welcome是函数
+工具: babel online把标签翻译成JS
+React.createElement的逻辑
+React.createElement目前接收几种参数:
+1.如果传入一个字符串&amp;lsquo;div&amp;rsquo;,则会创建一个div(虚拟DOM元素)
+2.如果传入一个函数,则会调用该函数，获取其返回值
+3.如果传入一个类,则在类前面加个new(这会导致执行 constructor),获取一个组件对象，然后调用对象的render方法，获取其返回值</description>
+    </item>
+    
+    <item>
+      <title>React起手式</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/</guid>
+      <description>目录
+1.如何引入React
+2.函数的本质&amp;ndash;延迟 如何使用React里的函数？
+3.JSX的用法
+4.条件判断与循环
+ 引入React(3种方法) 1&amp;rsquo; CDN引入(不推荐)
+需要引入2个库：先引react 后引react-dom,注意顺序
+&amp;lt;body&amp;gt; &amp;lt;div id=&amp;quot;app&amp;quot;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;script src=&amp;quot;https://cdn.bootcss.com/react/16.10.2/umd/react.development.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script src=&amp;quot;https://cdn.bootcss.com/react-dom/16.10.2/umd/react-dom.development.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script src=&amp;quot;src/index.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; //引入之后就可以使用你自己的js了 &amp;lt;/body&amp;gt;  测试是否引用成功
+本地运行parcel src/index.html
+⚠️注意:CDN引入的都会变成全局变量window
+console.log(window.React); //打印出一个对象 console.log(window.React.createElement); //打印出一个函数 console.log(window.ReactDOM); //对象 console.log(window.ReactDOM.render); //函数  这种方法没人用，如果想升级就需要重新复制版本号，麻烦。
+其它
+1.cjs和umd的区别？(优先用umd)
+cjs全称CommonJS,是Node.js支持的模块规范。
+模块规范指&amp;quot;如何声明一个模块&amp;quot;,平时我们是const x = {...}然后导出export default x就声明一个可以被别人导入的模块。Node.js有自己的模块定义方法，这个方法就叫cjs。
+umd是统一模块定义，兼容各种模块规范(含浏览器) 理论上优先使用umd,同时兼容Node.js上的模块和浏览器模块。 最新的模块规范是使用import和export关键字。
+2&amp;rsquo; 通过webpack引入React(不推荐)
+这种方法需要配置webpack，也麻烦，不用。
+除webpack外，rollup、parcel也支持上面写法。这2个工具都支持，把浏览器不支持的JS变成浏览器支持的JS。
+3&amp;rsquo; 用命令行create-react-app (推荐)
+ create-react-app跟vue-cli是同一个级别的东西。
+新手用create-react-app,老手用webpack/rollup
+ 🔍create react app
+//打开终端工具iTerm yarn global add create-react-app cd ~/Desktop create-react-app react-demo //新建项目react-demo cd react-demo yarn start //启动服务 中断control+c，用VSCode打开项目 yarn start //启动服务  测试是否引用成功console.</description>
+    </item>
+    
+    <item>
+      <title>URL 是什么</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/</guid>
+      <description>李爵士发明的三样东西 WWW=URL+HTTP+HTML
+今天主要讲解什么是URL
+ IP(协议)  IP协议用来表示每个设备的地址。
+ IP是Internet Protocol(网络之间互连的协议)的缩写，是TCP/IP体系中的网络层协议。
+IP主要约定了两件事：
+1.如何定位一台设备
+有IP就可以定位一台设备
+2.如何封装数据报文，以跟其它设备交流
+IP分内网IP和外网IP
+外网就是路由器之外，内网就是路由器包括的有线和无线
+如何获取外网IP
+1.从电信租用宽带，一年一千多
+2.买个猫(调制解调器)，光猫就是把光信号变成电信号。把光信号变成路由器能理解的网络信号
+3.买个路由器，手机和电脑分别连接路由器广播出来的有线WIFI
+只要路由器通过光猫连上电信的服务器，那么路由器就会有个「外网IP」,比如「14.17.32.211」，
+这就是你在互联网中的地址。
+4.但是如果你重启路由器，那么你很有可能被重新分配一个「外网IP」。也就是说你的路由器没有「固定的外网IP」
+查看外网IP
+1’终端命令
+ipconfig  2’网站 ip138.com 不能告诉别人，别人会通过地址找到你
+你的路由器的外网IP如果是14.17.32.211那么你的手机和电脑的IP又是什么呢？
+是「内网」
+内网IP
+1.路由器会在你家创建个内网，内网中的设备使用内网IP，一般这个IP格式是192.168.xxx.xxx
+2.一般路由器会给自己分配个好记的内网IP，如192.168.1.1
+3.然后路由会再给每一个内网中的设备分配一个不同的内网IP，比如电脑是192.168.1.2，手机是192.169.1.3，以此类推
+路由器的功能
+路由器有两个IP，一个外网IP和一个内网IP
+内网中的设备可以互相访问，但是不能直接访问外网
+内网设备想要访问外网必须经过路由器中转
+外网中的设备可以互相访问但无法访问你的内网
+外网设备想要把内容送到内网也必须通过路由器
+也就是说内网和外网就像两个隔绝的空间，无法互通，唯一的联通点就是路由器
+所以路由器有时候也被叫做「网关」
+几个特殊的IP
+1.127.0.0.1 表示自己
+2.可以通过hosts将localhost指定为自己
+127.0.0.1:8080 = localhost:8080
+hosts可使任意字符串变成一个对应的ip
+hosts文件在哪？
+MAC修改hosts文件
+hosts文件位于 /private/etc/hosts，可以通过下面的方法修改。
+1.终端命令
+sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的hosts文件了。
+2.输入 i 就可以编辑了，此时状态为insert
+加上要配置的 ip+空格+域名
+3.编辑好后，按 esc键退出,然后输入:wq
+端口port  一台机器可以提供很多服务
+每个服务一个号码，这个号码就叫端口号port
+ 一.</description>
+    </item>
+    
+    <item>
+      <title>Vue Router -前端路由实现的思路</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/</guid>
+      <description>路由器(面试题)
+一.前端路由是什么？
+二.hash模式? history模式? memory模式?
+三.VueRouter源码
+一.前端路由是什么？ 路由是什么？
+路由器,如果你家里有1个以上的人要上网就需要路由器。
+你要上网就需要连接到路由器上，路由器要连接到电信/联通公司，电信公司会出售一些网络IP或端口，百度就会购买这些IP(大概会购买几千个IP)作为它的服务器，腾讯也会购买它的IP，抖音同样也要购买它的IP。
+你连路由器，路由器看你想连哪里，比如你想连百度，它就会把包发给百度。当你打开抖音时，它就会把你这个信号发到抖音。只要满足一对多的关系就叫分发， 分别发送到各个地方。路由就是分发请求，路由器就是分发请求的东西。
+实例1:实现路由router
+需求:根据用户URL后接的hash是#x 比如http://127.0.0.1/#1以此来判断用户想去的界面，界面用div代表。#1代表界面1Div1
+index.html &amp;lt;a href=&amp;quot;#1&amp;quot;&amp;gt;go to 1&amp;lt;/a&amp;gt; &amp;lt;a href=&amp;quot;#2&amp;quot;&amp;gt;go to 2&amp;lt;/a&amp;gt; &amp;lt;a href=&amp;quot;#3&amp;quot;&amp;gt;go to 3&amp;lt;/a&amp;gt; &amp;lt;a href=&amp;quot;#4&amp;quot;&amp;gt;go to 4&amp;lt;/a&amp;gt; &amp;lt;div id=&amp;quot;app&amp;quot;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;div id=&amp;quot;div1&amp;quot; style=&amp;quot;display: none;&amp;quot;&amp;gt;1&amp;lt;/div&amp;gt; &amp;lt;div id=&amp;quot;div2&amp;quot; style=&amp;quot;display: none;&amp;quot;&amp;gt;2&amp;lt;/div&amp;gt; &amp;lt;div id=&amp;quot;div3&amp;quot; style=&amp;quot;display: none;&amp;quot;&amp;gt;3&amp;lt;/div&amp;gt; &amp;lt;div id=&amp;quot;div4&amp;quot; style=&amp;quot;display: none;&amp;quot;&amp;gt;4&amp;lt;/div&amp;gt; &amp;lt;div id=&amp;quot;div404&amp;quot; style=&amp;quot;display: none;&amp;quot;&amp;gt;你要找的内容被狗吃了&amp;lt;/div&amp;gt; index.js //console.log(window.location.hash) //#1 let number = window.location.hash.substr(1); number = number || 1 //console.log(number); //1 let div = document.querySelector(`#div${number}`); //console.log(div); let app = document.</description>
+    </item>
+    
+    <item>
+      <title>Webpack(上)</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/</guid>
+      <description>前端框架Webpack，前端最重要的工具之一。
+CRM法学webpack,通过11个任务学会webpack。
+webpack文档、npm文档
+ 工具
+webpack@4 和 webpack-dev-server本地预览
+本地预览httpserver没有webpack-dev-server功能强,parcel也能本地预览但与webpack不配套,所以只能用webpack-dev-server。
+webpack这么多插件怎么学？
+重要的&amp;quot;不是用什么&amp;quot;，而是&amp;quot;怎么知道用什么&amp;quot;，要学会搜+CRM法。
+🔍英文关键词+CRM法
+框架 Webpack功能
+转译代码(ES6转为ES5，SCSS转为css)
+构建build
+代码压缩
+代码分析
+安装依赖
+终端:yarn add webpack@4 webpack-cli@3 --dev //webpack-cli用于在命令行中运行webpack  目标一. 用webpack转译JS 1.调用webpack
+(1)新建文件webpack-demo并用vscode打开，新建终端：
+npm init -y //创建package.json yarn add webpack@4 webpack-cli@3 --dev //安装它的2个依赖 //会多个node_modules的目录。由于是本地安装，不是全局安装,文件在node_modules里的.bin目录下  (2)新建目录src、新建index.js、新建x.js
+import x from &#39;./x.js&#39; console.log(x) x.js export default &#39;fuck&#39;  (3)运行: 由于是本地安装，运行时只能用绝对路径调用webpack
+npx webpack //自动但可能不稳定 //或者./node_modules/.bin/webpack --version // 手动调用本地webpack  调用后会默认把index.js转变为 main.js。
+会分析js代码，然后将代码变成IE或低版本浏览器可以用的js。
+2.初始化webpack.config.js
+去除警告： 文档
+(1)新建文件webpack.config.js，打开文档复制粘贴
+const path = require(&#39;path&#39;); module.</description>
+    </item>
+    
+    <item>
+      <title>Webpack(下)</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/</guid>
+      <description>loader VS plugin 用webpack生成JS
+我们给它个js文件，这个js文件通过webpack得到了一个新的js文件。 内置了babel-loader(库),通过这个loader把js load到webpack里面，然后webpack就输出了另外一个js。
+用webpack生成CSS
+引入css(js import &amp;lsquo;./x.css&amp;rsquo;),通过&#39;style-loader&#39;和&#39;css-loader&#39;把css变成&amp;lt;style&amp;gt;标签 给我个css,通过插件MiniCssExtractPlugin,把css变成文件。把n个css变成1个文件。
+加载器与插件的区别？
+loader是加载器，plugin是插件。 loader永远是1对1，plugin是n对1。loader功能比较单一就是用来加载文件的，plugin功能丰富。
+用webpack生成html
+html是通过HtmlWebpackPlugin生成新的html，该html会自动引入css、js。
+面试题(必考)
+webpack loader与plugin的区别是什么？
+1.webpack loader是用来加载文件的，webpack plugin是用来扩展webpack的功能的。
+2.loader主要用来加载一个个的文件。比如说，它可以加载js文件把js文件转译成低版本浏览器可以支持的js。它也可以加载css文件，&#39;style-loader&#39;和&#39;css-loader&#39;把css变成页面上的&amp;lt;style&amp;gt;标签或其它的一些处理。它也可以加载图片文件，对图片进行一些优化。
+3.plugin是用来加强webpack功能的。
+比如说HtmlWebpackPlugin,它是用来生成html文件的，MiniCssExtractPlugin是用来抽取css代码把它变成一个css文件的。
+目标五. webapck引入SCSS 要点
+node-sass已经过时,请使用dart-sass。
+dart-sass已被重命名为sass
+步骤 🔍webpack scss loader
+1.yarn add sass-loader sass --dev 2.新建文件x.scss,并写好样式。 //scss语法,还是最原始的css 3.x.js import &amp;quot;./x.scss&amp;quot;; import &amp;quot;./y.scss&amp;quot;; 4.webpack.config.base.js添加 module: { rules: [{ test: /\.scss$/i, use: [ &amp;quot;style-loader&amp;quot;, &amp;quot;css-loader&amp;quot;, &amp;quot;sass-loader&amp;quot;, ],}, ], }, webpack.config.js添加 rules: [ ...base.module.rules,//先抄过来再覆盖 { test: /\.css$/i, use: [&#39;style-loader&#39;, &#39;css-loader&#39;] } ] webpack.config.prod.js添加 rules: [ .</description>
+    </item>
+    
+    <item>
+      <title>云服务器</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
+      <description>手把手教你从0开始部署应用
+ 好处
+1.一个你可以完全自由掌控的Linux机器
+2.一个其它人可以访问的IP
+3.可以作为你的博客，作品展示，简历展示
+4.比GitHub访问速度快很多
+5.香港地区机器，可以作为FQ代理，但是好像不能备案
+如果你备案了，你还可以把你的域名绑定到这台机器
+代价
+1.100人民币可以用1000小时左右。按量付费，即用即停，释放机器，数据会丢！
+一.购买阿里云服务器 创建我的ECS
+(1)选择“按量付费”
+(2)地区一般选择 “国内的,有优惠的”
+(3)实例分类选择 “共享型”
+(4)镜像选择 “Ubuntu 18.04 64位 ”
+(5)下一步，带宽调到最低1M
+(6)勾选服务协议
+(7)创建成功，点击“管理控制台”
+运行中则代表开始收费！
+添加8888端口 1.第一步
+2.点击“配置规则”，点击手动添加，输入目的:8888/8888，输入源:0.0.0.0/0(表示任何人都能访问)
+使用服务器
+1.回退到实例列表，点击&amp;quot;远程连接&amp;quot;
+第一次使用时，把“远程连接密码”记到标签里(没有就不记)
+2.重置密码。
+点击“过多”-&amp;gt;重置实例密码
+这是通过网页登陆阿里云服务器，接下来教你如何在本地也能登陆。
+本地登陆云服务器 1.本地打印上传GitHub的公钥
+终端代码: cat ~/.ssh/id_rsa.pub  复制公钥
+2.打开VScode,把key追加到文件里
+代码: echo &amp;lsquo;粘贴公钥&amp;hellip;&amp;rsquo; &amp;raquo; ~/.ssh/authorized_keys
+3.把编辑好的代码复制到云服务器运行，回车
+4.打开终端运行
+ssh root@IP地址(公)
+ 例子： ssh root@8.130.10.66  yes，回车
+总结：
+把公钥放到阿里云的服务器，就能使用ssh在终端访问服务器了。
+现在服务器就可以关掉啦。
+终端访问服务器 1.进入账号
+代码:ssh root@8.130.10.66  退出云服务系统 代码: exit
+卡了直接退出终端 ctrl+w
+2.查目前的位置 代码: pwd</description>
+    </item>
+    
+    <item>
+      <title>函数组件</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/</guid>
+      <description>内容
+1.创建方式
+2.函数组件没有state怎么办
+3.函数组件没有生命周期怎么办
+4.自定义hook函数
+ 函数组件的创建方式 两种形式 1&#39; 声明一个变量等于箭头函数 const Hello = (props) =&amp;gt; { return &amp;lt;div&amp;gt;{props.message}&amp;lt;/div&amp;gt; } //箭头函数可以缩写 const Hello = props =&amp;gt; &amp;lt;div&amp;gt;{props.message}&amp;lt;/div&amp;gt; 2&#39; 使用function function Hello(props){ return &amp;lt;div&amp;gt;{props.message}&amp;lt;/div&amp;gt; }  消除了this
+函数组件能代替Class组件吗？
+完全可以,但是目前不行,我们要学些新的东西，比如hooks API
+函数组件代替Class组件 面临两个问题
+1.函数组件没有state
+React v16.8.0推出Hooks API
+其中的一个API叫做useState可以解决问题
+2.函数组件没有生命周期
+React v16.8.0推出Hooks API
+其中的一个API叫做useEffect可以解决问题
+useEffect(函数式编程的专有名词)是专门用来解决生命周期的问题的。
+1.函数组件没有state怎么办？
+React提供了useState并提供读、写2个API,可以对数据进行读、写操作。
+第1个参数是读，第2个参数是写，初始值为0。
+需要引入useEffect或者直接React.useEffect
+const App = props =&amp;gt; { const [n, setN] = React.useState(0) const onClick = () =&amp;gt; { setN(n + 1) } return ( &amp;lt;div&amp;gt;{n} &amp;lt;button onClick={onClick}&amp;gt; +1 &amp;lt;/button&amp;gt; &amp;lt;/div&amp;gt; ) }  函数组件模拟生命周期  什么叫生命周期？</description>
+    </item>
+    
+    <item>
+      <title>命令行入门</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/</guid>
+      <description>一.命令缩写 程序员把动词缩写，就变成了命令
+知识点：
+(1)file不是命令没有缩写,recursive和force表示选项，无缩写；
+(2)cd就是改变目录的意思;
+备注： Git Bash 和 git 的关系是（mac系统里的终端就相当于 Git Bash）完全不一样的东西，一个是 bash，一个是 git，两种不同的软件.
+二.文件的增删改查 (终端工具iterm2) 其它事项：
+1.程序员宿命(文件的增删改查，DOM的增删改查，HTTP的增删改查)
+2.无论做什么操作首先要确定现在的位置cd ~/Desktop/
+3.cmd是windows自带的命令行工具缺点多。Cmder更高级需要配置！Mac推荐用iterm2
+4.救命快捷键:control+C 用于中断一个命令
+5.clear 清除代码
+6.~ 指用户目录，cd ~ 进入用户目录.注意只能在用户目录里操作！
+7.code demo,用vscode打开文件
+ 查文件
+ 1.用命令行进入桌面 cd ~/Desktop/
+2.查看当前绝对路经pwd
+3.查看当前目录 文件ls
+查看指定目录 子文件ls+文件名
+补充: ls有个潜规则默认不显示.开头的文件,例如.git等等
+4.查看指定文件内容代码 cat+文件
+ cd demo/ cat style.css  5.除了cat外，head路径/tail路径/less路径都能查看内容，区别在哪？
+答：1.cat会全部展示包括多余的空格，很少用;(电影里代码一直滚动效果就是用的cat，代码太多时会一直滚)
+2.less可以通过按上下键滚动查看，退出按q键，比cat智能。高亮时要先esc退出。
+3.head默认展示前10行,tail默认展示后10行，但是都可以通过参数选择。例如
+head style.css -n 14//展示前14行
+tail style.css -n 14//展示后14行
+ 增加文件
+ 创建文件: touch/echo
+1.创建文件touch
+touch 1.txt //若不存在则创建//修改文件最后更新时间
+touch 2.</description>
+    </item>
+    
+    <item>
+      <title>异步与Promise</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/</guid>
+      <description>面试必考
+AJAX(Async JavaScript And XML)
+内容:Ajax异步编程在js里的统一解决方案(js异步编程模型) Promise
+ 什么是异步？什么是同步？ 同步：能直接拿到结果
+比如你在医院挂号，拿到号才会离开窗口。
+同步任务可能消耗10ms,也可能需要3s
+总之不拿到结果你是不会离开的
+异步：不能直接拿到结果
+比如你在餐厅门口等位，拿到号可以去逛街
+什么时候才能真正吃饭呢？
+你可以每10min去餐厅问一下(轮询)
+你也可以扫码用微信接收通知(回调)
+异步通常指&amp;quot;异步加回调&amp;quot;
+举例
+1.以ajax为例
+request.send()之后，并不能直接得到response
+不信console.log(request.response)试试
+必须等到readState变为4后，浏览器回头调用
+request.onreadystatechange函数
+我们才能得到request.response
+这跟餐厅给你发送微信提醒的过程是类似的
+补充：在js中发一个网络请求并得到响应大概要几百ms~1/2s
+getJSON.onclick = () =&amp;gt; { ... request.send() console.log(request.response) //不能直接得到response setTimeout(() =&amp;gt; { //2s后得到response console.log(request.response) }, 2000) } 下载完成后浏览器会回调request.onreadystatechange函数 所以上面的代码等价于 request.onreadystatechange = () =&amp;gt; { if (request.readyState === 4 &amp;amp;&amp;amp; request.status == 200) { console.log(request.response) ... } 打印出response后就是3s后  2.回调callback
+你写给自己用的函数，不是回调
+你写给别人用的函数，就是回调
+request.onreadystatechange就是我写给浏览器调用的
+意思就是浏览器回头调一下这个函数
+「回头」也有「将来」的意思，如「我回头请你吃饭」
+举例
+1.把函数1给另一个函数2</description>
+    </item>
+    
+    <item>
+      <title>手写 Redux</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/</guid>
+      <description>从零开始手写redux
+ 全局state的读写 例1.使用Context读写appState
+import React, { useState, useContext } from &amp;quot;react&amp;quot; import ReactDOM from &#39;react-dom&#39; import &#39;./style.css&#39; const appContext = React.createContext(null) const App = () =&amp;gt; { const [appState, setAppState] = useState({ user: { name: &#39;frank&#39;, age: 18 } }) const contextValue = { appState, setAppState } //封装成一个对象，塞给上下文 return ( &amp;lt;appContext.Provider value={contextValue}&amp;gt; &amp;lt;大儿子 /&amp;gt; &amp;lt;二儿子 /&amp;gt; &amp;lt;小儿子 /&amp;gt; &amp;lt;/appContext.Provider &amp;gt; ) } const 大儿子 = () =&amp;gt; &amp;lt;section&amp;gt;大儿子&amp;lt;User /&amp;gt;&amp;lt;/section&amp;gt; const 二儿子 = () =&amp;gt; &amp;lt;section&amp;gt;二儿子&amp;lt;UserModifier /&amp;gt;&amp;lt;/section&amp;gt; const 小儿子 = () =&amp;gt; &amp;lt;section&amp;gt;小儿子&amp;lt;/section&amp;gt; const User = () =&amp;gt; { //获取信息 const contextValue = useContext(appContext) return &amp;lt;div&amp;gt; User:{contextValue.</description>
+    </item>
+    
+    <item>
+      <title>手写DOM库(1)</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/</guid>
+      <description>手把手教你封装DOM，封装出一些接口，用来操作DOM(页面的节点)。
+把一个复杂的东西打包成服务，然后只需要简单的命令就可以操作它。
+ 什么叫封装
+举例
+笔记本电脑就是CPU、内存、硬盘、主板、显卡的封装
+用户只需要接触显示器、键盘、鼠标、触控板等设备，即可操作复杂的计算机。
+接口
+被封装的东西需要暴露一些功能给外部
+这些功能就是接口，如USB接口、HDMI接口。
+这些接口都有规范的文档来说明。文档内容包含功能和实现的细节，别人就可以根据文档内容仿制。
+设备只要支持这些接口，即可与被封装的东西通讯
+比如键盘、鼠标支持USB接口，显示器支持HDMI接口
+封装和接口的关系，如下图所示：
+术语
+库
+我们把提供给其他人用的工具代码叫做库(很多函数放到一起给别人用就叫做库)
+比如jQuery、Underscore
+API
+库暴露出来的函数或属性叫做 API应用编程接口
+框架
+当你的库变的很大，并且需要学习才能看懂，
+那么这个库就叫框架，比如Vue/React
+其它
+1.工具parcel
+yarn global add parcel //yarn global add parcel @1.12.3 指定版本 parcel --version 使用:parcel src/index.html //启动一个服务器，这个服务器会自动刷新  2.简写
+window.dom.create = function () { } 可以简写成 window.dom = { create() { } } const childNodes = node.childNodes 可以简写成 const { childNodes } = node  3.template标签可以放任意元素,但不会在页面显示，是专门用来容纳的
+4.trim()去掉字符串两边的空格
+const div =dom.create(&amp;quot; &amp;lt;td&amp;gt;&amp;lt;/td&amp;gt;&amp;quot;);  5.</description>
+    </item>
+    
+    <item>
+      <title>手机预览 &amp; 调试</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/%E6%89%8B%E6%9C%BA%E9%A2%84%E8%A7%88-%E8%B0%83%E8%AF%95/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/%E6%89%8B%E6%9C%BA%E9%A2%84%E8%A7%88-%E8%B0%83%E8%AF%95/</guid>
+      <description>图片超过 300KB 就需要压缩(否则下载很慢) 搜索 jpg/png在线压缩
+怎么兼容手机？ 第1步 补齐meta:vp  (&amp;lt;meta name=&amp;quot;viewport&amp;quot;&amp;gt;的缩写)
+//宽度跟设备宽度一样，默认缩放比例是一倍，最小/最大的是1倍，用户不准缩放 &amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no&amp;quot;&amp;gt;  第2步 img max-width
+img{ max-width:100%;}  真机运行的话也要加meta:vp
+手机预览页面 一.用wifi调试手机
+1.通过hs -c-1把给出的IP全都试一遍
+2.把编辑好的地址发给手机，手机可以直接打开页面
+ 例如 http://127.0.0.1:8080/src/index.html  二.映射端口(不在同一Wi-Fi下也能调试手机)
+过程：
+打开开发者工具-&amp;gt; More tools-&amp;gt; Remote devices(远程设备)-&amp;gt;点击按钮Port forwarding映射端口(添加端口)
+补充：如果找不到【远程设备】，地址栏里输chrome://inspect，回车进入
+手机输入地址
+电脑调试手机页面 用chrome远程调试(在电脑上调试手机版)
+1. Mac
+safari远程调试 -csdn
+2. window
+chrome远程调试 -csdn //不看csdn</description>
+    </item>
+    
+    <item>
+      <title>数据响应式</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/</guid>
+      <description>主要原理:深入响应式原理
+内容:深入理解options.data
+ Vue对data做了什么？ const myData = { n: 0 }; console.log(myData); new Vue({ data: myData, template: ` &amp;lt;div&amp;gt;{{n}}&amp;lt;/div&amp;gt; ` }).$mount(&amp;quot;#app&amp;quot;); setTimeout(() =&amp;gt; { myData.n += 10; console.log(myData); }, 3000);  3s后n变成10，这次没有在vm里面加，而是在外面，说明在外面也可以变更myData。
+一般我们是在vm内变更myData的
+new Vue({ template:` &amp;lt;div&amp;gt; {{n}} &amp;lt;button @click=&amp;quot;add&amp;quot;&amp;gt; +1 &amp;lt;/button&amp;gt; &amp;lt;/div&amp;gt; `, methods:{ add(){ //this.n +=10 myData.n +=10 } } }).$mount(&amp;quot;#app&amp;quot;)  平常我们都用this.n，今天试试myData.n。
+分别打印出myData刚声明和3s后的结果，如果第1次是n:0,那第2次就应该是n:10， 看下结果:
+第2次并不是n:10，那这个n:(...)是什么呢？
+我们需要先学习ES6的getter、setter
+示例:要想得到姓名就要调用函数obj1.姓名()所以括号不能省，但是ES6的get语法可以实现obj1.姓名删掉括号。
+// 需求一，姓名不要括号也能得出值 let obj1 = { 姓: &amp;quot;高&amp;quot;, 名: &amp;quot;圆圆&amp;quot;, get 姓名() { //以函数的形式定义的属性 return this.</description>
+    </item>
+    
+    <item>
+      <title>数据结构</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
+      <description>目前我们用过的数据结构
+数组(选择排序、归并排序、快速排序)
+数组可以分为队列、栈等
+哈希表(计数排序)
+用来存储key-value对
+ 数据结构一:队列Queue 队列Queue:一种特殊的数组,先进先出的数组 什么是队列数据结构?
+队列数据结构就是个类似数组的东西，但是它只提供push()入队和shift()出队2个操作。你提供这样的结构和这样的2个操作，你就是队列。 队列专门用来解决排队的问题。
+用call改写
+//queue.push(n) queue.push.call(queue, n) //const m = queue.shift() const m = queue.shift.call(queue)  数据结构二:栈Stack 后进先出的数组 例子:坐电梯超重时，后进先出。 2个操作:压栈push()、弹栈pop()
+Queue和Stack都是用数组做的数据结构。
+数据结构三:链表Linked List 一个链一个 JS的每个对象实际上就是链表。
+这导致array能够直接访问数组原型的方法，比如说array.push()。 它也可以访问到对象原型上有的方法，比如说array.hasOwnProperty 这是一种非常简洁的实现继承的一种机制。
+链表的好处:可以随时把中间的某个链条给断掉。
+如何做到断掉数组原型？
+将array.__proto__指向对象原型,它就不会再有push这个方法了。
+对于修改东西比较方便。
+创建链表 如何创建链表，在链表上增删改查?
+1.创建只含有一个节点的link_list
+const createList = (value) =&amp;gt; { //创建只含有一个节点的link_list return { data: value, next: null } } const list = createList(10) console.log(list) 运行:parcel src/linked_list.html  2.新增其它节点
+const createList = (value) =&amp;gt; { return createNode(value) } const appendList = (list, value) =&amp;gt; { const node = createNode(value) list.</description>
+    </item>
+    
+    <item>
+      <title>本地仓库</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/</guid>
+      <description>使用github要先学会git。 git无需安装，有cmder/gitbash即可，comder内置了gitbash。查看版本号 git &amp;ndash;version
+ git与gitbash的关系，傻傻分不清？
+git 就是一个命令而已，bash就是包含命令的黑框框(iterm2)。这个黑框框(bash命令行)可以运行很多命令其中就包括git，我们在gitbash里面运行git。gitbash相当于Mac的iterm2！
+一. 配置 所有软件都是要先配置的，git的配置如下：
+终端iterm2运行这6行代码：(出错可以重新再运行，运行完这6行才能开始用git)
+git config --global user.name 你的英文名 git config --global user.email 你的邮箱 //最常用的邮箱 git config --global push.default simple git config --global core.quotepath false git config --global core.editor &amp;quot;code --wait&amp;quot; //code是vscode的缩写 git config --global core.autocrlf input  备注：英文名/邮箱跟GitHub无关,可以跟GitHub的用户名和邮箱保持一致。
+测试查看是否配置成功：
+ git config —-global —-list  二.git init &amp;amp; git add &amp;amp; git commit  其它：
+1.git解决了什么问题,为什么要git？
+版本控制,git可以让你的代码有版本可以随时退到某个版本。
+2.用vscode打开当前目录 code .
+3. 打印当前目录，不包括.开头的
+ls
+4. 查看当前目录结构包含.git ls -a</description>
+    </item>
+    
+    <item>
+      <title>构造选项</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/</guid>
+      <description>V2 options文档
+内容:new Vue(options)options取值详解
+查看示例代码
+ Vue实例 什么是Vue实例？
+Vue实例就如同jQuery实例:
+封装了对DOM的所有操作
+封装了对data的所有操作
+比如，如果我们用jQuery选择一个元素，会得到一个jQuery的实例(实例就是对象)，而不是得到这个元素。这个对象封装了对那个&amp;lt;div&amp;gt;的所有操作。Vue也是一样的，我们要做的就是用Vue去搞出一个Vue实例来。
+new Vue() 这就是构造一个Vue的实例。
+这个实例会根据你给的选项得出一个对象(vm)，vm封装了这个DOM对象以及对应的所有操作，不管是事件绑定还是数据的读写、DOM更新，全部都由vm这个对象负责。你只需要去调用它的API就好了。
+原型:对象.__proto__===其构造函数.prototype 推出vm.__proto__===Vue.prototype
+函数也是对象，所以Vue函数对象的内存图如上。
+函数.__proto__===Function.prototype推出Vue.__proto__===Function.prototype
+问题一: 初始化时可以写些什么对象进去(options)？
+问题二: vm自己有哪些属性？
+问题三: Vue函数本身有哪些属性?
+问题四: 每个函数都有个属性叫prototype，同时每个对象都有个属性叫__proto__。假设Vue.prototype对应的对象的地址是#419，那请问这个#419里面有哪些属性呢？
+问题五:Vue.prototype.__proto__= ?
+Vue实例的作用
+vm对象封装了对视图的所有操作但不包括ajax,因为ajax是网络层的。
+按照ES6的说法，构造函数也可以说是类，所以vm所属的类是Vue。
+new Vue(options)options是new Vue的参数，一般称之为选项或构造选项。
+一.options里面有什么？ V2 options文档
+options的五类属性 第1类属性 Data:
+data 数据 props 属性 computed 计算属性 //被计算出来的 methods 方法，用来定义方法的 watch 观察 //当data变化时做某些事情就用watch propsData //很少用,单元测试会用  方法和函数的区别？
+1.概念:方法是属于面向对象概念，函数属于数学概念。
+在面向对象里叫方法,有对象才有方法，方法依附于对象即对象.方法，比如说obj.sayhi()sayhi就叫方法也是函数，一般叫方法。 如果sayhi()这样写就叫函数
+在数学里叫函数。
+2.都指同一个东西
+function(p1,p2){ return }  第2类属性 DOM:
+el 挂载点 //你要用你的模版替换页面上的哪一块，你的挂载点 template //你的HTML内容。着重讲语法v-if、v-for render 渲染 //⚠️注意template和render只能二选一！ //template是给完整版用的，render是给非完整版用的。一起用必然有一个会失效！ renderError //很少用  第3类属性 生命周期钩子:</description>
+    </item>
+    
+    <item>
+      <title>模板、指令与修饰符</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/</guid>
+      <description>Vue的模版语法  我们把HTMl模版叫做template。
+ template的3种写法
+1&amp;rsquo; Vue完整版,写在HTML里
+html &amp;lt;div id=xxx&amp;gt; {{n}} &amp;lt;button @click=&amp;quot;add&amp;quot;&amp;gt; + 1 &amp;lt;/button&amp;gt; &amp;lt;/div&amp;gt; new Vue({ //把html变成DOM节点 el:&#39;#xxx&#39;, data:{n:0}, //data可以改成函数 methods:{ add(){} } })  2&amp;rsquo; Vue完整版,写在选项里
+&amp;lt;div id=&#39;app&#39;&amp;gt; &amp;lt;/div&amp;gt; new Vue({ template:` &amp;lt;div&amp;gt; {{n}} &amp;lt;button @click=&amp;quot;add&amp;quot;&amp;gt; + 1 &amp;lt;/button&amp;gt; &amp;lt;/div&amp;gt; `, data:{n:0}, //data可以改成函数 methods:{ add(){ this.n +=1 } } }).$mount(&#39;#app&#39;)  注意细节:
+(1)div#app会被替代
+new Vue({})运行后，template里面的&amp;lt;div&amp;gt;会替换掉页面的&amp;lt;div id=&#39;app&#39;&amp;gt;,渲染完后就没有id=&#39;app&#39;的&amp;lt;div&amp;gt;了。
+(2) el:&#39;#xxx&#39;可以替换成new Vue({}).$mount(&#39;#app&#39;)
+3&amp;rsquo; Vue非完整版,配合xxx.vue文件
+第1步.写xxx.vue文件 &amp;lt;template&amp;gt; &amp;lt;div&amp;gt; //这里一般不需要id,id一般是用来挂载的，这里不需要 {{n}} &amp;lt;button @click=&amp;quot;add&amp;quot;&amp;gt; +1 &amp;lt;/button&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; 注意:&amp;lt;template&amp;gt;里面不是HTML而是 XML &amp;lt;script&amp;gt; export default { //默认导出一个选项(构造选项) data(){ return {n:0} },//data必须为函数，这个函数返回的对象就是我们要用的data methods:{add(){ this.</description>
+    </item>
+    
+    <item>
+      <title>深入理解Vue动画原理</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/</guid>
+      <description>文档 过渡 &amp;amp; 动画
+ 轮播组件slides
+轮播难点在于最末位到首位的切换方式，在讲轮播之前需要讲下动画。 Vue动画支持很多种不同的方式。
+Vue动画方式1 - CSS transition  Vue提供了transition组件
+ HTML //先引入Vue(bootCDN) &amp;lt;script src=&amp;quot;https://cdn.bootcdn.net/ajax/libs/vue/2.5.17/vue.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;div id=&amp;quot;demo&amp;quot;&amp;gt; &amp;lt;button v-on:click=&amp;quot;show = !show&amp;quot;&amp;gt; Toggle &amp;lt;/button&amp;gt; //1.写`&amp;lt;transition&amp;gt;` &amp;lt;transition name=&amp;quot;fade&amp;quot;&amp;gt; &amp;lt;p v-if=&amp;quot;show&amp;quot;&amp;gt;hello&amp;lt;/p&amp;gt; &amp;lt;/transition&amp;gt; &amp;lt;/div&amp;gt; CSS //2.写类 .fade-enter-active, .fade-leave-active { transition: all 2s; } .fade-enter, .fade-leave-to { opacity: 0; width:100px } //3.设置初始值 p{ border:1px solid red; width:300px } JS new Vue({ el: &#39;#demo&#39;, data: { show: true } })  步骤
+第1步.在html里写&amp;lt;transition&amp;gt;
+第2步.在css里写.fade开头的一系列类
+最后给需要的属性添加初始值
+对于这些在过渡中切换的类名来说，如果你使用一个没有名字的 ，则v-是这些类名的默认前缀。如果你使用了 &amp;lt;transition name=&amp;quot;fade&amp;quot;&amp;gt;，那么v-enter会替换为fade-enter。</description>
+    </item>
+    
+    <item>
+      <title>表单与v-model</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/</guid>
+      <description>Ant Design Vue文档
+ 表单基本用法
+input/textarea/checkbox/radio/select/from
+修饰符
+.lazy/.number/.trim
+运行环境
+新建文件vue-demo,用Vue的脚手架给它初始化下。
+vue create . 选择在当前目录创建,使用默认的vue2 yarn serve  表单基本用法 1.input 文本
+2.textarea 多行文本
+&amp;lt;template&amp;gt; &amp;lt;div id=&amp;quot;app&amp;quot;&amp;gt; &amp;lt;input v-model=&amp;quot;message&amp;quot; placeholder=&amp;quot;edit me&amp;quot;&amp;gt; &amp;lt;textarea v-model=&amp;quot;message&amp;quot; placeholder=&amp;quot;add multiple lines&amp;quot;&amp;gt;&amp;lt;/textarea&amp;gt; &amp;lt;p&amp;gt;Message is: {{ message }}&amp;lt;/p&amp;gt; &amp;lt;p&amp;gt; &amp;lt;button @click=&amp;quot;message=&#39;fuck&#39;&amp;quot;&amp;gt;change message&amp;lt;/button&amp;gt; &amp;lt;/p&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; export default { name: &#39;App&#39;, data(){ //需要声明message，每个input是需要对应有个变量的。 return { message:&#39;hi&#39; } }, components: {} } &amp;lt;/script&amp;gt;  改message，UI会自动变化。用户改input，message会自动变化。
+双向绑定：改内存页面会自动变化，改页面内存也会自动变化，这就叫双向绑定。
+3.复选框 checkbox
+单个复选框，绑定到布尔值 &amp;lt;template&amp;gt; &amp;lt;div id=&amp;quot;app&amp;quot;&amp;gt; &amp;lt;label&amp;gt; &amp;lt;input type=&amp;quot;checkbox&amp;quot; v-model=&amp;quot;x&amp;quot;&amp;gt; &amp;lt;span&amp;gt;x:{{x}}&amp;lt;/span&amp;gt; &amp;lt;/label&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; export default { name: &#39;App&#39;, data(){ return { x:true } } } &amp;lt;/script&amp;gt;  需要声明x，每个checkbox是需要对应有个变量的。</description>
+    </item>
+    
+    <item>
+      <title>请求和响应 &amp; Node.js Server</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/</guid>
+      <description>主要内容
+用代码实现http(演示Node.js服务)
+前置条件:安装Node.js 14
+ 后端开发的代码在服务端运行，前端开发的代码在客户端运行。
+请求指客户端里的浏览器发一个东西，发到服务器。
+响应指服务器拿到请求后，在同一个端口返回一个响应。
+如何发请求？
+1.用chrome地址栏
+发请求: 浏览器输入http://baidu.com
+查看响应: 打开开发者工具-&amp;gt;选择network-&amp;gt;刷新-&amp;gt;选中第一个请求，选择Response
+2.用curl命令发请求
+(后面会单独讲解)
+ curl -v https://www.baidu.com  概念
+帮你发请求的工具叫做 「用户代理」
+用chrome发送请求那chrome就是代理代理，用curl,curl就是用户代理。
+实现http-server  实现http-server，根据路径返回字符串
+Node.js有一个http模块可以做到
+ 源代码
+关键代码如下图所示： 注意事项
+这些代码就是服务器代码，一般放在服务器上
+request是请求对象,response是响应对象
+path是不带查询参数的路径/x
+query是查询参数的对象形式{a:&amp;lsquo;1&amp;rsquo;}
+quertString是查询参数的字符串形式?a=1
+pathWithQuery是带查询参数的路径，一般不用
+代码逻辑
+1.每次请求,都会执行console.log
+2.用if else判断路径，并返回响应
+如果是已知路径，一律返回200
+如果是未知路径，一律返回404
+3.response.write()填写响应的内容
+response.end()将响应发给客户端用户,只要你end就会发送给浏览器
+4.乱码处理response.setHeader(&amp;lsquo;Content-Type&amp;rsquo;, &amp;rsquo;text/html;charset=utf-8&amp;rsquo;)
+5.每次修改记得重启
+control+c中断
+6.后缀是垃圾
+不需要加后缀(/x.css)
+Content-Type才是决定文件类型的关键
+体系化学习 系统学习概念(HTTP)
+1.必须学会什么？
+基础概念(有哪些是避必会的)
+如何调试(用的是Node.js,可以用log/debugger)
+在哪查资料(用的是Node.js,看Node.js文档)
+标准制定者是谁(HTTP规范文档:RFC 2616等)
+2.如何学 -CRM
+copy 抄
+run 放在自己的机器上运行成功
+modify 改变，加入自己的想法，然后重新运行
+HTTP 基础概念
+一.请求
+1.请求(所有请求都要按照如下格式)</description>
+    </item>
+    
+    <item>
+      <title>起手式</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/</guid>
+      <description>Vue中文文档 、工具@vue/cli文档
+ Vue的历史 vue、Angular.js、React.js前端三大主流框架。 MVC中的V是Vue的重点，M和V则被简化。 Vue和vue.js没有区别，vue就是vue.js的简称。 Vue你可以认为是框架也可以说是库，Vue中文英文文档都是尤雨溪写的。
+15年的1.0版本Vue自称是MVVM框架，不是MVC是MVVM，不过这已经成历史了。现在Vue是MV * 框架,意思就是你说MVC、MVVM都行。但是Vue升级到2.0后，它虽然看起来是MVVM框架，但实际不是MVVM框架了。Vue3直接抄袭React。 Vue作者尤雨溪，主要作品: Vue、Vue Router、Vuex、@vue/cli(主要维护者是蒋豪群) Vue2版本vue.runtime.min.js Vue3版本vue.runtime.global.prod.js
+目标一: 项目搭建 方法一:使用@Vue/cli
+ 使用@vue/cli搭建Vue项目 @Vue/cli 是Vue的创建初始化工具，webpack的升级版，帮你把所有的webpack loader、webpack plugin配好了。利用@Vue/cli，不用学webpack也能用Vue。
+ 步骤 🔍@vue/cli文档
+1.打开终端
+cd ~/Desktop/ yarn global add @vue/cli@4.1.0-beta.0 vue --version vue create vue-demo //创建目录vue-demo  2.设置配置(该配置只适合学习，如果是真实项目请自行斟酌选项)
+选错用control+c中断重来
+没有截图的使用默认选项。
+多选:用空格键选中或取消 注意: 不要勾选Choose Vue version!
+3.运行
+cd vue-demo yarn serve 中断control+c，然后把生成的目录vue-demo拖进来 open . yarn serve //打开本地预览服务器  现在就可以使用Vue了，还可以用codesandbox.io。
+第1种方式:用命令行创建目录，它会自动帮你安装依赖。
+第2种方式:用codesandbox.io。
+不要登录，点击“create sandbox”，选择创建vue沙盒。
+下载至本地:点击File-&amp;gt; Export to ZIP 并解压缩
+方法二:自己从零搭建Vue项目
+目标二.vue.js和vue.runtime.js的使用 做一个简单的&amp;quot;+1&amp;quot;项目</description>
+    </item>
+    
+    <item>
+      <title>跨域、CORS、JSONP</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/</guid>
+      <description>面试必考
+ajax和Promise的跨域问题
+跨域一般用2种方案JSONP和CORS
+ 跨域  前端与后端的交互。
+ 关键知识
+1.同源策略 浏览器故意设计的一个功能限制
+2.CORS 突破浏览器限制的一个办法
+3.JSONP IE时代的妥协
+一.同源策略 1.同源定义
+源
+控制台输入window.origin或location.origin可以得到当前源
+源=协议+域名+端口号
+如果两个url的协议、域名、端口号完全一致，那么这两个url就是同源的。
+举例
+https://qq.com、https://www.baidu.com不同源 https://baidu.com、https://www.baidu.com不同源  完全一致才算同源
+2.同源策略定义
+浏览器规定
+如果JS运行在源A里就只能获取源A的数据，不能获取源B的数据，即不允许跨域。
+举例(省略http协议)
+假设diaoyu.com/index.html引用了cdn.com/1.js
+那么就说1.js运行在源diaoyu.com里。注意这跟cdn.com没关系，虽然1.js从它那下载
+所以1.js就只能获取diaoyu.com的数据
+1.js运行在哪个域名里就只能访问这个域名的数据
+这是浏览器的功能，浏览器故意要这样设计的。
+浏览器这么做的目的是为了保护用户隐私。
+怎么保护的？(假设没有同源策略,所有的js可以访问所有的网站的数据)
+以QQ空间为例
+源为https://user.qzone.qq.com
+假设，当前用户已登陆(登陆信息保存在浏览器Cookie里)，现在可以查看好友列表。
+好友信息是通过Ajax请求/friends.json获取到的好友列表
+假设，Ajax请求/friends.json可获取用户好友列表
+目前为止都很正常
+黑客来了
+假设你的女神(黑客)分享https://qzone-qq.com 给你，实际是钓鱼网站。
+你点开这个网页，这个网页也请求你的好友列表
+https://user.qzone.qq.com/friends.json
+请问，你的好友列表是不是就被黑客偷走了？是的\
+问题的根源
+第1次是正常的请求，第2次是黑客的请求。几乎没有区别除了referrer
+控制台的XHR是XMLHttpRequest的缩写也就是ajax的缩写
+同源策略：不同源的页面之间，不准互相访问数据
+实践 完整代码  做2个网站来演示下
+ 步骤
+1.创建2个目录qq-com和diaoyu-com
+qq-com目录新建server.js,模拟QQ空间
+diaoyu-com目录新建server.js,模拟坏人空间
+先打开第1个目录，然后将第2个目录添加到工作区
+安装：yarn global add node-dev 使用：node-dev server.js 8888 //qq-com node-dev server.js 9999 //diaoyu-com  2.</description>
+    </item>
+    
+    <item>
+      <title>进阶构造属性</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/</guid>
+      <description>Vue构造属性: directives、mixins、extends、provide、inject
+ 1.Directives 指令 2种写法
+1&amp;rsquo; 声明一个全局指令
+Vue.directive(&#39;x&#39;,directiveOptions)  例子: 造出v-x，点击即打印x。
+声明指令x,当元素被插入到页面中之后，我们就监听它的click事件。
+1.先声明 main.js Vue.directive(&#39;x&#39;,{ //单个directive inserted:function(el){ el.addEventListener(&#39;click&#39;,()=&amp;gt;{console.log(&#39;x&#39;)}) }, }) 2.再使用x指令 进入App.vue组件 &amp;lt;template&amp;gt; &amp;lt;img v-x width=&amp;quot;25%&amp;quot; src=&amp;quot;./assets/logo.png&amp;quot;&amp;gt; &amp;lt;HelloWorld msg=&amp;quot;Hello Vue&amp;quot;/&amp;gt; //让HelloWorld也响应:进入HelloWorld.vue组件添加`&amp;lt;h1 v-x&amp;gt;`,再次点击&amp;lt;h1&amp;gt;控制台就会输出x。 &amp;lt;/template&amp;gt;  你可以在任何组件里用v-x了。 inserted你把el放哪个元素上，el就是哪个元素，比如放&amp;lt;img&amp;gt;上，el就是&amp;lt;img&amp;gt;
+2&amp;rsquo; 声明一个局部指令 v-x只能在该实例中用
+new Vue({ ..., directives:{ &amp;quot;x&amp;quot;:directiveOptions } })  例子: 只能在HelloWord.vue组件里用 x
+HelloWord.vue &amp;lt;template&amp;gt; &amp;lt;div class=&amp;quot;hello&amp;quot;&amp;gt; &amp;lt;h1 v-x&amp;gt;{{ msg }}&amp;lt;/h1&amp;gt; //使用 &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; export default { directives: { //可声明多个directives &#39;x&#39;: { inserted(el) { el.addEventListener(&amp;quot;click&amp;quot;, () =&amp;gt; {console.</description>
+    </item>
+    
+    <item>
+      <title>静态服务器Static Server</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/</guid>
+      <description>优化server.js
+ 优化前
+var http = require(&#39;http&#39;) var fs = require(&#39;fs&#39;) var url = require(&#39;url&#39;) var port = process.argv[2] if (!port) { console.log(&#39;请指定端口号好不啦？\nnode server.js 8888 这样不会吗？&#39;) process.exit(1) } var server = http.createServer(function (request, response) { var parsedUrl = url.parse(request.url, true) var pathWithQuery = request.url var queryString = &#39;&#39; if (pathWithQuery.indexOf(&#39;?&#39;) &amp;gt;= 0) { queryString = pathWithQuery.substring(pathWithQuery.indexOf(&#39;?&#39;)) } var path = parsedUrl.pathname var query = parsedUrl.query var method = request.method /******** 从这里开始看，上面不要看 ************/ console.log(&#39;有个傻子发请求过来啦！路径（带查询参数）为：&#39; + pathWithQuery) if (path === &#39;/&#39;) { response.</description>
+    </item>
+    
+  </channel>
+</rss>

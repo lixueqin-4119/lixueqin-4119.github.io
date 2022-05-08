@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>跨域、CORS、JSONP | 目录 | 博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.1" />
+<link rel="stylesheet" href="http://lixueqin-4119.xyz/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
+<script defer src="http://lixueqin-4119.xyz/js/eureka.min.f1639ee98d6cbd85b2b5f034d27320da962002ff83159ed4e01dbc5948c42a1ab26c2d6e74c66e93f5cec4d24dbd166d.js" integrity="sha384-8WOe6Y1svYWytfA00nMg2pYgAv&#43;DFZ7U4B28WUjEKhqybC1udMZuk/XOxNJNvRZt"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+
+<script defer type="text/javascript" src="http://lixueqin-4119.xyz/js/fontawesome.min.7b735802cbde01152678cc4a867f0b4bb0597876e29adfcaf1e5b5e99d39d7af87f348fdfd91c7eaf9ed7dc1eece7c61.js" integrity="sha384-e3NYAsveARUmeMxKhn8LS7BZeHbimt/K8eW16Z0516&#43;H80j9/ZHH6vntfcHuznxh"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="面试必考
+ajax和Promise的跨域问题
+跨域一般用2种方案JSONP和CORS
+ 跨域  前端与后端的交互。
+ 关键知识
+1.同源策略 浏览器故意设计的一个功能限制
+2.CORS 突破浏览器限制的一个办法
+3.JSONP IE时代的妥协
+一.同源策略 1.同源定义
+源
+控制台输入window.origin或location.origin可以得到当前源
+源=协议&#43;域名&#43;端口号
+如果两个url的协议、域名、端口号完全一致，那么这两个url就是同源的。
+举例
+https://qq.com、https://www.baidu.com不同源 https://baidu.com、https://www.baidu.com不同源  完全一致才算同源
+2.同源策略定义
+浏览器规定
+如果JS运行在源A里就只能获取源A的数据，不能获取源B的数据，即不允许跨域。
+举例(省略http协议)
+假设diaoyu.com/index.html引用了cdn.com/1.js
+那么就说1.js运行在源diaoyu.com里。注意这跟cdn.com没关系，虽然1.js从它那下载
+所以1.js就只能获取diaoyu.com的数据
+1.js运行在哪个域名里就只能访问这个域名的数据
+这是浏览器的功能，浏览器故意要这样设计的。
+浏览器这么做的目的是为了保护用户隐私。
+怎么保护的？(假设没有同源策略,所有的js可以访问所有的网站的数据)
+以QQ空间为例
+源为https://user.qzone.qq.com
+假设，当前用户已登陆(登陆信息保存在浏览器Cookie里)，现在可以查看好友列表。
+好友信息是通过Ajax请求/friends.json获取到的好友列表
+假设，Ajax请求/friends.json可获取用户好友列表
+目前为止都很正常
+黑客来了
+假设你的女神(黑客)分享https://qzone-qq.com 给你，实际是钓鱼网站。
+你点开这个网页，这个网页也请求你的好友列表
+https://user.qzone.qq.com/friends.json
+请问，你的好友列表是不是就被黑客偷走了？是的\
+问题的根源
+第1次是正常的请求，第2次是黑客的请求。几乎没有区别除了referrer
+控制台的XHR是XMLHttpRequest的缩写也就是ajax的缩写
+同源策略：不同源的页面之间，不准互相访问数据
+实践 完整代码  做2个网站来演示下
+ 步骤
+1.创建2个目录qq-com和diaoyu-com
+qq-com目录新建server.js,模拟QQ空间
+diaoyu-com目录新建server.js,模拟坏人空间
+先打开第1个目录，然后将第2个目录添加到工作区
+安装：yarn global add node-dev 使用：node-dev server.js 8888 //qq-com node-dev server.js 9999 //diaoyu-com  2.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"",
+      "item":"http://lixueqin-4119.xyz/docs/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"目录",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/"},{
+      "@type": "ListItem",
+      "position": 3 ,
+      "name":"前后分离",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/"},{
+      "@type": "ListItem",
+      "position": 4 ,
+      "name":"跨域、CORS、JSONP",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/"
+    },
+    "headline": "跨域、CORS、JSONP | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
+    "dateModified": "2020-10-16T00:00:00+00:00",
+    "wordCount":  599 ,
+    "publisher": {
+        "@type": "Person",
+        "name": "WANG Chucheng",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "http://lixueqin-4119.xyz/images/icon.png"
+        }
+        },
+    "description": "面试必考\najax和Promise的跨域问题\n跨域一般用2种方案JSONP和CORS\n 跨域  前端与后端的交互。\n 关键知识\n1.同源策略 浏览器故意设计的一个功能限制\n2.CORS 突破浏览器限制的一个办法\n3.JSONP IE时代的妥协\n一.同源策略 1.同源定义\n源\n控制台输入window.origin或location.origin可以得到当前源\n源=协议\u002b域名\u002b端口号\n如果两个url的协议、域名、端口号完全一致，那么这两个url就是同源的。\n举例\nhttps:\/\/qq.com、https:\/\/www.baidu.com不同源 https:\/\/baidu.com、https:\/\/www.baidu.com不同源  完全一致才算同源\n2.同源策略定义\n浏览器规定\n如果JS运行在源A里就只能获取源A的数据，不能获取源B的数据，即不允许跨域。\n举例(省略http协议)\n假设diaoyu.com\/index.html引用了cdn.com\/1.js\n那么就说1.js运行在源diaoyu.com里。注意这跟cdn.com没关系，虽然1.js从它那下载\n所以1.js就只能获取diaoyu.com的数据\n1.js运行在哪个域名里就只能访问这个域名的数据\n这是浏览器的功能，浏览器故意要这样设计的。\n浏览器这么做的目的是为了保护用户隐私。\n怎么保护的？(假设没有同源策略,所有的js可以访问所有的网站的数据)\n以QQ空间为例\n源为https:\/\/user.qzone.qq.com\n假设，当前用户已登陆(登陆信息保存在浏览器Cookie里)，现在可以查看好友列表。\n好友信息是通过Ajax请求\/friends.json获取到的好友列表\n假设，Ajax请求\/friends.json可获取用户好友列表\n目前为止都很正常\n黑客来了\n假设你的女神(黑客)分享https:\/\/qzone-qq.com 给你，实际是钓鱼网站。\n你点开这个网页，这个网页也请求你的好友列表\nhttps:\/\/user.qzone.qq.com\/friends.json\n请问，你的好友列表是不是就被黑客偷走了？是的\\\n问题的根源\n第1次是正常的请求，第2次是黑客的请求。几乎没有区别除了referrer\n控制台的XHR是XMLHttpRequest的缩写也就是ajax的缩写\n同源策略：不同源的页面之间，不准互相访问数据\n实践 完整代码  做2个网站来演示下\n 步骤\n1.创建2个目录qq-com和diaoyu-com\nqq-com目录新建server.js,模拟QQ空间\ndiaoyu-com目录新建server.js,模拟坏人空间\n先打开第1个目录，然后将第2个目录添加到工作区\n安装：yarn global add node-dev 使用：node-dev server.js 8888 \/\/qq-com node-dev server.js 9999 \/\/diaoyu-com  2."
+}
+</script><meta property="og:title" content="跨域、CORS、JSONP | 目录 | 博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="http://lixueqin-4119.xyz/images/icon.png">
+
+
+<meta property="og:url" content="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/" />
+
+
+
+
+<meta property="og:description" content="面试必考
+ajax和Promise的跨域问题
+跨域一般用2种方案JSONP和CORS
+ 跨域  前端与后端的交互。
+ 关键知识
+1.同源策略 浏览器故意设计的一个功能限制
+2.CORS 突破浏览器限制的一个办法
+3.JSONP IE时代的妥协
+一.同源策略 1.同源定义
+源
+控制台输入window.origin或location.origin可以得到当前源
+源=协议&#43;域名&#43;端口号
+如果两个url的协议、域名、端口号完全一致，那么这两个url就是同源的。
+举例
+https://qq.com、https://www.baidu.com不同源 https://baidu.com、https://www.baidu.com不同源  完全一致才算同源
+2.同源策略定义
+浏览器规定
+如果JS运行在源A里就只能获取源A的数据，不能获取源B的数据，即不允许跨域。
+举例(省略http协议)
+假设diaoyu.com/index.html引用了cdn.com/1.js
+那么就说1.js运行在源diaoyu.com里。注意这跟cdn.com没关系，虽然1.js从它那下载
+所以1.js就只能获取diaoyu.com的数据
+1.js运行在哪个域名里就只能访问这个域名的数据
+这是浏览器的功能，浏览器故意要这样设计的。
+浏览器这么做的目的是为了保护用户隐私。
+怎么保护的？(假设没有同源策略,所有的js可以访问所有的网站的数据)
+以QQ空间为例
+源为https://user.qzone.qq.com
+假设，当前用户已登陆(登陆信息保存在浏览器Cookie里)，现在可以查看好友列表。
+好友信息是通过Ajax请求/friends.json获取到的好友列表
+假设，Ajax请求/friends.json可获取用户好友列表
+目前为止都很正常
+黑客来了
+假设你的女神(黑客)分享https://qzone-qq.com 给你，实际是钓鱼网站。
+你点开这个网页，这个网页也请求你的好友列表
+https://user.qzone.qq.com/friends.json
+请问，你的好友列表是不是就被黑客偷走了？是的\
+问题的根源
+第1次是正常的请求，第2次是黑客的请求。几乎没有区别除了referrer
+控制台的XHR是XMLHttpRequest的缩写也就是ajax的缩写
+同源策略：不同源的页面之间，不准互相访问数据
+实践 完整代码  做2个网站来演示下
+ 步骤
+1.创建2个目录qq-com和diaoyu-com
+qq-com目录新建server.js,模拟QQ空间
+diaoyu-com目录新建server.js,模拟坏人空间
+先打开第1个目录，然后将第2个目录添加到工作区
+安装：yarn global add node-dev 使用：node-dev server.js 8888 //qq-com node-dev server.js 9999 //diaoyu-com  2." />
+
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="docs" />
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">简介</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于我</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+
+
+<div class="lg:pt-12">
+    <div class="flex flex-col md:flex-row bg-secondary-bg rounded">
+        <div class="md:w-1/4 lg:w-1/5 border-e">
+            <div class="sticky top-16 pt-6">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sidebar-title" class="md:hidden mx-4 px-2 pt-4 pb-2 md:border-b text-tertiary-text md:text-primary-text">
+    <span class="font-semibold">Table of Contents</span>
+    <i class='fas fa-caret-right ms-1'></i>
+</div>
+
+<div id="sidebar-toc"
+    class="hidden md:block overflow-y-auto mx-6 md:mx-0 pe-6 pt-2 md:max-h-doc-sidebar bg-primary-bg md:bg-transparent">
+    <div class="flex flex-wrap ms-4 -me-2 p-2 bg-secondary-bg md:bg-primary-bg rounded">
+        <a class=" hover:text-eureka"
+            href="http://lixueqin-4119.xyz/docs/example-doc/">目录</a>
+        
+        
+        
+
+
+    </div>
+    
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/">【HTML全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A0%87%E7%AD%BE/">HTML标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A6%82%E8%A7%88/">HTML概览</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E9%87%8D%E7%82%B9%E6%A0%87%E7%AD%BE/">HTML重点标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/%E6%89%8B%E6%9C%BA%E9%A2%84%E8%A7%88-%E8%B0%83%E8%AF%95/">手机预览 &amp; 调试</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/">HTTP 状态码</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/">URL 是什么</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/">请求和响应 &amp; Node.js Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/">JavaScript 的诞生</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/">JS函数</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/">JS对象</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/">JS对象分类</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">JS数据类型</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/">JS数组</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JS正则表达式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/">js获取屏幕宽高</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/">JS语法</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/">JS运算符</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/">DOM 编程</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/">DOM事件与事件委托</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/">jQuery 中的设计模式(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/">jQuery 中的设计模式(下)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/">手写DOM库(1)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/">MVC(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/">MVC(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/">Class 组件详解</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">Hooks 原理解析</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/">Hooks 各个击破</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">React 类组件和函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/">React起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/">手写 Redux</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/">computed 和 watch</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/">Vue Router -前端路由实现的思路</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">数据响应式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/">构造选项</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/">模板、指令与修饰符</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">深入理解Vue动画原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/">表单与v-model</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/">起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/">进阶构造属性</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/">云服务器</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/">AJAX 的原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/">Ajax实战:Cookie、Session</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/">异步与Promise</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" text-eureka  hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/">跨域、CORS、JSONP</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/">静态服务器Static Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/">Webpack(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/">Webpack(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+</ul>
+
+</div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <div class="w-full md:w-3/4 lg:w-4/5 pb-8 pt-2 md:pt-8">
+            <div class="flex">
+                <div class="w-full lg:w-3/4 px-6">
+                    <article class="prose">
+  <h1 class="mb-4">跨域、CORS、JSONP</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2020-10-16</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>3 min read</span>
+  </div>
+
+  
+
+  
+</div>
+
+
+  
+  
+
+  <blockquote>
+<p>面试必考</p>
+<p>ajax和Promise的跨域问题</p>
+<p>跨域一般用2种方案JSONP和CORS</p>
+</blockquote>
+<h3 id="跨域"><a href=""></a>跨域</h3>
+<blockquote>
+<p>前端与后端的交互。</p>
+</blockquote>
+<p><strong>关键知识</strong><br>
+<strong>1.同源策略</strong> 浏览器故意设计的一个功能限制<br>
+<strong>2.CORS</strong> 突破浏览器限制的一个办法<br>
+<strong>3.JSONP</strong> IE时代的妥协</p>
+<h3 id="一同源策略"><a href=""></a>一.同源策略</h3>
+<p><strong>1.同源定义</strong><br>
+<strong>源</strong><br>
+控制台输入window.origin或location.origin可以得到当前源<br>
+源=协议+域名+端口号<br>
+如果两个url的协议、域名、端口号完全一致，那么这两个url就是同源的。<br>
+<strong>举例</strong></p>
+<pre><code>https://qq.com、https://www.baidu.com不同源
+https://baidu.com、https://www.baidu.com不同源
+</code></pre>
+<p>完全一致才算同源</p>
+<p><strong>2.同源策略定义</strong><br>
+<strong>浏览器规定</strong><br>
+如果JS运行在源A里就只能获取源A的数据，不能获取源B的数据，即<strong>不允许跨域</strong>。<br>
+举例(省略http协议)<br>
+假设diaoyu.com/index.html引用了cdn.com/1.js<br>
+那么就说1.js<strong>运行在源diaoyu.com</strong>里。注意这跟cdn.com没关系，虽然1.js从它那<strong>下载</strong><br>
+所以1.js就只能获取diaoyu.com的数据<br>
+<strong>1.js运行在哪个域名里就只能访问这个域名的数据</strong><br>
+<strong>这是浏览器的功能，浏览器故意要这样设计的。</strong><br>
+浏览器这么做的目的是为了<strong>保护用户隐私</strong>。</p>
+<p>怎么保护的？(假设没有同源策略,所有的js可以访问所有的网站的数据)<br>
+<strong>以QQ空间为例</strong><br>
+源为https://user.qzone.qq.com<br>
+假设，当前用户已登陆(登陆信息保存在浏览器Cookie里)，现在可以查看好友列表。<br>
+好友信息是通过Ajax请求/friends.json获取到的好友列表<br>
+假设，Ajax请求/friends.json可获取用户好友列表<br>
+目前为止都很正常</p>
+<p><strong>黑客来了</strong><br>
+假设你的女神(黑客)分享https://qzone-qq.com 给你，实际是钓鱼网站。<br>
+你点开这个网页，这个网页也请求你的好友列表<br>
+<a href="https://user.qzone.qq.com/friends.json">https://user.qzone.qq.com/friends.json</a><br>
+请问，你的好友列表是不是就被黑客偷走了？是的\</p>
+<p><strong>问题的根源</strong><br>
+第1次是正常的请求，第2次是黑客的请求。几乎没有区别除了<strong>referrer</strong><br>
+<img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8b9afeb0283242eca3d6518c6aebe563~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>控制台的XHR是XMLHttpRequest的缩写也就是ajax的缩写</strong></p>
+<p><strong>同源策略：不同源的页面之间，不准互相访问数据</strong></p>
+<h2 id="实践完整代码httpseditorcsdnnetmdnot_checkout1articleid122953054"><a href=""></a>实践 <a href="https://editor.csdn.net/md/?not_checkout=1&amp;articleId=122953054">完整代码</a></h2>
+<blockquote>
+<p>做2个网站来演示下</p>
+</blockquote>
+<p><strong>步骤</strong><br>
+1.创建2个目录qq-com和diaoyu-com<br>
+qq-com目录新建server.js,模拟QQ空间<br>
+diaoyu-com目录新建server.js,模拟坏人空间<br>
+<strong>先打开第1个目录，然后将第2个目录添加到工作区</strong></p>
+<pre><code>安装：yarn global add node-dev 
+使用：node-dev server.js 8888 //qq-com
+     node-dev server.js 9999 //diaoyu-com
+</code></pre>
+<p>2.<strong>qq-com</strong><br>
+/index.html是首页<br>
+/qq.js是JS脚本文件<br>
+/friends.json是模拟的好友数据<br>
+端口监听为8888，访问http://127.0.0.1:8888</p>
+<p><strong>操作步骤</strong><br>
+编写path=’/index.html’路由,然后新建index.html。server.js会读取index.html。<br>
+编写path === &lsquo;/qq.js’路由,然后新建qq.js。server.js会读取qq.js。<br>
+编写path === &lsquo;/friends.json’路由,然后新建friends.json。server.js会读取friends.json。</p>
+<p><strong>知识点：</strong> <a href="http://nodejs.cn/api/fs.html">fs文档</a>、<a href="https://javascript.ruanyifeng.com/nodejs/fs.html">fs模块-阮一峰</a>推荐<a href="https://wangdoc.com/javascript/">网道</a><br>
+Node.js文件系统封装在fs模块中，它提供了文件的读取、写入、更名、删除、遍历目录、链接等POSIX文件系统操作<br>
+fs模块的基本使用：</p>
+<pre><code>var fs = require('fs') //引用fs
+response.write(fs.readFileSync('./public/index.html'))
+</code></pre>
+<p><strong>3.diaoyu-com</strong><br>
+操作步骤同上<br>
+/index.html是首页<br>
+/diaoyu.js是JS脚本文件<br>
+补充：diaoyu-com不需要写路由/friends.json<br>
+端口监听为9999，访问http://127.0.0.1:9999</p>
+<p>4.让qq.js<strong>成功</strong>访问自己的json(friends.json)数据<br>
+让diaoyu.js<strong>不能成功</strong>访问qq的json</p>
+<p>能不能做到域名也不同?设置本地域名映射,修改hosts<br>
+让qq.com映射到127.0.0.1,就可以访问 <a href="http://qq.com:8888/index.html">http://qq.com:8888/index.html</a> 了<br>
+让diaoyu.com映射到127.0.0.1,就可以访问 <a href="http://diaoyu.com:9999/index.html">http://diaoyu.com:9999/index.html</a> 了</p>
+<h3 id="跨域ajax"><a href=""></a>跨域AJAX</h3>
+<blockquote>
+<p>演示跨域被阻止</p>
+</blockquote>
+<p><strong>1.qq-com</strong><br>
+首先index.html应用js<code>&lt;script src=&quot;qq.js&quot;&gt;&lt;/script&gt;</code><br>
+然后qq.js发送请求</p>
+<pre><code>const request = new XMLHttpRequest()
+request.open('GET', './friends.json')
+request.onreadystatechange = () =&gt; {
+    if (request.readyState === 4 &amp;&amp; request.status === 200) {
+        console.log(request.response)
+    }
+}
+request.send()
+</code></pre>
+<p>2.diaoyu-com<br>
+操作同上<br>
+首先index.html应用js<code>&lt;script src=&quot;./diaoyu.js&quot;&gt;&lt;/script&gt;</code><br>
+然后qq.js发送请求</p>
+<pre><code>const request = new XMLHttpRequest()
+request.open('GET', 'http://qq.com:8888/friends.json')//请求qq.com的json
+request.onreadystatechange = () =&gt; {
+    if (request.readyState === 4 &amp;&amp; request.status === 200) {
+        console.log(request.response)
+    }
+}
+request.send()
+</code></pre>
+<p>diaoyu-com不需要/friends.json路由</p>
+<pre><code>提示：从源“http://diaoyu.com：9999”访问“http://qq.com：8888/friends.json”的XMLHttp请求已被CORS策略阻止：请求的资源上不存在“访问-控制-允许源”头。
+</code></pre>
+<p>response拿不到qq.com的数据，因为<strong>CORS策略阻止了</strong>。<br>
+这就是跨域，跨域会被阻止的。浏览器会限制跨域，故意不给数据。浏览器需要CORS。</p>
+<p><strong>其它疑问</strong><br>
+<strong>1.为什么a.qq.com访问qq.com也算跨域？</strong><br>
+因为历史上出现过不同公司共用域名。a.qq.com和qq.com不一定是同一个网站。浏览器谨慎起见，认为这是不同的源。<br>
+<strong>2.为什么不同端口也算跨域？</strong><br>
+原因同上。曾经由于服务器比较贵，很多公司共用同一个服务器，这导致了一个端口一个公司，这两个公司数据是不共享的。记住安全链条的强度取决于最弱的一环，任何安全相关的问题都要谨慎对待。<br>
+<strong>3.为什么两个网站的IP是一样的，也算跨域？</strong><br>
+原因同上。IP都一样说明在同一台服务器上。很早的时候服务器很贵的，所以一台服务器挂了20个不同网站的网页都是有可能的。所以由于<strong>IP可以共用</strong>，实际上它们是不同的公司。<br>
+<strong>4.为什么可以跨域使用CSS、JS、图片？</strong><br>
+<strong>面试题</strong><br>
+同源策略限制的是数据访问，我们引用CSS、JS、图片的时候，其实并不知道其内容，我们只是在引用。能引用但不能读取。不信我问你，你能知道CSS的第1个字符是什么吗？</p>
+<p>虽然理论上要求不同网站不能共享数据，不允许跨域，但实际工作或者面试中经常会问<strong>如何跨域共享数据</strong>。</p>
+<h3 id="实现跨域的2种方法"><a href=""></a>实现跨域的2种方法</h3>
+<p><strong>方法一：CORS 跨域资源共享</strong><br>
+<strong>问题根源</strong><br>
+浏览器默认不同源之间不能互相访问数据。<br>
+但是qq.com和diaoyu.com其实都是我的网站,我就是想要两个网站互相访问，浏览器为什么阻止。<br>
+好吧，用CORS<br>
+浏览器说，如果要共享数据，需要提前声明！<br>
+<strong>怎么声明？</strong><br>
+浏览器说，qq.com在响应头里写diaoyu.com可以访问<br>
+<strong>设置响应头</strong><code>Access-Control-Allow-Origin: http://foo.example</code><br>
+<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS#%E7%AE%80%E5%8D%95%E8%AF%B7%E6%B1%82">CORS文档</a> CORS分为简单请求和复杂请求具体看文档<br>
+示例代码</p>
+<pre><code>else if (path === '/friends.json') {
+  response.statusCode = 200
+  response.setHeader('Content-Type', 'text/json;charset=utf-8')
+  response.setHeader('Access-Control-Allow-Origin', 'http://diaoyu.com:9999')
+  response.write(fs.readFileSync('./public/friends.json'))
+  response.end()
+  }
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/577b1d8bb1f241e8ae5129f8711c2507~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f57e2199a33c4c90a35486e3a597b9d5~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>如果有2个网站都想请求qq.com呢？</strong><br>
+思路：来一个网站读取一个网站,不是将这2个网站都写上去。<br>
+console.log(request.headers[‘referer’])<br>
+将当前正在请求的网站记录下来，然后重新记录到Access-Control-Allow-Origin后面<br>
+⚠️<strong>注意：IE不支持CORS,要想兼容IE只能用第2种方法</strong></p>
+<p><strong>方法二：JSONP(兼容IE)</strong></p>
+<blockquote>
+<p>JSONP和JSON半毛钱关系都没有</p>
+</blockquote>
+<p>记不记得我们可以任意引用JS<br>
+虽然我们不能访问qq.com:8888/friends.json，但是我们能引用qq.com:8888friends.js啊！<br>
+<strong>这有什么用？</strong><br>
+JS又不是数据<br>
+我们让JS包含数据不就好了，把数据写到js文件里<br>
+<strong>qq创建包含数据的js</strong>，diaoyu.com访问qq.com<br>
+<strong>步骤</strong><br>
+<strong>1.qq.com将数据写到/friends.js</strong><br>
+qq新建文件friends.js,代码</p>
+<pre><code>{ { data } }  //占位
+</code></pre>
+<p><strong>2.后台写路由</strong><br>
+后台获取js内容、获取数据json，把数据填到js内容。然后再返回给浏览器。</p>
+<pre><code>else if (path === '/friends.js') {
+  response.statusCode = 200
+  response.setHeader('Content-Type', 'text/javascript;charset=utf-8')
+  const string = fs.readFileSync('./public/friends.js').toString()
+  const data = fs.readFileSync('./public/friends.json').toString()
+  //默认不是string要toString
+  const string2 = string.replace('{{data}}', data)
+  //把data塞到string里。用数据data把占位{{data}}替换掉
+  response.write(string2)
+  response.end()
+} 
+</code></pre>
+<p><strong>补充:js文件中光有数据是不合法的需要赋值</strong></p>
+<pre><code>window.xxx = { { data } } 
+</code></pre>
+<p><strong>3.diaoyu.com用script标签引用/friends.js,js动态引用</strong><br>
+diaoyu.js</p>
+<pre><code>const script = document.createElement('script')
+script.src = 'http://qq.com:8888/friends.js'
+document.body.appendChild(script)
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7661ae406a7849948435095f93ffba6e~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>那怎么确定数据是否拿到呢？监听script的onload事件</p>
+<pre><code>const script = document.createElement('script') script.src = 'http://qq.com:8888/friends.js' script.onload = () =&gt; { console.log(window.xxx) } document.body.appendChild(script)
+</code></pre>
+<p><strong>4.js文件中光有数据是不合法的需要赋值,但是xxx可能被占用，可以用函数</strong></p>
+<pre><code>//window.xxx={{data}}
+window.xxx({{ data }})
+</code></pre>
+<p>diaoyu.js<br>
+<strong>不用再监听onload了。因为只要执行成功就可以调用函数window.xxx了</strong></p>
+<pre><code>window.xxx = (data) =&gt; {
+    console.log(data)
+}
+const script = document.createElement('script')
+script.src = 'http://qq.com:8888/friends.js'
+document.body.appendChild(script)
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e9a72b17415645a0a7088879164bc444~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>回调：我定义一个函数给别人调用，别人调的时候给我个数据。<br>
+<strong>window.xxx本质就是一个回调</strong><br>
+我定义了但是不调用，等着qq.com的脚本js文件(friends.js)来调用。调的时候就会把数据作为第1个参数传给我。</p>
+<h3 id="jsonp-referer检查限制访问者"><a href=""></a>JSONP referer检查限制访问者</h3>
+<p>CORS可以指定谁访问者，JSONP没办法指定，那JSONP的js不是所有网站都可以用了吗？<br>
+是的，但是<strong>JSONP可以做referer检查限制访问者。</strong></p>
+<pre><code>else if (path === '/friends.js') {
+  if (request.headers['referer'].indexOf('http://diaoyu.com:9999') === 0) {
+    response.statusCode = 200
+    response.setHeader('Content-Type', 'text/javascript;charset=utf-8')
+    //console.log(request.headers['referer']) //http://diaoyu.com:9999
+    const string = fs.readFileSync('./public/friends.js').toString()
+    const data = fs.readFileSync('./public/friends.json').toString()
+    const string2 = string.replace('{{ data }}', data)
+    response.write(string2)
+    response.end()
+  } else {
+    response.statusCode = 404
+    response.end()
+   }
+} 
+</code></pre>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf">indexOf()</a><br>
+即使这样还是会有安全隐患，一旦我信任的网站被攻陷(diaoyu.com)，那qq.com也就完了。<br>
+还有更严格的限制以后会讲(涉及Cookie、Token)</p>
+<h3 id="优化jsonp">优化JSONP</h3>
+<p><strong>一.xxx能不写死吗？</strong><br>
+假如我有多个接口，除了&quot;好友列表&quot;，还有&quot;最近访问的人&quot;等，这明显不能满足我们的需求。其实名字不重要，只要diaoyu.com定义的函数名和qq.com/friends.js执行的函数名是同一个即可。那就把名字传给/friends.js<br>
+<strong>1.思路：自动生成</strong></p>
+<pre><code>const random = Math.random()
+//console.log(random) 0~1的小数，所有的key都可以是字符串，只要是字符串就行
+window[random] = (data) =&gt; { //window['0.023216364']=函数
+  console.log(data)
+}
+</code></pre>
+<p><strong>2.如何把随机数给后台？查询参数<code>?functionName</code></strong></p>
+<pre><code>diapyu.js
+script.src = `http://qq.com:8888/friends.js?functionName=${random}`
+</code></pre>
+<p><strong>传进去后怎么渲染到js里?</strong></p>
+<pre><code>qq.com
+else if (path === '/friends.js') {
+  if (request.headers['referer'].indexOf('http://diaoyu.com:9999') === 0) {
+  ...
+  console.log(query.functionName) //query?
+  }
+}
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7ec0314fb4e244ed9344f18129147425~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>补充</strong> <a href="https://blog.csdn.net/weixin_39037804/article/details/102467141?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0.pc_relevant_default&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=3">url.parse</a></p>
+<pre><code>var parsedUrl = url.parse(request.url, true)
+var query = parsedUrl.query
+
+语法：第2个参数(可省)传入一个布尔值，默认为false，为true时，返回的url对象中，query的属性为一个对象。
+url.parse(&quot;http://user:pass@host.com:8080/p/a/t/h?query=string#hash&quot;,true);
+返回值：
+ {
+  protocol: 'http:',
+  slashes: true,
+  auth: 'user:pass',
+  host: 'host.com:8080',
+  port: '8080',
+  hostname: 'host.com',
+  hash: '#hash',
+  search: '?query=string',
+  query: { query: 'string' },
+  pathname: '/p/a/t/h',
+  path: '/p/a/t/h?query=string',
+  href: 'http://user:pass@host.com:8080/p/a/t/h?query=string#hash'
+ }
+ 将第2个参数设置为true时，query属性为 “名称/值”对的集合,即json格式。
+</code></pre>
+<p><strong>将随机数插入到字符串里</strong><br>
+friends.js</p>
+<pre><code>window['{{xxx}}']({{ data }})
+</code></pre>
+<p><strong>再将{{xxx}}替换成随机数</strong></p>
+<pre><code>const string2=string.replace('{{ data }}', data).replace('{{xxx}}',query.functionName)
+</code></pre>
+<p><strong>还可以更复杂点：加个前缀</strong></p>
+<pre><code>const random = 'diaoyuJSONPCallbackName' + Math.random()
+</code></pre>
+<p><strong>二.执行完后删掉<code>&lt;script&gt;</code>标签</strong><br>
+每发一次请求就会增加一个<code>&lt;script&gt;</code>标签，页面也会变的臃肿。</p>
+<pre><code>const random = 'diaoyuJSONPCallbackName' + Math.random()
+console.log(random)
+window[random] = (data) =&gt; {
+    console.log(data)
+}
+const script = document.createElement('script')
+script.src = `http://qq.com:8888/friends.js?functionName=${random}`
+script.onload = () =&gt; { //删掉&lt;script&gt;标签
+    script.remove()  
+}
+document.body.appendChild(script)
+</code></pre>
+<p>只要执行完了，<code>&lt;script&gt;</code>就没用了，可以删掉</p>
+<p><strong>三.封装jsonp()</strong><br>
+封装成jsonp(‘url’).then(f1,f2)</p>
+<pre><code>function jsonp(url) {
+  return new Promise((resolve, reject) =&gt; {
+    const random = 'diaoyuJSONPCallbackName' + Math.random()
+    window[random] = (data) =&gt; {//成功调用resolve
+      resolve(data)
+    }
+    const script = document.createElement('script')
+    //script.src = `${url}?functionName=${random}`
+    script.src = `${url}?callback=${random}`
+    script.onload = () =&gt; {
+      script.remove()
+     }
+    script.onerror = () =&gt; {//失败调用reject
+      reject()
+    }
+    document.body.appendChild(script)
+  })
+}
+
+jsonp('http://qq.com:8888/friends.js').then((data) =&gt; {
+  console.log(data)
+})
+</code></pre>
+<p>jsonp与ajax对比的弱点，<strong>jsonp只能知道成功/失败，不能拿到状态码。</strong></p>
+<p><strong>⚠️注意：jsonp约定查询参数不能叫functionName应该叫callback</strong><code>?callback</code></p>
+<p><strong>四.删除文件friends.js</strong><br>
+friends.js的<code>window['{{xxx}}']({{ data }})</code>这句代码其实可以直接写在后台。</p>
+<pre><code>//const string = fs.readFileSync('./public/friends.js').toString()
+const string = `window['{{xxx}}']({{ data }})`           
+</code></pre>
+<p><strong>JSONP就是创建一个<code>&lt;script&gt;</code>请求js，js把数据夹带过来</strong><br>
+<strong>跨域还有其他方案可以自己搜</strong></p>
+<p><strong>面试题</strong><br>
+<strong>JSONP是什么？</strong><br>
+1.跨域时由于当前浏览器不支持CORS，所以必须使用另外一种方式实现跨域。<br>
+于是我们就请求一个js文件，这个js文件会执行一个回调，回调里有我们的数据。<br>
+<strong>追问，你这个回调的名字是什么？</strong><br>
+回调的名字是可以随机生成的1个随机数，我们把这个名字以callback的参数传给后台，后台会把这个函数再次返回给我们并执行。<br>
+2.JSONP优点:(1)兼容IE (2)可以跨域<br>
+3.JSONP缺点:<br>
+(1)由于是<code>&lt;script&gt;</code>标签,所以它读不到ajax那么精确的状态。状态码、响应头都不知道，只知道成功和失败。<br>
+(2)由于是<code>&lt;script&gt;</code>标签只能发get请求,<strong>JSONP不支持post</strong>。</p>
+
+</article>
+
+                    
+                    
+                    
+
+                    
+
+
+
+                    
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+        <span class="text-primary-text block font-bold"
+          >Previous</span
+        >
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/" class="block">异步与Promise</a>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+        <span class="text-primary-text block font-bold">Next</span>
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/" class="block">静态服务器Static Server</a>
+      
+    </div>
+  </div>
+
+
+                    
+
+
+
+                </div>
+                
+                <div class="hidden lg:block lg:w-1/4">
+                    
+                    <div
+  class="
+    bg-secondary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>On This Page</h3>
+</div>
+<div
+  class="sticky-toc 
+    border-s
+   hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#跨域"><a href=""></a>跨域</a></li>
+        <li><a href="#一同源策略"><a href=""></a>一.同源策略</a></li>
+      </ul>
+    </li>
+    <li><a href="#实践完整代码httpseditorcsdnnetmdnot_checkout1articleid122953054"><a href=""></a>实践 <a href="https://editor.csdn.net/md/?not_checkout=1&amp;articleId=122953054">完整代码</a></a>
+      <ul>
+        <li><a href="#跨域ajax"><a href=""></a>跨域AJAX</a></li>
+        <li><a href="#实现跨域的2种方法"><a href=""></a>实现跨域的2种方法</a></li>
+        <li><a href="#jsonp-referer检查限制访问者"><a href=""></a>JSONP referer检查限制访问者</a></li>
+        <li><a href="#优化jsonp">优化JSONP</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+                    
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        hljs.initHighlightingOnLoad();
+        changeSidebarHeight();
+        switchDocToc();
+    })
+</script>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2021 <a href="https://www.wangchucheng.com/">WANG Chucheng</a> and <a href="https://www.ruiqima.com/">MA Ruiqi</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>

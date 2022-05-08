@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>手写DOM库(1) | 目录 | 博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.1" />
+<link rel="stylesheet" href="http://lixueqin-4119.xyz/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
+<script defer src="http://lixueqin-4119.xyz/js/eureka.min.f1639ee98d6cbd85b2b5f034d27320da962002ff83159ed4e01dbc5948c42a1ab26c2d6e74c66e93f5cec4d24dbd166d.js" integrity="sha384-8WOe6Y1svYWytfA00nMg2pYgAv&#43;DFZ7U4B28WUjEKhqybC1udMZuk/XOxNJNvRZt"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+
+<script defer type="text/javascript" src="http://lixueqin-4119.xyz/js/fontawesome.min.7b735802cbde01152678cc4a867f0b4bb0597876e29adfcaf1e5b5e99d39d7af87f348fdfd91c7eaf9ed7dc1eece7c61.js" integrity="sha384-e3NYAsveARUmeMxKhn8LS7BZeHbimt/K8eW16Z0516&#43;H80j9/ZHH6vntfcHuznxh"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="手把手教你封装DOM，封装出一些接口，用来操作DOM(页面的节点)。
+把一个复杂的东西打包成服务，然后只需要简单的命令就可以操作它。
+ 什么叫封装
+举例
+笔记本电脑就是CPU、内存、硬盘、主板、显卡的封装
+用户只需要接触显示器、键盘、鼠标、触控板等设备，即可操作复杂的计算机。
+接口
+被封装的东西需要暴露一些功能给外部
+这些功能就是接口，如USB接口、HDMI接口。
+这些接口都有规范的文档来说明。文档内容包含功能和实现的细节，别人就可以根据文档内容仿制。
+设备只要支持这些接口，即可与被封装的东西通讯
+比如键盘、鼠标支持USB接口，显示器支持HDMI接口
+封装和接口的关系，如下图所示：
+术语
+库
+我们把提供给其他人用的工具代码叫做库(很多函数放到一起给别人用就叫做库)
+比如jQuery、Underscore
+API
+库暴露出来的函数或属性叫做 API应用编程接口
+框架
+当你的库变的很大，并且需要学习才能看懂，
+那么这个库就叫框架，比如Vue/React
+其它
+1.工具parcel
+yarn global add parcel //yarn global add parcel @1.12.3 指定版本 parcel --version 使用:parcel src/index.html //启动一个服务器，这个服务器会自动刷新  2.简写
+window.dom.create = function () { } 可以简写成 window.dom = { create() { } } const childNodes = node.childNodes 可以简写成 const { childNodes } = node  3.template标签可以放任意元素,但不会在页面显示，是专门用来容纳的
+4.trim()去掉字符串两边的空格
+const div =dom.create(&quot; &lt;td&gt;&lt;/td&gt;&quot;);  5.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"",
+      "item":"http://lixueqin-4119.xyz/docs/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"目录",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/"},{
+      "@type": "ListItem",
+      "position": 3 ,
+      "name":"JS编程接口",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/"},{
+      "@type": "ListItem",
+      "position": 4 ,
+      "name":"手写DOM库(1)",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/"
+    },
+    "headline": "手写DOM库(1) | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
+    "dateModified": "2020-10-16T00:00:00+00:00",
+    "wordCount":  897 ,
+    "publisher": {
+        "@type": "Person",
+        "name": "WANG Chucheng",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "http://lixueqin-4119.xyz/images/icon.png"
+        }
+        },
+    "description": "手把手教你封装DOM，封装出一些接口，用来操作DOM(页面的节点)。\n把一个复杂的东西打包成服务，然后只需要简单的命令就可以操作它。\n 什么叫封装\n举例\n笔记本电脑就是CPU、内存、硬盘、主板、显卡的封装\n用户只需要接触显示器、键盘、鼠标、触控板等设备，即可操作复杂的计算机。\n接口\n被封装的东西需要暴露一些功能给外部\n这些功能就是接口，如USB接口、HDMI接口。\n这些接口都有规范的文档来说明。文档内容包含功能和实现的细节，别人就可以根据文档内容仿制。\n设备只要支持这些接口，即可与被封装的东西通讯\n比如键盘、鼠标支持USB接口，显示器支持HDMI接口\n封装和接口的关系，如下图所示：\n术语\n库\n我们把提供给其他人用的工具代码叫做库(很多函数放到一起给别人用就叫做库)\n比如jQuery、Underscore\nAPI\n库暴露出来的函数或属性叫做 API应用编程接口\n框架\n当你的库变的很大，并且需要学习才能看懂，\n那么这个库就叫框架，比如Vue\/React\n其它\n1.工具parcel\nyarn global add parcel \/\/yarn global add parcel @1.12.3 指定版本 parcel --version 使用:parcel src\/index.html \/\/启动一个服务器，这个服务器会自动刷新  2.简写\nwindow.dom.create = function () { } 可以简写成 window.dom = { create() { } } const childNodes = node.childNodes 可以简写成 const { childNodes } = node  3.template标签可以放任意元素,但不会在页面显示，是专门用来容纳的\n4.trim()去掉字符串两边的空格\nconst div =dom.create(\u0026quot; \u0026lt;td\u0026gt;\u0026lt;\/td\u0026gt;\u0026quot;);  5."
+}
+</script><meta property="og:title" content="手写DOM库(1) | 目录 | 博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="http://lixueqin-4119.xyz/images/icon.png">
+
+
+<meta property="og:url" content="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/" />
+
+
+
+
+<meta property="og:description" content="手把手教你封装DOM，封装出一些接口，用来操作DOM(页面的节点)。
+把一个复杂的东西打包成服务，然后只需要简单的命令就可以操作它。
+ 什么叫封装
+举例
+笔记本电脑就是CPU、内存、硬盘、主板、显卡的封装
+用户只需要接触显示器、键盘、鼠标、触控板等设备，即可操作复杂的计算机。
+接口
+被封装的东西需要暴露一些功能给外部
+这些功能就是接口，如USB接口、HDMI接口。
+这些接口都有规范的文档来说明。文档内容包含功能和实现的细节，别人就可以根据文档内容仿制。
+设备只要支持这些接口，即可与被封装的东西通讯
+比如键盘、鼠标支持USB接口，显示器支持HDMI接口
+封装和接口的关系，如下图所示：
+术语
+库
+我们把提供给其他人用的工具代码叫做库(很多函数放到一起给别人用就叫做库)
+比如jQuery、Underscore
+API
+库暴露出来的函数或属性叫做 API应用编程接口
+框架
+当你的库变的很大，并且需要学习才能看懂，
+那么这个库就叫框架，比如Vue/React
+其它
+1.工具parcel
+yarn global add parcel //yarn global add parcel @1.12.3 指定版本 parcel --version 使用:parcel src/index.html //启动一个服务器，这个服务器会自动刷新  2.简写
+window.dom.create = function () { } 可以简写成 window.dom = { create() { } } const childNodes = node.childNodes 可以简写成 const { childNodes } = node  3.template标签可以放任意元素,但不会在页面显示，是专门用来容纳的
+4.trim()去掉字符串两边的空格
+const div =dom.create(&quot; &lt;td&gt;&lt;/td&gt;&quot;);  5." />
+
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="docs" />
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">简介</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于我</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+
+
+<div class="lg:pt-12">
+    <div class="flex flex-col md:flex-row bg-secondary-bg rounded">
+        <div class="md:w-1/4 lg:w-1/5 border-e">
+            <div class="sticky top-16 pt-6">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sidebar-title" class="md:hidden mx-4 px-2 pt-4 pb-2 md:border-b text-tertiary-text md:text-primary-text">
+    <span class="font-semibold">Table of Contents</span>
+    <i class='fas fa-caret-right ms-1'></i>
+</div>
+
+<div id="sidebar-toc"
+    class="hidden md:block overflow-y-auto mx-6 md:mx-0 pe-6 pt-2 md:max-h-doc-sidebar bg-primary-bg md:bg-transparent">
+    <div class="flex flex-wrap ms-4 -me-2 p-2 bg-secondary-bg md:bg-primary-bg rounded">
+        <a class=" hover:text-eureka"
+            href="http://lixueqin-4119.xyz/docs/example-doc/">目录</a>
+        
+        
+        
+
+
+    </div>
+    
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/">【HTML全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A0%87%E7%AD%BE/">HTML标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A6%82%E8%A7%88/">HTML概览</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E9%87%8D%E7%82%B9%E6%A0%87%E7%AD%BE/">HTML重点标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/%E6%89%8B%E6%9C%BA%E9%A2%84%E8%A7%88-%E8%B0%83%E8%AF%95/">手机预览 &amp; 调试</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/">HTTP 状态码</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/">URL 是什么</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/">请求和响应 &amp; Node.js Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/">JavaScript 的诞生</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/">JS函数</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/">JS对象</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/">JS对象分类</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">JS数据类型</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/">JS数组</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JS正则表达式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/">js获取屏幕宽高</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/">JS语法</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/">JS运算符</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/">DOM 编程</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/">DOM事件与事件委托</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/">jQuery 中的设计模式(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/">jQuery 中的设计模式(下)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" text-eureka  hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/">手写DOM库(1)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/">MVC(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/">MVC(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/">Class 组件详解</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">Hooks 原理解析</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/">Hooks 各个击破</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">React 类组件和函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/">React起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/">手写 Redux</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/">computed 和 watch</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/">Vue Router -前端路由实现的思路</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">数据响应式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/">构造选项</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/">模板、指令与修饰符</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">深入理解Vue动画原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/">表单与v-model</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/">起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/">进阶构造属性</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/">云服务器</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/">AJAX 的原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/">Ajax实战:Cookie、Session</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/">异步与Promise</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/">跨域、CORS、JSONP</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/">静态服务器Static Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/">Webpack(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/">Webpack(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+</ul>
+
+</div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <div class="w-full md:w-3/4 lg:w-4/5 pb-8 pt-2 md:pt-8">
+            <div class="flex">
+                <div class="w-full lg:w-3/4 px-6">
+                    <article class="prose">
+  <h1 class="mb-4">手写DOM库(1)</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2020-10-16</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>5 min read</span>
+  </div>
+
+  
+
+  
+</div>
+
+
+  
+  
+
+  <blockquote>
+<p>手把手教你封装DOM，封装出一些接口，用来操作DOM(页面的节点)。</p>
+<p>把一个复杂的东西打包成服务，然后只需要简单的命令就可以操作它。</p>
+</blockquote>
+<p><strong>什么叫封装</strong></p>
+<p><strong>举例</strong></p>
+<p>笔记本电脑就是CPU、内存、硬盘、主板、显卡的封装</p>
+<p>用户只需要接触显示器、键盘、鼠标、触控板等设备，即可操作复杂的计算机。</p>
+<p><strong>接口</strong></p>
+<p>被封装的东西需要暴露一些功能给外部</p>
+<p>这些功能就是<strong>接口</strong>，如USB接口、HDMI接口。</p>
+<p>这些接口都有规范的文档来说明。文档内容包含功能和实现的细节，别人就可以根据文档内容仿制。</p>
+<p>设备只要支持这些接口，即可与被封装的东西通讯</p>
+<p>比如键盘、鼠标支持USB接口，显示器支持HDMI接口</p>
+<p>封装和接口的关系，如下图所示：</p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/669c6097434e48d5ab6d433199e92ca5~tplv-k3u1fbpfcp-watermark.image?" alt="image.png"></p>
+<p><strong>术语</strong></p>
+<p><strong>库</strong></p>
+<p>我们把提供给其他人用的工具代码叫做库(很多函数放到一起给别人用就叫做库)</p>
+<p>比如jQuery、Underscore</p>
+<p><strong>API</strong></p>
+<p>库暴露出来的函数或属性叫做 API应用编程接口</p>
+<p><strong>框架</strong></p>
+<p>当你的库变的很大，并且<strong>需要学习才能看懂</strong>，</p>
+<p>那么这个库就叫框架，比如Vue/React</p>
+<p><strong>其它</strong></p>
+<p>1.工具parcel</p>
+<pre><code>yarn global add parcel  //yarn global add parcel @1.12.3 指定版本
+parcel --version
+使用:parcel src/index.html  //启动一个服务器，这个服务器会自动刷新
+</code></pre>
+<p>2.简写</p>
+<pre><code class="language-js">window.dom.create = function () { } 
+可以简写成
+window.dom = {
+    create() { }
+}
+
+const childNodes = node.childNodes 可以简写成
+const { childNodes } = node
+</code></pre>
+<p>3.<strong>template标签可以放任意元素,但不会在页面显示，是专门用来容纳的</strong></p>
+<p>4.trim()去掉字符串两边的空格</p>
+<pre><code>const div =dom.create(&quot;  &lt;td&gt;&lt;/td&gt;&quot;);
+</code></pre>
+<p>5.const { childNodes } = node //从node获取到childNodes</p>
+<p>6.封装删除操作时需要保留节点的引用(要return)</p>
+<pre><code>return node
+</code></pre>
+<p>方便用户继续做其它操作</p>
+<p><strong>7.用for循环遍历删掉的childNodes时，childNodes.length是实时改变的</strong></p>
+<p>就是当我们remove后i就不是&lt;7,而是&lt;6了</p>
+<p>不能用for循环，试试while</p>
+<p><strong>8.js中一个函数可以接收多种参数，当操作并列时，可以根据参数长度判断用户的操作</strong></p>
+<p>例如：根据参数长度判断用户是读还是写</p>
+<p>读和写操作是一起的，可以根据参数长度判断用户的操作。</p>
+<p><strong>设计模式</strong></p>
+<p><strong>重载:根据参数个数写不同的代码就是重载</strong></p>
+<p><strong>适配:为了确保功能的实现，根据不同的生产环境，编写相应的代码。</strong></p>
+<p>9.语法</p>
+<p>(1)||</p>
+<pre><code>return (scope || document).querySelectorAll(selector)
+</code></pre>
+<p><strong>如果有scope就在scope里调用querySelectorAll, 没有就用document来querySelectorAll</strong></p>
+<p>(2)</p>
+<pre><code>if(typeof name==='string'){
+  //如果name是字符串
+}else if(name instanceof object){
+  //如果是对象
+}
+</code></pre>
+<p>(3)<strong>for (let key in object) { //遍历object }</strong></p>
+<p><strong>变量必须放进[]</strong> node.style.[key]</p>
+<p>10.JS去操控CSS可能导致回流和重绘。</p>
+<pre><code>  document.style.background=&quot;red&quot;;
+  
+  document.style.fontSize=&quot;24&quot;;
+</code></pre>
+<p>这样的话相当于【元素的样式被改变了两次】！整个JavaScript的性能就下来了。必要的时候（对一个元素更改多个样式）我们可以“把他们合在一起”：</p>
+<pre><code>document.style.cssText=&quot;background:red;font-size:24;&quot;;
+</code></pre>
+<p>11.加debugger调试</p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f7c30e3915934e3e959c42c2a59762c5~tplv-k3u1fbpfcp-watermark.image?" alt="image.png"></p>
+<p>12.<strong>未为变量赋值时默认值为undefined</strong></p>
+<p>函数，当它被调用时，人们希望它返回一些东西。但是你没有明确返回return任何内容</p>
+<p>因此js默认会返回undefined。</p>
+<p>13.不管你是用什么语言，实现逻辑时只需要3种表达形式：</p>
+<p>第1种.顺序执行</p>
+<p>第2种.if&hellip;else</p>
+<p>第3种.while或者for循环</p>
+<p><strong>封装技术，用2种风格封装DOM操作</strong></p>
+<h1 id="第一种用对象风格封装dom操作原生js">第一种.用对象风格封装DOM操作(原生js)</h1>
+<p><a href="https://github.com/lixueqin-4119/dom">查看完整代码</a></p>
+<p><strong>对象风格，也叫命名空间风格</strong></p>
+<p>window.dom是我们提供的全局对象</p>
+<h3 id="一增">一.增</h3>
+<p><strong>增</strong></p>
+<pre><code>dom.create(`&lt;div&gt;hello&lt;/div&gt;`)用于创建节点
+
+dom.before(node,node2)用于新增哥哥
+
+dom.after(node,node2)用于新增弟弟
+
+dom.append(parent,child)用于新增儿子
+
+dom.wrap(`&lt;div&gt;&lt;/div&gt;`)用于新增爸爸
+</code></pre>
+<p><strong>1.实现window.dom={} 和 create 创建节点</strong></p>
+<p>新建dom.js进行封装，main.js是接口</p>
+<p>代码如下：</p>
+<pre><code>window.dom={
+  create(tagName){  //create
+    return document.createElement(tagName);
+    } 
+};
+测试main.js
+const div = dom.create(&quot;div&quot;) //接口
+console.log(div)
+</code></pre>
+<p>实现</p>
+<pre><code>&lt;div&gt;  
+  &lt;span&gt;1&lt;/span&gt;
+&lt;/div&gt;
+思路：这段其实就是个html,把html写到标签里，就可以自动变成元素了。
+</code></pre>
+<p>代码</p>
+<pre><code>window.dom = {
+    create(string) {  
+        const container = document.createElement(&quot;div&quot;)
+        container.innerHTML = string;
+        //console.log(container)
+        return container.children[0];
+    }
+}
+测试main.js
+const div = dom.create(&quot;&lt;div&gt;&lt;span&gt;1&lt;/span&gt;&lt;/div&gt;&quot;)  //接口
+console.log(div)
+</code></pre>
+<p>container结构如下：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8aa7392064154026b70fabdac4c7147d~tplv-k3u1fbpfcp-watermark.image?" alt="image.png"></p>
+<p><strong>bug:</strong> 不能放<code>&lt;td&gt;&lt;/td&gt;</code>,因为container本身是div。</p>
+<p>div里是不能放<td>的，<td>是表格里的只能放在table tr，否则不符合html语法。</p>
+<p>那有什么标签是可以放任意元素，而不出错的呢？</p>
+<p><strong>template标签</strong></p>
+<p>补充：template只能用<code>content.firstChild</code>获取</p>
+<p><strong>trim()把字符串两边的空格给去掉。</strong></p>
+<p>const div =dom.create(&quot;<code>&lt;td&gt;hi&lt;/td&gt;</code>&quot;);</p>
+<pre><code>window.dom = {
+    create(string) {  
+        const container = document.createElement(&quot;template&quot;)
+        container.innerHTML = string.trim();
+        //console.log(container)
+        return container.content.firstChild
+    }
+}
+</code></pre>
+<p><strong>2.实现after新增弟弟</strong></p>
+<blockquote>
+<p>把node2插入到node的下一个节点的后面</p>
+</blockquote>
+<pre><code>after(node, node2) { 
+    node.parentNode.insertBefore(node2, node.nextSibling)
+  }
+测试main.js  代码：dom.after(test, div)
+</code></pre>
+<p><strong>当node是最后一个节点时，还能插入吗？</strong></p>
+<pre><code>&lt;div&gt;
+  &lt;div id=&quot;test&quot;&gt;test&lt;/div&gt; //回车在html里是文本
+&lt;/div&gt;
+</code></pre>
+<p>不是最后一个，最后一个节点是回车。</p>
+<p><code>&lt;div&gt;&lt;div id=&quot;test&quot;&gt;test&lt;/div&gt;&lt;/div&gt;</code></p>
+<p>console.log(node.nextSibling)</p>
+<p>当node是最后一个节点时，测试后可以插入。</p>
+<p><strong>3.实现before新增哥哥</strong></p>
+<pre><code>before(node, node2) {
+        node.parentNode.insertBefore(node, node2)
+    }    
+测试main.js 
+dom.before(test, div)
+</code></pre>
+<p><strong>4.实现append新增儿子</strong></p>
+<pre><code>append(parent, node) {
+  parent.appendChild(node)
+}
+接口
+const div = dom.create(&quot;&lt;div&gt;newDiv&lt;/div&gt;&quot;)
+console.log(div)
+dom.append(div, test)
+</code></pre>
+<p><strong>5.实现wrap新增爸爸</strong></p>
+<blockquote>
+<p>思路：先把div3(parcet)插到前面，然后再将div2(node)放到div3里。 append特点：默认只会出现一次且只取最后的值</p>
+</blockquote>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9e31936a8caf430b8b400c1436040016~tplv-k3u1fbpfcp-watermark.image?" alt="image.png"></p>
+<pre><code>wrap(node,parent){
+  dom.before(node,parent)
+  dom.append(parent,node)
+}
+接口
+const div3 = dom.create(`&lt;div id=&quot;parent&quot;&gt;&lt;/div&gt;`)
+dom.wrap(test, div3)
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/54d43c25d6de42d8b17201c291557d2d~tplv-k3u1fbpfcp-watermark.image?" alt="image.png"></p>
+<h3 id="二删">二.删</h3>
+<p><strong>删</strong></p>
+<pre><code>dom.remove(node) 删除节点
+
+dom.empty(parent)自己不删，删后代
+</code></pre>
+<pre><code>remove(node) {
+   node.remove() //node.parentNode.removeChild(node)
+   return node   //保留节点的引用
+}
+接口
+dom.remove(test)
+</code></pre>
+<p><strong>remove特点：移除会返回节点</strong></p>
+<pre><code>&lt;div id=&quot;empty&quot;&gt;
+  &lt;div id=&quot;em1&quot;&gt;
+    empty1
+    &lt;div id=&quot;em2&quot;&gt;&lt;/div&gt;
+    &lt;div id=&quot;em3&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;e2&quot;&gt;
+     empty2
+     &lt;div class=&quot;e&quot;&gt;&lt;/div&gt;
+     &lt;div class=&quot;e1&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+        
+empty(node) {
+  const { childNodes } = node //从node获取到childNodes
+  const array = []
+  let x = node.firstChild
+  while (x) {
+    array.push(dom.remove(node.firstChild))
+    x = node.firstChild //循环，每次都把第1个删掉，直到删完。
+        }
+   return array //获取节点的引用，方便用户继续做其它操作
+}
+接口
+const nodes = dom.empty(window.empty)
+console.log(nodes)
+</code></pre>
+<p>回车在html中是文本节点</p>
+<h3 id="三改">三.改</h3>
+<pre><code>1.dom.attr(node,'title',?)用于读写属性
+
+2.dom.text(node,?)用于读写文本内容
+
+3.dom.html(node,?)用于读写html内容
+
+4.dom.style(node,{color:'red'})用于修改style
+
+5.dom.class.add(node,'blue')用于添加class
+
+6.dom.class.remove(node,'blue')用于删除class
+
+7.dom.class.has(node,'blue')用于验证是否包含class
+
+8.dom.on(node,'click',fn) 用于添加事件监听
+
+9.dom.off(node,'click',fn)用于删除事件监听
+</code></pre>
+<p><strong>1.dom.attr(node,&rsquo;title&rsquo;,?)用于读写属性</strong></p>
+<pre><code>attr(node,name,value){
+    node.setAttribute(name,value)
+}
+接口
+dom.attr(test,'title','hi,I am li.') //设置title
+const title=dom.attr(test,'title')
+</code></pre>
+<p><strong>读title</strong></p>
+<blockquote>
+<p><strong>js中一个函数可以接收多种参数，可根据参数长度判断用户的操作</strong></p>
+<p>读写操作是一起的，可以根据参数长度判断用户是读还是写。</p>
+</blockquote>
+<p>读写操作是一起的，可以根据参数长度判断用户是读还是写。</p>
+<pre><code>attr(node, name, value) { //重载
+        if (arguments.length === 3) { //如果参数为3个就set
+            node.setAttribute(name, value)
+        } else if (arguments.length === 2) {//如果参数为2个就get
+            return node.getAttribute(name)
+        }
+    }   
+接口
+dom.attr(test, 'title', 'hi,I am li.')
+
+const title = dom.attr(test, 'title') //接收2个参数
+console.log(`title:${title}`)
+</code></pre>
+<p><strong>重载:根据参数个数写不同的代码就是重载</strong></p>
+<p><strong>2.dom.text(node,?)用于读写文本内容</strong></p>
+<pre><code>text(node,string){  
+    if(arguments.length===2){  //重载
+      //console.log('innerText' in node)
+        if('innerText' in node){ //适配
+            node.innerText=string //只支持IE
+        }else{
+            node.textContent=string //只支持firefox、chrome
+        }
+    }else if(arguments.length===1){
+        if('innerText' in node){
+           return node.innerText
+        }else{
+           return node.textContent
+        }
+    } 
+}
+
+接口
+dom.text(test, '你好，这是新文本')
+dom.text(test)
+</code></pre>
+<p><strong>适配：为了确保功能的实现，根据不同的生产环境，编写相应的代码。</strong></p>
+<p><strong>3.dom.html(node,?)用于读写html内容</strong></p>
+<pre><code>html(node,string){
+    if(arguments.length===2){
+    node.innerHTML=string
+    }else  if(arguments.length===1){
+        return node.innerHTML
+    }
+}
+接口
+dom.html(test, '&lt;span&gt;newHtml&lt;/span&gt;')
+dom.html(empty)
+console.log(empty)
+</code></pre>
+<p><strong>4.dom.style(node,{color:&lsquo;red&rsquo;})用于修改style</strong></p>
+<pre><code>style(node, object) {
+  for (let key in object) { //遍历object的key
+  //key:border/color
+  //node.style.border=...
+  //node.style.color=...
+  //变量必须放[]
+  node.style[key] = object[key]
+    }
+}   
+接口
+//对象的key是它的属性名，value是属性值
+dom.style(test,{ border:'1px solid red',color:'blue' }) 
+dom.style(test, 'border')
+dom.style(test, 'border', '1px solid red')
+//如果参数是3个就是设置，如果是2个可能是读也可能是写
+</code></pre>
+<p><strong>变量必须放[]</strong></p>
+<pre><code>style(node, name, value) {
+  if (arguments.length === 3) {
+    //dom.style(div,'color','red')
+    node.style[name] = value
+  } else if (arguments.length === 2) {
+     if (typeof name === 'string') { //如果name是字符串
+     //dom.style(div,'color')
+       return node.style[name]
+     } else if (name instanceof Object) {
+        //dom.style(div,{color:'red'})
+        const object = name
+        for (let key in object) { //遍历object
+          node.style[key] = object[key]
+         }
+ }}}
+接口
+dom.style(test, { border: '1px solid red', color: 'blue' })
+console.log(dom.style(test, 'border'))
+dom.style(test, 'border', '1px solid black')
+</code></pre>
+<p>如果是对象就设置它的值,如果是字符串就获取它的值.</p>
+<p>5.<strong>dom.class.add(node,&lsquo;blue&rsquo;)   用于添加class</strong>
+<strong>dom.class.remove(node,&lsquo;blue&rsquo;)用于删除class</strong>
+<strong>dom.class.has(node,&lsquo;blue&rsquo;)用于验证是否包含class</strong></p>
+<pre><code class="language-js">&lt;style&gt;
+  .red { background: red; } 
+  .blue {color: blue;}
+&lt;/style&gt;
+
+class: {
+  add(node, className) {
+     node.classList.add(className)
+  },
+  remove(node, className) {
+     node.classList.remove(className)
+  },
+  has(node, className) {
+     return node.classList.contains(className) //记得return
+  }
+}   
+接口
+dom.class.add(test, 'red')
+dom.class.add(test, 'blue')
+dom.class.remove(test, 'red')
+console.log(dom.class.has(test, 'red'))
+</code></pre>
+<p>6.<strong>dom.on(node,&lsquo;click&rsquo;,fn)  用于添加事件监听</strong></p>
+<p><strong>dom.off(node,&lsquo;click&rsquo;,fn) 用于删除事件监听</strong></p>
+<pre><code class="language-js">on(node, eventName, fn) {
+  node.addEventListener(eventName, fn)
+    },
+off(node, eventName, fn) {
+  node.removeEventListener(eventName, fn)
+    }
+接口
+const fn = () =&gt; { console.log('点击了') } //给函数取名字
+dom.on(test, 'click', fn)
+dom.off(test, 'click', fn)
+</code></pre>
+<h3 id="四查">四.查</h3>
+<pre><code class="language-js">1.dom.find('选择器')用于获取标签或标签们
+
+2.dom.parent(node)用于获取父元素
+
+3.dom.children(node)用于获取子元素
+
+4.dom.siblings(node)用于获取兄弟姐妹元素
+
+5.dom.next(node)用于获取弟弟
+
+6.dom.previous(node)用于获取哥哥
+
+7.dom.each(nodes,fn)用于遍历所有节点
+
+8.dom.index(node)用于获取排行老几
+</code></pre>
+<p><strong>1.dom.find(&lsquo;选择器&rsquo;)用于获取标签或标签们</strong></p>
+<p>上面一直用的选择器是固定死的(全局id=test)</p>
+<p>实际应该是可选的</p>
+<p><strong>(1)实现find，返回用户可选的对应元素</strong></p>
+<pre><code class="language-js">find(selector) {
+  return document.querySelectorAll(selector) //返回数组
+    }
+接口
+const testDiv = dom.find('#test')[0] //获取数组的第1个
+console.log(testDiv)
+</code></pre>
+<p>用户提供选择器,不管给的选择器是一个还是多个元素，全给你返回数组的第1个。</p>
+<p><strong>(2)在指定范围找特定标签</strong></p>
+<pre><code class="language-js">&lt;div&gt;
+  &lt;div id=&quot;test&quot;&gt;&lt;span&gt;test1&lt;/span&gt;
+    &lt;p class=&quot;red&quot;&gt;find指定范围找特定标签1&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;test2&quot;&gt;test2
+    &lt;p class=&quot;red&quot;&gt;find指定范围找特定标签2&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+        
+find(selector, scope) { //选择器，范围
+  //debugger调试
+  return (scope || document).querySelectorAll(selector) //返回数组
+  //如果有scope就在scope里调用querySelectorAll, 没有就用document来querySelectorAll
+}
+接口
+const testDiv = dom.find('#test')[0]
+console.log(testDiv)
+console.log(dom.find('.red', testDiv)[0])
+</code></pre>
+<p><strong>如果有scope就在scope里调用querySelectorAll, 没有就用document来querySelectorAll</strong></p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a2ea0a289bbf42189c040e37902104ad~tplv-k3u1fbpfcp-watermark.image?" alt="image.png"></p>
+<p><strong>2.dom.parent(node)用于获取父元素</strong></p>
+<pre><code>parent(node) {
+  return node.parentNode
+}  
+接口
+console.log(dom.parent(em1))
+</code></pre>
+<p><strong>3.dom.children(node)用于获取子元素</strong></p>
+<pre><code class="language-js">&lt;div id=&quot;em1&quot;&gt;
+  &lt;div id=&quot;em2&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;em3&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+children(node) {
+  return node.children
+}
+接口
+console.log(dom.children(em1))
+</code></pre>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ff8f39923afc4cd1ac969a4bf456e9f2~tplv-k3u1fbpfcp-watermark.image?" alt="image.png"></p>
+<p>children已经找到了，但显示的是类似数组的HTMLCollection对象，不是我要的结果？<a href="https://segmentfault.com/a/1190000004499453">要获取每个子元素自然要遍历它</a>            <a href="https://www.coder.work/article/1040746">为什么会有undefined？</a></p>
+<p>js函数被调用时，如果没有明确return任何内容，就会默认返回undefined。
+如果函数里存在判断导致没有返回值，返回undefined，如何看待或处理这个undefined?    <a href="https://www.zhihu.com/question/510046198">如何处理函数参数的意外值？</a></p>
+<p><strong>4.dom.siblings(node)用于获取兄弟姐妹元素</strong></p>
+<pre><code>&lt;div id=&quot;siblings&quot;&gt;
+  &lt;div id=&quot;s1&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;s2&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;s3&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+    
+siblings(node) { //待遍历
+  return Array.from(node.parentNode.children).filter(n =&gt; n !== node)
+ }      
+接口
+console.log(dom.siblings(dom.find(&quot;#s2&quot;)[0]))
+</code></pre>
+<p>children是伪数组，要先变成数组Array.from()，变成数组后就可以filter
+过滤，只要元素不等于当前节点就把它放到数组里</p>
+<p><strong>5.dom.next(node)用于获取弟弟</strong></p>
+<p>直接return node.nextSibling会返回文本,需要筛选<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Node/nodeType">nodeType</a></p>
+<pre><code>next(node) {
+  let x = node.nextSibling
+  while (x &amp;&amp; x.nodeType === 3) {
+     x = x.nextSibling
+   }
+   return x
+}
+接口 
+const s2 = dom.find(&quot;#s2&quot;)[0]
+console.log(dom.next(s2))
+</code></pre>
+<p><strong>6.dom.previous(node)用于获取哥哥</strong></p>
+<pre><code>previous(node) {
+  let x = node.previousSibling
+  while (x &amp;&amp; x.nodeType === 3) {
+    x = x.previousSibling
+   }
+  return x
+ }
+接口
+const s2 = dom.find(&quot;#s2&quot;)[0]
+console.log(dom.previous(s2))
+</code></pre>
+<p><strong>7.dom.each(nodes,fn)用于遍历所有节点</strong></p>
+<p>find返回的是数组，要找第1个元素。dom.find(&rsquo;#travel&rsquo;)[0]</p>
+<pre><code>&lt;div id=&quot;travel&quot;&gt;
+  &lt;div id=&quot;t1&quot;&gt;t1&lt;/div&gt;
+  &lt;div id=&quot;t2&quot;&gt;t2&lt;/div&gt;
+  &lt;div id=&quot;t3&quot;&gt;t3&lt;/div&gt;
+&lt;/div&gt;
+
+each(nodeList, fn) {
+  for (let i = 0; i &lt; nodeList.length; i++) {
+  fn.call(null, nodeList[i])//没有this,this不传
+        }
+}    
+接口
+const t = dom.find('#siblings')[0]
+dom.each(dom.children(t), (n) =&gt; dom.style(n, 'color', 'red'))
+</code></pre>
+<p><strong>8.dom.index(node)用于获取排行老几</strong></p>
+<pre><code>index(node) {
+        const list = dom.children(node.parentNode)
+        let i
+        for (i = 0; i &lt; list.length; i++) {
+            if (list[i] === node) {
+                break
+            }
+        }
+        return i
+    }    
+接口  
+console.log(dom.index(t1))
+</code></pre>
+
+</article>
+
+                    
+                    
+                    
+
+                    
+
+
+
+                    
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+        <span class="text-primary-text block font-bold"
+          >Previous</span
+        >
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/" class="block">jQuery 中的设计模式(下)</a>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+    </div>
+  </div>
+
+
+                    
+
+
+
+                </div>
+                
+                <div class="hidden lg:block lg:w-1/4">
+                    
+                    <div
+  class="
+    bg-secondary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>On This Page</h3>
+</div>
+<div
+  class="sticky-toc 
+    border-s
+   hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一增">一.增</a></li>
+        <li><a href="#二删">二.删</a></li>
+        <li><a href="#三改">三.改</a></li>
+        <li><a href="#四查">四.查</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+                    
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        hljs.initHighlightingOnLoad();
+        changeSidebarHeight();
+        switchDocToc();
+    })
+</script>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2021 <a href="https://www.wangchucheng.com/">WANG Chucheng</a> and <a href="https://www.ruiqima.com/">MA Ruiqi</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>

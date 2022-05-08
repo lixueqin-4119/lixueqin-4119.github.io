@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>JS对象分类 | 目录 | 博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.1" />
+<link rel="stylesheet" href="http://lixueqin-4119.xyz/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
+<script defer src="http://lixueqin-4119.xyz/js/eureka.min.f1639ee98d6cbd85b2b5f034d27320da962002ff83159ed4e01dbc5948c42a1ab26c2d6e74c66e93f5cec4d24dbd166d.js" integrity="sha384-8WOe6Y1svYWytfA00nMg2pYgAv&#43;DFZ7U4B28WUjEKhqybC1udMZuk/XOxNJNvRZt"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+
+<script defer type="text/javascript" src="http://lixueqin-4119.xyz/js/fontawesome.min.7b735802cbde01152678cc4a867f0b4bb0597876e29adfcaf1e5b5e99d39d7af87f348fdfd91c7eaf9ed7dc1eece7c61.js" integrity="sha384-e3NYAsveARUmeMxKhn8LS7BZeHbimt/K8eW16Z0516&#43;H80j9/ZHH6vntfcHuznxh"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="其它
+1.推荐文章
+你可以不会class，但是一定要学会prototype
+JS的new到底是干什么的？
+JS中proto和prototype存在的意义是什么？
+ES6 所有新特性
+2.构造函数就是可以构造出对象的函数
+3.封装:把细节写到一个函数里，别人只需要调用函数并且传个参数(宽度)
+4.函数也是对象
+5.js之父为了让new可以运行提前规定:
+所有js里的函数自带prototype属性。
+prototype属性自带constructor。
+constructor的值等于函数本身。
+6.共有属性与原型的关系：包含与被包含。
+共有属性这整个对象叫做原型。
+对象的地址就是原型的地址，里面的每一个属性叫共有属性。
+对象需要分类吗？  需求：输出各种形状的面积和周长
+ 正方形 分析 正方形有三个属性:边长、面积、周长 let square={ width:5, getArea(){ return this.width * this.width }, getLength(){ return this.width * 4 } }  来一打正方形
+let squareList=[] for(let i=0;i&lt;12;i&#43;&#43;){ squareList[1]={ width:5, getArea(){ return this.width * this.width }, getLength(){ return this.width * 4 } } }  width不全是5怎么办？
+let squareList=[] let widthList=[5,6,7,8,5,6,7,5,5,4,5,6] for(let i=0;i&lt;12;i&#43;&#43;){ squareList[i]={ width:widthList[i], getArea(){ return this.width * this.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"",
+      "item":"http://lixueqin-4119.xyz/docs/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"目录",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/"},{
+      "@type": "ListItem",
+      "position": 3 ,
+      "name":"JS全解",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/"},{
+      "@type": "ListItem",
+      "position": 4 ,
+      "name":"JS对象分类",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/"
+    },
+    "headline": "JS对象分类 | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
+    "dateModified": "2020-10-16T00:00:00+00:00",
+    "wordCount":  745 ,
+    "publisher": {
+        "@type": "Person",
+        "name": "WANG Chucheng",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "http://lixueqin-4119.xyz/images/icon.png"
+        }
+        },
+    "description": "其它\n1.推荐文章\n你可以不会class，但是一定要学会prototype\nJS的new到底是干什么的？\nJS中proto和prototype存在的意义是什么？\nES6 所有新特性\n2.构造函数就是可以构造出对象的函数\n3.封装:把细节写到一个函数里，别人只需要调用函数并且传个参数(宽度)\n4.函数也是对象\n5.js之父为了让new可以运行提前规定:\n所有js里的函数自带prototype属性。\nprototype属性自带constructor。\nconstructor的值等于函数本身。\n6.共有属性与原型的关系：包含与被包含。\n共有属性这整个对象叫做原型。\n对象的地址就是原型的地址，里面的每一个属性叫共有属性。\n对象需要分类吗？  需求：输出各种形状的面积和周长\n 正方形 分析 正方形有三个属性:边长、面积、周长 let square={ width:5, getArea(){ return this.width * this.width }, getLength(){ return this.width * 4 } }  来一打正方形\nlet squareList=[] for(let i=0;i\u0026lt;12;i\u002b\u002b){ squareList[1]={ width:5, getArea(){ return this.width * this.width }, getLength(){ return this.width * 4 } } }  width不全是5怎么办？\nlet squareList=[] let widthList=[5,6,7,8,5,6,7,5,5,4,5,6] for(let i=0;i\u0026lt;12;i\u002b\u002b){ squareList[i]={ width:widthList[i], getArea(){ return this.width * this."
+}
+</script><meta property="og:title" content="JS对象分类 | 目录 | 博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="http://lixueqin-4119.xyz/images/icon.png">
+
+
+<meta property="og:url" content="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/" />
+
+
+
+
+<meta property="og:description" content="其它
+1.推荐文章
+你可以不会class，但是一定要学会prototype
+JS的new到底是干什么的？
+JS中proto和prototype存在的意义是什么？
+ES6 所有新特性
+2.构造函数就是可以构造出对象的函数
+3.封装:把细节写到一个函数里，别人只需要调用函数并且传个参数(宽度)
+4.函数也是对象
+5.js之父为了让new可以运行提前规定:
+所有js里的函数自带prototype属性。
+prototype属性自带constructor。
+constructor的值等于函数本身。
+6.共有属性与原型的关系：包含与被包含。
+共有属性这整个对象叫做原型。
+对象的地址就是原型的地址，里面的每一个属性叫共有属性。
+对象需要分类吗？  需求：输出各种形状的面积和周长
+ 正方形 分析 正方形有三个属性:边长、面积、周长 let square={ width:5, getArea(){ return this.width * this.width }, getLength(){ return this.width * 4 } }  来一打正方形
+let squareList=[] for(let i=0;i&lt;12;i&#43;&#43;){ squareList[1]={ width:5, getArea(){ return this.width * this.width }, getLength(){ return this.width * 4 } } }  width不全是5怎么办？
+let squareList=[] let widthList=[5,6,7,8,5,6,7,5,5,4,5,6] for(let i=0;i&lt;12;i&#43;&#43;){ squareList[i]={ width:widthList[i], getArea(){ return this.width * this." />
+
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="docs" />
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">简介</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于我</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+
+
+<div class="lg:pt-12">
+    <div class="flex flex-col md:flex-row bg-secondary-bg rounded">
+        <div class="md:w-1/4 lg:w-1/5 border-e">
+            <div class="sticky top-16 pt-6">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sidebar-title" class="md:hidden mx-4 px-2 pt-4 pb-2 md:border-b text-tertiary-text md:text-primary-text">
+    <span class="font-semibold">Table of Contents</span>
+    <i class='fas fa-caret-right ms-1'></i>
+</div>
+
+<div id="sidebar-toc"
+    class="hidden md:block overflow-y-auto mx-6 md:mx-0 pe-6 pt-2 md:max-h-doc-sidebar bg-primary-bg md:bg-transparent">
+    <div class="flex flex-wrap ms-4 -me-2 p-2 bg-secondary-bg md:bg-primary-bg rounded">
+        <a class=" hover:text-eureka"
+            href="http://lixueqin-4119.xyz/docs/example-doc/">目录</a>
+        
+        
+        
+
+
+    </div>
+    
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/">【HTML全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A0%87%E7%AD%BE/">HTML标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A6%82%E8%A7%88/">HTML概览</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E9%87%8D%E7%82%B9%E6%A0%87%E7%AD%BE/">HTML重点标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/%E6%89%8B%E6%9C%BA%E9%A2%84%E8%A7%88-%E8%B0%83%E8%AF%95/">手机预览 &amp; 调试</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/">HTTP 状态码</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/">URL 是什么</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/">请求和响应 &amp; Node.js Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/">JavaScript 的诞生</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/">JS函数</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/">JS对象</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" text-eureka  hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/">JS对象分类</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">JS数据类型</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/">JS数组</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JS正则表达式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/">js获取屏幕宽高</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/">JS语法</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/">JS运算符</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/">DOM 编程</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/">DOM事件与事件委托</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/">jQuery 中的设计模式(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/">jQuery 中的设计模式(下)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/">手写DOM库(1)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/">MVC(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/">MVC(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/">Class 组件详解</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">Hooks 原理解析</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/">Hooks 各个击破</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">React 类组件和函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/">React起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/">手写 Redux</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/">computed 和 watch</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/">Vue Router -前端路由实现的思路</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">数据响应式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/">构造选项</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/">模板、指令与修饰符</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">深入理解Vue动画原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/">表单与v-model</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/">起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/">进阶构造属性</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/">云服务器</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/">AJAX 的原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/">Ajax实战:Cookie、Session</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/">异步与Promise</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/">跨域、CORS、JSONP</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/">静态服务器Static Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/">Webpack(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/">Webpack(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+</ul>
+
+</div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <div class="w-full md:w-3/4 lg:w-4/5 pb-8 pt-2 md:pt-8">
+            <div class="flex">
+                <div class="w-full lg:w-3/4 px-6">
+                    <article class="prose">
+  <h1 class="mb-4">JS对象分类</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2020-10-16</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>4 min read</span>
+  </div>
+
+  
+
+  
+</div>
+
+
+  
+  
+
+  <p>其它</p>
+<p>1.推荐文章</p>
+<p><a href="https://zhuanlan.zhihu.com/p/35279244">你可以不会class，但是一定要学会prototype</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/23987456">JS的new到底是干什么的？</a></p>
+<p><a href="https://www.zhihu.com/question/56770432/answer/315342130">JS中proto和prototype存在的意义是什么？</a></p>
+<p><a href="https://fangyinghang.com/es-6-tutorials/">ES6 所有新特性</a></p>
+<p>2.构造函数就是可以构造出对象的函数</p>
+<p>3.封装:把细节写到一个函数里，别人只需要调用函数并且传个参数(宽度)</p>
+<p>4.函数也是对象</p>
+<p>5.js之父为了让new可以运行提前规定:</p>
+<p>所有js里的函数自带prototype属性。</p>
+<p>prototype属性自带constructor。</p>
+<p>constructor的值等于函数本身。</p>
+<p>6.共有属性与原型的关系：包含与被包含。</p>
+<p>共有属性这整个对象叫做原型。</p>
+<p>对象的地址就是原型的地址，里面的每一个属性叫共有属性。</p>
+<p><img src="https://pic2.zhimg.com/v2-1ac81d4d79a15302e1a90276f92431cd_b.jpg" alt=""></p>
+<h1 id="对象需要分类吗">对象需要分类吗？</h1>
+<blockquote>
+<p>需求：输出各种形状的面积和周长</p>
+</blockquote>
+<pre><code>正方形
+分析 正方形有三个属性:边长、面积、周长
+let square={
+  width:5,
+  getArea(){
+    return this.width * this.width
+  },
+  getLength(){
+    return this.width * 4
+  }
+}
+</code></pre>
+<p>来一打正方形</p>
+<pre><code>let squareList=[]
+for(let i=0;i&lt;12;i++){
+  squareList[1]={
+   width:5, 
+  getArea(){
+    return this.width * this.width
+  },
+  getLength(){
+    return this.width * 4
+  }
+ }
+}
+</code></pre>
+<p>width不全是5怎么办？</p>
+<pre><code>let squareList=[]
+let widthList=[5,6,7,8,5,6,7,5,5,4,5,6]
+for(let i=0;i&lt;12;i++){
+  squareList[i]={
+  width:widthList[i],
+  getArea(){
+    return this.width * this.width
+  },
+  getLength(){
+    return this.width * 4
+  }
+  }
+}
+</code></pre>
+<p>垃圾代码，浪费太多内存。</p>
+<p><img src="https://pic4.zhimg.com/v2-30330aa89afdd80f23ec2fd808845c8b_b.jpg" alt="">
+借助原型，将12个对象的共用属性放到原型里</p>
+<pre><code>let squareList=[]
+let widthList=[5,6,7,8,9,5,6,7,8,9,5,6]
+let squarePrototype={
+ getArea(){
+    return this.width * this.width
+  },
+  getLength(){
+    return this.width * 4
+  }
+}
+for(let i=0;i&lt;12;i++){
+  squareList[i]=Object.create(squarePrototype)
+  squareList[i].width= widthList[i]
+}
+控制台输入：squareList
+</code></pre>
+<p><img src="https://pic1.zhimg.com/v2-2f38c6c1ab18f2f86a096915b2468aa0_b.jpg" alt=""></p>
+<p>还是垃圾代码，创建的square的代码太分散了。</p>
+<p>那就把代码抽离到一个函数里，然后调用函数。</p>
+<p>抽离到函数</p>
+<pre><code>let squareList=[]
+let widthList=[5,6,7,8,9,5,6,7,8,9,5,6]
+function createSquare(width){//此函数叫构造函数,构造函数就是可以构造出对象的函数
+  let obj=Object.create(squarePrototype)//以squarePrototype为原型创建空对象
+  obj.width=width
+  return obj
+}
+let squarePrototype={
+ getArea(){
+    return this.width * this.width
+  },
+  getLength(){
+    return this.width * 4
+  }
+}
+for(let i=0;i&lt;12;i++){
+  squareList[i]=createSquare(widthList[i])
+  //封装，把细节写到一个函数里，别人只需要调用函数并且传个宽度。
+}
+</code></pre>
+<p>squarePrototype原型和createSquare函数还是分散的,能不能组合在一起?</p>
+<p>函数也是一个对象，如果把原型放到函数上是不是更紧凑？</p>
+<pre><code>let squareList = []
+let widthList = [5,6,5,6,5,6,5,6,5,6,5,6]
+
+//声明createSquare函数，它可以创建square对象
+function createSquare(width){
+  let obj = Object.create(createSquare.squarePrototype) // 先使用后定义？NO
+  这段代码在调用createSquare才会执行
+  obj.width = width
+  return obj
+}
+createSquare.squarePrototype = { //把原型放到函数上，结合够紧密了吗？
+  getArea(){ 
+    return this.width * this.width 
+  },
+  getLength(){
+    return this.width * 4
+  },
+  constructor: createSquare //方便通过原型找到构造函数(又把构造函数放到原型上)
+}
+for(let i = 0; i&lt;12; i++){
+  squareList[i] = createSquare(widthList[i])//这里才调用createSquare
+  console.log(squareList[i].constructor) 
+  // constructor 可以知道谁构造了这个对象：你妈是谁？
+}
+</code></pre>
+<p>除了把原型放到构造函数上，还把构造函数放到原型上。</p>
+<p>拿到函数后可以方便的找到它的原型，也可以通过拿到原型方便的找到它的函数。</p>
+<p>这段代码几乎完美，为什么不固定下来，让每个js开发者直接用呢</p>
+<p>new操作符，让我们感受js之父的爱</p>
+<p>函数和原型结合(重写)</p>
+<pre><code>let squareList = []
+let widthList = [5,6,5,6,5,6,5,6,5,6,5,6]
+function Square(width){ 
+  this.width = width
+}
+Square.prototype.getArea = function(){ //设置共用属性(getArea)
+  return this.width * this.width 
+}
+Square.prototype.getLength = function(){
+  return this.width * 4
+}
+for(let i = 0; i&lt;12; i++){
+  squareList[i] = new Square(widthList[i])
+  console.log(squareList[i].constructor)
+}
+// 多美，几乎没有一句多余的废话
+// 每个函数都有 prototype 属性，这是 JS 之父故意的
+// 每个 prototype 都有 constructor 属性，也是故意的
+</code></pre>
+<blockquote>
+<p>js之父为了让new可以运行提前规定:</p>
+<p>所有js里的函数自带prototype属性，prototype属性自带constructor。constructor的值等于函数本身。</p>
+<p>例子</p>
+<p>function f1(){}</p>
+<p>console.dir(f1)</p>
+<p>控制台输入：f1.prototype.constructor === f1</p>
+<p>输出结果：true</p>
+</blockquote>
+<p><img src="https://pic1.zhimg.com/v2-7052ca45ac1582a85a9c261547fd7770_b.jpg" alt=""></p>
+<p>1.之前要自己创建对象并把对象的原型指向那个拥有getArea,getLength的原型。</p>
+<p>现在new会帮我们做</p>
+<p>2.用this代表新的对象</p>
+<p>3.return也不用写，new会帮我们做</p>
+<p>4.之前会创建个对象，里面有共有属性。</p>
+<p>现在需要一个一个加。因为prototype已经有一个constructor属性了，Square.prototype=</p>
+<p>新对象就会导致constructor被搞丢。</p>
+<p>所以最好方式是在prototype上加属性。也可以用Object.assign加。</p>
+<h1 id="总结">总结</h1>
+<p>1.new X()自动做了四件事情</p>
+<p>自动创建空对象</p>
+<p>自动为空对象关联原型，原型地址为X.prototype</p>
+<p>自动将空对象作为this关键字运行构造函数</p>
+<p>自动return this</p>
+<p>&ndash;这就是JS之父的爱</p>
+<p>2.构造函数X</p>
+<p>X函数本身负责给对象本身添加属性</p>
+<p>X.prototype对象负责保存对象的共用属性</p>
+<p>例子</p>
+<pre><code>function Dog(name){
+  this.name=name
+  this.color='白'
+  this.king='萨摩耶'
+}
+Dog.prototype.wangwang=function(){console.log('汪汪')}
+Dog.prototype.run=function(){console.log('狗在跑')}
+let dog1=new Dog('小白')
+
+控制台输入：dog1
+输出结果：Dog {name: '小白', color: '白', king: '萨摩耶'}
+
+控制台输入：dog1.wangwang()
+输出结果：汪汪
+
+控制台输入：dog1.run()
+输出结果：狗在跑
+</code></pre>
+<p>this指还未创建出来的新对象dog1</p>
+<h1 id="代码规范">代码规范</h1>
+<p><strong>1.大小写</strong></p>
+<p>所有构造函数首字母大写</p>
+<pre><code>function add(x,y){return x+y}  //不是构造函数不用大写
+function Dog(name){this.name=name}
+</code></pre>
+<p>所有被构造出来的对象，首字母小写</p>
+<pre><code>let dog1=new Dog()
+</code></pre>
+<p><strong>2.词性</strong></p>
+<p>(1)new 后面的函数，使用名词形式</p>
+<p>如new Person()、new Object()</p>
+<p>(2)其它函数，一般使用动词开头</p>
+<p>普通函数一般都用动词</p>
+<p>如createSquare(5)、createElement(&lsquo;div&rsquo;)</p>
+<p>function createSquare(width){&hellip;}</p>
+<p>其它规则以后再说</p>
+<p>问题</p>
+<p>1.怎么确定要传几个参数？</p>
+<p>function Square(width){&hellip;}</p>
+<p>自己写的话清楚。但如果是别人提供的构造函数，我怎么知道要接受几个参数？</p>
+<pre><code>let arr1=new Array(3) 
+</code></pre>
+<p>数组是3还是长度为3的数组？</p>
+<p>只能看文档🔍 mdn array</p>
+<p>new Array(element0,element1[,&hellip;[,elementN]])//多个参数就是里面的元素</p>
+<p>new Array(arrayLength) //一个参数就是数组的长度</p>
+<h1 id="js唯一的一个公式">js唯一的一个公式</h1>
+<p>如何确定一个对象的原型？</p>
+<p>1.为什么</p>
+<p>let obj=new Object()的原型是Object.prototype</p>
+<p>let arr=new Array()的原型是Array.prototype</p>
+<p>let square=new Square()的原型是Square.prototype</p>
+<p>let fn=new Function()的原型是Function.prototype</p>
+<p>2.因为new操作故意这么做的</p>
+<p><img src="https://pic2.zhimg.com/v2-331b8c7ace0df66851e8a52bedaa1185_b.jpg" alt=""></p>
+<p><strong>结论</strong></p>
+<p>new后面是什么，原型就是 对应的.prototype</p>
+<p>你是谁构造的，你的原型就是谁的prototype属性对应的对象</p>
+<p><strong>原型公式</strong></p>
+<p>对象.<strong>proto</strong> === 其构造函数.prototype</p>
+<p>两个原型地址是一样的！</p>
+<p><strong>练习1</strong></p>
+<p>let x={}</p>
+<p>1.x的原型是什么？x.__proto__的值是什么？上面两个问题是等价的吗？</p>
+<p>let x=new Object{}</p>
+<p><strong>x.<strong>proto</strong>=Object.prototype</strong></p>
+<p>所以x的原型就是Object.prototype这个对象</p>
+<p>x.__proto__存的地址才是其原型</p>
+<p>2.用内存图画出x的所有属性</p>
+<p><img src="https://pic1.zhimg.com/v2-b01f58c6ed32bf494365d65db8aa3700_b.jpg" alt=""></p>
+<p><strong>练习2</strong></p>
+<p>let square=new Square(5)</p>
+<p>1.square的原型是什么？square.__proto__的值是什么？</p>
+<p>square.<strong>proto</strong>=Square.prototype</p>
+<p>2.用内存图画出square的所有属性,略</p>
+<p><strong>练习3</strong></p>
+<p>1.Object.prototype是哪个函数构造出来的？</p>
+<p>不知道，它没有爸爸也没有妈妈</p>
+<p>2.Object.prototype的原型是？</p>
+<p>没有原型</p>
+<p>3.Object.prototype.<strong>proto</strong>?</p>
+<p>null</p>
+<p>4.用内存图画出上述内容,略</p>
+<p>所有「函数对象」的「构造函数」都是 Function</p>
+<p>window.Function是一个函数对象，那么这个「函数对象」的构造函数是Function;</p>
+<p>window.Object是一个函数对象，那么这个「函数对象」的构造函数是Function;</p>
+<p>window.Function 是一个函数对象，那么这个「函数对象」的__proto__是(对象.
+<strong>proto</strong>===其构造函数.prototype）</p>
+<p>Square最终版(存疑),还可以进一步优化，以后再说。</p>
+<h1 id="对象需要分类">对象需要分类</h1>
+<p>用构造函数再写个圆</p>
+<pre><code>function Circle(radius){
+  this.radius = radius
+}
+Circle.prototype.getArea=function(){
+  return Math.pow(this.radius,2) * Math.PI
+}
+Circle.prototype.getLength=function(){
+  return this.radius * 2 * Math.PI
+}
+let c1=new Circle(10)//声明一个新的圆
+控制台输入：c1.radius
+输出结果：10
+控制台输入：c1.getArea()
+输出结果：314.1592653589793
+控制台输入：c1.getLength()
+输出结果：62.83185307179586
+</code></pre>
+<p>那再来个长方形</p>
+<pre><code>function Rect(width,height){
+  this.width = width
+  this.height=height
+}
+Rect.prototype.getArea=function(){
+  return this.width * this.height
+}
+Rect.prototype.getLength=function(){
+  return (this.width+this.height)*2
+}
+
+let r1=new Rect(4,5) //声明一个新的长方形
+控制台输入：r1
+输出结果：Rect {width: 4, height: 5}
+控制台输入：r1.getArea()
+输出结果：20
+控制台输入：r1.getLength()
+输出结果：18
+</code></pre>
+<p>对象需要分类吗？</p>
+<p>需要分类</p>
+<p><strong>理由一</strong></p>
+<p>有很多对象拥有一样的属性和行为，需要把它们分为同一类</p>
+<p>如square1和square2，这样创建类似对象的时候就很方便</p>
+<p><strong>理由二</strong></p>
+<p>但是还有很多对象拥有其他的属性和行为，所以就需要不同的分类</p>
+<p>比如Square/circle/Rect就是不同的分类</p>
+<p>Array/Function也是不同的分类</p>
+<p>而Object创建出来的对象，是最没有特点的对象。</p>
+<h1 id="类型-vs-类">类型 VS 类</h1>
+<p>类型</p>
+<p>类型是JS数据的分类，有7种(4基2空1对象)</p>
+<p>类</p>
+<p>类是针对于对象的分类，有无数种</p>
+<p>常见的有Array、Function、Date、RegExp正则等</p>
+<h1 id="object是最没有特色的类现在来看下有特色的类">object是最没有特色的类，现在来看下有特色的类</h1>
+<h3 id="第一种数组对象">第一种.数组对象</h3>
+<p><strong>1.定义一个数组</strong></p>
+<p>let arr=[1,2,3] //缩写</p>
+<p>let arr=new Array(1,2,3) //元素为1，2，3</p>
+<p>let arr=new Array(3)  //长度为3</p>
+<p>关注一个对象时主要看自身属性和共用属性</p>
+<p><strong>2.数组对象的自身属性</strong></p>
+<p>自身属性有：&lsquo;0&rsquo;/&lsquo;1&rsquo;/&lsquo;2&rsquo;/&rsquo;length&rsquo;</p>
+<p>注意:属性名没有数字，只有字符串。数组里的都是字符串不是数字！</p>
+<p><img src="https://pic1.zhimg.com/v2-9626bd9be481a9bc1a8bd8604ce3e290_b.jpg" alt=""></p>
+<p><strong>3.数组对象的共用属性</strong></p>
+<p>共用属性有：&lsquo;push&rsquo;/&lsquo;pop&rsquo;/&lsquo;shift&rsquo;/&lsquo;unshift&rsquo;/&lsquo;join&rsquo;</p>
+<p>用法都在MDN,后面会单独教这些API</p>
+<p>数组对象比普通对象多一层共有属性</p>
+<h3 id="第二种函数对象">第二种.函数对象</h3>
+<p><strong>1.定义一个函数</strong></p>
+<p>function fn(x,y){return x+y}</p>
+<p>let fn2=function fn(x,y){return x+y}</p>
+<p>let fn=(x,y)=&gt;x+y</p>
+<p>let fn=new Function(&lsquo;x&rsquo;,&lsquo;y&rsquo;,&lsquo;return x+y&rsquo;) //重要</p>
+<p><strong>2.函数对象自身属性</strong></p>
+<p>&rsquo;name&rsquo;/&rsquo;length&rsquo;</p>
+<p>例子</p>
+<pre><code>let fn = new Function('x', 'y', 'return x+y')
+console.dir(fn)
+</code></pre>
+<p><img src="https://pic3.zhimg.com/v2-739b7a222b78057b9e90e82d1085ba46_b.jpg" alt=""></p>
+<p>3.函数对象共用属性</p>
+<p>&lsquo;call&rsquo;/&lsquo;bind&rsquo;/&lsquo;apply&rsquo;</p>
+<p>后面会单独介绍函数</p>
+<h1 id="js终极一问">JS终极一问</h1>
+<p>1.window是谁构造的？</p>
+<p>Window(大写)</p>
+<p><img src="https://pic4.zhimg.com/v2-fdd792a650236073e2b9019d43311a4b_b.jpg" alt=""></p>
+<p>所以 window.<strong>proto</strong> === Window.prototype</p>
+<p>2.window.Object是谁构造的？</p>
+<p>window.Function</p>
+<p>因为所有的函数都是window.Function构造的</p>
+<p><img src="https://pic2.zhimg.com/v2-9f641a0749919c1baed8a977ee74c101_b.jpg" alt=""></p>
+<p>3.window.Function是谁构造的？</p>
+<p>window.Function</p>
+<p>因为所有的函数都是window.Function构造的</p>
+<p>自己构造自己？并不是这样，这是「上帝」的安排</p>
+<p>浏览器构造了Function，然后指定它的构造者是自己</p>
+<p>window.Function.constructor === window.Function</p>
+<h1 id="es6新语法class">es6新语法class</h1>
+<p>某些前端认为prototype是过时的，我的想法相反，但是不管怎样还是要学class。</p>
+<p>原型好还是类好？都是用来给对象分类的</p>
+<p><strong>prototype语法</strong></p>
+<pre><code>function Square(width){ 
+  this.width = width
+}
+Square.prototype.getArea = function(){ //设置共用属性(getArea)
+  return this.width * this.width 
+}
+Square.prototype.getLength = function(){
+  return this.width * 4
+}
+</code></pre>
+<p><strong>class语法</strong></p>
+<p>待接受参数(width)写到constructor里,表示它是构造函数</p>
+<pre><code>class Square{
+  constructor(width){
+    this.width=width
+  }
+}
+getArea(){
+  return this.width * this.width 
+}
+getLength(){
+  return this.width * 4
+}
+</code></pre>
+<p><strong>class语法引入了更多概念</strong></p>
+<pre><code>class Square{
+static x = 1 //第1个概念.意思是：属性(x)是Square的，Square.x即可使用x
+   width = 0 //第2个概念.初始化this.width(宽度默认为0)
+  constructor(width){
+    this.width=width
+  }
+}
+getArea(){
+  return this.width * this.width 
+}
+getLength(){
+  return this.width * 4
+}
+get area2(){ //第3个概念.只读属性，可以将getArea()写成get area2()。区别是：调用area2时不需要加括号()
+  return this.width * this.width 
+}
+</code></pre>
+<p>用 class 重写 Circle</p>
+<pre><code>class Circle{
+  constructor(radius){
+    this.radius = radius
+  } 
+  getArea(){ 
+    return Math.pow(this.radius,2) * Math.PI  
+  }
+  getLength(){
+    return this.radius * 2 * Math.PI
+  }
+}
+let circle = new Circle(5)
+circle.radius
+circle.getArea()
+circle.getLength()
+
+circle.getLength()
+</code></pre>
+<p><strong>新手建议</strong></p>
+<p>1.这么多新语法怎么学</p>
+<p>1&rsquo; MDN class文档全部看完，并记下来</p>
+<p>2&rsquo; 用到再学,实践中学，记得更牢</p>
+<p><a href="https://fangyinghang.com/es-6-tutorials/">ES 6的所有新语法</a>
+关于类和对象的新语法有<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes">类</a>，<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Object_initializer#ECMAScript_6%E6%96%B0%E6%A0%87%E8%AE%B0">对象初始化</a>和<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment">解构赋值</a></p>
+<h3 id="class-中2种函数写法的区别">class 中2种函数写法的区别</h3>
+<p><strong>语法1</strong></p>
+<pre><code>class Person{
+    sayHi(name){}
+    //等价于
+    sayHi: function(name){} 
+    //注意，一般我们不在这个语法里使用箭头函数
+}
+
+//等价于
+
+function Person(){}
+Person.prototype.sayHi = function(name){}
+</code></pre>
+<p><strong>语法2：注意冒号变成了等于号</strong></p>
+<pre><code>class Person{
+  sayHi = (name)=&gt;{} // 注意，一般我们不在这个语法里使用普通函数，多用箭头函数
+}
+
+//等价于
+
+function Person(){
+    this.sayHi = (name)=&gt;{}
+}
+</code></pre>
+<p>备注:不要强求完全转换成 ES5</p>
+<p>大部分class语法都可以转为ES5 语法，但并不是100%能转，有些class语法你意思理解就行，不需要强行转换为 ES5。</p>
+<p>class就是声明一个类，类就是用来创建对象的，只需要按照这个语法写就可以了。</p>
+<p>如果想要这个对象拥有一些属性呢，就写到constructor里面。</p>
+<p>如果想要这个对象拥有一些函数呢，就写在外面。</p>
+
+</article>
+
+                    
+                    
+                    
+
+                    
+
+
+
+                    
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+        <span class="text-primary-text block font-bold"
+          >Previous</span
+        >
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/" class="block">JS对象</a>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+        <span class="text-primary-text block font-bold">Next</span>
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="block">JS数据类型</a>
+      
+    </div>
+  </div>
+
+
+                    
+
+
+
+                </div>
+                
+                <div class="hidden lg:block lg:w-1/4">
+                    
+                    <div
+  class="
+    bg-secondary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>On This Page</h3>
+</div>
+<div
+  class="sticky-toc 
+    border-s
+   hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#第一种数组对象">第一种.数组对象</a></li>
+        <li><a href="#第二种函数对象">第二种.函数对象</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#class-中2种函数写法的区别">class 中2种函数写法的区别</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+                    
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        hljs.initHighlightingOnLoad();
+        changeSidebarHeight();
+        switchDocToc();
+    })
+</script>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2021 <a href="https://www.wangchucheng.com/">WANG Chucheng</a> and <a href="https://www.ruiqima.com/">MA Ruiqi</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>

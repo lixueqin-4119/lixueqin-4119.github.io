@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>DOM 编程 | 目录 | 博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.1" />
+<link rel="stylesheet" href="http://lixueqin-4119.xyz/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
+<script defer src="http://lixueqin-4119.xyz/js/eureka.min.f1639ee98d6cbd85b2b5f034d27320da962002ff83159ed4e01dbc5948c42a1ab26c2d6e74c66e93f5cec4d24dbd166d.js" integrity="sha384-8WOe6Y1svYWytfA00nMg2pYgAv&#43;DFZ7U4B28WUjEKhqybC1udMZuk/XOxNJNvRZt"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+
+<script defer type="text/javascript" src="http://lixueqin-4119.xyz/js/fontawesome.min.7b735802cbde01152678cc4a867f0b4bb0597876e29adfcaf1e5b5e99d39d7af87f348fdfd91c7eaf9ed7dc1eece7c61.js" integrity="sha384-e3NYAsveARUmeMxKhn8LS7BZeHbimt/K8eW16Z0516&#43;H80j9/ZHH6vntfcHuznxh"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="网页其实是颗树,JS如何操作这棵树?
+JS操作不了。让浏览器往window上加一个document。
+JS用document操作网页
+&ldquo;用document对象操作整个网页&quot;这种思想就叫做文档对象模型(Document Object Model)
+记住一个事实：DOM很难用
+下节课我们会想办法解决这个难题(封装)。
+如果你觉得DOM很傻，不要怀疑自己，你觉得是对的。
+DOM的接口设计的非常反人类，导致前端程序员不得不使用jQuery去操作DOM。后来Vue、React相继问世。我们便用Vue或React来代替操作DOM。
+我们从来不会用DOM自带的功能操作DOM，因为实在是反人类。
+但是我们还是要学DOM,不然看不懂 虚拟DOM 和 jQuery。
+其它
+1.箭头函数不支持this，有箭头函数就不能有this！
+2.在html里，不管有多少空格都会缩成一个空格。
+3.JS里面的属性统称为properties,HTML里面的属性统称为attributes。
+DOM提供的所有函数(API) 一.获取任意元素  标签又叫元素，获取元素的API
+ 有很多API
+1.window.id或者直接id //最快 2.document.getElementById(&#39;id&#39;) 3.document.getElementsByTagName(&#39;div&#39;)[0] //找到所有标签名为div的&#39;第1个&#39;元素 4.document.getElementsByClassName(&#39;red&#39;)[0] //找到所有class名为red的&#39;第1个&#39;元素 5.document.querySelector(&#39;#id&#39;) 6.document.querySelectorAll(&#39;#id&#39;)[0]  用哪一个
+1.工作中用querySelector和querySelectorAll
+2.做demo直接用id
+3.要兼容IE的才用getElement(s)ByXXX
+id=&quot;kw&quot; window.kw 或者 kw document.querySelector(&#39;#id&#39;) //(css选择器的写法) 例如：document.querySelector(&#39;div&gt;span:nth-child(2)&#39;)  二.获取特定元素 1.获取html元素:document.documentElement 获取标签名 document.documentElement.tagName 2.获取head元素:ducument.head 3.获取body元素:ducument.body 4.获取窗口(窗口不是元素):window 代码:window.onclick=()=&gt;{console.log(&#39;hi&#39;)} //获取window,添加事件监听 5.获取所有元素 document.all //获取当前页面所有标签  变态
+ document.all是IE发明的奇葩，第6个falsy值。 document.all以前用来区分是否是IE(现在document.all默认为假)  if(document.all){console.log(&#39;ie浏览器&#39;); 只能在ie运行} else{console.log(&#39;其它浏览器&#39;); 只能在非ie运行} 结果:其它浏览器 不做判断时可以直接用 document.all[2]  获取到的元素是个啥？
+都是对象。">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"",
+      "item":"http://lixueqin-4119.xyz/docs/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"目录",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/"},{
+      "@type": "ListItem",
+      "position": 3 ,
+      "name":"JS编程接口",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/"},{
+      "@type": "ListItem",
+      "position": 4 ,
+      "name":"DOM 编程",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/"
+    },
+    "headline": "DOM 编程 | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
+    "dateModified": "2020-10-16T00:00:00+00:00",
+    "wordCount":  443 ,
+    "publisher": {
+        "@type": "Person",
+        "name": "WANG Chucheng",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "http://lixueqin-4119.xyz/images/icon.png"
+        }
+        },
+    "description": "网页其实是颗树,JS如何操作这棵树?\nJS操作不了。让浏览器往window上加一个document。\nJS用document操作网页\n\u0026ldquo;用document对象操作整个网页\u0026quot;这种思想就叫做文档对象模型(Document Object Model)\n记住一个事实：DOM很难用\n下节课我们会想办法解决这个难题(封装)。\n如果你觉得DOM很傻，不要怀疑自己，你觉得是对的。\nDOM的接口设计的非常反人类，导致前端程序员不得不使用jQuery去操作DOM。后来Vue、React相继问世。我们便用Vue或React来代替操作DOM。\n我们从来不会用DOM自带的功能操作DOM，因为实在是反人类。\n但是我们还是要学DOM,不然看不懂 虚拟DOM 和 jQuery。\n其它\n1.箭头函数不支持this，有箭头函数就不能有this！\n2.在html里，不管有多少空格都会缩成一个空格。\n3.JS里面的属性统称为properties,HTML里面的属性统称为attributes。\nDOM提供的所有函数(API) 一.获取任意元素  标签又叫元素，获取元素的API\n 有很多API\n1.window.id或者直接id \/\/最快 2.document.getElementById(\u0027id\u0027) 3.document.getElementsByTagName(\u0027div\u0027)[0] \/\/找到所有标签名为div的\u0027第1个\u0027元素 4.document.getElementsByClassName(\u0027red\u0027)[0] \/\/找到所有class名为red的\u0027第1个\u0027元素 5.document.querySelector(\u0027#id\u0027) 6.document.querySelectorAll(\u0027#id\u0027)[0]  用哪一个\n1.工作中用querySelector和querySelectorAll\n2.做demo直接用id\n3.要兼容IE的才用getElement(s)ByXXX\nid=\u0026quot;kw\u0026quot; window.kw 或者 kw document.querySelector(\u0027#id\u0027) \/\/(css选择器的写法) 例如：document.querySelector(\u0027div\u0026gt;span:nth-child(2)\u0027)  二.获取特定元素 1.获取html元素:document.documentElement 获取标签名 document.documentElement.tagName 2.获取head元素:ducument.head 3.获取body元素:ducument.body 4.获取窗口(窗口不是元素):window 代码:window.onclick=()=\u0026gt;{console.log(\u0027hi\u0027)} \/\/获取window,添加事件监听 5.获取所有元素 document.all \/\/获取当前页面所有标签  变态\n document.all是IE发明的奇葩，第6个falsy值。 document.all以前用来区分是否是IE(现在document.all默认为假)  if(document.all){console.log(\u0027ie浏览器\u0027); 只能在ie运行} else{console.log(\u0027其它浏览器\u0027); 只能在非ie运行} 结果:其它浏览器 不做判断时可以直接用 document.all[2]  获取到的元素是个啥？\n都是对象。"
+}
+</script><meta property="og:title" content="DOM 编程 | 目录 | 博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="http://lixueqin-4119.xyz/images/icon.png">
+
+
+<meta property="og:url" content="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/" />
+
+
+
+
+<meta property="og:description" content="网页其实是颗树,JS如何操作这棵树?
+JS操作不了。让浏览器往window上加一个document。
+JS用document操作网页
+&ldquo;用document对象操作整个网页&quot;这种思想就叫做文档对象模型(Document Object Model)
+记住一个事实：DOM很难用
+下节课我们会想办法解决这个难题(封装)。
+如果你觉得DOM很傻，不要怀疑自己，你觉得是对的。
+DOM的接口设计的非常反人类，导致前端程序员不得不使用jQuery去操作DOM。后来Vue、React相继问世。我们便用Vue或React来代替操作DOM。
+我们从来不会用DOM自带的功能操作DOM，因为实在是反人类。
+但是我们还是要学DOM,不然看不懂 虚拟DOM 和 jQuery。
+其它
+1.箭头函数不支持this，有箭头函数就不能有this！
+2.在html里，不管有多少空格都会缩成一个空格。
+3.JS里面的属性统称为properties,HTML里面的属性统称为attributes。
+DOM提供的所有函数(API) 一.获取任意元素  标签又叫元素，获取元素的API
+ 有很多API
+1.window.id或者直接id //最快 2.document.getElementById(&#39;id&#39;) 3.document.getElementsByTagName(&#39;div&#39;)[0] //找到所有标签名为div的&#39;第1个&#39;元素 4.document.getElementsByClassName(&#39;red&#39;)[0] //找到所有class名为red的&#39;第1个&#39;元素 5.document.querySelector(&#39;#id&#39;) 6.document.querySelectorAll(&#39;#id&#39;)[0]  用哪一个
+1.工作中用querySelector和querySelectorAll
+2.做demo直接用id
+3.要兼容IE的才用getElement(s)ByXXX
+id=&quot;kw&quot; window.kw 或者 kw document.querySelector(&#39;#id&#39;) //(css选择器的写法) 例如：document.querySelector(&#39;div&gt;span:nth-child(2)&#39;)  二.获取特定元素 1.获取html元素:document.documentElement 获取标签名 document.documentElement.tagName 2.获取head元素:ducument.head 3.获取body元素:ducument.body 4.获取窗口(窗口不是元素):window 代码:window.onclick=()=&gt;{console.log(&#39;hi&#39;)} //获取window,添加事件监听 5.获取所有元素 document.all //获取当前页面所有标签  变态
+ document.all是IE发明的奇葩，第6个falsy值。 document.all以前用来区分是否是IE(现在document.all默认为假)  if(document.all){console.log(&#39;ie浏览器&#39;); 只能在ie运行} else{console.log(&#39;其它浏览器&#39;); 只能在非ie运行} 结果:其它浏览器 不做判断时可以直接用 document.all[2]  获取到的元素是个啥？
+都是对象。" />
+
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="docs" />
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">简介</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于我</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+
+
+<div class="lg:pt-12">
+    <div class="flex flex-col md:flex-row bg-secondary-bg rounded">
+        <div class="md:w-1/4 lg:w-1/5 border-e">
+            <div class="sticky top-16 pt-6">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sidebar-title" class="md:hidden mx-4 px-2 pt-4 pb-2 md:border-b text-tertiary-text md:text-primary-text">
+    <span class="font-semibold">Table of Contents</span>
+    <i class='fas fa-caret-right ms-1'></i>
+</div>
+
+<div id="sidebar-toc"
+    class="hidden md:block overflow-y-auto mx-6 md:mx-0 pe-6 pt-2 md:max-h-doc-sidebar bg-primary-bg md:bg-transparent">
+    <div class="flex flex-wrap ms-4 -me-2 p-2 bg-secondary-bg md:bg-primary-bg rounded">
+        <a class=" hover:text-eureka"
+            href="http://lixueqin-4119.xyz/docs/example-doc/">目录</a>
+        
+        
+        
+
+
+    </div>
+    
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/">【HTML全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A0%87%E7%AD%BE/">HTML标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A6%82%E8%A7%88/">HTML概览</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E9%87%8D%E7%82%B9%E6%A0%87%E7%AD%BE/">HTML重点标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/%E6%89%8B%E6%9C%BA%E9%A2%84%E8%A7%88-%E8%B0%83%E8%AF%95/">手机预览 &amp; 调试</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/">HTTP 状态码</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/">URL 是什么</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/">请求和响应 &amp; Node.js Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/">JavaScript 的诞生</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/">JS函数</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/">JS对象</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/">JS对象分类</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">JS数据类型</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/">JS数组</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JS正则表达式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/">js获取屏幕宽高</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/">JS语法</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/">JS运算符</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" text-eureka  hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/">DOM 编程</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/">DOM事件与事件委托</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/">jQuery 中的设计模式(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/">jQuery 中的设计模式(下)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/">手写DOM库(1)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/">MVC(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/">MVC(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/">Class 组件详解</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">Hooks 原理解析</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/">Hooks 各个击破</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">React 类组件和函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/">React起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/">手写 Redux</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/">computed 和 watch</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/">Vue Router -前端路由实现的思路</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">数据响应式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/">构造选项</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/">模板、指令与修饰符</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">深入理解Vue动画原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/">表单与v-model</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/">起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/">进阶构造属性</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/">云服务器</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/">AJAX 的原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/">Ajax实战:Cookie、Session</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/">异步与Promise</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/">跨域、CORS、JSONP</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/">静态服务器Static Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/">Webpack(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/">Webpack(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+</ul>
+
+</div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <div class="w-full md:w-3/4 lg:w-4/5 pb-8 pt-2 md:pt-8">
+            <div class="flex">
+                <div class="w-full lg:w-3/4 px-6">
+                    <article class="prose">
+  <h1 class="mb-4">DOM 编程</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2020-10-16</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>3 min read</span>
+  </div>
+
+  
+
+  
+</div>
+
+
+  
+  
+
+  <p><strong>网页其实是颗树,JS如何操作这棵树?</strong></p>
+<p>JS操作不了。让浏览器往window上加一个document。</p>
+<p>JS用document操作网页</p>
+<p>&ldquo;用document对象操作整个网页&quot;这种思想就叫做文档对象模型(Document Object Model)</p>
+<p><strong>记住一个事实：DOM很难用</strong></p>
+<p>下节课我们会想办法解决这个难题(封装)。</p>
+<p>如果你觉得DOM很傻，不要怀疑自己，你觉得是对的。</p>
+<p>DOM的接口设计的非常反人类，导致前端程序员不得不使用jQuery去操作DOM。后来Vue、React相继问世。我们便用Vue或React来代替操作DOM。</p>
+<p>我们从来不会用DOM自带的功能操作DOM，因为实在是反人类。</p>
+<p>但是我们还是要学DOM,不然看不懂 虚拟DOM 和 jQuery。</p>
+<p>其它</p>
+<p>1.箭头函数不支持this，有箭头函数就不能有this！</p>
+<p>2.在html里，不管有多少空格都会缩成一个空格。</p>
+<p>3.JS里面的属性统称为properties,HTML里面的属性统称为attributes。</p>
+<h1 id="dom提供的所有函数api">DOM提供的所有函数(API)</h1>
+<h3 id="一获取任意元素">一.获取任意元素</h3>
+<blockquote>
+<p>标签又叫元素，获取元素的API</p>
+</blockquote>
+<p><strong>有很多API</strong></p>
+<pre><code class="language-js">1.window.id或者直接id  //最快
+
+2.document.getElementById('id') 
+
+3.document.getElementsByTagName('div')[0] //找到所有标签名为div的'第1个'元素
+
+4.document.getElementsByClassName('red')[0] //找到所有class名为red的'第1个'元素
+
+5.document.querySelector('#id')
+
+6.document.querySelectorAll('#id')[0]
+</code></pre>
+<p><strong>用哪一个</strong></p>
+<p>1.工作中用querySelector和querySelectorAll</p>
+<p>2.做demo直接用id</p>
+<p>3.要兼容IE的才用getElement(s)ByXXX</p>
+<pre><code>id=&quot;kw&quot;
+window.kw 或者 kw
+document.querySelector('#id') //(css选择器的写法)
+例如：document.querySelector('div&gt;span:nth-child(2)')
+</code></pre>
+<h3 id="二获取特定元素">二.获取特定元素</h3>
+<pre><code class="language-js">1.获取html元素:document.documentElement
+
+  获取标签名 document.documentElement.tagName
+  
+2.获取head元素:ducument.head
+
+3.获取body元素:ducument.body
+
+4.获取窗口(窗口不是元素):window
+
+  代码:window.onclick=()=&gt;{console.log('hi')}  //获取window,添加事件监听
+  
+5.获取所有元素
+
+  document.all //获取当前页面所有标签
+</code></pre>
+<p><strong>变态</strong></p>
+<pre><code> document.all是IE发明的奇葩，第6个falsy值。
+ document.all以前用来区分是否是IE(现在document.all默认为假)
+</code></pre>
+<pre><code>if(document.all){console.log('ie浏览器'); 只能在ie运行}
+else{console.log('其它浏览器'); 只能在非ie运行}
+结果:其它浏览器
+
+不做判断时可以直接用
+document.all[2]
+</code></pre>
+<p><strong>获取到的元素是个啥？</strong></p>
+<p>都是对象。</p>
+<p>只需要搞清对象自身有哪些属性，以及它的原型有哪些即可。</p>
+<h1 id="div-原型链">div 原型链</h1>
+<blockquote>
+<p>元素的 自身属性 和 6层原型链</p>
+</blockquote>
+<p>js的所有对象都有个隐藏属性，这个隐藏属性指向了对象的原型。</p>
+<p>div.<strong>proto</strong>===HTMLDivElement.prototype</p>
+<pre><code>百度浏览器
+let div=document.getElementsByTagName(&quot;div&quot;)[0]
+console.dir(div)
+输出:div#wrapper.wrapper_new
+    ... //div自身属性
+    [[Prototype]]: HTMLDivElement //所有div的共同属性
+    [[Prototype]]: HTMLElement //所有标签的共同属性
+    [[Prototype]]: Element //所有元素的属性
+    [[Prototype]]: Node //节点
+    [[Prototype]]: EventTarget
+       1.addEventListener 添加
+       2.dispatchEvent 触发
+       3.removeEventListener 删除
+    [[Prototype]]: Object //根对象
+</code></pre>
+<p><strong>节点Node?元素Element?怎么区分？</strong></p>
+<p><strong>节点分为标签和文字</strong></p>
+<p>节点包括下面几种不同的节点:</p>
+<p>x.nodeType得到一个<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Node/nodeType">数字</a></p>
+<p><strong>1表示元素Element，也叫标签Tag</strong></p>
+<p><strong>3表示文本Text</strong></p>
+<p>8表示注释Comment</p>
+<p>9表示文档Document</p>
+<p>例子</p>
+<pre><code class="language-百度浏览器">div.nodeType
+输出:1
+div.childNodes
+输出:NodeList(6) [略...]
+div.firstChild
+输出:#text
+div.firstChild.textContent
+结果:'\n'
+div.firstChild.nodeType
+3
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0b35757a06e24feb966a331477602902~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>由于div是由HTMLDivElement这个函数构造出来的，所以这个构造函数往this(div)上添加了hidden属性、&hellip;</p>
+<p>也继承了Element,Element给this加了id、&hellip;</p>
+<p>也是Node构造的,Node给this加了childNodes/firstChild&hellip;</p>
+<p><strong>每一层构造函数都会给this上加属性</strong></p>
+<h1 id="节点的增删改查">节点的增删改查</h1>
+<h3 id="一增">一.增</h3>
+<p><strong>创建一个标签节点</strong></p>
+<pre><code class="language-js">let div1=document.createElement('div')
+
+document.createElement('style')
+
+document.createElement('script')
+
+document.createElement('li')
+</code></pre>
+<p><strong>创建一个文本节点</strong></p>
+<pre><code class="language-js">let text1=document.createTextNode('你好')
+</code></pre>
+<p><strong>标签里面插入文本</strong></p>
+<pre><code>1' div1.appendChild(text1) 
+
+2' 推荐
+
+let div1=document.createElement('div')
+
+div1.innerText='你好' 或者 div1.textContent='你好'
+</code></pre>
+<p>但是不能用div1.appendChild(&lsquo;你好&rsquo;)</p>
+<p>不同的原型提供了不同的函数，但是不能混着用！</p>
+<p><strong>插入页面中</strong></p>
+<p><strong>这时只会创建到内存不会显示到页面</strong></p>
+<p>你创建的标签默认处于JS线程中，必须把它插到head(<code>&lt;style&gt;或&lt;link&gt;</code>)或者body里面才会生效。</p>
+<pre><code class="language-js">document.body.appendChild(div1)或者 已在页面中的元素.appendChild(div1)
+</code></pre>
+<pre><code class="language-js">document.body.appendChild(div1)
+div1.style.top = 0
+div1.style.left = 0
+div1.style.color='red'
+div2.style.width=300
+</code></pre>
+<h3 id="appendchild">appendChild</h3>
+<p>代码</p>
+<p>页面中有 div#test1 和 div#test2</p>
+<pre><code class="language-js">let div=document.createElement('div')
+
+test1.appendChild(div)
+
+test2.appendChild(div)
+</code></pre>
+<p>请问最终div出现在哪里？</p>
+<p>test2里面。因为一个元素不能出现在两个地方，除非复制一份。</p>
+<pre><code class="language-js">let div1=document.createElement('div')
+let text1=document.createTextNode('你好')
+div1.appendChild(text1)
+div1
+document.head.appendChild(div1)
+document.body.appendChild(div1)
+复制，让head body两个地方都有
+let div2=div1.cloneNode(true) //复制
+document.head.appendChild(div1)
+document.body.appendChild(div2)
+</code></pre>
+<h3 id="二删">二.删</h3>
+<pre><code>1' parentNode.removeChild(childNode)
+
+2' childNode.remove() 注意:不支持ie
+</code></pre>
+<p>例子</p>
+<pre><code>div1.parentNode  //id=&quot;div1&quot; 
+div1.parentNode.removeChild(div1)
+</code></pre>
+<p>怎样彻底删除节点？</p>
+<pre><code class="language-js">div2.remove()
+
+div2=null
+</code></pre>
+<h3 id="三改">三.改</h3>
+<p><strong>1.改属性</strong></p>
+<p><strong>(1)写标准属性</strong></p>
+<pre><code class="language-js">1' 改class:div1.className='red' 会覆盖之前的,id=&quot;div1&quot;
+
+2' 改class:div1.classList.add('green') 
+
+改style:div1.style='width:200px;color:blue;' 会覆盖之前的
+
+改style的一部分:div1.style.width='200px'
+
+大小写：div1.style.backgroundColor='white' //所有用-隔开的，用大写代替
+
+改data-* 属性:div1.dataset.x='fuck' 添加自定义属性
+
+获取自定义属性值:div1.getAttribute('data-x')或者div1.dataset.x
+</code></pre>
+<p>例子</p>
+<pre><code class="language-js">自定义属性
+s_is.dataset.x='fuck' //id='s_is'
+输出：dataset.x='fuck'
+获取
+s_is.getAttribute('data-x')或者 s_is.dataset.x
+输出：fuck
+</code></pre>
+<p><strong>(2)读标准属性</strong></p>
+<p>查看样式、id、class：div1.style/id/className</p>
+<pre><code class="language-js">1' div2.classList/a.href
+
+2' div2.getAttribute('class')/a.getAttribute('href')
+</code></pre>
+<p>2种方法都行，读样式、id、class时都一样，只是在<strong>读链接</strong>时值有点不同：
+<strong>用href时，有可能浏览器会自动加一些东西。</strong></p>
+<p>例子</p>
+<pre><code class="language-js">&lt;a id='test' href=&quot;/xxx&quot;&gt;/xxx&lt;/a&gt;
+
+1' console.log(test.href) //浏览器会自动加些东西
+   输出：&quot;http://js.jirengu.com/xxx&quot;
+
+2' console.log(test.getAttribute('href')) //可获取链接的原本值
+  输出：&quot;/xxx&quot;
+</code></pre>
+<p><strong>(3)改on开头的属性(改事件处理函数)</strong></p>
+<p><strong>div1.onclick默认为null</strong></p>
+<p>默认点击div不会有任何事发生</p>
+<p>但是如果你把div1.onclick改成一个函数fn,那么点击div时浏览器就会调用这个函数。</p>
+<p><strong>而且是这样调用的fn.call(this,event)</strong> event是第1个参数</p>
+<p>div1会被当作this,event则包含了点击事件的所有信息，如坐标</p>
+<p>如果需要this，就不能用箭头函数，用function才能得到this。因为箭头函数不支持this。</p>
+<p><strong>div1.addEventListener是升级版的div1.onclick,后面会说</strong></p>
+<pre><code class="language-js">&lt;div id='div1'&gt;test&lt;/div&gt;
+
+console.log(div1.onclick);
+输出：null
+div1.onclick=()=&gt;{ console.log('hello') }
+
+div1.onclick=function(x){ //event是第1个参数 x
+  console.log(this) //this就是div1,x就是event
+  console.log(x) 
+}
+//原理：div1.onclick.call(div1,event)
+</code></pre>
+<p>点击后，this 和 x 是浏览器用call传进来的</p>
+<p><strong>(4)改内容</strong> //id=&ldquo;div1&rdquo;</p>
+<p><strong>改文本内容</strong></p>
+<p>div1.innerText=&lsquo;xxx&rsquo;或者 div1.textContent=&lsquo;xxx&rsquo;</p>
+<p><strong>改html内容</strong></p>
+<p>div1.innerHTML=&rsquo;<code>&lt;p&gt; &lt;strong&gt;重要&lt;/strong&gt; &lt;/p&gt;</code>&rsquo;</p>
+<p>字符限制在2万以内超出浏览器会卡死</p>
+<p><strong>改标签</strong></p>
+<pre><code>div1.innerHTML='' 
+
+div1.appendChild(div2)
+</code></pre>
+<p>先清空再加内容</p>
+<p><strong>(5)改爸爸</strong></p>
+<pre><code>newParent.appendChild(div1)
+</code></pre>
+<h3 id="查">查</h3>
+<p><strong>查爸爸</strong></p>
+<pre><code>node.parentNode或者node.parentElement
+</code></pre>
+<p><strong>查爷爷</strong></p>
+<pre><code>node.parentNode.parentNode
+</code></pre>
+<p>例子</p>
+<pre><code>&lt;div id='div1'&gt;&lt;/div&gt;
+div1.parentNode
+div1.parentNode.parentNode
+div1.children
+</code></pre>
+<p><strong>查子代</strong></p>
+<pre><code>1' node.childNodes //不要用，包括文本节点，会获取到不想要的
+
+2' node.children 
+</code></pre>
+<p>当子代变化时，两者也会实时变化吗？</p>
+<p>都会实时变化。querySelectorAll不会实时更新</p>
+<p>let c=document.querySelectorAll(&rsquo;li')</p>
+<pre><code class="language-js">&lt;ul id='test'&gt;
+  &lt;li&gt;1&lt;/li&gt;
+  &lt;li&gt;2&lt;/li&gt;
+&lt;/ul&gt;
+console.log(test.childNodes.length)
+console.log(test.childNodes)
+5 //在html里，不管有多少空格都会缩成一个空格。
+
+&lt;ul id='test'&gt;&lt;li&gt;1&lt;/li&gt;&lt;li&gt;2&lt;/li&gt;&lt;/ul&gt;
+console.log(test.childNodes.length) //2
+</code></pre>
+<p>console.log(test.children.length) //2</p>
+<p><strong>查兄弟姐妹</strong></p>
+<pre><code>1' node.parentNode.childNodes //需要排除自己以及所有的文本节点，更麻烦
+
+2' node.parentNode.children //需要排除自己
+</code></pre>
+<pre><code>id='div2'
+div2.parentNode.childNodes //包含自己
+let siblings=[] //遍历,排除自己
+let c = div2.parentNode.children
+for(let i=0;i&lt;c.length;i++){
+  if(c[i]!=div2){
+     siblings.push(c[i])
+  }
+}
+</code></pre>
+<p><strong>查看老大</strong></p>
+<pre><code>node.firstChild 
+</code></pre>
+<p><strong>查看老幺</strong></p>
+<pre><code>node.lastChild
+</code></pre>
+<p><strong>查看上一个哥哥/姐姐</strong></p>
+<pre><code>node.previousSibling
+</code></pre>
+<p><strong>查看下一个弟弟/妹妹</strong></p>
+<pre><code>node.nextSibling //包含文本节点
+</code></pre>
+<p>可以避开文本节点node.previousElementSibling</p>
+<p>例子</p>
+<pre><code class="language-js">id='div2'
+document.body.firstChild //或者document.body.children[0]
+document.body.lastChild
+div2.previousSibling
+div2.previousElementSibling
+</code></pre>
+<p><strong>遍历一个div里面的所有元素</strong></p>
+<pre><code class="language-js">travel=(node,fn)=&gt;{ //接收节点和函数
+  fn(node) //传参，fn在后面定义
+  if(node.children){ //如果当前节点有子元素，遍历子元素
+    for(let i=0;i&lt;node.children.length;i++){
+      travel(node.children[i],fn)//每一个节点再travel下，递归的travel
+    }
+  }
+}
+travel(div1,(node)=&gt;console.log(node))//箭头函数是fn
+</code></pre>
+<h1 id="dom-操作跨线程高级知识">DOM 操作跨线程(高级知识)</h1>
+<p>浏览器功能划分：浏览器分为渲染引擎和JS引擎</p>
+<p><strong>跨线程操作</strong></p>
+<p><strong>各线程各司其职</strong></p>
+<p>js引擎不能操作页面,只能操作js</p>
+<p>渲染引擎不能操作js,只能操作页面</p>
+<p>document.body.appendChild(div1)</p>
+<p>这句js是如何改变页面的？</p>
+<p><strong>跨线程通信</strong></p>
+<p>当浏览器发现js在body里面加了个&quot;div1&quot;对象</p>
+<p>浏览器就会通知渲染引擎在页面里也新增一个div元素</p>
+<p>新增的div1元素所有属性都照抄div1对象</p>
+<p><strong>时间浪费在浏览器。浏览器发现后去通知线程，这个是要时间的。所以操作会比其它操作慢。</strong></p>
+<p>为什么要分两个线程？</p>
+<p>让每一块都变的简单，好优化。</p>
+<p>变得慢可以优化其它的点，比如可以单独给渲染做优化。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f8793e53b7aa4843b3b6ef95bd5994d8~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>插入新标签的完整过程</strong></p>
+<p>在div1放入页面之前，你对div1所有的操作都属于js线程内的操作。</p>
+<p>把div1放入页面之时，浏览器会发现JS的意图，就会通知渲染线程在页面中渲染div1对应的元素。</p>
+<p>把div1放入页面之后，你对div1的操作都<strong>有可能</strong>会触发重新渲染</p>
+<p>div1.id=&lsquo;newId&rsquo;可能会重新渲染，也可能不会</p>
+<p>div1.title=&lsquo;new&rsquo;可能会重新渲染，也可能不会</p>
+<p>例子</p>
+<pre><code class="language-js">&lt;div title=&quot;titlehi&quot;&gt;&lt;/div&gt;
+div::after{ 
+  content:attr(title);
+}
+输出：titlehi
+</code></pre>
+<p>如果连续对div1多次操作，浏览器可能会合并成一次操作，也可能不会</p>
+<h3 id="属性同步">属性同步</h3>
+<p><strong>标准属性</strong></p>
+<p>对div1的标准属性的修改，会被浏览器同步到页面中</p>
+<p>比如id、className、title</p>
+<p><strong><code>data-*属性</code></strong></p>
+<p>会同步</p>
+<p><strong>非标准属性</strong></p>
+<p>对非标准属性的修改，则只会停留在js线程中，不会同步</p>
+<p><strong>如果你有自定义属性想被同步，可以使用data-作为前缀</strong></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5709f67225c144ffa81d9f047da5ebb0~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>property vs attribute</strong></p>
+<blockquote>
+<p>JS属性统称为properties,HTML属性统称为attributes。</p>
+</blockquote>
+<p><strong>property属性</strong></p>
+<p>js线程中div1的所有属性，叫做div1的property</p>
+<p><strong>attribute也是属性</strong></p>
+<p>渲染引擎中div1对应标签的属性，叫做attribute</p>
+<p>区别</p>
+<p>大部份时候，同名的property和attribute值相等</p>
+<p>但如果不是标准属性，那么它俩只会在一开始时相等</p>
+<p><strong>但注意attribute只支持字符串</strong></p>
+<p>property支持字符串、布尔等类型</p>
+<p><strong>面试题</strong></p>
+<p><strong>为什么DOM操作比较慢？</strong></p>
+<p>时间浪费在浏览器。浏览器发现后去通知线程，这个是要时间的。所以操作会比其它操作都慢。</p>
+
+</article>
+
+                    
+                    
+                    
+
+                    
+
+
+
+                    
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+        <span class="text-primary-text block font-bold">Next</span>
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/" class="block">DOM事件与事件委托</a>
+      
+    </div>
+  </div>
+
+
+                    
+
+
+
+                </div>
+                
+                <div class="hidden lg:block lg:w-1/4">
+                    
+                    <div
+  class="
+    bg-secondary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>On This Page</h3>
+</div>
+<div
+  class="sticky-toc 
+    border-s
+   hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一获取任意元素">一.获取任意元素</a></li>
+        <li><a href="#二获取特定元素">二.获取特定元素</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一增">一.增</a></li>
+        <li><a href="#appendchild">appendChild</a></li>
+        <li><a href="#二删">二.删</a></li>
+        <li><a href="#三改">三.改</a></li>
+        <li><a href="#查">查</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#属性同步">属性同步</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+                    
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        hljs.initHighlightingOnLoad();
+        changeSidebarHeight();
+        switchDocToc();
+    })
+</script>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2021 <a href="https://www.wangchucheng.com/">WANG Chucheng</a> and <a href="https://www.ruiqima.com/">MA Ruiqi</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>

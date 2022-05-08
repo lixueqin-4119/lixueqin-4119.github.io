@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vue2 全解 on 博客</title>
+    <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/</link>
+    <description>Recent content in Vue2 全解 on 博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>computed 和 watch</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/</guid>
+      <description>Vue2 options文档
+ 响应式原理options.data
+1.data会被Vue监听
+2.会被Vue实例代理,vm就是data的代理
+3.每次对data的读写都会被Vue监控。不管你是读写它的本身还是读写代理都会被监控，data对象会被篡改,本来的n会变成get n和set n。
+4.Vue会在data变化时更新UI
+data变化时除了更新UI，还能做些啥？
+一.Computed 计算属性  1.用途:被计算出来的属性就是计算属性
+2.缓存： 如果依赖的属性没有变化，就不会重新计算
+getter/setter默认不会做缓存，Vue做了特殊处理
+ 例1:用户名展示
+new Vue({ data: { user: { email: &amp;quot;1231231231@qq.com&amp;quot;, nickname: &amp;quot;小白&amp;quot;, phone: &amp;quot;13812345678&amp;quot;//手机号用string存，因为有时候会出现+86 } }, computed: { //计算属性 displayName: { get() { const user = this.user; return user.nickname || user.email || user.phone; }, set(value) { console.log(value); this.user.nickname = value; } } }, // Don&#39;t repeat yourself // 用 computed 来计算 displayName template: ` &amp;lt;div&amp;gt; {{displayName}} &amp;lt;!</description>
+    </item>
+    
+    <item>
+      <title>Vue Router -前端路由实现的思路</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/</guid>
+      <description>路由器(面试题)
+一.前端路由是什么？
+二.hash模式? history模式? memory模式?
+三.VueRouter源码
+一.前端路由是什么？ 路由是什么？
+路由器,如果你家里有1个以上的人要上网就需要路由器。
+你要上网就需要连接到路由器上，路由器要连接到电信/联通公司，电信公司会出售一些网络IP或端口，百度就会购买这些IP(大概会购买几千个IP)作为它的服务器，腾讯也会购买它的IP，抖音同样也要购买它的IP。
+你连路由器，路由器看你想连哪里，比如你想连百度，它就会把包发给百度。当你打开抖音时，它就会把你这个信号发到抖音。只要满足一对多的关系就叫分发， 分别发送到各个地方。路由就是分发请求，路由器就是分发请求的东西。
+实例1:实现路由router
+需求:根据用户URL后接的hash是#x 比如http://127.0.0.1/#1以此来判断用户想去的界面，界面用div代表。#1代表界面1Div1
+index.html &amp;lt;a href=&amp;quot;#1&amp;quot;&amp;gt;go to 1&amp;lt;/a&amp;gt; &amp;lt;a href=&amp;quot;#2&amp;quot;&amp;gt;go to 2&amp;lt;/a&amp;gt; &amp;lt;a href=&amp;quot;#3&amp;quot;&amp;gt;go to 3&amp;lt;/a&amp;gt; &amp;lt;a href=&amp;quot;#4&amp;quot;&amp;gt;go to 4&amp;lt;/a&amp;gt; &amp;lt;div id=&amp;quot;app&amp;quot;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;div id=&amp;quot;div1&amp;quot; style=&amp;quot;display: none;&amp;quot;&amp;gt;1&amp;lt;/div&amp;gt; &amp;lt;div id=&amp;quot;div2&amp;quot; style=&amp;quot;display: none;&amp;quot;&amp;gt;2&amp;lt;/div&amp;gt; &amp;lt;div id=&amp;quot;div3&amp;quot; style=&amp;quot;display: none;&amp;quot;&amp;gt;3&amp;lt;/div&amp;gt; &amp;lt;div id=&amp;quot;div4&amp;quot; style=&amp;quot;display: none;&amp;quot;&amp;gt;4&amp;lt;/div&amp;gt; &amp;lt;div id=&amp;quot;div404&amp;quot; style=&amp;quot;display: none;&amp;quot;&amp;gt;你要找的内容被狗吃了&amp;lt;/div&amp;gt; index.js //console.log(window.location.hash) //#1 let number = window.location.hash.substr(1); number = number || 1 //console.log(number); //1 let div = document.querySelector(`#div${number}`); //console.log(div); let app = document.</description>
+    </item>
+    
+    <item>
+      <title>数据响应式</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/</guid>
+      <description>主要原理:深入响应式原理
+内容:深入理解options.data
+ Vue对data做了什么？ const myData = { n: 0 }; console.log(myData); new Vue({ data: myData, template: ` &amp;lt;div&amp;gt;{{n}}&amp;lt;/div&amp;gt; ` }).$mount(&amp;quot;#app&amp;quot;); setTimeout(() =&amp;gt; { myData.n += 10; console.log(myData); }, 3000);  3s后n变成10，这次没有在vm里面加，而是在外面，说明在外面也可以变更myData。
+一般我们是在vm内变更myData的
+new Vue({ template:` &amp;lt;div&amp;gt; {{n}} &amp;lt;button @click=&amp;quot;add&amp;quot;&amp;gt; +1 &amp;lt;/button&amp;gt; &amp;lt;/div&amp;gt; `, methods:{ add(){ //this.n +=10 myData.n +=10 } } }).$mount(&amp;quot;#app&amp;quot;)  平常我们都用this.n，今天试试myData.n。
+分别打印出myData刚声明和3s后的结果，如果第1次是n:0,那第2次就应该是n:10， 看下结果:
+第2次并不是n:10，那这个n:(...)是什么呢？
+我们需要先学习ES6的getter、setter
+示例:要想得到姓名就要调用函数obj1.姓名()所以括号不能省，但是ES6的get语法可以实现obj1.姓名删掉括号。
+// 需求一，姓名不要括号也能得出值 let obj1 = { 姓: &amp;quot;高&amp;quot;, 名: &amp;quot;圆圆&amp;quot;, get 姓名() { //以函数的形式定义的属性 return this.</description>
+    </item>
+    
+    <item>
+      <title>构造选项</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/</guid>
+      <description>V2 options文档
+内容:new Vue(options)options取值详解
+查看示例代码
+ Vue实例 什么是Vue实例？
+Vue实例就如同jQuery实例:
+封装了对DOM的所有操作
+封装了对data的所有操作
+比如，如果我们用jQuery选择一个元素，会得到一个jQuery的实例(实例就是对象)，而不是得到这个元素。这个对象封装了对那个&amp;lt;div&amp;gt;的所有操作。Vue也是一样的，我们要做的就是用Vue去搞出一个Vue实例来。
+new Vue() 这就是构造一个Vue的实例。
+这个实例会根据你给的选项得出一个对象(vm)，vm封装了这个DOM对象以及对应的所有操作，不管是事件绑定还是数据的读写、DOM更新，全部都由vm这个对象负责。你只需要去调用它的API就好了。
+原型:对象.__proto__===其构造函数.prototype 推出vm.__proto__===Vue.prototype
+函数也是对象，所以Vue函数对象的内存图如上。
+函数.__proto__===Function.prototype推出Vue.__proto__===Function.prototype
+问题一: 初始化时可以写些什么对象进去(options)？
+问题二: vm自己有哪些属性？
+问题三: Vue函数本身有哪些属性?
+问题四: 每个函数都有个属性叫prototype，同时每个对象都有个属性叫__proto__。假设Vue.prototype对应的对象的地址是#419，那请问这个#419里面有哪些属性呢？
+问题五:Vue.prototype.__proto__= ?
+Vue实例的作用
+vm对象封装了对视图的所有操作但不包括ajax,因为ajax是网络层的。
+按照ES6的说法，构造函数也可以说是类，所以vm所属的类是Vue。
+new Vue(options)options是new Vue的参数，一般称之为选项或构造选项。
+一.options里面有什么？ V2 options文档
+options的五类属性 第1类属性 Data:
+data 数据 props 属性 computed 计算属性 //被计算出来的 methods 方法，用来定义方法的 watch 观察 //当data变化时做某些事情就用watch propsData //很少用,单元测试会用  方法和函数的区别？
+1.概念:方法是属于面向对象概念，函数属于数学概念。
+在面向对象里叫方法,有对象才有方法，方法依附于对象即对象.方法，比如说obj.sayhi()sayhi就叫方法也是函数，一般叫方法。 如果sayhi()这样写就叫函数
+在数学里叫函数。
+2.都指同一个东西
+function(p1,p2){ return }  第2类属性 DOM:
+el 挂载点 //你要用你的模版替换页面上的哪一块，你的挂载点 template //你的HTML内容。着重讲语法v-if、v-for render 渲染 //⚠️注意template和render只能二选一！ //template是给完整版用的，render是给非完整版用的。一起用必然有一个会失效！ renderError //很少用  第3类属性 生命周期钩子:</description>
+    </item>
+    
+    <item>
+      <title>模板、指令与修饰符</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/</guid>
+      <description>Vue的模版语法  我们把HTMl模版叫做template。
+ template的3种写法
+1&amp;rsquo; Vue完整版,写在HTML里
+html &amp;lt;div id=xxx&amp;gt; {{n}} &amp;lt;button @click=&amp;quot;add&amp;quot;&amp;gt; + 1 &amp;lt;/button&amp;gt; &amp;lt;/div&amp;gt; new Vue({ //把html变成DOM节点 el:&#39;#xxx&#39;, data:{n:0}, //data可以改成函数 methods:{ add(){} } })  2&amp;rsquo; Vue完整版,写在选项里
+&amp;lt;div id=&#39;app&#39;&amp;gt; &amp;lt;/div&amp;gt; new Vue({ template:` &amp;lt;div&amp;gt; {{n}} &amp;lt;button @click=&amp;quot;add&amp;quot;&amp;gt; + 1 &amp;lt;/button&amp;gt; &amp;lt;/div&amp;gt; `, data:{n:0}, //data可以改成函数 methods:{ add(){ this.n +=1 } } }).$mount(&#39;#app&#39;)  注意细节:
+(1)div#app会被替代
+new Vue({})运行后，template里面的&amp;lt;div&amp;gt;会替换掉页面的&amp;lt;div id=&#39;app&#39;&amp;gt;,渲染完后就没有id=&#39;app&#39;的&amp;lt;div&amp;gt;了。
+(2) el:&#39;#xxx&#39;可以替换成new Vue({}).$mount(&#39;#app&#39;)
+3&amp;rsquo; Vue非完整版,配合xxx.vue文件
+第1步.写xxx.vue文件 &amp;lt;template&amp;gt; &amp;lt;div&amp;gt; //这里一般不需要id,id一般是用来挂载的，这里不需要 {{n}} &amp;lt;button @click=&amp;quot;add&amp;quot;&amp;gt; +1 &amp;lt;/button&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; 注意:&amp;lt;template&amp;gt;里面不是HTML而是 XML &amp;lt;script&amp;gt; export default { //默认导出一个选项(构造选项) data(){ return {n:0} },//data必须为函数，这个函数返回的对象就是我们要用的data methods:{add(){ this.</description>
+    </item>
+    
+    <item>
+      <title>深入理解Vue动画原理</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/</guid>
+      <description>文档 过渡 &amp;amp; 动画
+ 轮播组件slides
+轮播难点在于最末位到首位的切换方式，在讲轮播之前需要讲下动画。 Vue动画支持很多种不同的方式。
+Vue动画方式1 - CSS transition  Vue提供了transition组件
+ HTML //先引入Vue(bootCDN) &amp;lt;script src=&amp;quot;https://cdn.bootcdn.net/ajax/libs/vue/2.5.17/vue.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;div id=&amp;quot;demo&amp;quot;&amp;gt; &amp;lt;button v-on:click=&amp;quot;show = !show&amp;quot;&amp;gt; Toggle &amp;lt;/button&amp;gt; //1.写`&amp;lt;transition&amp;gt;` &amp;lt;transition name=&amp;quot;fade&amp;quot;&amp;gt; &amp;lt;p v-if=&amp;quot;show&amp;quot;&amp;gt;hello&amp;lt;/p&amp;gt; &amp;lt;/transition&amp;gt; &amp;lt;/div&amp;gt; CSS //2.写类 .fade-enter-active, .fade-leave-active { transition: all 2s; } .fade-enter, .fade-leave-to { opacity: 0; width:100px } //3.设置初始值 p{ border:1px solid red; width:300px } JS new Vue({ el: &#39;#demo&#39;, data: { show: true } })  步骤
+第1步.在html里写&amp;lt;transition&amp;gt;
+第2步.在css里写.fade开头的一系列类
+最后给需要的属性添加初始值
+对于这些在过渡中切换的类名来说，如果你使用一个没有名字的 ，则v-是这些类名的默认前缀。如果你使用了 &amp;lt;transition name=&amp;quot;fade&amp;quot;&amp;gt;，那么v-enter会替换为fade-enter。</description>
+    </item>
+    
+    <item>
+      <title>表单与v-model</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/</guid>
+      <description>Ant Design Vue文档
+ 表单基本用法
+input/textarea/checkbox/radio/select/from
+修饰符
+.lazy/.number/.trim
+运行环境
+新建文件vue-demo,用Vue的脚手架给它初始化下。
+vue create . 选择在当前目录创建,使用默认的vue2 yarn serve  表单基本用法 1.input 文本
+2.textarea 多行文本
+&amp;lt;template&amp;gt; &amp;lt;div id=&amp;quot;app&amp;quot;&amp;gt; &amp;lt;input v-model=&amp;quot;message&amp;quot; placeholder=&amp;quot;edit me&amp;quot;&amp;gt; &amp;lt;textarea v-model=&amp;quot;message&amp;quot; placeholder=&amp;quot;add multiple lines&amp;quot;&amp;gt;&amp;lt;/textarea&amp;gt; &amp;lt;p&amp;gt;Message is: {{ message }}&amp;lt;/p&amp;gt; &amp;lt;p&amp;gt; &amp;lt;button @click=&amp;quot;message=&#39;fuck&#39;&amp;quot;&amp;gt;change message&amp;lt;/button&amp;gt; &amp;lt;/p&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; export default { name: &#39;App&#39;, data(){ //需要声明message，每个input是需要对应有个变量的。 return { message:&#39;hi&#39; } }, components: {} } &amp;lt;/script&amp;gt;  改message，UI会自动变化。用户改input，message会自动变化。
+双向绑定：改内存页面会自动变化，改页面内存也会自动变化，这就叫双向绑定。
+3.复选框 checkbox
+单个复选框，绑定到布尔值 &amp;lt;template&amp;gt; &amp;lt;div id=&amp;quot;app&amp;quot;&amp;gt; &amp;lt;label&amp;gt; &amp;lt;input type=&amp;quot;checkbox&amp;quot; v-model=&amp;quot;x&amp;quot;&amp;gt; &amp;lt;span&amp;gt;x:{{x}}&amp;lt;/span&amp;gt; &amp;lt;/label&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; export default { name: &#39;App&#39;, data(){ return { x:true } } } &amp;lt;/script&amp;gt;  需要声明x，每个checkbox是需要对应有个变量的。</description>
+    </item>
+    
+    <item>
+      <title>起手式</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/</guid>
+      <description>Vue中文文档 、工具@vue/cli文档
+ Vue的历史 vue、Angular.js、React.js前端三大主流框架。 MVC中的V是Vue的重点，M和V则被简化。 Vue和vue.js没有区别，vue就是vue.js的简称。 Vue你可以认为是框架也可以说是库，Vue中文英文文档都是尤雨溪写的。
+15年的1.0版本Vue自称是MVVM框架，不是MVC是MVVM，不过这已经成历史了。现在Vue是MV * 框架,意思就是你说MVC、MVVM都行。但是Vue升级到2.0后，它虽然看起来是MVVM框架，但实际不是MVVM框架了。Vue3直接抄袭React。 Vue作者尤雨溪，主要作品: Vue、Vue Router、Vuex、@vue/cli(主要维护者是蒋豪群) Vue2版本vue.runtime.min.js Vue3版本vue.runtime.global.prod.js
+目标一: 项目搭建 方法一:使用@Vue/cli
+ 使用@vue/cli搭建Vue项目 @Vue/cli 是Vue的创建初始化工具，webpack的升级版，帮你把所有的webpack loader、webpack plugin配好了。利用@Vue/cli，不用学webpack也能用Vue。
+ 步骤 🔍@vue/cli文档
+1.打开终端
+cd ~/Desktop/ yarn global add @vue/cli@4.1.0-beta.0 vue --version vue create vue-demo //创建目录vue-demo  2.设置配置(该配置只适合学习，如果是真实项目请自行斟酌选项)
+选错用control+c中断重来
+没有截图的使用默认选项。
+多选:用空格键选中或取消 注意: 不要勾选Choose Vue version!
+3.运行
+cd vue-demo yarn serve 中断control+c，然后把生成的目录vue-demo拖进来 open . yarn serve //打开本地预览服务器  现在就可以使用Vue了，还可以用codesandbox.io。
+第1种方式:用命令行创建目录，它会自动帮你安装依赖。
+第2种方式:用codesandbox.io。
+不要登录，点击“create sandbox”，选择创建vue沙盒。
+下载至本地:点击File-&amp;gt; Export to ZIP 并解压缩
+方法二:自己从零搭建Vue项目
+目标二.vue.js和vue.runtime.js的使用 做一个简单的&amp;quot;+1&amp;quot;项目</description>
+    </item>
+    
+    <item>
+      <title>进阶构造属性</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/</guid>
+      <description>Vue构造属性: directives、mixins、extends、provide、inject
+ 1.Directives 指令 2种写法
+1&amp;rsquo; 声明一个全局指令
+Vue.directive(&#39;x&#39;,directiveOptions)  例子: 造出v-x，点击即打印x。
+声明指令x,当元素被插入到页面中之后，我们就监听它的click事件。
+1.先声明 main.js Vue.directive(&#39;x&#39;,{ //单个directive inserted:function(el){ el.addEventListener(&#39;click&#39;,()=&amp;gt;{console.log(&#39;x&#39;)}) }, }) 2.再使用x指令 进入App.vue组件 &amp;lt;template&amp;gt; &amp;lt;img v-x width=&amp;quot;25%&amp;quot; src=&amp;quot;./assets/logo.png&amp;quot;&amp;gt; &amp;lt;HelloWorld msg=&amp;quot;Hello Vue&amp;quot;/&amp;gt; //让HelloWorld也响应:进入HelloWorld.vue组件添加`&amp;lt;h1 v-x&amp;gt;`,再次点击&amp;lt;h1&amp;gt;控制台就会输出x。 &amp;lt;/template&amp;gt;  你可以在任何组件里用v-x了。 inserted你把el放哪个元素上，el就是哪个元素，比如放&amp;lt;img&amp;gt;上，el就是&amp;lt;img&amp;gt;
+2&amp;rsquo; 声明一个局部指令 v-x只能在该实例中用
+new Vue({ ..., directives:{ &amp;quot;x&amp;quot;:directiveOptions } })  例子: 只能在HelloWord.vue组件里用 x
+HelloWord.vue &amp;lt;template&amp;gt; &amp;lt;div class=&amp;quot;hello&amp;quot;&amp;gt; &amp;lt;h1 v-x&amp;gt;{{ msg }}&amp;lt;/h1&amp;gt; //使用 &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; export default { directives: { //可声明多个directives &#39;x&#39;: { inserted(el) { el.addEventListener(&amp;quot;click&amp;quot;, () =&amp;gt; {console.</description>
+    </item>
+    
+  </channel>
+</rss>

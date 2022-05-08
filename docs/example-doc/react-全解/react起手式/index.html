@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>React起手式 | 目录 | 博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.1" />
+<link rel="stylesheet" href="http://lixueqin-4119.xyz/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
+<script defer src="http://lixueqin-4119.xyz/js/eureka.min.f1639ee98d6cbd85b2b5f034d27320da962002ff83159ed4e01dbc5948c42a1ab26c2d6e74c66e93f5cec4d24dbd166d.js" integrity="sha384-8WOe6Y1svYWytfA00nMg2pYgAv&#43;DFZ7U4B28WUjEKhqybC1udMZuk/XOxNJNvRZt"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+
+<script defer type="text/javascript" src="http://lixueqin-4119.xyz/js/fontawesome.min.7b735802cbde01152678cc4a867f0b4bb0597876e29adfcaf1e5b5e99d39d7af87f348fdfd91c7eaf9ed7dc1eece7c61.js" integrity="sha384-e3NYAsveARUmeMxKhn8LS7BZeHbimt/K8eW16Z0516&#43;H80j9/ZHH6vntfcHuznxh"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="目录
+1.如何引入React
+2.函数的本质&ndash;延迟 如何使用React里的函数？
+3.JSX的用法
+4.条件判断与循环
+ 引入React(3种方法) 1&rsquo; CDN引入(不推荐)
+需要引入2个库：先引react 后引react-dom,注意顺序
+&lt;body&gt; &lt;div id=&quot;app&quot;&gt;&lt;/div&gt; &lt;script src=&quot;https://cdn.bootcss.com/react/16.10.2/umd/react.development.js&quot;&gt;&lt;/script&gt; &lt;script src=&quot;https://cdn.bootcss.com/react-dom/16.10.2/umd/react-dom.development.js&quot;&gt;&lt;/script&gt; &lt;script src=&quot;src/index.js&quot;&gt;&lt;/script&gt; //引入之后就可以使用你自己的js了 &lt;/body&gt;  测试是否引用成功
+本地运行parcel src/index.html
+⚠️注意:CDN引入的都会变成全局变量window
+console.log(window.React); //打印出一个对象 console.log(window.React.createElement); //打印出一个函数 console.log(window.ReactDOM); //对象 console.log(window.ReactDOM.render); //函数  这种方法没人用，如果想升级就需要重新复制版本号，麻烦。
+其它
+1.cjs和umd的区别？(优先用umd)
+cjs全称CommonJS,是Node.js支持的模块规范。
+模块规范指&quot;如何声明一个模块&quot;,平时我们是const x = {...}然后导出export default x就声明一个可以被别人导入的模块。Node.js有自己的模块定义方法，这个方法就叫cjs。
+umd是统一模块定义，兼容各种模块规范(含浏览器) 理论上优先使用umd,同时兼容Node.js上的模块和浏览器模块。 最新的模块规范是使用import和export关键字。
+2&rsquo; 通过webpack引入React(不推荐)
+这种方法需要配置webpack，也麻烦，不用。
+除webpack外，rollup、parcel也支持上面写法。这2个工具都支持，把浏览器不支持的JS变成浏览器支持的JS。
+3&rsquo; 用命令行create-react-app (推荐)
+ create-react-app跟vue-cli是同一个级别的东西。
+新手用create-react-app,老手用webpack/rollup
+ 🔍create react app
+//打开终端工具iTerm yarn global add create-react-app cd ~/Desktop create-react-app react-demo //新建项目react-demo cd react-demo yarn start //启动服务 中断control&#43;c，用VSCode打开项目 yarn start //启动服务  测试是否引用成功console.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"",
+      "item":"http://lixueqin-4119.xyz/docs/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"目录",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/"},{
+      "@type": "ListItem",
+      "position": 3 ,
+      "name":"React全解",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/"},{
+      "@type": "ListItem",
+      "position": 4 ,
+      "name":"React起手式",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/"
+    },
+    "headline": "React起手式 | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
+    "dateModified": "2020-10-16T00:00:00+00:00",
+    "wordCount":  633 ,
+    "publisher": {
+        "@type": "Person",
+        "name": "WANG Chucheng",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "http://lixueqin-4119.xyz/images/icon.png"
+        }
+        },
+    "description": "目录\n1.如何引入React\n2.函数的本质\u0026ndash;延迟 如何使用React里的函数？\n3.JSX的用法\n4.条件判断与循环\n 引入React(3种方法) 1\u0026rsquo; CDN引入(不推荐)\n需要引入2个库：先引react 后引react-dom,注意顺序\n\u0026lt;body\u0026gt; \u0026lt;div id=\u0026quot;app\u0026quot;\u0026gt;\u0026lt;\/div\u0026gt; \u0026lt;script src=\u0026quot;https:\/\/cdn.bootcss.com\/react\/16.10.2\/umd\/react.development.js\u0026quot;\u0026gt;\u0026lt;\/script\u0026gt; \u0026lt;script src=\u0026quot;https:\/\/cdn.bootcss.com\/react-dom\/16.10.2\/umd\/react-dom.development.js\u0026quot;\u0026gt;\u0026lt;\/script\u0026gt; \u0026lt;script src=\u0026quot;src\/index.js\u0026quot;\u0026gt;\u0026lt;\/script\u0026gt; \/\/引入之后就可以使用你自己的js了 \u0026lt;\/body\u0026gt;  测试是否引用成功\n本地运行parcel src\/index.html\n⚠️注意:CDN引入的都会变成全局变量window\nconsole.log(window.React); \/\/打印出一个对象 console.log(window.React.createElement); \/\/打印出一个函数 console.log(window.ReactDOM); \/\/对象 console.log(window.ReactDOM.render); \/\/函数  这种方法没人用，如果想升级就需要重新复制版本号，麻烦。\n其它\n1.cjs和umd的区别？(优先用umd)\ncjs全称CommonJS,是Node.js支持的模块规范。\n模块规范指\u0026quot;如何声明一个模块\u0026quot;,平时我们是const x = {...}然后导出export default x就声明一个可以被别人导入的模块。Node.js有自己的模块定义方法，这个方法就叫cjs。\numd是统一模块定义，兼容各种模块规范(含浏览器) 理论上优先使用umd,同时兼容Node.js上的模块和浏览器模块。 最新的模块规范是使用import和export关键字。\n2\u0026rsquo; 通过webpack引入React(不推荐)\n这种方法需要配置webpack，也麻烦，不用。\n除webpack外，rollup、parcel也支持上面写法。这2个工具都支持，把浏览器不支持的JS变成浏览器支持的JS。\n3\u0026rsquo; 用命令行create-react-app (推荐)\n create-react-app跟vue-cli是同一个级别的东西。\n新手用create-react-app,老手用webpack\/rollup\n 🔍create react app\n\/\/打开终端工具iTerm yarn global add create-react-app cd ~\/Desktop create-react-app react-demo \/\/新建项目react-demo cd react-demo yarn start \/\/启动服务 中断control\u002bc，用VSCode打开项目 yarn start \/\/启动服务  测试是否引用成功console."
+}
+</script><meta property="og:title" content="React起手式 | 目录 | 博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="http://lixueqin-4119.xyz/images/icon.png">
+
+
+<meta property="og:url" content="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/" />
+
+
+
+
+<meta property="og:description" content="目录
+1.如何引入React
+2.函数的本质&ndash;延迟 如何使用React里的函数？
+3.JSX的用法
+4.条件判断与循环
+ 引入React(3种方法) 1&rsquo; CDN引入(不推荐)
+需要引入2个库：先引react 后引react-dom,注意顺序
+&lt;body&gt; &lt;div id=&quot;app&quot;&gt;&lt;/div&gt; &lt;script src=&quot;https://cdn.bootcss.com/react/16.10.2/umd/react.development.js&quot;&gt;&lt;/script&gt; &lt;script src=&quot;https://cdn.bootcss.com/react-dom/16.10.2/umd/react-dom.development.js&quot;&gt;&lt;/script&gt; &lt;script src=&quot;src/index.js&quot;&gt;&lt;/script&gt; //引入之后就可以使用你自己的js了 &lt;/body&gt;  测试是否引用成功
+本地运行parcel src/index.html
+⚠️注意:CDN引入的都会变成全局变量window
+console.log(window.React); //打印出一个对象 console.log(window.React.createElement); //打印出一个函数 console.log(window.ReactDOM); //对象 console.log(window.ReactDOM.render); //函数  这种方法没人用，如果想升级就需要重新复制版本号，麻烦。
+其它
+1.cjs和umd的区别？(优先用umd)
+cjs全称CommonJS,是Node.js支持的模块规范。
+模块规范指&quot;如何声明一个模块&quot;,平时我们是const x = {...}然后导出export default x就声明一个可以被别人导入的模块。Node.js有自己的模块定义方法，这个方法就叫cjs。
+umd是统一模块定义，兼容各种模块规范(含浏览器) 理论上优先使用umd,同时兼容Node.js上的模块和浏览器模块。 最新的模块规范是使用import和export关键字。
+2&rsquo; 通过webpack引入React(不推荐)
+这种方法需要配置webpack，也麻烦，不用。
+除webpack外，rollup、parcel也支持上面写法。这2个工具都支持，把浏览器不支持的JS变成浏览器支持的JS。
+3&rsquo; 用命令行create-react-app (推荐)
+ create-react-app跟vue-cli是同一个级别的东西。
+新手用create-react-app,老手用webpack/rollup
+ 🔍create react app
+//打开终端工具iTerm yarn global add create-react-app cd ~/Desktop create-react-app react-demo //新建项目react-demo cd react-demo yarn start //启动服务 中断control&#43;c，用VSCode打开项目 yarn start //启动服务  测试是否引用成功console." />
+
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="docs" />
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">简介</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于我</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+
+
+<div class="lg:pt-12">
+    <div class="flex flex-col md:flex-row bg-secondary-bg rounded">
+        <div class="md:w-1/4 lg:w-1/5 border-e">
+            <div class="sticky top-16 pt-6">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sidebar-title" class="md:hidden mx-4 px-2 pt-4 pb-2 md:border-b text-tertiary-text md:text-primary-text">
+    <span class="font-semibold">Table of Contents</span>
+    <i class='fas fa-caret-right ms-1'></i>
+</div>
+
+<div id="sidebar-toc"
+    class="hidden md:block overflow-y-auto mx-6 md:mx-0 pe-6 pt-2 md:max-h-doc-sidebar bg-primary-bg md:bg-transparent">
+    <div class="flex flex-wrap ms-4 -me-2 p-2 bg-secondary-bg md:bg-primary-bg rounded">
+        <a class=" hover:text-eureka"
+            href="http://lixueqin-4119.xyz/docs/example-doc/">目录</a>
+        
+        
+        
+
+
+    </div>
+    
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/">【HTML全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A0%87%E7%AD%BE/">HTML标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A6%82%E8%A7%88/">HTML概览</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E9%87%8D%E7%82%B9%E6%A0%87%E7%AD%BE/">HTML重点标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/%E6%89%8B%E6%9C%BA%E9%A2%84%E8%A7%88-%E8%B0%83%E8%AF%95/">手机预览 &amp; 调试</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/">HTTP 状态码</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/">URL 是什么</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/">请求和响应 &amp; Node.js Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/">JavaScript 的诞生</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/">JS函数</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/">JS对象</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/">JS对象分类</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">JS数据类型</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/">JS数组</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JS正则表达式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/">js获取屏幕宽高</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/">JS语法</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/">JS运算符</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/">DOM 编程</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/">DOM事件与事件委托</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/">jQuery 中的设计模式(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/">jQuery 中的设计模式(下)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/">手写DOM库(1)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/">MVC(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/">MVC(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/">Class 组件详解</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">Hooks 原理解析</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/">Hooks 各个击破</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">React 类组件和函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" text-eureka  hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/">React起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/">手写 Redux</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/">computed 和 watch</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/">Vue Router -前端路由实现的思路</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">数据响应式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/">构造选项</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/">模板、指令与修饰符</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">深入理解Vue动画原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/">表单与v-model</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/">起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/">进阶构造属性</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/">云服务器</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/">AJAX 的原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/">Ajax实战:Cookie、Session</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/">异步与Promise</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/">跨域、CORS、JSONP</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/">静态服务器Static Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/">Webpack(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/">Webpack(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+</ul>
+
+</div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <div class="w-full md:w-3/4 lg:w-4/5 pb-8 pt-2 md:pt-8">
+            <div class="flex">
+                <div class="w-full lg:w-3/4 px-6">
+                    <article class="prose">
+  <h1 class="mb-4">React起手式</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2020-10-16</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>3 min read</span>
+  </div>
+
+  
+
+  
+</div>
+
+
+  
+  
+
+  <blockquote>
+<p><strong>目录</strong></p>
+<p>1.如何引入React</p>
+<p>2.函数的本质&ndash;延迟   如何使用React里的函数？</p>
+<p>3.JSX的用法</p>
+<p>4.条件判断与循环</p>
+</blockquote>
+<h3 id="引入react3种方法">引入React(3种方法)</h3>
+<p><strong>1&rsquo; CDN引入</strong>(不推荐)</p>
+<p>需要引入2个库：先引react 后引react-dom,注意顺序</p>
+<pre><code class="language-js">&lt;body&gt;
+  &lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+  &lt;script src=&quot;https://cdn.bootcss.com/react/16.10.2/umd/react.development.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;https://cdn.bootcss.com/react-dom/16.10.2/umd/react-dom.development.js&quot;&gt;&lt;/script&gt;
+
+  &lt;script src=&quot;src/index.js&quot;&gt;&lt;/script&gt; //引入之后就可以使用你自己的js了
+&lt;/body&gt;
+</code></pre>
+<p><strong>测试是否引用成功</strong></p>
+<p>本地运行<code>parcel src/index.html</code></p>
+<p>⚠️注意:CDN引入的都会变成全局变量window</p>
+<pre><code class="language-js">console.log(window.React); //打印出一个对象
+console.log(window.React.createElement); //打印出一个函数
+console.log(window.ReactDOM); //对象
+console.log(window.ReactDOM.render); //函数
+</code></pre>
+<p>这种方法没人用，如果想升级就需要重新复制版本号，麻烦。</p>
+<p><strong>其它</strong></p>
+<p>1.cjs和umd的区别？(<strong>优先用umd</strong>)</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/94fd41b162c347ae9f8ade72f8b7a543~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>cjs全称CommonJS,是Node.js支持的模块规范。</p>
+<p>模块规范指&quot;如何声明一个模块&quot;,平时我们是<code>const x = {...}</code>然后导出<code>export default x</code>就声明一个可以被别人导入的模块。Node.js有自己的模块定义方法，这个方法就叫cjs。</p>
+<p>umd是统一模块定义，兼容各种模块规范(含浏览器)
+理论上优先使用umd,同时兼容Node.js上的模块和浏览器模块。
+最新的模块规范是使用<code>import</code>和<code>export</code>关键字。</p>
+<p><strong>2&rsquo; 通过webpack引入React</strong>(不推荐)<br>
+这种方法需要配置webpack，也麻烦，不用。<br>
+除webpack外，rollup、parcel也支持上面写法。这2个工具都支持，把浏览器不支持的JS变成浏览器支持的JS。</p>
+<p><strong>3&rsquo; 用命令行<code>create-react-app</code> (推荐)</strong></p>
+<blockquote>
+<p><code>create-react-app</code>跟<code>vue-cli</code>是同一个级别的东西。<br>
+新手用<code>create-react-app</code>,老手用<code>webpack/rollup</code></p>
+</blockquote>
+<p>🔍<a href="https://github.com/facebook/create-react-app#quick-overview">create react app</a></p>
+<pre><code class="language-js">//打开终端工具iTerm
+yarn global add create-react-app 
+cd ~/Desktop 
+create-react-app react-demo //新建项目react-demo
+cd react-demo
+yarn start //启动服务
+中断control+c，用VSCode打开项目
+yarn start //启动服务
+</code></pre>
+<p><strong>测试是否引用成功</strong><code>console.log(React)</code></p>
+<p><strong>补充</strong><br>
+1.<code>npx</code>在windows上兼容性不好，用<code>yarn</code><br>
+2.启动失败的话就运行<code>yarn run eject</code>让配置文件可见，然后再<code>yarn start</code></p>
+<h3 id="react初体验">React初体验</h3>
+<p>例子:用React实现+1</p>
+<pre><code class="language-js">//用codesandbox
+console.log(window.React);
+console.log(window.React.createElement);
+console.log(window.ReactDOM);
+console.log(window.ReactDOM.render);
+
+const React = window.React;
+const ReactDOM = window.ReactDOM;
+
+let n = 0;
+const App = () =&gt; React.createElement(&quot;div&quot;, null, [
+    n,
+    React.createElement(
+      &quot;button&quot;,
+      {
+        onClick: () =&gt; {
+          n += 1;
+          console.log(n); //这一句是精髓
+          ReactDOM.render(App(), document.querySelector(&quot;#app&quot;)); // 为什么还是不能重新渲染
+        }
+      },
+      &quot;+1&quot;
+    )
+  ]);
+
+ReactDOM.render(App(), document.querySelector(&quot;#app&quot;));
+</code></pre>
+<p><strong>详解</strong></p>
+<p><strong>1.用React创建div</strong></p>
+<pre><code class="language-js">const App = React.createElement(&quot;div&quot;, {className:'red'},n}
+
+意思是创建:
+&lt;div class='red'&gt; n &lt;/div&gt;
+</code></pre>
+<p>JS里设置<code>className</code>就是在设置<code>class</code>，class是关键字在以前不能用，现在能用了，但是延续了这个习惯。</p>
+<p><strong>2.CDN引入的都会变成全局变量window，测试是否引用成功</strong>
+<code>console.log(window.React)</code></p>
+<p><strong>3.实现<code>+1</code>功能</strong><br>
+<strong>React不会监听自动刷新页面，只能自己去刷新:</strong><br>
+方法:需要刷新页面时再次执行render<code>ReactDOM.render(App, document.querySelector(&quot;#app&quot;))</code><br>
+还是不能实现<code>+1</code>，失败是因为<code>App=React.createElement(...)</code>只执行了一次。</p>
+<p><strong>如何让它重新执行，以获取n的最新值？</strong><br>
+方法:通过把App变成<strong>函数</strong>解决。记不记得6个6，函数可以获取最新值。</p>
+<pre><code class="language-js">App = React.createElement(...)
+改为App = ()=&gt; React.createElement(...)
+//App等于一个函数，这个函数执行之后才会返回这个对象。
+//App必须执行了才会去取n的值。
+</code></pre>
+<p>所以第1次render时要render返回的这个div,<code>ReactDOM.render(App(),root)</code>,第2次也要<code>App()</code>。函数运行时会重新读n的值，因此会得到最新的n。</p>
+<p><strong>面试题</strong></p>
+<pre><code class="language-js">let i
+for(i=0;i&lt;6;i++){
+  setTimeout(()=&gt;{console.log(i)},1000)
+}
+1s后会打印6个6，因为函数执行时遇到外部变量会读取最新值。
+</code></pre>
+<p><strong>解决方法:打印0～5</strong></p>
+<pre><code class="language-js">1' for(i=0;i&lt;6;i++){ 
+     let j=i
+     setTimeout(()=&gt;{console.log(i)},1000)
+   }
+ //let的作用域在{}内,每次进来时都是一个新的作用域，所以j每次的取值都是新的，所以j的取值是0～5。
+   
+2' for(let i=0;i&lt;6;i++){ 
+     setTimeout(()=&gt;{console.log(i)},1000)
+   } 
+  // 每次进来时就会声明一个新的i
+   
+   除了用let还可以用立即执行函数,利用形参和实参值会复制的特点
+3' for(var i=0;i&lt;6;i++){
+     !function(j){ //这个语法会报错,!用来阻止报错
+        setTimeout(()=&gt;{console.log(j)},1000)
+      }(i) //实参i会赋值给j形参
+    }
+    
+4'  for(var i=0;i&lt;6;i++){
+     !function(i){ //i和j是复制值的关系，所以也可以改成同名的。
+       setTimeout(()=&gt;{console.log(i)},1000)
+     }(i)
+    }
+</code></pre>
+<h3 id="函数与延迟执行">函数与延迟执行</h3>
+<p><strong>对比普通代码与函数区别</strong></p>
+<p>这是普通代码<code>let b = 1 + a</code></p>
+<p>这是函数(不讨论参数)</p>
+<p><code>let f = () =&gt; 1+a</code></p>
+<p><code>let b = f()</code></p>
+<p>普通代码<strong>立即求值</strong>，读取a的<strong>当前</strong>值</p>
+<p>函数会等调用时再求值，即<strong>延迟求值</strong>。且求值时才会读取a的<strong>最新</strong>值</p>
+<p>函数的特点：函数是延迟执行的代码</p>
+<p><strong>对比React元素和函数组件</strong></p>
+<p><code>App1 = React.createElement(&quot;div&quot;, null, n)</code></p>
+<p>App1是一个React元素</p>
+<p><code>App2 = () =&gt; React.createElement(&quot;div&quot;, null, n)</code></p>
+<p>App2是一个React函数组件</p>
+<p><strong>启示</strong><br>
+函数App2是<strong>延迟执行</strong>的代码,会在<strong>被调用的时候</strong>执行<br>
+注意我说的是<strong>代码执行的时机</strong>，没有在说同步和异步<br>
+同步和异步关注的是得到结果的时机</p>
+<p><strong>总结</strong><br>
+<strong>React元素</strong><br>
+<code>React.createElement(&quot;div&quot;, null, n)</code>用来创建一个元素，createElement的返回值element可以<strong>代表</strong>一个div,但本身不是一个div对象，也就是说你不能把这个对象直接插到页面里。element并不是真正的div(DOM对象)。所以我们一般称element为<strong>虚拟DOM</strong>对象。</p>
+<p><strong>() =&gt; React元素</strong><br>
+1.返回element的函数，也可以代表一个div<br>
+2.这个函数可以<strong>多次执行</strong>，每次得到最新的虚拟div<br>
+3.React会对比两个虚拟div,找出不同，局部更新视图
+<strong>4.找不同的算法叫做DOM Diff算法</strong></p>
+<p>那么找出2个虚拟DOM<strong>虚拟<code>div</code></strong> 不同的地方，然后得到一个最小化的结果局部更新视图，这个找不同的过程就叫做DOM Diff算法。</p>
+<h3 id="jsx">JSX</h3>
+<blockquote>
+<p>现在的代码很丑，比Vue的写法复杂多了，别急有办法。</p>
+<p>JSX弥补React代码太丑而发明的语言。</p>
+<p>X表示扩展，所以JSX就是JS扩展版。</p>
+</blockquote>
+<p>React的开发者不用装任何东西就可以愉快开发了。
+因为babel-loader被webpack内置了。</p>
+<p><strong>使用JSX</strong>(3种方法)</p>
+<p><strong>1&rsquo; 用CDN</strong>(不要用)</p>
+<p><strong>语法:所有的标签用标签形式写，如果需要插入JS变量或者JS函数，就把那个东西用{}包起来。</strong></p>
+<p>也不需要在函数后面加()了，因为App是一个函数组件，组件就直接当标签用就可以了，它会自动去调用你的App这个函数的。<code>&lt;App /&gt;</code></p>
+<pre><code class="language-js">html
+&lt;/body&gt;
+  &lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+  &lt;script src=&quot;https://cdn.bootcss.com/react/16.10.2/umd/react.development.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;https://cdn.bootcss.com/react-dom/16.10.2/umd/react-dom.development.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;https://cdn.bootcss.com/babel-standalone/7.0.0-beta.3/babel.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script type=&quot;text/babel&quot;&gt;
+      let n = 0;
+      const App = () =&gt; (
+        &lt;div&gt; //创建div
+          {n} //插入变量
+          &lt;button onClick={() =&gt; { //插入函数
+              n += 1;
+              render();
+            }}
+            &gt;
+            +1
+          &lt;/button&gt;
+        &lt;/div&gt;
+      );
+      const render = () =&gt;
+        ReactDOM.render(&lt;App /&gt;, document.querySelector(&quot;#app&quot;));
+      render();
+  &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<p><strong>用CDN bable.js的原理是</strong>，bable.js会把页面上浏览器不认识的bable代码翻译成浏览器认识的JS代码，然后把JS代码放到页面里，去替换之前浏览器不认识的。</p>
+<p><strong>2&rsquo; webpack + babel-loader</strong><br>
+新手跳过，配置太麻烦。</p>
+<p><strong>3&rsquo; 使用create-react-app</strong>(推荐)<br>
+跟@vue/cli用法类似</p>
+<pre><code class="language-js">yarn global add create-react-app //全局安装
+create-react-app react-demo //初始化目录
+cd react-demo
+yarn start //开发
+</code></pre>
+<p>示例</p>
+<pre><code class="language-js">inde.jtml
+&lt;div id=&quot;root&quot;&gt;&lt;/div&gt;
+  
+App.js
+import React from &quot;react&quot;
+
+const App = () =&gt; {
+    return ( //这里默认使用了jsx语法
+        &lt;div&gt;App组件&lt;/div&gt; //相当于React.createElement()
+    )
+}
+export default App
+
+index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App.js'
+//console.log(React);
+ReactDOM.render(&lt;App /&gt;, document.getElementById('root'))
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/423167e379d145529797c92cce21df90~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>现在Vue和React打平了，都可以写HTML:<br>
+Vue写在.vue文件的<code>&lt;template&gt;</code>里<br>
+React把HTML混在JS/JSX文件里</p>
+<h3 id="条件判断-与-循环控制">条件判断 与 循环控制</h3>
+<p><strong>一.条件判断</strong></p>
+<p>在JSX里如何使用条件判断<code>if...else...</code>？</p>
+<pre><code class="language-js">在Vue里
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;div v-if=&quot;n%2===0&quot;&gt;n是偶数&lt;/div&gt;
+    &lt;span v-else&gt;n是奇数&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<p><strong>JSX的条件判断</strong></p>
+<pre><code class="language-js">在React里
+第1种
+const Component = () =&gt; {
+  return n%2 === 0 ? &lt;div&gt; n是偶数 &lt;/div&gt; : &lt;span&gt; n是奇数 &lt;/span&gt;
+}
+//如果需要外面的div，可以写成
+const Component = () =&gt; {
+    return (
+        &lt;div&gt;
+         //⚠️别忘了用{ }包起来，只要是js东西就必须用{ }包起来！
+            {n % 2 === 0 ? &lt;div&gt; n是偶数 &lt;/div&gt; : &lt;span&gt; n是奇数 &lt;/span&gt;}
+        &lt;/div&gt;
+    )
+}
+
+第2种
+cconst Component = () =&gt; {
+    const content = (
+        &lt;div&gt;
+            {n % 2 === 0 ? &lt;div&gt;n是偶数&lt;/div&gt; : &lt;span&gt;n是奇数&lt;/span&gt;}//别忘了用{ }包起来
+        &lt;/div&gt;
+    )
+    return content
+}
+
+第3种
+const Component = () =&gt; {
+    const inner = n % 2 === 0 ? &lt;div&gt;n是偶数&lt;/div&gt; : &lt;span&gt;n是奇数&lt;/span&gt;
+    const content = (
+        &lt;div&gt;
+            {inner} //别忘了{ }将inner包起来
+        &lt;/div&gt;
+    )
+    return content
+}
+第4种
+const Component = () =&gt; {
+    let inner
+    if (n % 2 === 0) {
+        inner = &lt;div&gt;n是偶数&lt;/div&gt;
+    } else {
+        inner = &lt;span&gt;n是奇数&lt;/span&gt;
+    }
+    const content = (
+        &lt;div&gt; {inner} &lt;/div&gt;
+    )
+    return content
+}
+</code></pre>
+<p>结论:在Vue里只能用Vue提供的语法写条件判断，在React里你想怎么写就怎么写，你就是在写JS而已。这就是Vue与React最明显的区别。</p>
+<p><strong>二.循环语句loop</strong></p>
+<p>在Vue里可以遍历数组和对象</p>
+<pre><code class="language-js">&lt;template&gt;
+  &lt;div&gt;
+    &lt;div v-for=&quot;(n, index) in numbers&quot; :key=&quot;index&quot;&gt;
+      下标{{index}},值为{{n}}
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<p><strong>在React里</strong></p>
+<pre><code class="language-js">const Component = (props) =&gt; {
+    return props.numbers.map((n, index) =&gt; {
+        return &lt;div&gt;下标{index}值为{n}&lt;/div&gt;
+    })
+}
+//如果你需要外面的div，可以写成
+const Component = (props) =&gt; {
+    return (
+        &lt;div&gt;
+            {props.numbers.map((n, index) =&gt; {
+                return &lt;div&gt; {index} {n}&lt;/div&gt;
+            })}
+        &lt;/div&gt;)
+}
+
+还可以这样写(麻烦不推荐)
+const Component = (props) =&gt; {
+  const array = []
+  for(let i=0;i&lt;props.numbers.length;i++){
+    array.push(&lt;div&gt;下标为{i}值为
+      { props.numbers[i]} &lt;/div&gt;)
+   }
+   return &lt;div&gt;{ array }&lt;/div&gt;
+}
+</code></pre>
+
+</article>
+
+                    
+                    
+                    
+
+                    
+
+
+
+                    
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+        <span class="text-primary-text block font-bold"
+          >Previous</span
+        >
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/" class="block">React 类组件和函数组件</a>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+        <span class="text-primary-text block font-bold">Next</span>
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/" class="block">函数组件</a>
+      
+    </div>
+  </div>
+
+
+                    
+
+
+
+                </div>
+                
+                <div class="hidden lg:block lg:w-1/4">
+                    
+                    <div
+  class="
+    bg-secondary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>On This Page</h3>
+</div>
+<div
+  class="sticky-toc 
+    border-s
+   hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#引入react3种方法">引入React(3种方法)</a></li>
+        <li><a href="#react初体验">React初体验</a></li>
+        <li><a href="#函数与延迟执行">函数与延迟执行</a></li>
+        <li><a href="#jsx">JSX</a></li>
+        <li><a href="#条件判断-与-循环控制">条件判断 与 循环控制</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+                    
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        hljs.initHighlightingOnLoad();
+        changeSidebarHeight();
+        switchDocToc();
+    })
+</script>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2021 <a href="https://www.wangchucheng.com/">WANG Chucheng</a> and <a href="https://www.ruiqima.com/">MA Ruiqi</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>

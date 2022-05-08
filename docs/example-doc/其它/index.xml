@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>云服务器 on 博客</title>
+    <link>http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/</link>
+    <description>Recent content in 云服务器 on 博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>云服务器</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
+      <description>手把手教你从0开始部署应用
+ 好处
+1.一个你可以完全自由掌控的Linux机器
+2.一个其它人可以访问的IP
+3.可以作为你的博客，作品展示，简历展示
+4.比GitHub访问速度快很多
+5.香港地区机器，可以作为FQ代理，但是好像不能备案
+如果你备案了，你还可以把你的域名绑定到这台机器
+代价
+1.100人民币可以用1000小时左右。按量付费，即用即停，释放机器，数据会丢！
+一.购买阿里云服务器 创建我的ECS
+(1)选择“按量付费”
+(2)地区一般选择 “国内的,有优惠的”
+(3)实例分类选择 “共享型”
+(4)镜像选择 “Ubuntu 18.04 64位 ”
+(5)下一步，带宽调到最低1M
+(6)勾选服务协议
+(7)创建成功，点击“管理控制台”
+运行中则代表开始收费！
+添加8888端口 1.第一步
+2.点击“配置规则”，点击手动添加，输入目的:8888/8888，输入源:0.0.0.0/0(表示任何人都能访问)
+使用服务器
+1.回退到实例列表，点击&amp;quot;远程连接&amp;quot;
+第一次使用时，把“远程连接密码”记到标签里(没有就不记)
+2.重置密码。
+点击“过多”-&amp;gt;重置实例密码
+这是通过网页登陆阿里云服务器，接下来教你如何在本地也能登陆。
+本地登陆云服务器 1.本地打印上传GitHub的公钥
+终端代码: cat ~/.ssh/id_rsa.pub  复制公钥
+2.打开VScode,把key追加到文件里
+代码: echo &amp;lsquo;粘贴公钥&amp;hellip;&amp;rsquo; &amp;raquo; ~/.ssh/authorized_keys
+3.把编辑好的代码复制到云服务器运行，回车
+4.打开终端运行
+ssh root@IP地址(公)
+ 例子： ssh root@8.130.10.66  yes，回车
+总结：
+把公钥放到阿里云的服务器，就能使用ssh在终端访问服务器了。
+现在服务器就可以关掉啦。
+终端访问服务器 1.进入账号
+代码:ssh root@8.130.10.66  退出云服务系统 代码: exit
+卡了直接退出终端 ctrl+w
+2.查目前的位置 代码: pwd</description>
+    </item>
+    
+  </channel>
+</rss>

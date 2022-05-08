@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CSS全解 on 博客</title>
+    <link>http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/</link>
+    <description>Recent content in CSS全解 on 博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>css动画</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/</guid>
+      <description>将div左右移动的例子
+原理
+每过段时间(用setInterval做到)
+将div移动一小段距离
+直到移动到目标点
+注意性能
+绿色表示重新绘制(repaint)了
+css渲染过程依次包含布局，绘制，合成
+其中布局和绘制有可能被省略
+第2种方式
+前端高手不用left做动画，用transform(变形)，性能会好很多
+原理
+transform:translateX(0=&amp;gt;300px)
+直接修改会被合成，需要等一会修改
+transition过渡属性可以自动脑补中间帧
+注意性能
+并没有repaint重新绘制
+比改left性能好
+使用transform让浏览器渲染次数变少了，性能好
+浏览器渲染原理 查看浏览器渲染
+开发者工具，选中任意一个tab,按esc键,勾选Paint flashing。
+刷新页面，绿色出现的次数，就是浏览器渲染的次数
+浏览器渲染过程
+根据HTML构建HTML树(DOM)
+根据CSS构建CSS树(CSSOM)
+将两棵树合并成一颗渲染树
+Layout布局(文档流，盒模型，计算大小和位置)
+Paint绘制(把边框颜色，文字颜色，阴影等画出来)
+Compose合成(根据层叠关系展示画面) 
+如何更新样式
+一般用JS来更新样式
+比如div.style.background=&#39;red&#39; 比如div.style.display=&#39;none&#39; 比如div.classList.add(&#39;red&#39;)  加类比加样式更好！高手都是加类更快，新手才加style。工作中也是直接加类
+比如div.remove()直接删掉节点
+这些方法有什么不同吗？
+用js更新样式有3种不同的渲染更新方式
+第一种，全走
+div.remove()会触发当前消失，其它元素relayout
+第二种，跳过layout
+改变背景颜色，直接repaint+composite
+第三种，跳过layout和paint
+改变transform，只需composite
+ 不同属性有不同的渲染流程，怎么知道每个属性触发什么流程？
+CSS Triggers
+浏览器渲染性能优化  js/css/样式/Layout布局/Paint绘制/Composited合成
+  5个过程每一个都可以被优化
+ 1.优化JavaScript执行(优化js)
+TL;DR
+  对于动画效果的实现，避免使用 setTimeout 或 setInterval，请使用 requestAnimationFrame。
+  将长时间运行的 JavaScript 从主线程移到 Web Worker。</description>
+    </item>
+    
+    <item>
+      <title>css基础</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/</guid>
+      <description>体系化学习
+1.学一门语言必须学会什么
+语法
+如何调试
+在哪查资料
+标准制定者是谁
+2.如何学 -CRM
+copy
+run
+modify
+ 前言
+css 全称叫层叠样式表，是由李爵士的挪威同事赖先生提出的。
+层叠 表现在 &amp;ldquo;样式层叠&amp;rdquo; &amp;ldquo;选择器层叠&amp;rdquo; 和 “文件层叠”。
+2004～2011年的css2.1版本是使用 最广泛的版本 (IE支持)。 从css3开始 分模块升级，不存在css4了。
+如何知道哪些浏览器支持哪些特性？ 使用caniuse.com
+一.语法 语法一:样式语法
+选择器{ 属性名:属性值; /* 注释 */ }  语法二：at语法
+@charset &amp;quot;UTF-8&amp;quot;; 必须放在第一行且分号;不能丢 @import url(2.css); 分号不能丢 @media (min-width:100px)and(max-width:200px;){ 语法一 }  @charset &amp;ldquo;UTF-8&amp;quot;指定当前文件的字符编码（或字符集)
+二.如何调试css css不会报错，怎么知道自己有没有写错？
+(1)学会使用开发者工具
+找到你脑中的标签
+看它是否有选择器
+看它的样式是否被划掉
+看它的样式是否有警告
+(2)Border调试法
+怀疑某个元素有问题
+就给这个元素加border：1px solid red;
+(3)使用vscode/webstorm看颜色
+(3)工具搜索 🔍w3c css validator在线调试
+三.在哪查资料 1.MDN
+🔍flex mdn
+2.css tricks</description>
+    </item>
+    
+    <item>
+      <title>css定位</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/</guid>
+      <description>布局与定位的区别：布局是屏幕平面上的，定位是垂直于屏幕的。
+ 一个div的分层:
+自底向上依次为background, border ,块级子元素(div), 浮动元素(float), 内联子元素(文字)
+后出来的内联子元素(文字)会盖住先出来的内联子元素(文字)
+新属性 position 总结
+position属性值:
+static默认值，待在文档流里
+relative相对定位，升起来，但不脱离文档流
+absolute绝对定位，定位基准是祖先里的非static
+fixed固定定位，定位基准是viewport(有诈)
+sticky粘滞定位，不好描述直接举例
+经验
+如果你写了absolute，一般都得补一个relative
+如果你写了absolute或fixed，一定要补top和left
+sticky兼容性很差
+position:relative; 1.使用场景
+(1)用于做位移(很少用)
+(2)用于给absolute元素做爸爸
+用法1:占的位置不变，只是你显示的地方跟之前有所偏移(很少用)
+用法2:跟absolute结合使用,给absolute元素做爸爸
+给爸爸加上position:relative;儿子上加position:absolute;
+匹配后close就会以container为依据去定位。
+2.relative配合z-index
+z-index:auto默认值，不创建新重叠上下文
+z-index:0/1/2
+z-index:-1/-2
+z-index与relative配合可以让后出来的div被覆盖
+只要比其他的元素多一个数，就会压制其它的元素。这就是相对定位互相压制的办法
+默认每个元素的z-index是auto，auto计算出来值是0。但是不能写0，auto是auto 0是0。
+position:absolute; 其它
+1.文字内容不许换行 white-space: nowrap;(经常用!)
+2.transform: translateX(-50%);
+3.calc() bottom: calc(100% + 10px);计算下100%+10px
+transform: scale(0.9);
+4.left:30%;
+5.absolute是相对于祖先元素中最近的一个定位元素 定位的，只要不是static就是定位元素。
+1.使用场景
+(1)脱离原来位置另起一层,用绝对定位做关闭按钮(很常用!)
+relative跟absolute结合使用
+(2)鼠标悬浮才显示&amp;quot;提示内容&amp;quot;的功能
+1.文字内容不许换行white-space: nowrap;
+2.transform: translateX(-50%);
+3.calc() bottom: calc(100% + 10px);计算下100%+10px
+2.配合Z-index
+3.经验
+1.很多人都以为absolute是相对于relative定位的
+错！absolute是相对于祖先元素中最近的一个定位元素 定位的，只要不是static就是定位元素。
+2.某些浏览器上如果不写top/left会位置错落(一定要记住)</description>
+    </item>
+    
+    <item>
+      <title>css布局</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/</guid>
+      <description>布局就是把页面分成一块一块,按左中右，上中下等排列
+ 布局一般分为3类
+1’固定宽度布局，一般宽度为960/1000/1024px
+例如淘宝
+2’不固定宽度布局，主要靠文档流的原理来布局
+一般在手机上用
+补充：文档流本来就是自适应的，不需要加额外的样式
+3’响应式布局
+PC上固定宽度，手机上不固定宽度
+也就是一种混合布局
+ 布局的两种思路
+1’从大到小(老手) 先定下大局，然后完善每个部分的小布局
+2‘从小到大(新手) 先完成小布局，然后组合成大布局
+css布局  css布局(div+css布局) 用章节标签代替div(header main section aside footer)
+ 3种css布局技术
+1.float布局
+需要兼容IE9及以下(需要PC网页)，必要时采用负margin(常用技巧)
+用在IE布局,老浏览器用float
+2.flex布局
+不需要兼容IE(不需要PC网页)，只做手机H5页面,要兼容旧手机浏览器。必要时采用负margin(常用技巧)
+只要不需要兼容IE,就可以在所有地方用,新浏览器用flex。
+3.grid布局
+不需要兼容IE(不需要PC网页)，只做手机H5页面,只兼容最新浏览器。
+Grid布局功能最强大，尤其适合“不规则布局”。
+ float布局  其它
+1.调试 outline:1px solid red;
+2.取消默认样式 *{margin:0; padding:0; box-sizing:border-box;}
+ float布局两步走
+第1步 在子元素上加float:left 和 width
+第2步 在父元素上加.clearfix。clearfix内容如下
+ .clearfix:after{ content:&#39;&#39;; display:block; clear:both; }  想用float布局做个导航栏但hearder高度为0怎么办？ 
+答：用.clearfix。一个块级元素的高度是由它内部文档流元素的总和决定的，header高度是由内部的文档流元素div nav决定的。float可以让元素脱离文档流。header里没有文档流元素，那么header高度就为0 
+老手的经验：
+1.最后一个不设width(会自适应)，可以加个max-width:100px;
+2.如果用了float布局，就不需要再想响应式了。
+因为手机上不用IE，float布局是专门为IE准备的，所以不需要做响应式。 
+3.IE6/7存在双倍margin bug</description>
+    </item>
+    
+  </channel>
+</rss>

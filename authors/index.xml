@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Authors on 博客</title>
+    <link>http://lixueqin-4119.xyz/authors/</link>
+    <description>Recent content in Authors on 博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Sat, 07 May 2022 13:11:22 +0800</lastBuildDate><atom:link href="http://lixueqin-4119.xyz/authors/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>李雪芹</title>
+      <link>http://lixueqin-4119.xyz/authors/example-author/</link>
+      <pubDate>Sat, 07 May 2022 13:11:22 +0800</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/authors/example-author/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://lixueqin-4119.xyz/authors/hugo-authors/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/authors/hugo-authors/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

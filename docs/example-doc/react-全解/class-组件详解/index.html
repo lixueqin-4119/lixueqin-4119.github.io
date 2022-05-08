@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>Class 组件详解 | 目录 | 博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.1" />
+<link rel="stylesheet" href="http://lixueqin-4119.xyz/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
+<script defer src="http://lixueqin-4119.xyz/js/eureka.min.f1639ee98d6cbd85b2b5f034d27320da962002ff83159ed4e01dbc5948c42a1ab26c2d6e74c66e93f5cec4d24dbd166d.js" integrity="sha384-8WOe6Y1svYWytfA00nMg2pYgAv&#43;DFZ7U4B28WUjEKhqybC1udMZuk/XOxNJNvRZt"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+
+<script defer type="text/javascript" src="http://lixueqin-4119.xyz/js/fontawesome.min.7b735802cbde01152678cc4a867f0b4bb0597876e29adfcaf1e5b5e99d39d7af87f348fdfd91c7eaf9ed7dc1eece7c61.js" integrity="sha384-e3NYAsveARUmeMxKhn8LS7BZeHbimt/K8eW16Z0516&#43;H80j9/ZHH6vntfcHuznxh"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="目录
+一.class组件的创建方式
+二.props和state
+三.生命周期Lifecycle
+ 创建 class 组件 两种方式 第1种.ES5方式(过时) import React from &#39;react&#39; const A = React.createClass({ render() { return ( &lt;div&gt;hi&lt;/div&gt; ) } }) export default A // 由于ES5不支持class,才会有这种方式 第2种.ES6方式(推荐) import React from &#39;react&#39;; class B extends React.Component { constructor(props) { super(props); } render() { return ( &lt;div&gt;hi&lt;/div&gt; ) } } export default B;  浏览器不支持ES6怎么办？
+用webpack&#43;babel将ES6翻译成ES5即可
+props 对组件来说组件内就是内部，组件外就是外部。
+1.传入props给B组件
+(1)外部数据一般都来自父元素的state，state是怎么作为props的？ 把this.state.name作为B的外部属性。
+(2)把外面的onClick函数传给onClick属性,这个onClick不是state，就是类的一个方法。传的是地址，对象只会拷贝地址。
+(3)外部数据被包装为一个对象
+name、onClick会变成对象{name:&#39;frank&#39;,onClick:...,children:&#39;hi&#39;} children就是hi,如果里面写了2个东西，就会变成一个数组放在children里。
+(4)onClick就是回调
+2.props如何初始化
+class B extends React.Component { constructor(props) { //这个props是从外部父组件接收来的 super(props); //super会把props放到this上 //this.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"",
+      "item":"http://lixueqin-4119.xyz/docs/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"目录",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/"},{
+      "@type": "ListItem",
+      "position": 3 ,
+      "name":"React全解",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/"},{
+      "@type": "ListItem",
+      "position": 4 ,
+      "name":"Class 组件详解",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/"
+    },
+    "headline": "Class 组件详解 | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
+    "dateModified": "2020-10-16T00:00:00+00:00",
+    "wordCount":  696 ,
+    "publisher": {
+        "@type": "Person",
+        "name": "WANG Chucheng",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "http://lixueqin-4119.xyz/images/icon.png"
+        }
+        },
+    "description": "目录\n一.class组件的创建方式\n二.props和state\n三.生命周期Lifecycle\n 创建 class 组件 两种方式 第1种.ES5方式(过时) import React from \u0027react\u0027 const A = React.createClass({ render() { return ( \u0026lt;div\u0026gt;hi\u0026lt;\/div\u0026gt; ) } }) export default A \/\/ 由于ES5不支持class,才会有这种方式 第2种.ES6方式(推荐) import React from \u0027react\u0027; class B extends React.Component { constructor(props) { super(props); } render() { return ( \u0026lt;div\u0026gt;hi\u0026lt;\/div\u0026gt; ) } } export default B;  浏览器不支持ES6怎么办？\n用webpack\u002bbabel将ES6翻译成ES5即可\nprops 对组件来说组件内就是内部，组件外就是外部。\n1.传入props给B组件\n(1)外部数据一般都来自父元素的state，state是怎么作为props的？ 把this.state.name作为B的外部属性。\n(2)把外面的onClick函数传给onClick属性,这个onClick不是state，就是类的一个方法。传的是地址，对象只会拷贝地址。\n(3)外部数据被包装为一个对象\nname、onClick会变成对象{name:\u0027frank\u0027,onClick:...,children:\u0027hi\u0027} children就是hi,如果里面写了2个东西，就会变成一个数组放在children里。\n(4)onClick就是回调\n2.props如何初始化\nclass B extends React.Component { constructor(props) { \/\/这个props是从外部父组件接收来的 super(props); \/\/super会把props放到this上 \/\/this."
+}
+</script><meta property="og:title" content="Class 组件详解 | 目录 | 博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="http://lixueqin-4119.xyz/images/icon.png">
+
+
+<meta property="og:url" content="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/" />
+
+
+
+
+<meta property="og:description" content="目录
+一.class组件的创建方式
+二.props和state
+三.生命周期Lifecycle
+ 创建 class 组件 两种方式 第1种.ES5方式(过时) import React from &#39;react&#39; const A = React.createClass({ render() { return ( &lt;div&gt;hi&lt;/div&gt; ) } }) export default A // 由于ES5不支持class,才会有这种方式 第2种.ES6方式(推荐) import React from &#39;react&#39;; class B extends React.Component { constructor(props) { super(props); } render() { return ( &lt;div&gt;hi&lt;/div&gt; ) } } export default B;  浏览器不支持ES6怎么办？
+用webpack&#43;babel将ES6翻译成ES5即可
+props 对组件来说组件内就是内部，组件外就是外部。
+1.传入props给B组件
+(1)外部数据一般都来自父元素的state，state是怎么作为props的？ 把this.state.name作为B的外部属性。
+(2)把外面的onClick函数传给onClick属性,这个onClick不是state，就是类的一个方法。传的是地址，对象只会拷贝地址。
+(3)外部数据被包装为一个对象
+name、onClick会变成对象{name:&#39;frank&#39;,onClick:...,children:&#39;hi&#39;} children就是hi,如果里面写了2个东西，就会变成一个数组放在children里。
+(4)onClick就是回调
+2.props如何初始化
+class B extends React.Component { constructor(props) { //这个props是从外部父组件接收来的 super(props); //super会把props放到this上 //this." />
+
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="docs" />
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">简介</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于我</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+
+
+<div class="lg:pt-12">
+    <div class="flex flex-col md:flex-row bg-secondary-bg rounded">
+        <div class="md:w-1/4 lg:w-1/5 border-e">
+            <div class="sticky top-16 pt-6">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sidebar-title" class="md:hidden mx-4 px-2 pt-4 pb-2 md:border-b text-tertiary-text md:text-primary-text">
+    <span class="font-semibold">Table of Contents</span>
+    <i class='fas fa-caret-right ms-1'></i>
+</div>
+
+<div id="sidebar-toc"
+    class="hidden md:block overflow-y-auto mx-6 md:mx-0 pe-6 pt-2 md:max-h-doc-sidebar bg-primary-bg md:bg-transparent">
+    <div class="flex flex-wrap ms-4 -me-2 p-2 bg-secondary-bg md:bg-primary-bg rounded">
+        <a class=" hover:text-eureka"
+            href="http://lixueqin-4119.xyz/docs/example-doc/">目录</a>
+        
+        
+        
+
+
+    </div>
+    
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/">【HTML全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A0%87%E7%AD%BE/">HTML标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A6%82%E8%A7%88/">HTML概览</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E9%87%8D%E7%82%B9%E6%A0%87%E7%AD%BE/">HTML重点标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/%E6%89%8B%E6%9C%BA%E9%A2%84%E8%A7%88-%E8%B0%83%E8%AF%95/">手机预览 &amp; 调试</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/">HTTP 状态码</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/">URL 是什么</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/">请求和响应 &amp; Node.js Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/">JavaScript 的诞生</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/">JS函数</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/">JS对象</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/">JS对象分类</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">JS数据类型</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/">JS数组</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JS正则表达式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/">js获取屏幕宽高</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/">JS语法</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/">JS运算符</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/">DOM 编程</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/">DOM事件与事件委托</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/">jQuery 中的设计模式(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/">jQuery 中的设计模式(下)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/">手写DOM库(1)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/">MVC(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/">MVC(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" text-eureka  hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/">Class 组件详解</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">Hooks 原理解析</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/">Hooks 各个击破</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">React 类组件和函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/">React起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/">手写 Redux</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/">computed 和 watch</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/">Vue Router -前端路由实现的思路</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">数据响应式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/">构造选项</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/">模板、指令与修饰符</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">深入理解Vue动画原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/">表单与v-model</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/">起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/">进阶构造属性</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/">云服务器</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/">AJAX 的原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/">Ajax实战:Cookie、Session</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/">异步与Promise</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/">跨域、CORS、JSONP</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/">静态服务器Static Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/">Webpack(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/">Webpack(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+</ul>
+
+</div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <div class="w-full md:w-3/4 lg:w-4/5 pb-8 pt-2 md:pt-8">
+            <div class="flex">
+                <div class="w-full lg:w-3/4 px-6">
+                    <article class="prose">
+  <h1 class="mb-4">Class 组件详解</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2020-10-16</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>4 min read</span>
+  </div>
+
+  
+
+  
+</div>
+
+
+  
+  
+
+  <blockquote>
+<p><strong>目录</strong></p>
+<p>一.class组件的创建方式</p>
+<p>二.props和state</p>
+<p>三.生命周期Lifecycle</p>
+</blockquote>
+<h1 id="创建-class-组件">创建 class 组件</h1>
+<pre><code class="language-js">两种方式
+第1种.ES5方式(过时)
+import React from 'react'
+const A = React.createClass({
+  render() {
+    return ( &lt;div&gt;hi&lt;/div&gt; )
+  }
+})
+export default A
+// 由于ES5不支持class,才会有这种方式
+
+第2种.ES6方式(推荐)
+import React from 'react';
+class B extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      &lt;div&gt;hi&lt;/div&gt;
+    )
+  }
+}
+export default B;
+</code></pre>
+<p><strong>浏览器不支持ES6怎么办？</strong></p>
+<p>用webpack+babel将ES6翻译成ES5即可</p>
+<h1 id="props">props</h1>
+<p>对组件来说组件内就是内部，组件外就是外部。</p>
+<p><strong>1.传入props给B组件</strong></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d75749e8513841c5a06b0af2f0abc077~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>(1)外部数据一般都来自父元素的state，<strong>state是怎么作为props的？</strong>
+把<code>this.state.name</code>作为B的外部属性。</p>
+<p>(2)把外面的onClick函数传给onClick属性,这个onClick不是state，就是类的一个方法。传的是地址，对象只会拷贝地址。</p>
+<p><strong>(3)外部数据被包装为一个对象</strong><br>
+name、onClick会变成对象<code>{name:'frank',onClick:...,children:'hi'}</code>
+children就是hi,如果里面写了2个东西，就会变成一个数组放在children里。</p>
+<p>(4)onClick就是回调</p>
+<p><strong>2.props如何初始化</strong></p>
+<pre><code class="language-js">class B extends React.Component {
+  constructor(props) { //这个props是从外部父组件接收来的
+    super(props); //super会把props放到this上
+  //this.state={n:0} 初始化，如果写了初始化那必须写constructor
+  }
+  render(){}
+}
+要么不初始化，即不写constructor
+要么初始化，且必须写全套(不写super直接报错)
+</code></pre>
+<p><strong>效果</strong></p>
+<p>这么做了之后，this.props就是外部数据<strong>对象的地址</strong>了。</p>
+<p><strong>3.读取props</strong></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/48d6da3ab97046159fdffad86d1a9714~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>把外部传进来的函数 复制给<strong>div的onClick</strong> props
+直接展示<code>{this.props.name}</code>  <br>
+用对象的语法来读取并展示<code>{this.props.children}</code><br>
+通过<code>this.props.xxx</code>读取</p>
+<p><strong>4.怎么写props？</strong><br>
+<strong>永远不准对props进行任何的改写，不准写props!</strong></p>
+<pre><code class="language-js">//不要这样写
+this.props={ 另一个对象}
+this.props.xxx='hi'
+</code></pre>
+<p><strong>相关钩子</strong><br>
+<a href="https://codesandbox.io/s/withered-feather-wgczm">componentWillReceiveProps</a>钩子(<strong>被弃用</strong>)</p>
+<p>当组件接收新的props时，会触发此钩子</p>
+<p><strong>面试题</strong><br>
+<strong>Props的作用</strong><br>
+<strong>1.接受外部数据</strong><br>
+只能读不能写，外部数据由父组件传递<br>
+<strong>2.接收外部函数</strong><br>
+在恰当的时机，调用该函数。比如说当某个div被点击时调用<br>
+该函数一般是父组件的函数</p>
+<h2 id="state读--setstate写">State(读) &amp; setState(写)</h2>
+<p><strong>1.初始化</strong></p>
+<pre><code class="language-js">class B extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state = { //初始化
+      user: {name:'frank', age:18}
+      }
+  }
+    render() {  ...  }
+  }
+}
+</code></pre>
+<p><strong>2.读写State</strong></p>
+<p><strong>读用this.state</strong></p>
+<pre><code class="language-js">this.state.xxx.yyy.zzz
+</code></pre>
+<p><strong>写用this.setState(???,fn)</strong></p>
+<p><strong>第1个参数有2种情况:</strong></p>
+<pre><code class="language-js">1' this.setState(newState,fn)
+⚠️注意:setState不会立即改变this.state,会在当前代码运行完后，再去更新this.state,从而触发UI更新
+
+2' this.setState((state,props)=&gt;newState,fn)
+这种方式的state反而更易于理解
+fn会在写入成功后执行
+</code></pre>
+<p><strong>写时会shallow merge</strong></p>
+<p>setState会自动将新state与旧state进行一级合并</p>
+<p><strong>详解</strong></p>
+<p><strong>(1)setState不会立即改变this.state</strong></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/76b3121ed63948a38edf4973417849f9~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>所以当前setState后，<code>this.state.x</code>仍为1</p>
+<p><strong>这就导致了一个问题:</strong> 2次setState后，x是2不是3。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c6d9b5ad9c87496c8aa70bf36a61853c~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>解决方法:</strong></p>
+<p>1&rsquo; 只用一次setState</p>
+<p>2&rsquo; 不用对象的形式而是<strong>用函数的形式</strong></p>
+<p><strong>JS中<code>{}</code>有个bug,如果你要返回一个对象，最好用<code>()</code>扩起来。</strong></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2f566865871440c8b3f3b2aa33cd596e~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>(2)第2个参数fn</strong>(用的少)</p>
+<p>第2个参数<code>fn</code>，成功的回调，在setState成功后会执行的操作。</p>
+<p>可以用fn实现2次<code>+1</code>，但一般不会这么用。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ae73fbe8903f4e809c1451a2745334cd~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>(3)不守规矩:修改this.state的属性值</strong></p>
+<p><code>this.state.n +=1</code></p>
+<p><code>this.setState(this.state)</code></p>
+<p>不推荐用，但能用(因为React没法阻止你这么写)</p>
+<h1 id="react的生命周期">React的生命周期</h1>
+<p>生命周期<br>
+类比如下代码</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/880ee634c2f54046aa4ba26de5a1f7b9~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>create创建、mount挂载、update更新、unmount卸载,这四个过程就叫<strong>生命周期</strong></p>
+<p><strong>React有如下生命周期:</strong></p>
+<pre><code class="language-js">1.constructor() 构造，在这里初始化state 
+2.shouldComponentUpdate() 是否应该更新，return false阻止更新 
+3.render() 渲染，创建虚拟DOM
+4.componentDidMount() 组件已挂载(已出现在页面)
+5.componentDidUpdate() 组件已更新，当组件更新之后就会执行该函数
+6.componentWillUnmount() 当组件将要卸载/死亡时就会执行该函数
+</code></pre>
+<p>下面逐个了解这6个函数是什么时候执行的。</p>
+<h3 id="一constructor"><strong>一.constructor</strong></h3>
+<p>构造，在这里初始化state</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f389d90a6c4a4485acbb7f2d3aec0be2~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>如果代码只是初始化，那么props可省略不用写。初始化state时才需要写全constructor。</p>
+<h3 id="二shouldcomponentupdate">二.shouldComponentUpdate</h3>
+<blockquote>
+<p>是否应该更新，return false阻止更新</p>
+<p>PureComponent是shouldComponentUpdate的优化，<strong>推荐用PureComponent</strong>。</p>
+</blockquote>
+<p><strong>用途</strong><br>
+返回true表示不阻止UI更新<br>
+返回false表示<strong>阻止</strong>UI更新</p>
+<p><strong>示例:</strong><code>+1``-1</code>数值不变，render仍旧会执行</p>
+<pre><code class="language-js">class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { n: 1 }
+  }
+  onClick = () =&gt; {
+    this.setState(state =&gt; ({
+      n: state.n + 1
+    }))
+    this.setState(state =&gt; ({
+      n: state.n - 1
+    }))
+ }
+//{n:1}和{n:1}不是同一个对象。
+//对React来说，你换了对象我就要更新数据，对象就是数据。
+//只不过页面上的元素是没有更新的
+</code></pre>
+<p>补充：JS中<code>{}</code>有个bug,如果你要返回一个对象，最好用<code>()</code>扩起来。</p>
+<p>render是每次都执行了，重复执行。有没有办法阻止render不必要的重复执行？用<code>shouldComponentUpdate</code></p>
+<p>🔍<a href="https://zh-hans.reactjs.org/docs/optimizing-performance.html#shouldcomponentupdate-in-action">React.shouldComponentUpdate </a></p>
+<pre><code class="language-js">import React from &quot;react&quot;
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      n: 1
+    }
+  }
+  onClick = () =&gt; {
+    this.setState(state =&gt; ({
+      n: state.n + 1
+    }))
+    this.setState(state =&gt; ({
+      n: state.n - 1
+    }))
+  }
+  shouldComponentUpdate(newProps, newState) {
+    if (newState.n === this.state.n) {
+      return false
+    } else {
+      return true
+    }
+  }
+  render() {
+    console.log('render了一次')
+    return (
+      &lt;div&gt;App
+        &lt;div&gt;
+          {this.state.n}
+          &lt;button onClick={this.onClick}&gt;+1&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    )
+  }
+}
+export default App
+</code></pre>
+<p><strong>解析</strong></p>
+<p>1.newProps就算用不到也不能删,占位的，删掉的话newState就变成第1个参数了。</p>
+<pre><code class="language-js">shouldComponentUpdate(newProps, newState){
+  if (newState.n === this.state.n) {
+    return false
+  } else {
+    return true
+  }
+}
+可以这样写
+shouldComponentUpdate(){ //arguments的用法
+  if (arguments[1].n === this.state.n) {
+    return false
+  } else {
+    return true
+  }
+}
+</code></pre>
+<p><strong>PureComponent的用法(推荐)</strong></p>
+<blockquote>
+<p>PureComponent是shouldComponentUpdate的优化</p>
+</blockquote>
+<p><strong>用法:只需要修改继承React.PureComponent</strong></p>
+<pre><code class="language-js">class App extends React.PureComponent{ ... }
+</code></pre>
+<p>React提供了PureComponent给你优化，可代替shouldComponentUpdate。
+PureComponent 会在 render 之前对比<code>新旧state</code>的每一个key，以及<code>新旧props</code>的每一个key。如果所有key的值全都一样就不会render，如果有任何一个key的值不同，就会 render。</p>
+<p><strong>面试题</strong><br>
+<strong>请问 shouldComponentUpdate 有什么用？</strong><br>
+这个钩子/生命周期允许我们手动判断是否要进行组件更新，我们可以根据应用场景灵活的设置返回值，以避免不必要的更新。</p>
+<h3 id="三生命周期之-render">三.生命周期之 render</h3>
+<blockquote>
+<p>渲染，创建虚拟DOM</p>
+</blockquote>
+<p><strong>用途详解</strong><br>
+<strong>功能1.return一个虚拟DOM</strong><br>
+表示DOM元素的对象旧就叫做虚拟DOM，return返回的<code>&lt;div&gt;</code>是一个虚拟DOM元素的对象。虚拟DOM就是个对象。</p>
+<p><strong>虚拟DOM长啥样？</strong></p>
+<pre><code class="language-js">render() {
+  const x = (
+    &lt;div&gt;App
+      &lt;div&gt;
+        {this.state.n}
+        &lt;button onClick={this.onClick}&gt;+1&lt;/button&gt;
+       &lt;/div&gt;
+     &lt;/div&gt;
+   )
+   console.log(x)
+   return x
+}
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b2e190fd8eb04d61b898e1d3114922cf~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>功能2.只能有一个根元素</strong></p>
+<p><strong>如果有2个元素就要用<code>&lt;React.Fragment&gt;</code>包起来。</strong></p>
+<p><code>&lt;React.Fragment&gt;&lt;/React.Fragment&gt;</code><strong>可以简写为</strong><code>&lt;&gt;&lt;/&gt;</code></p>
+<pre><code class="language-js">render() {
+  return (
+    &lt;&gt;
+      &lt;div&gt;div1&lt;/div&gt;
+      &lt;div&gt;div2
+        &lt;div&gt;
+          {this.state.n}
+          &lt;button onClick={this.onClick}&gt;+1&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+ )}
+</code></pre>
+<p>好处:只是做占位的，渲染的时候并不存在。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f0d140fad1264de5bb1b5b56e71d8a1f~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>技巧详解</strong></p>
+<p><strong>1.render里面可以写<code>if...else</code>、<code>?:</code>表达式</strong></p>
+<p>可以写<code>if...else...</code>、<code>?:</code>表达式(推荐)、<code>&amp;&amp;</code></p>
+<pre><code class="language-js">render() {
+  let message
+  if (this.state.n % 2 === 0) {
+    message = &lt;div&gt;偶数&lt;/div&gt;
+  } else {
+    message = &lt;div&gt;奇数&lt;/div&gt;
+  }
+  return (
+    &lt;&gt;
+      {message}
+      &lt;button onClick={this.onClick}&gt;+1&lt;/button&gt;
+    &lt;/&gt;
+  )
+}
+//也可以直接这样
+render() {
+  return (
+    &lt;&gt;
+      {this.state.n % 2 === 0 ? &lt;div&gt;偶数&lt;/div&gt; :&lt;div&gt;奇数&lt;/div&gt;}
+    //{this.state.n % 2 === 0 &amp;&amp; &lt;div&gt;偶数&lt;/div&gt;}
+      &lt;button onClick={this.onClick}&gt;+1&lt;/button&gt;
+    &lt;/&gt;
+  )
+}
+</code></pre>
+<p><strong>2.render中循环的写法</strong></p>
+<p>render里面不能直接写for循环，需要用数组，因为for循环没有返回值，所以只会循环一次。</p>
+<p>一般会用map实现循环。</p>
+<p><strong>循环方法:1&rsquo; 用变量  2&rsquo; 用map</strong></p>
+<pre><code class="language-js">1' 用变量
+render() {
+  let result = []
+  for (let i = 0; i &lt; this.state.array.length; i++) {
+    result.push(this.state.array[i])
+  }
+  return result
+}
+2' 用array.map
+render() {//给每个元素包个span
+  return this.state.array.map(n =&gt; &lt;span key={n}&gt; {n} &lt;/span&gt;)
+}
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e60828af50de4ba0b7f3bf22d48461ea~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>⚠️注意:所有的循环都需要绑定key</strong></p>
+<h3 id="四生命周期之-componentdidmount">四.生命周期之 componentDidMount</h3>
+<blockquote>
+<p>当组件已挂载(已出现在页面)就会执行这个函数</p>
+</blockquote>
+<p><strong>获取当前div的宽度</strong></p>
+<p><strong>1&rsquo; 用id</strong></p>
+<pre><code class="language-js">import React from &quot;react&quot;
+
+class App extends React.PureComponent {
+    constructor(props) {
+        super(props)
+        this.state = {
+            n: 1,
+            width: undefined
+        }
+    }
+    onClick = () =&gt; {
+        this.setState(state =&gt; ({
+            n: state.n + 1
+        }))
+    }
+    componentDidMount() {
+        const div = document.getElementById(&quot;xxx&quot;)
+        const { width } = div.getBoundingClientRect()//析构写法
+        this.setState({ width })
+    }
+    render() {
+        return (
+            &lt;div id=&quot;xxx&quot;&gt;当前div宽度是：{this.state.width}&lt;/div&gt;
+        )
+    }
+}
+export default App
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b3db4c74f3184ec4a9f958299e69b645~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>在元素插入页面后执行代码，这些代码依赖DOM。如果你想获取div的高度，就最好在<code>componentDidMount</code>里写。</p>
+<p><strong>2&rsquo; 除了用id还可以用Ref</strong></p>
+<p>React提供了一种更方便的方式来<strong>获取div</strong></p>
+<p>🔍<a href="https://react.docschina.org/docs/refs-and-the-dom.html#creating-refs">react ref</a></p>
+<pre><code class="language-js">class App extends React.PureComponent {
+    divRef = undefined //先声明，告诉后来的程序员说，我会动态创建divRef的东西。直接写不利于阅读。
+    constructor(props) {
+        super(props)
+        this.state = {
+            n: 1,
+            width: undefined
+        }
+        const divRef = React.createRef //第1步.创建引用
+    }
+    onClick = () =&gt; {
+        this.setState(state =&gt; ({
+            n: state.n + 1
+        }))
+    }
+    componentDidMount() {//第3步.使用this.divRef获取div
+        const div = this.divRef.current
+        const { width } = div.getBoundingClientRect()
+        this.setState({ width })
+    }
+    render() {
+        return (//第2步.将创建的引用放到div上
+            &lt;div ref=&quot;{this.divRef}&quot;&gt;当前div宽度是:{this.state.width}&lt;/div&gt;
+        )
+    }
+}
+</code></pre>
+<p>好处:不用担心div会冲突，因为用的是内部属性。</p>
+<p>componentDidMount还可以发起&quot;加载数据的AJAX请求&quot;,<strong>官方推荐</strong>写在这里。比如我要获取当前用户信息，既可以在<code>constructor</code>里写，也可以在<code>componentDidMount</code>里写，但是<strong>官方推荐</strong>写到<code>componentDidMount</code>。</p>
+<p><strong>首次渲染一定会执行此钩子。</strong></p>
+<p><strong><code>componentDidMount(){}</code>没有参数，要获取什么东西只能通过this取。</strong></p>
+<h3 id="五生命周期之-componentdidupdate">五.生命周期之 componentDidUpdate()</h3>
+<blockquote>
+<p>当组件更新之后就会执行该函数,首次渲染不会执行此钩子。</p>
+</blockquote>
+<p><strong>1.在视图更新后执行代码。首次渲染不会执行此钩子，因为没有更新任何东西。</strong></p>
+<p>2.componentDidUpdate()可以发起AJAX请求，用于<a href="https://zh-hans.reactjs.org/docs/react-component.html#componentdidupdate">更新数据</a>
+<strong>经验:</strong> 很少在componentDidUpdate发请求，一般都是在componentDidMount里。</p>
+<p>3.如果在这个钩子里面再去setState可能会引起无限循环。
+因为它们两个会互相调用，除非做一些条件判断。比如说，n是奇数时才会调用componentDidUpdate</p>
+<p>4.如果阻止更新UI，componentDidUpdate返回false,则不触发此钩子。</p>
+<p>5.<a href="https://zh-hans.reactjs.org/docs/react-component.html#componentdidupdate">参数</a></p>
+<pre><code class="language-js">componentDidUpdate(prevProps, prevState, snapshot)
+</code></pre>
+<h3 id="六生命周期之-componentwillunmount">六.生命周期之 componentWillUnmount()</h3>
+<blockquote>
+<p>当组件将要卸载/死亡时就会执行该函数</p>
+</blockquote>
+<p>1.组件从页面中移除并且从内存里干掉，才会触发并执行componentWillUnmount
+<strong>移除页面</strong>就是从页面跑到内存里面。<strong>销毁</strong>就是从内存里干掉它。</p>
+<p>2.unmount过的组件不能再吃unmount</p>
+<p><strong>举例</strong></p>
+<p>1.如果你在挂载时监听了window scroll事件，那你应该在组件要死时取消监听，因为如果你不取消那你监听有什么用呢。</p>
+<p>2.如果你在挂载时创建了计时器Timer，那么组件要死时就要删掉。</p>
+<p>3.如果你在挂载时创建了AJAX请求，那么你就要在componentWillUnmount里取消请求。</p>
+<p>所有你发起的那些会长期有效的东西，在你死后你都得取消。但实际上绝大部分的前端都不会做上面的3件事情。因为浪费的只是用户的内存,这就是前端页面越来越占内存的原因，大家都只用内存不清除内存。</p>
+<p><strong>总结:</strong> componentWillUnmount钩子是用来消除你之前做的一些可能会产生后果的一些事情，比如scroll、Timer、AJAX。<br>
+<strong>原则:</strong> 谁污染谁治理。<br>
+<strong>分阶段看钩子执行顺序:</strong></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fc6459945f6d4a5892bd778c97b6ef6b~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>能用函数组件就不用class组件，能用<code>React.PureComponent</code>就不用<code>React.Component</code></p>
+
+</article>
+
+                    
+                    
+                    
+
+                    
+
+
+
+                    
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+        <span class="text-primary-text block font-bold">Next</span>
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" class="block">Hooks 原理解析</a>
+      
+    </div>
+  </div>
+
+
+                    
+
+
+
+                </div>
+                
+                <div class="hidden lg:block lg:w-1/4">
+                    
+                    <div
+  class="
+    bg-secondary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>On This Page</h3>
+</div>
+<div
+  class="sticky-toc 
+    border-s
+   hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#state读--setstate写">State(读) &amp; setState(写)</a></li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一constructor"><strong>一.constructor</strong></a></li>
+        <li><a href="#二shouldcomponentupdate">二.shouldComponentUpdate</a></li>
+        <li><a href="#三生命周期之-render">三.生命周期之 render</a></li>
+        <li><a href="#四生命周期之-componentdidmount">四.生命周期之 componentDidMount</a></li>
+        <li><a href="#五生命周期之-componentdidupdate">五.生命周期之 componentDidUpdate()</a></li>
+        <li><a href="#六生命周期之-componentwillunmount">六.生命周期之 componentWillUnmount()</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+                    
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        hljs.initHighlightingOnLoad();
+        changeSidebarHeight();
+        switchDocToc();
+    })
+</script>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2021 <a href="https://www.wangchucheng.com/">WANG Chucheng</a> and <a href="https://www.ruiqima.com/">MA Ruiqi</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>

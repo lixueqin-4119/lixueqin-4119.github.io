@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HTTP全解 on 博客</title>
+    <link>http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/</link>
+    <description>Recent content in HTTP全解 on 博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HTTP 状态码</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/</guid>
+      <description>面试题 -常见状态码
+ HTTP 状态码(HTTP Status Code)是用来表示 HTTP 响应状态的 3 位数字代码。
+概览
+消息 100~199
+成功 200-299
+重定向 300 -399
+客户端出错 400-499
+服务器出错 500-599
+详解  #100 ~ 199 消息
+ 100 Continue
+服务器已经收到请求头，请求者应当继续提出请求。服务器返回此代码表示已收到请求的第一部分，正在等待其余部分
+101 Switching Protocol
+服务端已经理解了客户的请求，并通过 Ugrade 消息头通知客户端采用不同的协议来完成这个请求
+102 Processing(WebDAV)
+此代码表示服务器已收到并正在处理该请求，但没有响应可用。
+103 Early Hints
+此状态代码主要用于与Link 链接头一起使用，以允许用户代理在服务器仍在准备响应时开始预加载资源。
+ #200 ~ 299 成功
+ 200 OK
+请求成功。已成功处理了请求,出现此状态码表示正常状态
+201 Created
+该请求已成功，并因此创建了一个新的资源。这通常是在POST请求，或是某些PUT请求之后返回的响应。
+202 Accepted
+服务器已接受请求，但尚未处理，没有结果。
+意味着不会有一个异步的响应去表明当前请求的结果，预期另外的进程和服务去处理请求，或者批处理。
+203 Non-Authoritative Information
+服务器已成功处理了请求，但返回的实体头部元信息不是在原始服务器上有效的确定集合，而是来自本地或者第三方的拷贝。
+204 No Content
+服务器成功处理了请求，但不需要返回任何实体内容。
+205 Reset Content</description>
+    </item>
+    
+    <item>
+      <title>URL 是什么</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/</guid>
+      <description>李爵士发明的三样东西 WWW=URL+HTTP+HTML
+今天主要讲解什么是URL
+ IP(协议)  IP协议用来表示每个设备的地址。
+ IP是Internet Protocol(网络之间互连的协议)的缩写，是TCP/IP体系中的网络层协议。
+IP主要约定了两件事：
+1.如何定位一台设备
+有IP就可以定位一台设备
+2.如何封装数据报文，以跟其它设备交流
+IP分内网IP和外网IP
+外网就是路由器之外，内网就是路由器包括的有线和无线
+如何获取外网IP
+1.从电信租用宽带，一年一千多
+2.买个猫(调制解调器)，光猫就是把光信号变成电信号。把光信号变成路由器能理解的网络信号
+3.买个路由器，手机和电脑分别连接路由器广播出来的有线WIFI
+只要路由器通过光猫连上电信的服务器，那么路由器就会有个「外网IP」,比如「14.17.32.211」，
+这就是你在互联网中的地址。
+4.但是如果你重启路由器，那么你很有可能被重新分配一个「外网IP」。也就是说你的路由器没有「固定的外网IP」
+查看外网IP
+1’终端命令
+ipconfig  2’网站 ip138.com 不能告诉别人，别人会通过地址找到你
+你的路由器的外网IP如果是14.17.32.211那么你的手机和电脑的IP又是什么呢？
+是「内网」
+内网IP
+1.路由器会在你家创建个内网，内网中的设备使用内网IP，一般这个IP格式是192.168.xxx.xxx
+2.一般路由器会给自己分配个好记的内网IP，如192.168.1.1
+3.然后路由会再给每一个内网中的设备分配一个不同的内网IP，比如电脑是192.168.1.2，手机是192.169.1.3，以此类推
+路由器的功能
+路由器有两个IP，一个外网IP和一个内网IP
+内网中的设备可以互相访问，但是不能直接访问外网
+内网设备想要访问外网必须经过路由器中转
+外网中的设备可以互相访问但无法访问你的内网
+外网设备想要把内容送到内网也必须通过路由器
+也就是说内网和外网就像两个隔绝的空间，无法互通，唯一的联通点就是路由器
+所以路由器有时候也被叫做「网关」
+几个特殊的IP
+1.127.0.0.1 表示自己
+2.可以通过hosts将localhost指定为自己
+127.0.0.1:8080 = localhost:8080
+hosts可使任意字符串变成一个对应的ip
+hosts文件在哪？
+MAC修改hosts文件
+hosts文件位于 /private/etc/hosts，可以通过下面的方法修改。
+1.终端命令
+sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的hosts文件了。
+2.输入 i 就可以编辑了，此时状态为insert
+加上要配置的 ip+空格+域名
+3.编辑好后，按 esc键退出,然后输入:wq
+端口port  一台机器可以提供很多服务
+每个服务一个号码，这个号码就叫端口号port
+ 一.</description>
+    </item>
+    
+    <item>
+      <title>请求和响应 &amp; Node.js Server</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/</guid>
+      <description>主要内容
+用代码实现http(演示Node.js服务)
+前置条件:安装Node.js 14
+ 后端开发的代码在服务端运行，前端开发的代码在客户端运行。
+请求指客户端里的浏览器发一个东西，发到服务器。
+响应指服务器拿到请求后，在同一个端口返回一个响应。
+如何发请求？
+1.用chrome地址栏
+发请求: 浏览器输入http://baidu.com
+查看响应: 打开开发者工具-&amp;gt;选择network-&amp;gt;刷新-&amp;gt;选中第一个请求，选择Response
+2.用curl命令发请求
+(后面会单独讲解)
+ curl -v https://www.baidu.com  概念
+帮你发请求的工具叫做 「用户代理」
+用chrome发送请求那chrome就是代理代理，用curl,curl就是用户代理。
+实现http-server  实现http-server，根据路径返回字符串
+Node.js有一个http模块可以做到
+ 源代码
+关键代码如下图所示： 注意事项
+这些代码就是服务器代码，一般放在服务器上
+request是请求对象,response是响应对象
+path是不带查询参数的路径/x
+query是查询参数的对象形式{a:&amp;lsquo;1&amp;rsquo;}
+quertString是查询参数的字符串形式?a=1
+pathWithQuery是带查询参数的路径，一般不用
+代码逻辑
+1.每次请求,都会执行console.log
+2.用if else判断路径，并返回响应
+如果是已知路径，一律返回200
+如果是未知路径，一律返回404
+3.response.write()填写响应的内容
+response.end()将响应发给客户端用户,只要你end就会发送给浏览器
+4.乱码处理response.setHeader(&amp;lsquo;Content-Type&amp;rsquo;, &amp;rsquo;text/html;charset=utf-8&amp;rsquo;)
+5.每次修改记得重启
+control+c中断
+6.后缀是垃圾
+不需要加后缀(/x.css)
+Content-Type才是决定文件类型的关键
+体系化学习 系统学习概念(HTTP)
+1.必须学会什么？
+基础概念(有哪些是避必会的)
+如何调试(用的是Node.js,可以用log/debugger)
+在哪查资料(用的是Node.js,看Node.js文档)
+标准制定者是谁(HTTP规范文档:RFC 2616等)
+2.如何学 -CRM
+copy 抄
+run 放在自己的机器上运行成功
+modify 改变，加入自己的想法，然后重新运行
+HTTP 基础概念
+一.请求
+1.请求(所有请求都要按照如下格式)</description>
+    </item>
+    
+  </channel>
+</rss>

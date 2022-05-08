@@ -1,0 +1,2953 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>Hooks 各个击破 | 目录 | 博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.1" />
+<link rel="stylesheet" href="http://lixueqin-4119.xyz/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
+<script defer src="http://lixueqin-4119.xyz/js/eureka.min.f1639ee98d6cbd85b2b5f034d27320da962002ff83159ed4e01dbc5948c42a1ab26c2d6e74c66e93f5cec4d24dbd166d.js" integrity="sha384-8WOe6Y1svYWytfA00nMg2pYgAv&#43;DFZ7U4B28WUjEKhqybC1udMZuk/XOxNJNvRZt"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+
+<script defer type="text/javascript" src="http://lixueqin-4119.xyz/js/fontawesome.min.7b735802cbde01152678cc4a867f0b4bb0597876e29adfcaf1e5b5e99d39d7af87f348fdfd91c7eaf9ed7dc1eece7c61.js" integrity="sha384-e3NYAsveARUmeMxKhn8LS7BZeHbimt/K8eW16Z0516&#43;H80j9/ZHH6vntfcHuznxh"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="React文档
+Hooks：useState、useEffect、useLayoutEffect、useContext、useReducer、useMemo、React.memo、callCallback、useRef、useImperativeHandle、自定义Hook、useDebugValue
+ useState(最常用)  在React的函数组件里，默认只有属性，没有状态。
+ 1.使用状态
+//数组第1项是读接口，第2项是写接口，初始值0 const [n,setN] = React.useState(0) //数字 const [user,setUser] = React.useState({name:&#39;F&#39;}) //对象  2.注意事项(1):不可局部更新
+更新部分属性时，未更新的属性会消失。
+3.注意事项(2):地址要变
+setState(obj)如果obj对象地址不变，那么React就认为数据没有变化，因此不会帮你改变内容。
+4.useState接受函数
+5.setState接受函数
+例1:不可局部更新
+如果state是个对象，能否部分setState? 不行，因为setState不会帮我们合并属性。所以当只更新部分属性时，未更新的属性就会消失。
+那怎么解决&quot;未更新的属性会消失&quot;的问题？
+用...拷贝之前所有的属性，然后再覆盖属性。
+import React, {useState} from &quot;react&quot;; import ReactDOM from &quot;react-dom&quot;; function App() { const [user,setUser] = useState({name:&#39;Frank&#39;, age: 18}) const onClick = ()=&gt;{ setUser({ ...user, //拷贝user的所有属性 name: &#39;Jack&#39; //覆盖name }) } return ( &lt;div className=&quot;App&quot;&gt; &lt;h1&gt;{user.name}&lt;/h1&gt; &lt;h2&gt;{user.age}&lt;/h2&gt; &lt;button onClick={onClick}&gt;Click&lt;/button&gt; &lt;/div&gt; ); } const rootElement = document.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"",
+      "item":"http://lixueqin-4119.xyz/docs/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"目录",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/"},{
+      "@type": "ListItem",
+      "position": 3 ,
+      "name":"React全解",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/"},{
+      "@type": "ListItem",
+      "position": 4 ,
+      "name":"Hooks 各个击破",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/"
+    },
+    "headline": "Hooks 各个击破 | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
+    "dateModified": "2020-10-16T00:00:00+00:00",
+    "wordCount":  3343 ,
+    "publisher": {
+        "@type": "Person",
+        "name": "WANG Chucheng",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "http://lixueqin-4119.xyz/images/icon.png"
+        }
+        },
+    "description": "React文档\nHooks：useState、useEffect、useLayoutEffect、useContext、useReducer、useMemo、React.memo、callCallback、useRef、useImperativeHandle、自定义Hook、useDebugValue\n useState(最常用)  在React的函数组件里，默认只有属性，没有状态。\n 1.使用状态\n\/\/数组第1项是读接口，第2项是写接口，初始值0 const [n,setN] = React.useState(0) \/\/数字 const [user,setUser] = React.useState({name:\u0027F\u0027}) \/\/对象  2.注意事项(1):不可局部更新\n更新部分属性时，未更新的属性会消失。\n3.注意事项(2):地址要变\nsetState(obj)如果obj对象地址不变，那么React就认为数据没有变化，因此不会帮你改变内容。\n4.useState接受函数\n5.setState接受函数\n例1:不可局部更新\n如果state是个对象，能否部分setState? 不行，因为setState不会帮我们合并属性。所以当只更新部分属性时，未更新的属性就会消失。\n那怎么解决\u0026quot;未更新的属性会消失\u0026quot;的问题？\n用...拷贝之前所有的属性，然后再覆盖属性。\nimport React, {useState} from \u0026quot;react\u0026quot;; import ReactDOM from \u0026quot;react-dom\u0026quot;; function App() { const [user,setUser] = useState({name:\u0027Frank\u0027, age: 18}) const onClick = ()=\u0026gt;{ setUser({ ...user, \/\/拷贝user的所有属性 name: \u0027Jack\u0027 \/\/覆盖name }) } return ( \u0026lt;div className=\u0026quot;App\u0026quot;\u0026gt; \u0026lt;h1\u0026gt;{user.name}\u0026lt;\/h1\u0026gt; \u0026lt;h2\u0026gt;{user.age}\u0026lt;\/h2\u0026gt; \u0026lt;button onClick={onClick}\u0026gt;Click\u0026lt;\/button\u0026gt; \u0026lt;\/div\u0026gt; ); } const rootElement = document."
+}
+</script><meta property="og:title" content="Hooks 各个击破 | 目录 | 博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="http://lixueqin-4119.xyz/images/icon.png">
+
+
+<meta property="og:url" content="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/" />
+
+
+
+
+<meta property="og:description" content="React文档
+Hooks：useState、useEffect、useLayoutEffect、useContext、useReducer、useMemo、React.memo、callCallback、useRef、useImperativeHandle、自定义Hook、useDebugValue
+ useState(最常用)  在React的函数组件里，默认只有属性，没有状态。
+ 1.使用状态
+//数组第1项是读接口，第2项是写接口，初始值0 const [n,setN] = React.useState(0) //数字 const [user,setUser] = React.useState({name:&#39;F&#39;}) //对象  2.注意事项(1):不可局部更新
+更新部分属性时，未更新的属性会消失。
+3.注意事项(2):地址要变
+setState(obj)如果obj对象地址不变，那么React就认为数据没有变化，因此不会帮你改变内容。
+4.useState接受函数
+5.setState接受函数
+例1:不可局部更新
+如果state是个对象，能否部分setState? 不行，因为setState不会帮我们合并属性。所以当只更新部分属性时，未更新的属性就会消失。
+那怎么解决&quot;未更新的属性会消失&quot;的问题？
+用...拷贝之前所有的属性，然后再覆盖属性。
+import React, {useState} from &quot;react&quot;; import ReactDOM from &quot;react-dom&quot;; function App() { const [user,setUser] = useState({name:&#39;Frank&#39;, age: 18}) const onClick = ()=&gt;{ setUser({ ...user, //拷贝user的所有属性 name: &#39;Jack&#39; //覆盖name }) } return ( &lt;div className=&quot;App&quot;&gt; &lt;h1&gt;{user.name}&lt;/h1&gt; &lt;h2&gt;{user.age}&lt;/h2&gt; &lt;button onClick={onClick}&gt;Click&lt;/button&gt; &lt;/div&gt; ); } const rootElement = document." />
+
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="docs" />
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">简介</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于我</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+
+
+<div class="lg:pt-12">
+    <div class="flex flex-col md:flex-row bg-secondary-bg rounded">
+        <div class="md:w-1/4 lg:w-1/5 border-e">
+            <div class="sticky top-16 pt-6">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sidebar-title" class="md:hidden mx-4 px-2 pt-4 pb-2 md:border-b text-tertiary-text md:text-primary-text">
+    <span class="font-semibold">Table of Contents</span>
+    <i class='fas fa-caret-right ms-1'></i>
+</div>
+
+<div id="sidebar-toc"
+    class="hidden md:block overflow-y-auto mx-6 md:mx-0 pe-6 pt-2 md:max-h-doc-sidebar bg-primary-bg md:bg-transparent">
+    <div class="flex flex-wrap ms-4 -me-2 p-2 bg-secondary-bg md:bg-primary-bg rounded">
+        <a class=" hover:text-eureka"
+            href="http://lixueqin-4119.xyz/docs/example-doc/">目录</a>
+        
+        
+        
+
+
+    </div>
+    
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/">【HTML全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A0%87%E7%AD%BE/">HTML标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A6%82%E8%A7%88/">HTML概览</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E9%87%8D%E7%82%B9%E6%A0%87%E7%AD%BE/">HTML重点标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/%E6%89%8B%E6%9C%BA%E9%A2%84%E8%A7%88-%E8%B0%83%E8%AF%95/">手机预览 &amp; 调试</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/">HTTP 状态码</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/">URL 是什么</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/">请求和响应 &amp; Node.js Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/">JavaScript 的诞生</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/">JS函数</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/">JS对象</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/">JS对象分类</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">JS数据类型</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/">JS数组</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JS正则表达式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/">js获取屏幕宽高</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/">JS语法</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/">JS运算符</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/">DOM 编程</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/">DOM事件与事件委托</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/">jQuery 中的设计模式(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/">jQuery 中的设计模式(下)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/">手写DOM库(1)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/">MVC(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/">MVC(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/">Class 组件详解</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">Hooks 原理解析</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" text-eureka  hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/">Hooks 各个击破</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">React 类组件和函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/">React起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/">手写 Redux</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/">computed 和 watch</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/">Vue Router -前端路由实现的思路</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">数据响应式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/">构造选项</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/">模板、指令与修饰符</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">深入理解Vue动画原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/">表单与v-model</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/">起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/">进阶构造属性</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/">云服务器</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/">AJAX 的原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/">Ajax实战:Cookie、Session</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/">异步与Promise</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/">跨域、CORS、JSONP</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/">静态服务器Static Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/">Webpack(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/">Webpack(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+</ul>
+
+</div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <div class="w-full md:w-3/4 lg:w-4/5 pb-8 pt-2 md:pt-8">
+            <div class="flex">
+                <div class="w-full lg:w-3/4 px-6">
+                    <article class="prose">
+  <h1 class="mb-4">Hooks 各个击破</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2020-10-16</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>16 min read</span>
+  </div>
+
+  
+
+  
+</div>
+
+
+  
+  
+
+  <blockquote>
+<p><a href="https://zh-hans.reactjs.org/docs/hooks-reference.html#gatsby-focus-wrapper">React文档</a></p>
+<p>Hooks：useState、useEffect、useLayoutEffect、useContext、useReducer、useMemo、React.memo、callCallback、useRef、useImperativeHandle、自定义Hook、useDebugValue</p>
+</blockquote>
+<h3 id="usestate最常用">useState(最常用)</h3>
+<blockquote>
+<p>在React的函数组件里，默认只有属性，没有状态。</p>
+</blockquote>
+<p><strong>1.使用状态</strong></p>
+<pre><code class="language-js">//数组第1项是读接口，第2项是写接口，初始值0
+const [n,setN] = React.useState(0) //数字
+const [user,setUser] = React.useState({name:'F'}) //对象
+</code></pre>
+<p><strong>2.注意事项(1):不可局部更新</strong></p>
+<p>更新部分属性时，未更新的属性会消失。</p>
+<p><strong>3.注意事项(2):地址要变</strong></p>
+<p>setState(obj)如果obj对象地址不变，那么React就认为数据没有变化，因此不会帮你改变内容。</p>
+<p><strong>4.useState接受函数</strong></p>
+<p><strong>5.setState接受函数</strong></p>
+<p><strong>例1:不可局部更新</strong></p>
+<p>如果state是个对象，能否部分setState?
+不行，因为setState不会帮我们合并属性。所以当只更新部分属性时，未更新的属性就会消失。</p>
+<p>那怎么解决&quot;未更新的属性会消失&quot;的问题？</p>
+<p><strong>用<code>...</code>拷贝之前所有的属性，然后再覆盖属性。</strong></p>
+<pre><code class="language-js">import React, {useState} from &quot;react&quot;;
+import ReactDOM from &quot;react-dom&quot;;
+
+function App() {
+  const [user,setUser] = useState({name:'Frank', age: 18})
+  const onClick = ()=&gt;{
+    setUser({
+      ...user, //拷贝user的所有属性
+      name: 'Jack' //覆盖name
+    })
+  }
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;h1&gt;{user.name}&lt;/h1&gt;
+      &lt;h2&gt;{user.age}&lt;/h2&gt;
+      &lt;button onClick={onClick}&gt;Click&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+const rootElement = document.getElementById(&quot;root&quot;);
+ReactDOM.render(&lt;App /&gt;, rootElement);
+</code></pre>
+<p><strong>题外话</strong>:<code>useReducer</code>也不会合并属性，React新版的所有东西都不会帮你合并，它认为这是你自己要做的事。</p>
+<p><strong>例2.地址要变</strong></p>
+<p>我想把name改下:于是直接修改user.name然后setUser(user)
+你会发现改不了，因为你改的是同一个对象，地址是一样的。
+React不会看你里面的内容它只看地址，<strong>你不改地址它就不帮你改内容。</strong></p>
+<p>那怎么改地址？</p>
+<pre><code class="language-js">const onClick=()=&gt;{ 
+  user.name=&quot;小李&quot;
+  setUser(user)   
+}
+const onClick=()=&gt;{ //改地址
+  setUser({ //新的对象
+    ...user,
+    name:&quot;小李&quot;
+  })
+}
+</code></pre>
+<p><strong>例3.useState接受函数</strong>(很少用)</p>
+<p>引用状态，可用函数,但很少会这样写，多算一遍就多算呗。</p>
+<p>useState写成函数的<strong>好处</strong>是:减少多余的计算过程，因为JS引擎不会立即执行函数。</p>
+<pre><code class="language-js">function App() {
+  const [user,setUser]=useState({name:'Frank', age: 9+9})//引用状态
+                    //useState(()=&gt;( {name:'Frank', age: 9+9} ))
+  const onClick = ()=&gt;{
+    setUser({ ... }) //设置状态
+  }
+</code></pre>
+<p><strong>例4.setState接受函数</strong>(推荐优先使用函数)</p>
+<p>点击button后你会发现<code>n=1</code>而不是2，因为当你setN(n+1)时，n不会变。
+不管你做多少次计算，只有最后一次有用。</p>
+<p><strong>解决方法:</strong> 改成函数</p>
+<pre><code class="language-js">function App() {
+  const [n, setN] = useState(0)
+  const onClick = ()=&gt;{
+  //setN(n+1) 第1次计算
+  //setN(n+1) 第2次计算，也是最后1次计算
+    setN(n =&gt; n + 1) //形式化的操作
+    setN(n =&gt; n + 1)
+  }
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;h1&gt;n: {n}&lt;/h1&gt;
+      &lt;button onClick={onClick}&gt;+2&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<p>JS语法有问题:对象必须加()。(JS的bug)</p>
+<p>总结:对state进行多次操作时，优先使用函数。</p>
+<h3 id="usereducer最常用">useReducer(最常用)</h3>
+<p><strong>useReducer4步走:</strong></p>
+<p><strong>1.创建初始值initicalState</strong></p>
+<pre><code class="language-js">const initical = { n:0 }
+</code></pre>
+<p><strong>2.创建所有操作reducer(state,action)</strong></p>
+<p>reducer接受2个参数:<strong>旧的状态state</strong>和<strong>操作的类型action</strong>(一般是类型)，最后返回新的state。</p>
+<p>怎么得到新的state？</p>
+<p>看下动作的的类型是什么</p>
+<p><strong>规则和useState一样,必须返回新的对象。</strong>(不能直接操作n)</p>
+<pre><code class="language-js">const reducer=(state,action)=&gt;{
+  if(action.type==='add'){
+    return { n:state.n+1 } //return新对象
+  }else if(action.type==='mult'){
+    return { n:state.n*2 }
+  }else{
+    console.log(&quot;unknown type&quot;)
+  }
+}
+</code></pre>
+<p><strong>3.传给useReducer,得到读和写API</strong></p>
+<p>(1)需要导入useReducer或者直接使用全称<code>React.useReducer</code></p>
+<p>(2)useReducer接收2个参数:<strong>所有操作reducer</strong>和<strong>初始状态initical</strong></p>
+<p>(3)你将得到<code>读API、写API</code>写API一般叫dispatch，因为你必须通过reducer才能setState,所以叫dispatch。</p>
+<pre><code class="language-js">import React,{useReducer} from &quot;react&quot;
+
+function App(){
+  const [state,dispatch]=useReducer(reducer,initical)
+}
+</code></pre>
+<p><strong>拿出属性n的2种方法:</strong></p>
+<p>1&rsquo; <code>{state.n}</code> 2&rsquo;<code>const {n}=state</code>然后<code>{n}</code></p>
+<p><strong>4.调用 写({type:&lsquo;操作类型&rsquo;})</strong></p>
+<pre><code class="language-js">const onClick=()=&gt;{
+  dispatch({
+    type:'add' //调用reducer的add操作
+  })
+}
+</code></pre>
+<p>相当于useState,只不过把所有操作聚拢在一个函数里,这样的好处是:调用的代码简短了。</p>
+<p><strong>调用传参:</strong><code>+2</code>时传了参数<code>number:2</code>,那么reducer里的<code>1</code>就可以变成一个参数。因为dispatch()里传的对象就是action。</p>
+<pre><code class="language-js">if (action.type === &quot;add&quot;) {
+//return { n: state.n + 1 };
+  return { n: state.n + action.number };
+}
+...
+const onClick2 = () =&gt; {
+//dispatch({type:'add'})
+  dispatch({type:'add',number:2}) //里面的对象就是action
+}
+</code></pre>
+<p>这就是<strong>useReducer</strong>对useState的升级操作,总的来说useReducer是useState的复杂版。好处是用来践行React社区一直推崇的flux/Redux思想。随着hooks的流行这个思想会退化。</p>
+<p><strong>完整代码</strong></p>
+<pre><code class="language-js">import React, { useState, useReducer } from &quot;react&quot;;
+import ReactDOM from &quot;react-dom&quot;;
+
+const initial = { n: 0};
+const reducer = (state, action) =&gt; {
+  if (action.type === &quot;add&quot;) {
+    return { n: state.n + action.number };
+  } else if (action.type === &quot;multi&quot;) {
+    return { n: state.n * 2 };
+  } else {
+    throw new Error(&quot;unknown type&quot;);
+  }
+};
+
+function App() {
+  const [state, dispatch] = useReducer(reducer, initial);
+  const { n } = state;
+  const onClick = () =&gt; {
+    dispatch({ type: &quot;add&quot;, number: 1 });
+  };
+  const onClick2 = () =&gt; {
+    dispatch({ type: &quot;add&quot;, number: 2 });
+  };
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;h1&gt;n: {n}&lt;/h1&gt;
+      &lt;button onClick={onClick}&gt;+1&lt;/button&gt;
+      &lt;button onClick={onClick2}&gt;+2&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+const rootElement = document.getElementById(&quot;root&quot;);
+ReactDOM.render(&lt;App /&gt;, rootElement);
+</code></pre>
+<p><strong>如何选择 使用useReducer还是useState?</strong></p>
+<p>事不过三原则</p>
+<p>如果你发现有几个变量应该放一起(对象里)这时候就用useReducer对对象进行整体的操作。</p>
+<p><a href="https://codesandbox.io/s/admiring-framework-4by2t">useReducer的常用例子</a></p>
+<pre><code class="language-js">const initFormData = {
+  name: &quot;&quot;,
+  age: 18,
+  nationality: &quot;汉族&quot;
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case &quot;patch&quot;: //更新
+//把第1个对象的所有属性和第2个对象的所有属性全部放到第3个空对象里，这就是更新
+      return { ...state, ...action.formData }; 
+    case &quot;reset&quot;: //重置，返回最开始的对象
+      return initFormData;
+    default:
+      throw new Error(&quot;你传的啥 type 呀&quot;);
+  }
+}
+
+function App() {
+  const [formData, dispatch] = useReducer(reducer, initFormData);
+  // const patch = (key, value)=&gt;{
+  //   dispatch({ type: &quot;patch&quot;, formData: { [key]: value } })
+  // }
+  const onSubmit = () =&gt; {};
+  const onReset = () =&gt; {
+    dispatch({ type: &quot;reset&quot; });
+  };
+  return (
+    &lt;form onSubmit={onSubmit} onReset={onReset}&gt;
+      &lt;div&gt;
+        &lt;label&gt;
+          姓名
+          &lt;input value={formData.name} onChange={e =&gt; dispatch(
+            {type:&quot;patch&quot;, formData:{ name: e.target.value }})
+            }
+          /&gt;
+        &lt;/label&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;label&gt;
+          年龄
+          &lt;input value={formData.age} onChange={e =&gt;dispatch(
+            {type:&quot;patch&quot;,formData: { age: e.target.value }})
+            }
+          /&gt;
+        &lt;/label&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;label&gt;
+          民族
+          &lt;input value={formData.nationality} 
+            onChange={e =&gt; dispatch({type:&quot;patch&quot;,
+              formData:{nationality: e.target.value}})
+            }
+          /&gt;
+        &lt;/label&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;button type=&quot;submit&quot;&gt;提交&lt;/button&gt;
+        &lt;button type=&quot;reset&quot;&gt;重置&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;hr /&gt;
+      {JSON.stringify(formData)}
+    &lt;/form&gt;
+  );
+}
+</code></pre>
+<p>用户一旦输入就会触发onChange事件。用户输入即更新，因为内容不一样了嘛。
+每次更新，App都会render遍。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/68972b116ffc45b19a16feb7705dbc54~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<h3 id="如何用usereducer代替redux-">如何用useReducer代替Redux ？</h3>
+<blockquote>
+<p>前提:你得知道Redux是什么
+用React的<code>reducer</code>+<code>context</code>即可代替Redux。</p>
+</blockquote>
+<pre><code class="language-js">import React, { useReducer, useContext, useEffect } from &quot;react&quot;;
+import ReactDOM from &quot;react-dom&quot;;
+
+const store = { //第1步.将数据集中在一个store对象
+  user: null,
+  books: null,
+  movies: null
+};
+
+function reducer(state, action) { //第2步.将所有操作集中在reducer
+  switch (action.type) {
+    case &quot;setUser&quot;:
+      return { ...state, user: action.user };
+    case &quot;setBooks&quot;:
+      return { ...state, books: action.books };
+    case &quot;setMovies&quot;:
+      return { ...state, movies: action.movies };
+    default:
+      throw new Error();
+  }
+}
+
+const Context = React.createContext(null); //第3步.创建一个Context
+
+function App() {
+  const [state, dispatch] = useReducer(reducer, store); //第4步.创建对数据的读写API
+
+  const api = { state, dispatch };
+  return (
+    &lt;Context.Provider value={api}&gt; //第5步.将创建的&quot;数据的读写API&quot;放到Context
+      &lt;User /&gt; //第6步.用Context.Provider将Context提供给所有组件,就是将组件放里面
+      &lt;hr /&gt;
+      &lt;Books /&gt;
+      &lt;Movies /&gt;
+    &lt;/Context.Provider&gt;
+  );
+}
+
+function User() {
+  const { state, dispatch } = useContext(Context); //第7步.各个组件用useContext获取读写API
+  useEffect(() =&gt; {
+    ajax(&quot;/user&quot;).then(user =&gt; {
+      dispatch({ type: &quot;setUser&quot;, user: user });
+    });
+  }, []);
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;个人信息&lt;/h1&gt;
+      &lt;div&gt;name: {state.user ? state.user.name : &quot;&quot;}&lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+function Books() {
+  const { state, dispatch } = useContext(Context);//第7步.使用useContext获取读写API
+  useEffect(() =&gt; {
+    ajax(&quot;/books&quot;).then(books =&gt; {
+      dispatch({ type: &quot;setBooks&quot;, books: books });
+    });
+  }, []);
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;我的书籍&lt;/h1&gt;
+      &lt;ol&gt;
+        {state.books ? state.books.map(book =&gt;
+          &lt;li key={book.id}&gt;{book.name}&lt;/li&gt;) : &quot;加载中&quot;}
+      &lt;/ol&gt;
+    &lt;/div&gt;
+  );
+}
+function Movies() {
+  const { state, dispatch } = useContext(Context);//使用useContext获取读写API
+  useEffect(() =&gt; {
+    ajax(&quot;/movies&quot;).then(movies =&gt; {
+      dispatch({ type: &quot;setMovies&quot;, movies: movies });
+    });
+  }, []);
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;我的电影&lt;/h1&gt;
+      &lt;ol&gt;
+        {state.movies ? state.movies.map(movie =&gt; 
+          &lt;li key={movie.id}&gt;{movie.name}&lt;/li&gt;)
+          : &quot;加载中&quot;}
+      &lt;/ol&gt;
+    &lt;/div&gt;
+  );
+}
+const rootElement = document.getElementById(&quot;root&quot;);
+ReactDOM.render(&lt;App /&gt;, rootElement);
+
+// 帮助函数
+// 假 ajax
+// 两秒钟后，根据 path 返回一个对象，必定成功不会失败
+function ajax(path) {
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      if (path === &quot;/user&quot;) {
+        resolve({
+          id: 1,
+          name: &quot;Frank&quot;
+        });
+      } else if (path === &quot;/books&quot;) {
+        resolve([
+          {
+            id: 1,
+            name: &quot;JavaScript 高级程序设计&quot;
+          },
+          {
+            id: 2,
+            name: &quot;JavaScript 精粹&quot;
+          }
+        ]);
+      } else if (path === &quot;/movies&quot;) {
+        resolve([
+          {
+            id: 1,
+            name: &quot;爱在黎明破晓前&quot;
+          },
+          {
+            id: 2,
+            name: &quot;恋恋笔记本&quot;
+          }
+        ]);
+      }
+    }, 2000);
+  });
+}
+</code></pre>
+<p><strong>解析</strong></p>
+<p><strong>第1步.将数据集中在一个store对象</strong></p>
+<pre><code class="language-js">const store = { //加载信息
+  user:null,
+  books:null,
+  movies:null
+}
+</code></pre>
+<p><strong>第2步.将所有操作集中在reducer</strong></p>
+<p>接收一个旧的状态，给我一个操作，我就可以得到一个新的状态。</p>
+<p><strong>怎么得到新的状态呢？</strong></p>
+<p>看你操作的类型是什么。</p>
+<p>比如说你要<strong>填充user</strong>:你得给我一个user,所以你的action里面要有一个user。我把你给我的user传到store上。</p>
+<pre><code class="language-js">const reducer = (state,action) =&gt; { 
+  switch(action.type){
+    case 'setUser': //填充user
+      return {...state,user:action.user};
+    case 'setBooks':
+      return {...state,books:action.books};
+    case 'setMovies':
+      return {...state,movies:action.movies};
+    default:
+      throw new Error();
+  }
+}
+</code></pre>
+<p><strong>第3步.创建一个Context</strong></p>
+<p>createContext需要自动引入或者直接React.createContext</p>
+<pre><code class="language-js">const Context = React.createContext(null) //初始值一般是null，不传会报错
+</code></pre>
+<p><strong>第4步.创建对数据的读写API</strong></p>
+<p><code>useReducer</code>的第2个参数是初始值。</p>
+<p><strong><code>useReducer</code>一般写在函数里面,只能在函数里面运行</strong>。</p>
+<pre><code class="language-js">const Context = React.createContext(null) 
+function App() {
+  const [state,dispatch]=useReducer(reducer,store) //(reducer,初始值)
+}
+//也可以写在外面，不过要在函数里调用。
+//function x(){ const [state,dispatch]=useReducer(reducer,store)  }
+//function App() {
+//  x()
+//}
+</code></pre>
+<p><strong>第5步.将创建的&quot;数据的读写API&quot;放到Context</strong></p>
+<p>方法:把<code>&lt;div&gt;</code>删了改为<code>&lt;Context.Provider&gt;</code>，value就是把读写API<code>[state,dispatch]</code>赋值给<code>Context.Provider</code>。</p>
+<p>语法:<code>value={JS}</code>告诉React里面是JS。</p>
+<p><code>{state:state,dispatch:dispatch}</code>这个{}里才是对象,对象的state就是上面的state变量，对象的dispatch就是上面的dispatch变量。</p>
+<pre><code class="language-js">const Context = React.createContext(null)
+function App() {
+  const [state,dispatch]=useReducer(reducer,store)
+  return (
+    &lt;Context.Provider value = {{state:state,dispatch:dispatch}}&gt;
+      &lt;User /&gt;
+      &lt;hr /&gt;
+      &lt;Books /&gt;
+      &lt;Movies /&gt;
+    &lt;/Context.Provider&gt;
+  )
+</code></pre>
+<p><code>value={{state:state,dispatch:dispatch}}</code>ES6可以直接缩写成<code>value={{state,dispatch}}</code></p>
+<p><strong>第6步.用Context.Provider将Context提供给所有组件</strong></p>
+<p>就是将组件<code>&lt;User /&gt;、&lt;Books /&gt;、&lt;Movies /&gt;</code>放到<code>&lt;Context.Provider&gt;</code>里面</p>
+<pre><code class="language-js">return (
+    &lt;Context.Provider value = {{state:state,dispatch:dispatch}}&gt;
+      &lt;User /&gt;
+      &lt;hr /&gt;
+      &lt;Books /&gt;
+      &lt;Movies /&gt;
+    &lt;/Context.Provider&gt;
+  )
+</code></pre>
+<p><strong>第7步.各个组件用useContext获取读写API</strong></p>
+<blockquote>
+<p>现在各个组件就可以使用读写API了</p>
+</blockquote>
+<p>useContext接收的值就是你创建的<code>Context</code></p>
+<pre><code class="language-js">import React, { useReducer, useContext, useEffect } from &quot;react&quot;;
+
+function User(){
+  const {state,dispatch} = useContext(Context) //注意这里是{}
+  ajax(&quot;/user&quot;).then((user)=&gt;{ //初始化user:调用ajax()
+  //dispatch触发&quot;setUser&quot;,user的值就是得到的user,形参占位
+    dispatch({type:&quot;setUser&quot;,user:user}) 
+  })
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;个人信息&lt;/h1&gt;
+        //展示
+        &lt;div&gt;name:{state.user ? state.user.name : &quot;&quot;}&lt;/div&gt;
+    &lt;/div&gt;
+  )
+}
+
+由谁来设置一开始的值呢？
+一开始是null,所以name是空的。
+用假的ajax获取用户信息,很简单的promise。
+// 帮助函数,假的ajax
+// 2s后,根据 path 返回一个对象，必定成功不会失败
+function ajax(path) {
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      if (path === &quot;/user&quot;) {
+        resolve({
+          id: 1,
+          name: &quot;Frank&quot;
+        });
+      } else if (path === &quot;/books&quot;) {
+        resolve([
+          {
+            id: 1,
+            name: &quot;JavaScript 高级程序设计&quot;
+          },
+          {
+            id: 2,
+            name: &quot;JavaScript 精粹&quot;
+          }
+        ]);
+      } else if (path === &quot;/movies&quot;) {
+        resolve([
+          {
+            id: 1,
+            name: &quot;爱在黎明破晓前&quot;
+          },
+          {
+            id: 2,
+            name: &quot;恋恋笔记本&quot;
+          }
+        ]);
+      }
+    }, 2000);
+  });
+}
+</code></pre>
+<p><strong>知识点</strong></p>
+<p><strong>1.useEffect设置只在第一次渲染时执行某函数</strong></p>
+<p>每次User刷新时,代码setState<code>dispatch</code>就会再执行一遍并重复请求ajax。
+怎样减少请求ajax,设置只在第一次进入页面时请求？</p>
+<p><strong>借助useEffect</strong></p>
+<p>需要自动引入或者直接React.useEffect</p>
+<p>useEffect需要传个函数,当第2个参数是空数组时，那么前面的函数就<strong>只会</strong>在第一次渲染时执行，之后永远不会执行。例子:</p>
+<pre><code class="language-js">React.useEffect(()=&gt;{},[])
+</code></pre>
+<p><strong>项目代码</strong></p>
+<pre><code class="language-js">import React, { useReducer, useContext, useEffect } from &quot;react&quot;;
+
+function User() {
+  const { state , dispatch } = react.useContext(Context)
+  useEffect(()=&gt;{
+    ajax(&quot;/user&quot;).then((user)=&gt;{
+      dispatch({type:&quot;setUser&quot;,user:user})
+    })
+  },[])
+}
+</code></pre>
+<p>请求user数据<code>ajax(&quot;/user&quot;)</code>，得到user数据后(这里的user是形参)，用setUser把数据<code>user:user</code>放到上下文<code>Context</code>里面。然后它自己就会刷新了，不用手动调自己刷新，因为React知道state变了就要变了。</p>
+<p><strong>2.加载中怎么做的？</strong></p>
+<p>如果movies存在就展示n个<code>&lt;li&gt;</code>,如果不存在就展示<code>&quot;加载中&quot;</code></p>
+<pre><code class="language-js">function Movies() {
+  const { state, dispatch } = useContext(Context);//使用useContext获取读写API
+  useEffect(() =&gt; {
+    ajax(&quot;/movies&quot;).then(movies =&gt; {
+      dispatch({ type: &quot;setMovies&quot;, movies: movies });
+    });
+  }, []);
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;我的电影&lt;/h1&gt;
+      &lt;ol&gt;
+        {state.movies ? state.movies.map(movie =&gt; 
+          &lt;li key={movie.id}&gt;{movie.name}&lt;/li&gt;)
+          : &quot;加载中&quot;}
+      &lt;/ol&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<h3 id="总结">总结</h3>
+<p><strong>用useReducer代替Redux，是如何实现代替的？</strong></p>
+<p>1.redux有个store，我们对象代替了<code>const store={}</code></p>
+<p>2.redux有个reducer，我们用函数代替了<code>function reducer(state,action){}</code></p>
+<p>3.redux它可以在任意地方使用，我们用Context代替了<code>const Context=React.createContext(null)</code></p>
+<p>非常好的代替redux的方法。</p>
+<h3 id="如何模块化">如何模块化？</h3>
+<blockquote>
+<p>模块化不属于React内容,属于基础知识。</p>
+<p>模块就是文件，文件就是模块，<strong>文件名小写，组件名大写</strong>。</p>
+</blockquote>
+<p><strong>步骤</strong></p>
+<p>我们有3个组件，把这3个组件分别放到不同的组件</p>
+<p><strong>第1步.新建目录components</strong></p>
+<p><strong>第2步.新建组件文件</strong></p>
+<p>(1)有几个组件就建几个文件:分别新建文件<code>user.js、books.js、movies.js</code></p>
+<p>然后把各个部分相关的代码分别剪切进去，并导出。</p>
+<p><strong>第3步.对于共用的函数，也要新建文件，单独拎出来。</strong></p>
+<p>(1)Context是组件共用的，所以要新建文件<code>Context.js</code>,把相关代码剪切出来，并导出。</p>
+<p><strong>同样公共的ajax也是如此</strong></p>
+<p>出了组件放components里，其它都放外面(src)</p>
+<p>新建文件<code>ajax.js</code>，把相关代码剪切出来，并导出。</p>
+<p><strong>(2)使用Context、ajax</strong></p>
+<pre><code class="language-js">要想使用Context、ajax,那每个组件都需要import
+import Context from '../Context.js' //导入Context`
+import ajax from '../ajax' //导入ajax
+</code></pre>
+<p><strong>第4步.使用模块和公共的函数</strong></p>
+<p>index.js</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/723abf0f8a2140f8b40f996b88ca661d~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<h3 id="细化reducer">细化reducer</h3>
+<p><strong>假设我的组件有很多，那reducer的switch的case岂不是要写累死了？</strong></p>
+<p><strong>第一部分.先重构代码</strong></p>
+<blockquote>
+<p>变成对象之后就好弄了，因为对象很好合并,函数难合并(基础知识)。</p>
+</blockquote>
+<pre><code class="language-js">function reducer(state, action) {
+  switch (action.type) {
+    case &quot;setUser&quot;:
+      return { ...state, user: action.user };
+    case &quot;setBooks&quot;:
+      return { ...state, books: action.books };
+    case &quot;setMovies&quot;:
+      return { ...state, movies: action.movies };
+    default:
+      throw new Error();
+  }
+}
+</code></pre>
+<p><strong>重构后</strong></p>
+<pre><code class="language-js">const obj = {
+  setUser:(state, action)=&gt;{
+    return { ...state, user: action.user };
+  },
+//removeUser:()=&gt;{},
+  setBooks:(state, action)=&gt;{
+      return { ...state, books: action.books };
+  },
+//deleteBook:()=&gt;{},
+  setMovies:(state, action)=&gt;{
+     return { ...state, movies: action.movies };
+  },
+//deleteMovie:()=&gt;{}
+}
+
+//使用obj
+function reducer(state, action) {
+  const fn = obj[action.type] //判空
+  if(fn){
+    fn(state,action)
+  }else{
+    throw new Error('你传的什么鬼 type')
+  }
+}
+</code></pre>
+<p>分开后就好弄了，setUser是user模块的reducer、setBooks是books模块的reducer、setMovies是movies模块的reducer。</p>
+<p>假如还有其他的，比如除了setUser可能还有removeUser,除了setBooks可能还有deleteBook,除了setMovies可能还有deleteMovie&hellip;</p>
+<p><strong>那怎么对这6个函数分成3个模块呢？</strong></p>
+<p><strong>第二部分.细化reducer</strong>(模块化)</p>
+<p><strong>1.新建目录reducers</strong></p>
+<p><strong>2.新建子文件</strong></p>
+<p>(1)新建<code>user_reducer.js、books_reducer.js、movies_reducer.js</code></p>
+<p>(2)然后将代码剪切放到<code>export default{ ... }</code>里</p>
+<p><strong>3.使用</strong></p>
+<pre><code class="language-js">import userReducer from './reducers/user_reducer'
+import booksReducer from './reducers/books_reducer'
+import moviesReducer from './reducers/movies_reducer'
+
+const obj = {
+  ...userReducer, //把userReducer里的2个函数地址拷过来
+  ...booksReducer,
+  ...moviesReducer
+}
+</code></pre>
+<h3 id="usecontext常用">useContext(常用)</h3>
+<p><strong>概念</strong><br>
+上下文就是你运行一个程序所需要知道的所有其它变量(全局变量)。<br>
+<strong>全局变量</strong>是全局的<strong>上下文</strong>，所有变量都可以访问它。<br>
+<strong>上下文</strong>是局部的<strong>全局变量</strong>，context只在<code>&lt;C.Provider&gt;</code>内有用，出了这个范围的组件是用不到这个contextde。</p>
+<p><strong>使用方法</strong>:<br>
+一.使用<code>C = createContext(initical)</code>创建上下文<br>
+二.使用<code>&lt;C.provider value={}&gt;</code>初始化并圈定作用域<br>
+三.在作用域内的<strong>组件里使用</strong><code>useContext(C)</code>来获取上下文\</p>
+<pre><code class="language-js">import React, { createContext } from &quot;react&quot;;
+const C = createContext(null)
+ 
+&lt;C.Provider value={}&gt;
+  ...
+&lt;/C.Provider&gt;
+</code></pre>
+<p>value的初始值可以是任何值，一般我们会给一个读写接口.</p>
+<p><code>&lt;C.Provider&gt;</code>内的所有组件都可以用上下文C</p>
+<pre><code class="language-js">import React, { createContext, useState, useContext } from &quot;react&quot;;
+import ReactDOM from &quot;react-dom&quot;;
+
+const C = createContext(null); 
+function App() {
+  console.log(&quot;App 执行了&quot;);
+  const [n, setN] = useState(0); 
+  return (
+    &lt;C.Provider value={{ n, setN }}&gt; 
+      &lt;div className=&quot;App&quot;&gt;
+        &lt;Baba /&gt;
+      &lt;/div&gt;
+    &lt;/C.Provider&gt;
+  );
+}
+
+function Baba() {
+  const { n, setN } = useContext(C); //使用context
+  return (
+    &lt;div&gt;
+      我是爸爸 n: {n} &lt;Child /&gt;
+    &lt;/div&gt;
+  );
+}
+function Child() {
+  const { n, setN } = useContext(C); //使用context
+  const onClick = () =&gt; {
+    setN(i =&gt; i + 1);
+  };
+  return (
+    &lt;div&gt;
+      我是儿子 我得到的 n: {n}
+      &lt;button onClick={onClick}&gt;+1&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+const rootElement = document.getElementById(&quot;root&quot;);
+ReactDOM.render(&lt;App /&gt;, rootElement);
+</code></pre>
+<p><code>+1</code>操作的不是本身的state，而是从App那里得到的读、写接口。
+App也可以不用state，用reducer:<code>  const [n, setN] = useState(0);</code>，context不管你用啥，它只是告诉你<code>n、setN</code>可以共享给你的子代的任何组件的，范围就是由<code>&lt;C.Provider&gt;</code>圈定的。</p>
+<p><strong>useContext注意事项</strong></p>
+<p><strong>不是响应式的</strong></p>
+<p>你在一个模块将C里面的值改变，另一个模块不会感知到这个变化。</p>
+<p>更新的机制并不是响应式的，而是重新渲染的过程。</p>
+<p>比如，当我们点击<code>+1</code>时:setN去通知<code>useState</code>,useState重新渲染App,发现n变了，于是问里面的组件<code>&lt;Baba /&gt;</code>有没有用到n?没有，就继续问<code>&lt;Child /&gt;</code>有没有用到n?用到了，这时候儿子就知道要刷新了，是一个从上而下逐级通知的过程，并不是响应式的过程。</p>
+<p><strong>Vue3</strong>是你改n时，它就知道n变了，于是它就找谁用到了n,它就把谁直接改变了。它不会从上而下整体过一遍，没有这么复杂，因为它是一个响应式的过程。</p>
+<p><strong>总结:</strong> useContext的更新机制式是自顶向下，逐级更新数据。
+而不是监听这个数据变化，直接通知对应的组件。</p>
+<h3 id="useeffect--uselayouteffect">useEffect ＆ useLayoutEffect</h3>
+<h3 id="useeffect副作用">useEffect副作用</h3>
+<p>对环境的改变即为副作用，如修改document.title<br>
+但我们不一定非要把副作用放在useEffect里<br>
+useEffect API名字叫的不好，建议理解成afterRender，每次render后就会调用的一个函数。</p>
+<p><strong>用途:</strong> 它可以代替之前的3种钩子:出生、更新、死亡</p>
+<p>1.作为<code>componentDidMount</code>使用，[]作第2个参数</p>
+<p>2.作为<code>componentDidUpdate</code>使用，可指定依赖</p>
+<p>3.作为<code>componentWillUnmount</code>使用，通过return</p>
+<p>以上三种用途可同时存在</p>
+<p><strong>特点</strong></p>
+<p><strong>如果同时存在多个useEffect,会按从上倒下的顺序执行。</strong></p>
+<p><strong>如何使用</strong></p>
+<pre><code class="language-js">import React, { useState,useEffect } from &quot;react&quot;;
+import ReactDOM from &quot;react-dom&quot;;
+
+function App() {
+  const [n, setN] = useState(0);
+  const onclick=()=&gt;{
+    setN(i =&gt; i+1)
+  }
+
+  useEffect(()=&gt;{
+    console.log(&quot;第一次渲染后执行这句话&quot;)
+  },[])
+  useEffect(()=&gt;{
+    console.log(&quot;每次都会执行这句话，update&quot;)
+  })
+  useEffect(()=&gt;{
+    console.log(&quot;只有当n变了才会执行这句话&quot;)//监听某个值变化时执行，包含第一次
+  },[n])
+  useEffect(()=&gt;{
+    if(n !== 0){
+      console.log(&quot;n变化时会执行这句话，剔除第一次&quot;)//默认包含第1次，要想排除第1次可以判断下
+    }
+  },[n])
+  //第一次进来时使实现setInterval，每秒打印一个hi
+  //当组件消失时，把定时器关掉，不然会一直打印hi
+  //告诉React return一个函数:当组件挂掉时要执行的代码
+  afterRender(()=&gt;{
+    const id=setInterval(() =&gt; {
+      console.log(&quot;hi&quot;)
+    }, 1000);
+    return ()=&gt;{
+      window.clearInterval(id)
+    }
+  })
+
+  return (
+      &lt;div&gt;
+        n:{n}
+        &lt;button onClick={onclick}&gt;+1&lt;/button&gt;
+      &lt;/div&gt;
+  );
+}
+const rootElement = document.getElementById(&quot;root&quot;);
+ReactDOM.render(&lt;App /&gt;, rootElement);
+</code></pre>
+<p>如果你只是改变自己的状态就不是副作用，如果改变环境或者全局变量就是副作用。</p>
+<p><strong>注意:</strong><br>
+1.当第2个参数是<code>[]</code>时，表示只会在<strong>第一次渲染后</strong>执行前面的函数。<br>
+2.当不写第2个参数时，表示每次update都会执行前面的函数。<br>
+3.当第2个参数是<code>[n]</code>时，表示只会在<strong>某个值变化</strong>(n)时才会去执行前面的函数，<strong>包含第一次</strong>。<br>
+要想剔除第一次可以，可以加个判断。<br>
+4.加return死亡时执行<br>
+如果我这个组件要挂了，我这个组件正要离开页面，一般在使用router时会经常去用。<br>
+比如，一开始是第1个页面，点了按钮后会跳到第2个页面，那么第1个页面的所有组件都挂掉了。<br>
+挂掉的时候你可能需要做一些清理动作。<strong>用return</strong>，return一个函数:函数里面是当组件挂掉时要执行的代码。<br>
+这样就不会造成内存泄露或者是不必要的代码。</p>
+<h3 id="uselayouteffect">useLayoutEffect</h3>
+<p>例子：一开始是value:0,然后迅速变成value:1000</p>
+<pre><code class="language-js">import React, { useState, useEffect } from &quot;react&quot;;
+import ReactDOM from &quot;react-dom&quot;;
+
+const BlinkyRender = () =&gt; {
+  const [value, setValue] = useState(0);
+
+  useEffect(() =&gt; {
+    document.querySelector('#x').innerText = `value: 1000`
+  }, [value]);
+
+  return (
+    &lt;div id=&quot;x&quot; onClick={() =&gt; setValue(0)}&gt;value: {value}&lt;/div&gt;
+  );
+};
+
+ReactDOM.render(
+  &lt;BlinkyRender /&gt;,
+  document.querySelector(&quot;#root&quot;)
+);
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/aaafbb1c1c2d4459bccbc61ff39e0793~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>useEffect在浏览器渲染完成后执行:</strong> 一开始是value是0,然后迅速变成1000,中间闪烁了下，有闪烁过程。</p>
+<p>如果我们改变useEffect的执行顺序,<strong>在浏览器渲染前执行</strong>,会有什么效果？
+<strong>没有闪烁过程</strong></p>
+<p>代码</p>
+<pre><code class="language-js">import React, {useState, useRef, useLayoutEffect, useEffect} from &quot;react&quot;;
+import ReactDOM from &quot;react-dom&quot;;
+
+function App() {
+  const [n, setN] = useState(0)
+  const time = useRef(null)
+  const onClick = ()=&gt;{
+    setN(i=&gt;i+1) 
+    time.current = performance.now()
+  }
+  useLayoutEffect(()=&gt;{ // 改成 useEffect 试试
+    if(time.current){
+      console.log(performance.now() - time.current)
+    }
+  })
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;h1&gt;n: {n}&lt;/h1&gt;
+      &lt;button onClick={onClick}&gt;Click&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+const rootElement = document.getElementById(&quot;root&quot;);
+ReactDOM.render(&lt;App /&gt;, rootElement);
+</code></pre>
+<p>useLayoutEffect总是比useEffect先执行。用useEffect有闪烁，用useLayoutEffect没有闪烁。</p>
+<p><strong>那是不是应该多用useLayoutEffect？</strong></p>
+<p>不是，因为大部分时候不会去改变DOM，不用截胡。</p>
+<p>因为用户想看的就是外观，本来只需要1ms的，现在加了几句话变成3ms了，影响用户体验。</p>
+<p>所以从经验上来说，我们更希望将useEffect放到浏览器改变外观之后，所以优先使用useEffect。</p>
+<p><strong>useEffect和useLayoutEffect的本质区别:</strong><br>
+useEffect在浏览器渲染完成后执行,useLayoutEffect在浏览器渲染完成前执行。</p>
+<p><strong>总结:</strong><br>
+<strong>优先使用useEffect</strong>，除非不能满足你的需求再使用useLayoutEffect。
+虽然useLayoutEffect的性能更好，优先级更高，但是会影响用户看到画面变换的时间，得不偿失。</p>
+<p><strong>代码佐证时间差别</strong>:从setN到副作用开始执行，中间有多久？</p>
+<p><strong>结果:</strong> useLayoutEffect是0.3ms,useEffect是0.8ms，相差0.5ms。
+如果你改变的外观越多，时间就越多，呈线性的。</p>
+<pre><code class="language-js">import React, {useState, useRef, useLayoutEffect, useEffect} from &quot;react&quot;;
+import ReactDOM from &quot;react-dom&quot;;
+
+function App() {
+  const [n, setN] = useState(0)
+  const time = useRef(null)
+  const onClick = ()=&gt;{
+    setN(i=&gt;i+1) //打点一:setN后马上打点
+    time.current = performance.now() //beforeRender
+  }
+  useLayoutEffect(()=&gt;{ // 改成 useEffect 试试
+  //afterRender
+    if(time.current){
+      console.log(performance.now() - time.current)
+    }
+  })
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;h1&gt;n: {n}&lt;/h1&gt;
+      &lt;button onClick={onClick}&gt;Click&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+const rootElement = document.getElementById(&quot;root&quot;);
+ReactDOM.render(&lt;App /&gt;, rootElement);
+</code></pre>
+<p><strong>知识点:</strong><code>performance.now()</code>是全局对象，用来打印当前的时间</p>
+<p><strong>特点</strong></p>
+<p><strong>1.useLayoutEffect总是比useEffect先执行。</strong></p>
+<p>下面的代码打印2和3，再打印1。</p>
+<pre><code class="language-js"> useEffect(()=&gt;{ 
+   if(time.current){ console.log(&quot;1&quot;) },[])
+ }
+ useLayoutEffect(()=&gt;{ 
+   if(time.current){ console.log(&quot;2&quot;) },[])
+ }
+ useLayoutEffect(()=&gt;{ 
+   if(time.current){ console.log(&quot;3&quot;) },[])
+ }  
+</code></pre>
+<p><strong>2.useLayoutEffect里的任务最好影响了Layout</strong></p>
+<p>如果没有改变屏幕外观Layout，就没必要放浏览器渲染前，占时间。</p>
+<p><strong>经验:</strong> 为了用户体验，优先使用useEffect(优先渲染)</p>
+<h3 id="usememo--usecallback">useMemo &amp; useCallback</h3>
+<h3 id="usememo最常用">useMemo(最常用)</h3>
+<blockquote>
+<p>要理解<code>React.useMemo</code>需要先了解<code>React.memo</code>。</p>
+<p>useCallback是useMemo的语法糖。</p>
+</blockquote>
+<p><strong>React.memo</strong></p>
+<pre><code class="language-js">import React from &quot;react&quot;;
+import ReactDOM from &quot;react-dom&quot;;
+
+function App() {
+  const [n, setN] = React.useState(0);
+  const [m, setM] = React.useState(0);
+  const onClick = () =&gt; {
+    setN(n + 1);
+  };
+
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;div&gt;
+        &lt;button onClick={onClick}&gt;update n {n}&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;Child data={m}/&gt;
+   // &lt;Child2 data={m}/&gt; 优化版
+    &lt;/div&gt;
+  );
+}
+
+function Child(props) {
+  console.log(&quot;child 执行了&quot;);
+  console.log('假设这里有大量代码')
+  return &lt;div&gt;child: {props.data}&lt;/div&gt;;
+}
+const Child2 = React.memo(Child);//Child组件只在props变化时渲染
+
+const rootElement = document.getElementById(&quot;root&quot;);
+ReactDOM.render(&lt;App /&gt;, rootElement);
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/61c1588742294f1cb759f7751fb2d9f6~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>点击button时<code>n</code>会变，那child会再次执行吗？
+child会再次执行。child只依赖m,初始值为0，既然参数不变为什么还会再执行呢，不应该执行的。</p>
+<p>使用<code>React.memo</code>把child封装下,Child2是Child的优化版,它会只在它的props变化时渲染，代码<code>&lt;Child2 data={m}/&gt;</code></p>
+<p>现在点击button后，2个log就再也不会执行了。除了第一次渲染时会执行console，之后再也不会执行。除非当m第一次渲染时才会执行，因为m的数据变了，这就是React.memo的好处。</p>
+<p><strong>React.memo使得一个组件只有在它的props变化时，它才会再执行一遍并且再次渲染</strong></p>
+<p><strong>Child组件还可以优化：</strong></p>
+<pre><code class="language-js">const Child = React.memo(props=&gt;{
+  console.log(&quot;child 执行了&quot;);
+  console.log('假设这里有大量代码')
+  return &lt;div&gt; child:{props.data} &lt;/dic&gt;
+})
+</code></pre>
+<p><strong>但是有个bug</strong></p>
+<p>例子:假设onClick支持onClick事件，它希望别人给它传个onClick监听，在点击div时，就会调用<code>props.onClick</code>。给Child2传个onClick。</p>
+<pre><code class="language-js">function App() {
+  console.log(&quot;App 执行了&quot;)
+  const [n, setN] = React.useState(0);
+  const [m, setM] = React.useState(0);
+  const onClick = () =&gt; { setN(n + 1); };
+  
+  const onClickChild=()=&gt;{} //这句话重新执行
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;div&gt;
+        &lt;button onClick={onClick}&gt;update n {n}&lt;/button&gt;
+      &lt;/div&gt;
+       &lt;Child2 data={m} onClick={onClickChild}/&gt;
+    &lt;/div&gt;
+  );
+}
+
+function Child(props) {
+  console.log(&quot;child 执行了&quot;);
+  console.log('假设这里有大量代码')
+  return &lt;div onClick = {props.onClick}&gt;child: {props.data}&lt;/div&gt;;
+}
+const Child2 = React.memo(Child);
+const rootElement = document.getElementById(&quot;root&quot;);
+ReactDOM.render(&lt;App /&gt;, rootElement);
+</code></pre>
+<p>Child2是优化过后的函数，理论上来说，只要m和onClickChild不变，它就不需要重新执行。比如我更新n，它应该不需要重新执行。</p>
+<p>测试下:<strong>Child2竟然执行了，为什么呢？</strong><br>
+因为当我点击<code>n+1</code>时，App会重新执行，<code>const onClickChild=()=&gt;{}</code>这句话也会重新执行。之前是一个空函数，现在又是另一个空函数，2个不同的空函数就代表onClick变了。</p>
+<p><strong>那为什么n可以呢？</strong><br>
+因为当你写m=0时，第一次的0和第二次的0都是数值，数值是相等的。但是函数是个对象，第一、二次的空函数的地址是不相等的，<strong>这就是值与引用的区别</strong>。</p>
+<p><strong>那怎么解决这个问题呢？</strong><br>
+我不希望用户在更新n时，由于函数的更新而去渲染自己。<br>
+<strong>用useMemo，useMemo可以实现函数的重用。</strong><br>
+方法:useMemo接受一个函数，这个函数的返回值就是你要缓存的东西。</p>
+<pre><code class="language-js">function App() {
+  console.log(&quot;App 执行了&quot;)
+  const [n, setN] = React.useState(0);
+  const [m, setM] = React.useState(0);
+  const onClick = () =&gt; { setN(n + 1); };
+  
+  const onClickChild = useMemo(()=&gt;{ 
+    return ()=&gt;{} //复用
+  },[m])
+  //const onClickChild=()=&gt;{} 
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;div&gt;
+        &lt;button onClick={onClick}&gt;update n {n}&lt;/button&gt;
+      &lt;/div&gt;
+       &lt;Child2 data={m} onClick={onClickChild}/&gt;
+    &lt;/div&gt;
+  );
+}
+
+function Child(props) {
+  console.log(&quot;child 执行了&quot;);
+  console.log('假设这里有大量代码')
+  return &lt;div onClick = {props.onClick}&gt;child: {props.data}&lt;/div&gt;;
+}
+const Child2 = React.memo(Child);
+const rootElement = document.getElementById(&quot;root&quot;);
+ReactDOM.render(&lt;App /&gt;, rootElement);
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/07f4e46a705d49fb8679ea2e3213cd4b~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>App执行了，child没执行。因为函数已经被我们复用，只有在m变化时，你再重新给我生成一个，因为有可能这个函数用到了m。useMemo用来缓存一些，你希望在2次新旧组件迭代的时候，希望用上次的值，这个值就是一个函数。</p>
+<p><strong>总结</strong></p>
+<p>我们在使用React时经常发现有多余的render,比如说n变了，但是依赖m的组件却自动刷新了，为了解决这个问题可以使用<code>React.memo</code>,这个memo可以做到如果props不变就没有必要再执行了。但它有个bug，就算我2次用到的是空函数/函数，由于我的App重新渲染了，所以这个函数的地址就变了,是一个新的空函数。这就导致可props本质上还是变了，变了就会一秒破功。新旧函数虽然功能一样，都是地址不一样。我们可以使用<code>React.useMemo</code></p>
+<p><strong>useMemo特点</strong></p>
+<p>1.<strong>第一个参数</strong>一定是函数<code>（）= value</code>,不接受参数。</p>
+<p>2.<strong>第二个参数</strong>是数组</p>
+<p>3.只有当依赖变化时，才会计算出新的value。如果依赖不变，那么就重用之前的value</p>
+<p>这不就是Vue2的computed吗？</p>
+<p>我这个值是根据计算得出来的，而且我会缓存使用之前的值。</p>
+<p><strong>注意</strong><br>
+如果你的value是个函数，那么你就要写成useMemo( ()=&gt; (x)=&gt; console.log(x))<br>
+这是一个返回函数的函数，很难用，于是就有了<code>useCallback</code>。</p>
+<h4 id="usecallback最常用">useCallback(最常用)</h4>
+<p><strong>用法</strong></p>
+<p>直接写你return的函数就行了。</p>
+<pre><code class="language-js">useCallback(x=&gt;log(x),[m])等价于
+useMemo(()=&gt; x=&gt; log(x),[m])
+</code></pre>
+<p>优化技巧2</p>
+<pre><code class="language-js">const onClickChild = useMemo(()=&gt;{ 
+    return ()=&gt;{
+      console.log(m)
+    } 
+},[m])
+
+//useCallback语法糖
+const onClickChild =useCallback(()=&gt;{ console.log(m) },[m])
+</code></pre>
+<p><strong>优化技巧1</strong></p>
+<p>用useMemo使得一些函数被重用，这样就不至于去更新你已经用React.memo优化过的组件,一般这2个是一起用的，先memo再useMemo。</p>
+<p><strong>优化技巧2</strong></p>
+<p>如果你觉得useMemo太难用，可以用useCallback代替。</p>
+<h3 id="useref--forwardref--useimperativehandle">useRef &amp; forwardRef &amp; useImperativeHandle</h3>
+<h3 id="useref常用">useRef(常用)</h3>
+<blockquote>
+<p>forwardRef、useImperativeHandle跟useRef有非常大的关系</p>
+</blockquote>
+<pre><code class="language-js">import React,{useRef} from &quot;react&quot;
+import ReactDOM from &quot;react-dom&quot;
+ 
+//window.count = 0;
+function App() {
+  console.log(&quot;App 执行了&quot;);
+ const count=useRef(0) //current是随着App render不会变的量
+  useEffect(()=&gt;{
+    count.current +=1
+    console.log(count)
+  })
+//window.count +=1
+  const [n, setN] = useState(0);
+  const onClick = () =&gt; {
+    setN(n + 1);
+  };
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;button onClick={onClick}&gt;update n {n}&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<p><strong><code>useRef</code>+<code>useEffect</code>实现<code>count +=1</code>操作:</strong></p>
+<p>全局变量<code>window.count</code>可记录render的次数。但是全局变量有个坏处，变量名容易冲突。</p>
+<p>这时我们可以用useRef。</p>
+<p>每次更新完后用useEffect对<code>conut.current</code>进行操作。</p>
+<p><strong>conut规定:</strong> 如果你要对count进行操作的话，必须要用<code>conut.current</code>，因为current才是它真正的值。</p>
+<p>在我们不停的渲染中，count始终不会变化，每一次得到的都是同一个count，count的值被记录在useRef对应的一个对象上，这个对象跟App一一对应。</p>
+<p><strong>为什么需要current？</strong></p>
+<p>App每次渲染都会得到一个count。</p>
+<p><strong>为了保证2次useRef是同一样的值(只有引用能做到)</strong></p>
+<p>新旧组件引用的对象必须是同一个对象，否则就会出问题。对象地址是同一个，只是值改变了。</p>
+<p>如果没有current你改的就是对象本身。</p>
+<pre><code class="language-js">const count=useRef({current:0}) //一开始不是对象，这里假设它就是一个对象
+count.current +=1
+</code></pre>
+<p><strong>总结:</strong></p>
+<p>目前为止，我们已经学了3个关于&quot;<strong>是否要变化</strong>&ldquo;的hook。</p>
+<p><strong>1.useState/useReducer</strong></p>
+<p>它们两个每次的n都会变化，n每次变</p>
+<p><strong>2.useMemo/useCallback</strong></p>
+<p>只在依赖m，[m]变的时候fn才会变，有条件的改变</p>
+<p><strong>3.useRef</strong></p>
+<p>永远不变</p>
+<p><strong>延伸</strong></p>
+<p><a href="https://vuejs.org/guide/extras/composition-api-faq.html#what-is-composition-api">Vue3的ref</a>就是抄袭React的ref,但是有一点不一样:</p>
+<p>如果你对Vue的ref进行改变,UI会自动变化，不需要手动刷新。但是React不会自动变化。</p>
+<p><strong>例子</strong>:点击button后，虽然useRef改变了，但是UI不会自动变化。</p>
+<pre><code class="language-js">function App() {
+//console.log(&quot;App 执行了&quot;);
+  const [n, setN] = useState(0);
+//const [_, set_] = useState(null);
+  const count = useRef(0);
+  const onClick2 = () =&gt; {
+    count.current +=1
+  //set_(Math.random);
+    console.log(count.current);
+  };
+  useEffect(() =&gt; {
+    console.log(count.current);
+  });
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;div&gt;
+        &lt;button onClick={onClick2}&gt; update count{count.current} &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b99ab42abed44c58a198c9fe528a16dc~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>要想刷新UI只需要调用setState下并手动set:</strong></p>
+<pre><code class="language-js">const [_,set_]=React.useState(null) //调用useState
+//手动set,只要这次值跟上次不一样UI就会更新
+const onClick2 = ()=&gt;{
+  count.current +=1
+  set_(Math.random())
+  coneolr.log(count.current)
+}
+</code></pre>
+<p>Vue3的思路就是，你不需要写<code>set_(Math.random())</code>，我发现你对current变更就会自动更新UI。</p>
+<p><strong>对比</strong></p>
+<p>React的理念是UI=f(data),你要想<strong>变化时自动render</strong>就自己加，监听ref,当ref.current变化时，调用setX即可。</p>
+<p><strong>1.useRef</strong></p>
+<p>初始化:const count=useRef(0)</p>
+<p>读取:count.current</p>
+<p><strong>2.Vue3</strong></p>
+<p>初始化:const count=ref(0)</p>
+<p>读取:count.value</p>
+<p>不同点:当count.value变化时，Vue3会自动render</p>
+<h3 id="forwardref">forwardRef</h3>
+<blockquote>
+<p>forwardRef跟useRef有非常大的关系</p>
+</blockquote>
+<p><strong>例1.为什么要用forwardRef</strong></p>
+<p>原因:props无法传递ref属性</p>
+<pre><code class="language-js">import React, { useRef } from &quot;react&quot;;
+import ReactDOM from &quot;react-dom&quot;;
+function App() {
+  const buttonRef = useRef(null);
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;Button2 ref={buttonRef}&gt;按钮&lt;/Button2&gt;
+      {/* 看浏览器控制台的报错 */}
+    &lt;/div&gt;
+  );
+}
+
+const Button2 = props =&gt; {
+  console.log(props)
+  return &lt;button className=&quot;red&quot; {...props} /&gt;;
+};
+const rootElement = document.getElementById(&quot;root&quot;);
+ReactDOM.render(&lt;App /&gt;, rootElement);
+</code></pre>
+<p><strong>知识点</strong></p>
+<p>1.用<code>buttonRef</code>引用到<code>Button2</code>对应的DOM对象，这样我就不需要用jQuery去找了。</p>
+<pre><code class="language-js">相当于:
+const button =document.querySelector(&quot;#x&quot;)
+&lt;Button2 id=&quot;x&quot;&gt;
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/58d29e4bd399473ca676d5d66a18ee6b~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>error</strong>:函数组件不能接受refs,只有类组件才能接受refs,你应该用<code>forwardRef</code></p>
+<p><strong>log下props</strong>:只把按钮传过去了，ref没有传，这就是报错的原因。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/864aa6c9efa74118a3ea29836afd7111~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>你给我的ref我根本读不到引用，那我怎么把<code>&lt;button&gt;</code>给你啊？应该用<code>forwardRef</code>。</p>
+<p><strong>如何使用<code>React.forwardRef</code></strong></p>
+<p>1.<code>Button3</code>先用forwardRef包装Button2,把外边给你的ref转发给你的第二个参数，这样你就可以使用refl了。</p>
+<p>2.<code>Button2</code>添加第二个参数ref</p>
+<p>3.使用ref</p>
+<p><strong>例2.实现ref的传递</strong></p>
+<pre><code class="language-js">import React, { useRef } from &quot;react&quot;;
+import ReactDOM from &quot;react-dom&quot;;
+function App() {
+  const buttonRef = useRef(null);
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;Button3 ref={buttonRef}&gt;按钮&lt;/Button2&gt;
+    &lt;/div&gt;
+  );
+}
+
+const Button2 = (props, ref) =&gt; { //2.添加ref
+  console.log(props);
+  console.log(ref)
+  return &lt;button className=&quot;red&quot; ref={ref} {...props} /&gt;;//3.使用ref
+};
+const Button3 = React.forwardRef(Button2); //1.用forwardRef包装Button2
+
+const rootElement = document.getElementById(&quot;root&quot;);
+ReactDOM.render(&lt;App /&gt;, rootElement);
+</code></pre>
+<p>这样改就没有任何问题了，同样props里还是没有ref,但是ref是可以包含到外面给我传进来的button ref的。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/77e4400776ee4156939d17655ffe6a76~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>总结:</strong> 如果你的函数组件(Button2)，想要接收别人<code>App</code>传来的ref参数，你必须把自己用<code>React.forwardRef</code>包起来。想用ref就必须要用<code>React.forwardRef</code>，仅限函数组件，class组件是默认可以用的。</p>
+<p>优化代码</p>
+<pre><code class="language-js">const Button3 = React.forwardRef((props, ref) =&gt; {
+  console.log(props);
+  console.log(ref)
+  return &lt;button className=&quot;red&quot; ref={ref} {...props} /&gt;;
+})
+</code></pre>
+<p><strong>例3.2次ref传递得到button的引用</strong></p>
+<p>通过ref引用到里面的button需要做两次传递:</p>
+<p>buttonRef第一次通过forwardRef传给了Button2,Button2得到ref后传递给了button。</p>
+<pre><code class="language-js">function App() {
+//MovableButton就是对Button2的一个包装
+  const MovableButton = movable(Button2);
+  const buttonRef = useRef(null);
+  useEffect(() =&gt; {
+    console.log(buttonRef.curent);
+  });
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;MovableButton name=&quot;email&quot; ref={buttonRef}&gt;//通过ref引用到里面的button
+        按钮
+      &lt;/MovableButton&gt;
+    &lt;/div&gt;
+  );
+}
+const Button2 = React.forwardRef((props, ref) =&gt; {
+  return &lt;button ref={ref} {...props} /&gt;;
+});
+
+// 仅用于实验目的，不要在公司代码中使用
+function movable(Component) { //可以移动的组件
+  function Component2(props, ref) { //接收组件1Component，返回组件2Component2
+    console.log(props, ref);
+    const [position, setPosition] = useState([0, 0]);
+    const lastPosition = useRef(null);
+    const onMouseDown = e =&gt; {
+      lastPosition.current = [e.clientX, e.clientY];
+    };
+    const onMouseMove = e =&gt; {
+      if (lastPosition.current) {
+        const x = e.clientX - lastPosition.current[0];
+        const y = e.clientY - lastPosition.current[1];
+        setPosition([position[0] + x, position[1] + y]);
+        lastPosition.current = [e.clientX, e.clientY];
+      }
+    };
+    const onMouseUp = () =&gt; {
+      lastPosition.current = null;
+    };
+    return (
+      &lt;div
+        className=&quot;movable&quot;
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={onMouseUp}
+        style={{ left: position &amp;&amp; position[0], top: position &amp;&amp; position[1] }}
+      &gt;
+        &lt;Component {...props} ref={ref} /&gt;
+      &lt;/div&gt;
+    );
+  }
+  return React.forwardRef(Component2);
+}
+</code></pre>
+<p><strong>总结:</strong> 由于props不包含ref,所以需要forwardRef。</p>
+<p>为什么props不包含ref呢？因为大部分时候不需要</p>
+<p>如果你希望一个组件支持ref属性，那么你就需要用forwardRef把这个函数组件包起来，然后给他增加第二个属性ref。</p>
+<h3 id="useimperativehandle用不着">useImperativeHandle(用不着)</h3>
+<blockquote>
+<p>useImperativeHandle跟useRef相关的钩子</p>
+<p>使用一个重要的handle，名字起的稀烂，应该叫setRef</p>
+</blockquote>
+<p><strong>分析:用于自定义ref的属性</strong></p>
+<p><strong>例1.不用useImperativeHandle的代码:</strong></p>
+<pre><code class="language-js">import React, {useRef,useState,useEffect,useImperativeHandle,createRef} from &quot;react&quot;;
+import ReactDOM from &quot;react-dom&quot;;
+
+function App() {
+  const buttonRef = useRef(null); //buttonRef就是buttonDOM对象的引用
+  useEffect(() =&gt; { //渲染之前不存在，只能在渲染之后打
+    console.log(buttonRef.current);
+  });
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;Button2 ref={buttonRef}&gt;按钮&lt;/Button2&gt;
+      &lt;button className=&quot;close&quot; onClick={() =&gt; {
+          console.log(buttonRef);
+          buttonRef.current.remove();
+        }}
+      &gt;
+        x
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+const Button2 = React.forwardRef((props, ref) =&gt; {
+  return &lt;button ref={ref} {...props} /&gt;;
+});
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/85a92567bf7b49b3b9325fa1e731d5c1~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>buttonRef就是button DOM对象的引用，打印出来就是个<code>&lt;button&gt;</code>
+<strong>如果你希望得到的不是<code>&lt;button&gt;</code>而是一个你对<code>&lt;button&gt;</code>的封装呢？</strong>
+这个需求很奇怪，所以大部分时候用不到。</p>
+<p><strong>例2.用了useImperativeHandle的代码:</strong></p>
+<pre><code class="language-js">function App() {
+  const buttonRef = useRef(null);
+  useEffect(() =&gt; { 
+    console.log(buttonRef.current);
+  });
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;Button2 ref={buttonRef}&gt;按钮&lt;/Button2&gt; //Button2想自定义ref
+      &lt;button className=&quot;close&quot; onClick={() =&gt; {
+          console.log(buttonRef);
+          buttonRef.current.x();
+        }}&gt;
+        x
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+const Button2 = React.forwardRef((props, ref) =&gt; {
+  const realButton = createRef(null);
+//如何自定义ref
+  const setRef = useImperativeHandle;
+  setRef(ref, () =&gt; { //假的ref
+    return {
+      x: () =&gt; {
+        realButton.current.remove();
+      },
+      realButton: realButton //真的ref(也可以给它真正的ref用)
+    };
+  });
+  return &lt;button ref={realButton} {...props} /&gt;;
+});
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8627be04dba34e37a6209c0dd2c1e063~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>ref可以支持自定义</strong></p>
+<p>比如说Button2想自定义ref,不想把button给别人，<strong>那怎么自定义ref呢？</strong>
+把ref赋值成一个对象。</p>
+<p>ref就是个对象，ref的x就是一个函数，这个函数会去对button进行一些操作。
+setRef是个假的ref,把它暴露在外面</p>
+<p>我自己使用真的ref<code>useImperativeHandle</code></p>
+<p>这样别人引用我时，只能引用到假的setRef</p>
+<p>所以这个hook真正意图是对ref进行设置，以达到某种不可告人的目的，这个<code>useImperativeHandle</code>几乎不用。</p>
+<p><strong>总结:</strong> 如果一个函数组件暴露了ref在外面，那么你可以自定义这个ref。</p>
+<h3 id="自定义-hook">自定义 Hook</h3>
+<p><strong>例1</strong>.封装数据操作</p>
+<p><strong>步骤</strong></p>
+<p><strong>1.新建目录hooks,新建文件useList.js</strong></p>
+<pre><code class="language-js">useList.js
+import { useState, useEffect } from &quot;react&quot;;
+
+const useList = () =&gt; { 
+  const [list, setList] = useState(null); //设置state
+  useEffect(() =&gt; { 
+    ajax(&quot;/list&quot;).then(list =&gt; { 
+      setList(list);
+    });
+  }, []); 
+  return {
+    list: list, //是同一个对象的引用，把地址传给外面
+    setList: setList
+  };
+};
+export default useList;
+
+function ajax() {
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      resolve([
+        { id: 1, name: &quot;Frank&quot; },
+        { id: 2, name: &quot;Jack&quot; },
+        { id: 3, name: &quot;Alice&quot; },
+        { id: 4, name: &quot;Bob&quot; }
+      ]);
+    }, 2000);
+  });
+}
+</code></pre>
+<p><strong>useList.js解析</strong></p>
+<p>一开始就请求&rdquo;/list&quot;数据:得到list之后就setList，setList之后list就会变，引用的人也就知道了。[] 确保只在第一次运行， 把读写接口return出去，引用/调用useList函数时就可以得到读写接口，<code>list</code>是同一个对象的引用，把地址传给外面list(index.js的list引用)。</p>
+<p>在我调用setList时，我set的虽然是我这个state(useState),但是由于useList是在<code>App组件</code>里调用的。所以在使用<code>useList</code>时,相当于把代码(useList函数里的代码)拷到App组件里了。所以虽然我的useState不是在App里写的，但是依然不报错，因为我是在这里运行的。</p>
+<p><strong>2.引用useList</strong></p>
+<pre><code class="language-js">index.js
+import React from &quot;react&quot;;
+import ReactDOM from &quot;react-dom&quot;;
+import useList from &quot;./hooks/useList&quot;;
+
+function App() {
+  const { list, setList } = useList();
+  return ( //DOM
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;h1&gt;List&lt;/h1&gt;
+      {list ? (
+        &lt;ol&gt;
+         {list.map(item=&gt; (&lt;li key={item.id}&gt;{item.name}&lt;/li&gt;))}
+        &lt;/ol&gt;
+      ) : (&quot;加载中...&quot;)}
+    &lt;/div&gt;
+  );
+}
+const rootElement = document.getElementById(&quot;root&quot;);
+ReactDOM.render(&lt;App /&gt;, rootElement);
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ed9a8a99e1e44bdda84ee4dcd8b6b633~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>如何封装？</strong></p>
+<p>1.你(useList.js)不管用到什么hook,你全部都把它写在一个函数(useList)里面:把相关的逻辑都写到一起，最后把你的读接口、写接口暴露出去就行了。</p>
+<p>2.然后别人(index.js)就只需要知道你的读接口、写接口，其它的一概不管。</p>
+<p><strong>比如说你有很多数据</strong></p>
+<pre><code class="language-js">const { list } = useList()
+const { user } = useUser()
+</code></pre>
+<p>useUser会自己去初始化user,自己去请求user,请求完了自己去setUser。</p>
+<p>我这边只需要读user就行了，这就是自定义hook的牛掰之处。</p>
+<p>但是你既然可以封装，不妨封装的更厉害一点，不要只有一个读和写，增删改查全部都可以做出来。</p>
+<p>比如说，我们对useList做了升级。</p>
+<pre><code class="language-js">import { useState, useEffect } from &quot;react&quot;;
+
+const useList = () =&gt; {
+  const [list, setList] = useState(null);
+  useEffect(() =&gt; {
+    ajax(&quot;/list&quot;).then(list =&gt; {
+      setList(list);
+    });
+  }, []); 
+  return {
+    list: list, //读接口
+    addItem: name =&gt; { //增接口
+      setList([...list, { id: Math.random(), name: name }]);
+    },
+    deleteIndex: index =&gt; { //删接口
+      setList(list.slice(0, index).concat(list.slice(index + 1)));
+    }
+  };
+};
+export default useList;
+
+function ajax() {
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      resolve([
+        { id: &quot;1&quot;, name: &quot;Frank&quot; },
+        { id: &quot;2&quot;, name: &quot;Jack&quot; },
+        { id: &quot;3&quot;, name: &quot;Alice&quot; },
+        { id: &quot;4&quot;, name: &quot;Bob&quot; }
+      ]);
+    }, 2000);
+  });
+}
+</code></pre>
+<p>给了一个读接口，用来读list。给了一个增接口，用来添加item。给了一个删接口，用来删除index。</p>
+<p><strong>点按钮就删除:</strong> 当你onClick时，我就直接调用deleteIndex,然后把index传给你<code>deleteIndex(index)</code>就删掉了。根本不需要知道list是从哪里请求数据、是怎么删除的、我一概不关心。我只需要得到一个读或者几个写。</p>
+<pre><code class="language-js">index.js
+import React, { useRef, useState, useEffect } from &quot;react&quot;;
+import ReactDOM from &quot;react-dom&quot;;
+import useList from &quot;./hooks/useList&quot;;
+
+function App() {
+  const { list, deleteIndex } = useList(); 
+//const { list, deleteIndex, addItem} = useList();  //得到一个读或者几个写
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;h1&gt;List&lt;/h1&gt;
+      {list ? (
+        &lt;ol&gt;
+          {list.map((item, index) =&gt; (
+            &lt;li key={item.id}&gt;
+              {item.name}
+              &lt;button onClick={() =&gt; { deleteIndex(index);}} &gt;
+                x
+              &lt;/button&gt;
+            &lt;/li&gt;
+          ))}
+        &lt;/ol&gt;
+      ) : ( &quot;加载中...&quot;)}
+    &lt;/div&gt;
+  );
+}
+const rootElement = document.getElementById(&quot;root&quot;);
+ReactDOM.render(&lt;App /&gt;, rootElement);
+</code></pre>
+<p><strong>分析</strong></p>
+<p><strong>1.你甚至还可以在自定义Hook里使用Context</strong></p>
+<p>这样你可以把自定义Hook和useReducer以及useContext结合起来,完全代替了redux。</p>
+<p>所以在新版的React里面没有必要再使用redux了。</p>
+<p><strong>2.useState只说了不能在if else里使用，但没说不能在函数里运行</strong></p>
+<p>只要这个函数在函数组件里运行即可</p>
+<p>希望大家在React项目中尽量使用自定义Hook,不要再去搞一些useState、useEfect放到这个组件上部，不要出现这种代码。</p>
+<h3 id="stale-closurehttpsdmitripavlutincomreact-hooks-stale-closures过时闭包"><a href="https://dmitripavlutin.com/react-hooks-stale-closures/">Stale Closure</a>(过时闭包)</h3>
+<p>用来描述你的函数引用的变量是<strong>之前产生的那个变量</strong>。</p>
+<p><strong>怎么避免呢？</strong></p>
+<p>基本上是通过加个依赖，让它自动刷新，要记得清除旧的计时器。</p>
+<p>所以一般来说不用计时器,比较麻烦。</p>
+<p><strong>JS中的Stale Closure</strong></p>
+<pre><code class="language-js">function createIncrement(i) { 
+
+//每调用一次这个函数，就会对value+i的操作，闭包。
+  function increment() { 
+    let value = 0;
+    value += i;
+    console.log(value);
+  }
+  const message = `Current value is ${value}`;
+  function log() {
+    console.log(message);
+  }
+  return [increment, log]; 
+}
+const [increment, log] = createIncrement(1);//析构函数
+increment(); // 1
+increment(); // 2
+increment(); // 3
+// Does not work!
+log();       // &quot;Current value is 0&quot;
+</code></pre>
+<p>useState里多次讲过，由于每次你在执行函数时都生成了一个message，所以第一次执行message得到1，第二次执行message得到2，第三次执行message得到3。</p>
+<p>那你要是初始就把message记住了，那这个message里面的value就是0啊，log就永远只会打0，不会打后面的。因为后面的是由自己的log,那么这个log就叫做过时的log,因为i已经创建了3次，log也创建了3次，但是你却保留的是初始值log，这就导致它过时了。</p>
+<p><strong>怎么解决？</strong></p>
+<p><strong>每次log前重新去取这个log</strong></p>
+<pre><code class="language-js">  function log() {
+    const message = `Current value is ${value}`;
+    console.log(message);
+  }
+</code></pre>
+<p>不要一开始就记下value,而是在调用log时，用log去取最新的值。
+这就是JS中过时闭包的解决方法。</p>
+<p><strong>React中的Stale Closure</strong></p>
+<p><strong>1&rsquo; useEffect()</strong></p>
+<pre><code class="language-js">function WatchCount() {
+  const [count, setCount] = useState(0);
+  useEffect(function() {
+    setInterval(function log() {
+      console.log(`Count is: ${count}`);
+    }, 2000);
+  }, []);//只在第一次设置计时器，所以count是过时的。
+  return (
+    &lt;div&gt;
+      {count}
+      &lt;button onClick={() =&gt; setCount(count + 1) }&gt;
+        Increase
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<p><strong>解决方法</strong>:把count放在依赖里，同时把之前的id清掉。</p>
+<p>生成了id又把id给clearInterval了，这不就相当于什么都没做嘛？
+不是，生成的是最新的id，删掉的是上一次组件消失时的id，调用时机不同。</p>
+<pre><code class="language-js">function WatchCount() {
+  const [count, setCount] = useState(0);
+  useEffect(function() {
+    const id = setInterval(function log() {
+      console.log(`Count is: ${count}`);
+    }, 2000);
+    return function() {
+      clearInterval(id);
+    }
+  }, [count]);
+  return (
+    &lt;div&gt;
+      {count}
+      &lt;button onClick={() =&gt; setCount(count + 1) }&gt;
+        Increase
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<p><strong>2&rsquo; useState()</strong></p>
+<pre><code class="language-js">function DelayedCount() {
+  const [count, setCount] = useState(0);
+  function handleClickAsync() {
+    setTimeout(function delay() {
+      setCount(count + 1);
+    }, 1000);
+  }
+  return (
+    &lt;div&gt;
+      {count}
+      &lt;button onClick={handleClickAsync}&gt;
+        Increase async
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<p>1s后打印count，在这1s之间<code>count +=1</code>根本不知道它变了，你用的永远都是旧的count。</p>
+<p><strong>解决方法</strong>:坚持使用函数作为setState的参数。</p>
+<p>这样你就不会受制于旧的还是新的，因为你传的是一个动作，这个动作是不关心这个数据当前的值是什么的，不关心你现在是什么值，只关心<code>+1</code>。</p>
+<pre><code class="language-js">function DelayedCount() {
+  const [count, setCount] = useState(0);
+  function handleClickAsync() {
+    setTimeout(function delay() {
+      setCount(count =&gt; count + 1);
+    }, 1000);
+  }
+  function handleClickSync() {
+    setCount(count + 1);
+  }
+  return (
+    &lt;div&gt;
+      {count}
+      &lt;button onClick={handleClickAsync}&gt;Increase async&lt;/button&gt;
+      &lt;button onClick={handleClickSync}&gt;Increase sync&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<h3 id="总结-1">总结</h3>
+<p>1.useState状态</p>
+<p>2.<code>useEffect</code>(副作用)就是afterRender</p>
+<p>3.<code>useLayoutEffect</code>就是比<code>useEffect</code>提前一点点。</p>
+<p>但是很少用，因为会影响渲染的效率,除非特殊情况才会用。</p>
+<p>4.<code>useContext</code>上下文，用来把一个<code>读、写接口</code>给整个页面用。</p>
+<p>5.<code>useReducer</code>专门给Redux的用户设计的(能代替Redux的使用)，我们甚至可以不用<code>useReducer</code>。</p>
+<p>6.<code>useMemo</code>(记忆)需要与<code>React.Memo</code>配合使用，<code>useMemo</code>不好用我们可以升级为更好用的<code>useCallback</code>(回调)</p>
+<p>7.<code>useRef</code>(引用)就是保持一个量不变，关于引用还有个<code>forwardRef</code>,<code>forwardRef</code>并不是一个Hook,还有个<code>useImperativeHandle</code>就是setRef。</p>
+<p>就是我支持ref时，可以自定义ref长什么样子，那就使用<code>useImperativeHandle</code>。</p>
+<p>8.自定义Hook</p>
+<p>示例中的<code>useList</code>就是自定义Hook,非常好用。</p>
+<p>有个默认的自定义Hook<code>useDebugValue</code>就是你在debugger时,可以给你的组件加上名字，很少用。</p>
+
+</article>
+
+                    
+                    
+                    
+
+                    
+
+
+
+                    
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+        <span class="text-primary-text block font-bold"
+          >Previous</span
+        >
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" class="block">Hooks 原理解析</a>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+        <span class="text-primary-text block font-bold">Next</span>
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/" class="block">React 类组件和函数组件</a>
+      
+    </div>
+  </div>
+
+
+                    
+
+
+
+                </div>
+                
+                <div class="hidden lg:block lg:w-1/4">
+                    
+                    <div
+  class="
+    bg-secondary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>On This Page</h3>
+</div>
+<div
+  class="sticky-toc 
+    border-s
+   hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#usestate最常用">useState(最常用)</a></li>
+        <li><a href="#usereducer最常用">useReducer(最常用)</a></li>
+        <li><a href="#如何用usereducer代替redux-">如何用useReducer代替Redux ？</a></li>
+        <li><a href="#总结">总结</a></li>
+        <li><a href="#如何模块化">如何模块化？</a></li>
+        <li><a href="#细化reducer">细化reducer</a></li>
+        <li><a href="#usecontext常用">useContext(常用)</a></li>
+        <li><a href="#useeffect--uselayouteffect">useEffect ＆ useLayoutEffect</a></li>
+        <li><a href="#useeffect副作用">useEffect副作用</a></li>
+        <li><a href="#uselayouteffect">useLayoutEffect</a></li>
+        <li><a href="#usememo--usecallback">useMemo &amp; useCallback</a></li>
+        <li><a href="#usememo最常用">useMemo(最常用)</a>
+          <ul>
+            <li><a href="#usecallback最常用">useCallback(最常用)</a></li>
+          </ul>
+        </li>
+        <li><a href="#useref--forwardref--useimperativehandle">useRef &amp; forwardRef &amp; useImperativeHandle</a></li>
+        <li><a href="#useref常用">useRef(常用)</a></li>
+        <li><a href="#forwardref">forwardRef</a></li>
+        <li><a href="#useimperativehandle用不着">useImperativeHandle(用不着)</a></li>
+        <li><a href="#自定义-hook">自定义 Hook</a></li>
+        <li><a href="#stale-closurehttpsdmitripavlutincomreact-hooks-stale-closures过时闭包"><a href="https://dmitripavlutin.com/react-hooks-stale-closures/">Stale Closure</a>(过时闭包)</a></li>
+        <li><a href="#总结-1">总结</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+                    
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        hljs.initHighlightingOnLoad();
+        changeSidebarHeight();
+        switchDocToc();
+    })
+</script>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2021 <a href="https://www.wangchucheng.com/">WANG Chucheng</a> and <a href="https://www.ruiqima.com/">MA Ruiqi</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>

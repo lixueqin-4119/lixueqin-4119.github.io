@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>前后分离 on 博客</title>
+    <link>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/</link>
+    <description>Recent content in 前后分离 on 博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AJAX 的原理</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/</guid>
+      <description>js三座大山之Ajax
+Ajax的全部内容: 用js控制浏览器发请求和收响应
+ 背景(原理)
+1.Ajax是浏览器推出的一个功能
+浏览器可以发请求，收响应
+浏览器在window上加了一个XMLHttpRequest全局函数
+用这个构造函数(类)可以构造出一个对象
+JS通过它实现发请求，收响应
+typeof window.XMLHttpRequest &#39;function&#39;  实际上跟window.Object是一样的。
+window.Object用来创建普通对象，window.XMLHttpRequest用来创建XMLRequest对象。
+XMLHttpRequest也是一个构造函数，可以构造出一个对象。
+2.准备一个服务器，用来接收请求
+使用server.js作为我们的服务器
+启动node server.js 8888
+添加index.html/main.js两个路由
+工具 node-dev 是一个node.js开发工具，当文件被修改时会自动重启node进程。
+Installation安装:yarn global add node-dev Usage使用: node-dev src/server.js  用node-dev代替node方便开发，node-dev修改时会自动保存重启Restarting
+node-dev 已经出 bug 没人修理了，不要使用，请直接使用 node 并手动重启。
+添加index.html/main.js两个路由
+http://localhost:8888/index.html 注意浏览器路径要一致！ if (path === &#39;/index.html&#39;) { //1.添加index.html response.statusCode = 200 response.setHeader(&#39;Content-Type&#39;, &#39;text/html;charset=utf-8&#39;) response.write(`\n &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;Ajax&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;h1&amp;gt;Ajax demo&amp;lt;/h1&amp;gt; &amp;lt;script src=&amp;quot;main.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; `) response.end() } else if (path === &#39;/main.</description>
+    </item>
+    
+    <item>
+      <title>Ajax实战:Cookie、Session</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/</guid>
+      <description>文档：Node.js中文档、Set-Cookie响应头
+内容：动态服务器
+ 什么是动态服务器? 静态服务器(网页) VS 动态服务器(网页)
+判断依据
+是否请求了数据库。
+没有请求数据库，就是静态服务器。请求了数据库，就是动态服务器。
+今天直接用json文件当作数据库。
+步骤 查看代码
+1.新建目录db和文件users.json
+[ {&amp;quot;id&amp;quot;:1,&amp;quot;name&amp;quot;:&amp;quot;李白&amp;quot;,&amp;quot;password&amp;quot;:&amp;quot;xxx&amp;quot;,&amp;quot;age&amp;quot;:18}, {&amp;quot;id&amp;quot;:2,&amp;quot;name&amp;quot;:&amp;quot;李宇春&amp;quot;,&amp;quot;password&amp;quot;:&amp;quot;yyy&amp;quot;,&amp;quot;age&amp;quot;:20} ]  2.读数据库
+新建test.js用来测试数据
+fs用来读文件的，要想获取文件数据，首先要引入fs。
+const fs = require(&#39;fs&#39;) //引入fs const usersString = fs.readFileSync(&#39;./db/users.json&#39;).toString() console.log(usersString)  toString() 方法返回一个表示该对象的字符串。
+运行:node test.js
+把字符串变成数组
+const usersArray = JSON.parse(usersString) console.log(typeof usersString) console.log(usersString) console.log(typeof usersArray) console.log(usersArray) console.log(usersArray instanceof Array)  3.写数据库
+const user3 = { id: 3, name: &#39;李明&#39;, password: &#39;zzz&#39;, age: 25 } usersArray.push(user3)  存到数据库。我们的数据库是文件，文件只能存字符串
+console.log(typeof user3) //object const string = JSON.</description>
+    </item>
+    
+    <item>
+      <title>异步与Promise</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/</guid>
+      <description>面试必考
+AJAX(Async JavaScript And XML)
+内容:Ajax异步编程在js里的统一解决方案(js异步编程模型) Promise
+ 什么是异步？什么是同步？ 同步：能直接拿到结果
+比如你在医院挂号，拿到号才会离开窗口。
+同步任务可能消耗10ms,也可能需要3s
+总之不拿到结果你是不会离开的
+异步：不能直接拿到结果
+比如你在餐厅门口等位，拿到号可以去逛街
+什么时候才能真正吃饭呢？
+你可以每10min去餐厅问一下(轮询)
+你也可以扫码用微信接收通知(回调)
+异步通常指&amp;quot;异步加回调&amp;quot;
+举例
+1.以ajax为例
+request.send()之后，并不能直接得到response
+不信console.log(request.response)试试
+必须等到readState变为4后，浏览器回头调用
+request.onreadystatechange函数
+我们才能得到request.response
+这跟餐厅给你发送微信提醒的过程是类似的
+补充：在js中发一个网络请求并得到响应大概要几百ms~1/2s
+getJSON.onclick = () =&amp;gt; { ... request.send() console.log(request.response) //不能直接得到response setTimeout(() =&amp;gt; { //2s后得到response console.log(request.response) }, 2000) } 下载完成后浏览器会回调request.onreadystatechange函数 所以上面的代码等价于 request.onreadystatechange = () =&amp;gt; { if (request.readyState === 4 &amp;amp;&amp;amp; request.status == 200) { console.log(request.response) ... } 打印出response后就是3s后  2.回调callback
+你写给自己用的函数，不是回调
+你写给别人用的函数，就是回调
+request.onreadystatechange就是我写给浏览器调用的
+意思就是浏览器回头调一下这个函数
+「回头」也有「将来」的意思，如「我回头请你吃饭」
+举例
+1.把函数1给另一个函数2</description>
+    </item>
+    
+    <item>
+      <title>跨域、CORS、JSONP</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/</guid>
+      <description>面试必考
+ajax和Promise的跨域问题
+跨域一般用2种方案JSONP和CORS
+ 跨域  前端与后端的交互。
+ 关键知识
+1.同源策略 浏览器故意设计的一个功能限制
+2.CORS 突破浏览器限制的一个办法
+3.JSONP IE时代的妥协
+一.同源策略 1.同源定义
+源
+控制台输入window.origin或location.origin可以得到当前源
+源=协议+域名+端口号
+如果两个url的协议、域名、端口号完全一致，那么这两个url就是同源的。
+举例
+https://qq.com、https://www.baidu.com不同源 https://baidu.com、https://www.baidu.com不同源  完全一致才算同源
+2.同源策略定义
+浏览器规定
+如果JS运行在源A里就只能获取源A的数据，不能获取源B的数据，即不允许跨域。
+举例(省略http协议)
+假设diaoyu.com/index.html引用了cdn.com/1.js
+那么就说1.js运行在源diaoyu.com里。注意这跟cdn.com没关系，虽然1.js从它那下载
+所以1.js就只能获取diaoyu.com的数据
+1.js运行在哪个域名里就只能访问这个域名的数据
+这是浏览器的功能，浏览器故意要这样设计的。
+浏览器这么做的目的是为了保护用户隐私。
+怎么保护的？(假设没有同源策略,所有的js可以访问所有的网站的数据)
+以QQ空间为例
+源为https://user.qzone.qq.com
+假设，当前用户已登陆(登陆信息保存在浏览器Cookie里)，现在可以查看好友列表。
+好友信息是通过Ajax请求/friends.json获取到的好友列表
+假设，Ajax请求/friends.json可获取用户好友列表
+目前为止都很正常
+黑客来了
+假设你的女神(黑客)分享https://qzone-qq.com 给你，实际是钓鱼网站。
+你点开这个网页，这个网页也请求你的好友列表
+https://user.qzone.qq.com/friends.json
+请问，你的好友列表是不是就被黑客偷走了？是的\
+问题的根源
+第1次是正常的请求，第2次是黑客的请求。几乎没有区别除了referrer
+控制台的XHR是XMLHttpRequest的缩写也就是ajax的缩写
+同源策略：不同源的页面之间，不准互相访问数据
+实践 完整代码  做2个网站来演示下
+ 步骤
+1.创建2个目录qq-com和diaoyu-com
+qq-com目录新建server.js,模拟QQ空间
+diaoyu-com目录新建server.js,模拟坏人空间
+先打开第1个目录，然后将第2个目录添加到工作区
+安装：yarn global add node-dev 使用：node-dev server.js 8888 //qq-com node-dev server.js 9999 //diaoyu-com  2.</description>
+    </item>
+    
+    <item>
+      <title>静态服务器Static Server</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/</guid>
+      <description>优化server.js
+ 优化前
+var http = require(&#39;http&#39;) var fs = require(&#39;fs&#39;) var url = require(&#39;url&#39;) var port = process.argv[2] if (!port) { console.log(&#39;请指定端口号好不啦？\nnode server.js 8888 这样不会吗？&#39;) process.exit(1) } var server = http.createServer(function (request, response) { var parsedUrl = url.parse(request.url, true) var pathWithQuery = request.url var queryString = &#39;&#39; if (pathWithQuery.indexOf(&#39;?&#39;) &amp;gt;= 0) { queryString = pathWithQuery.substring(pathWithQuery.indexOf(&#39;?&#39;)) } var path = parsedUrl.pathname var query = parsedUrl.query var method = request.method /******** 从这里开始看，上面不要看 ************/ console.log(&#39;有个傻子发请求过来啦！路径（带查询参数）为：&#39; + pathWithQuery) if (path === &#39;/&#39;) { response.</description>
+    </item>
+    
+  </channel>
+</rss>

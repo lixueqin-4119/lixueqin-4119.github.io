@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>Hooks 原理解析 | 目录 | 博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.1" />
+<link rel="stylesheet" href="http://lixueqin-4119.xyz/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
+<script defer src="http://lixueqin-4119.xyz/js/eureka.min.f1639ee98d6cbd85b2b5f034d27320da962002ff83159ed4e01dbc5948c42a1ab26c2d6e74c66e93f5cec4d24dbd166d.js" integrity="sha384-8WOe6Y1svYWytfA00nMg2pYgAv&#43;DFZ7U4B28WUjEKhqybC1udMZuk/XOxNJNvRZt"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+
+<script defer type="text/javascript" src="http://lixueqin-4119.xyz/js/fontawesome.min.7b735802cbde01152678cc4a867f0b4bb0597876e29adfcaf1e5b5e99d39d7af87f348fdfd91c7eaf9ed7dc1eece7c61.js" integrity="sha384-e3NYAsveARUmeMxKhn8LS7BZeHbimt/K8eW16Z0516&#43;H80j9/ZHH6vntfcHuznxh"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="内容
+1.分析useState原理和源码
+2.useRef的作用
+3.useContext的作用
+4.Vue3 对比 React
+ 分析useState原理 import React from &quot;react&quot;; import ReactDOM from &quot;react-dom&quot;; const rootElement = document.getElementById(&quot;root&quot;); function App() { console.log(&quot;App 运行了&quot;) const [n, setN] = React.useState(0); console.log(`n:${n}`); return ( &lt;div className=&quot;App&quot;&gt; &lt;p&gt;{n}&lt;/p&gt; &lt;p&gt; &lt;button onClick={() =&gt; setN(n &#43; 1)}&gt;&#43;1&lt;/button&gt; &lt;/p&gt; &lt;/div&gt; ); } ReactDOM.render(&lt;App /&gt;, rootElement);  点击button后会发生什么？
+首次渲染render &lt;App/&gt;
+调用App()
+得到一个对象(虚拟DIV)
+React就会把这个虚拟DIV变成页面中真实的&lt;div&gt;
+用户点击button就会调用onClick函数,执行setN(n&#43;1)
+再次render &lt;App/&gt;,调用App()
+验证:添加console.log(&quot;App 运行了&quot;)看看App运行了几次
+第1次得到0时“App 运行了”，点button又执行“App 运行了”
+证明:这个函数每更新一次UI就会运行一次。
+会再次得到一个对象(虚拟DIV)
+把新的虚拟DIV跟旧的虚拟DIV对比，看哪里有变化DOM Diff，然后局部更新真&lt;div&gt;
+每次调用App(),都会执行useState(0)
+第1次运行与第2次运行结果是一样的吗？
+验证:添加console.log(n:${n});
+点刷新n=0,点&#43;1n=1">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"",
+      "item":"http://lixueqin-4119.xyz/docs/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"目录",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/"},{
+      "@type": "ListItem",
+      "position": 3 ,
+      "name":"React全解",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/"},{
+      "@type": "ListItem",
+      "position": 4 ,
+      "name":"Hooks 原理解析",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/"
+    },
+    "headline": "Hooks 原理解析 | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
+    "dateModified": "2020-10-16T00:00:00+00:00",
+    "wordCount":  696 ,
+    "publisher": {
+        "@type": "Person",
+        "name": "WANG Chucheng",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "http://lixueqin-4119.xyz/images/icon.png"
+        }
+        },
+    "description": "内容\n1.分析useState原理和源码\n2.useRef的作用\n3.useContext的作用\n4.Vue3 对比 React\n 分析useState原理 import React from \u0026quot;react\u0026quot;; import ReactDOM from \u0026quot;react-dom\u0026quot;; const rootElement = document.getElementById(\u0026quot;root\u0026quot;); function App() { console.log(\u0026quot;App 运行了\u0026quot;) const [n, setN] = React.useState(0); console.log(`n:${n}`); return ( \u0026lt;div className=\u0026quot;App\u0026quot;\u0026gt; \u0026lt;p\u0026gt;{n}\u0026lt;\/p\u0026gt; \u0026lt;p\u0026gt; \u0026lt;button onClick={() =\u0026gt; setN(n \u002b 1)}\u0026gt;\u002b1\u0026lt;\/button\u0026gt; \u0026lt;\/p\u0026gt; \u0026lt;\/div\u0026gt; ); } ReactDOM.render(\u0026lt;App \/\u0026gt;, rootElement);  点击button后会发生什么？\n首次渲染render \u0026lt;App\/\u0026gt;\n调用App()\n得到一个对象(虚拟DIV)\nReact就会把这个虚拟DIV变成页面中真实的\u0026lt;div\u0026gt;\n用户点击button就会调用onClick函数,执行setN(n\u002b1)\n再次render \u0026lt;App\/\u0026gt;,调用App()\n验证:添加console.log(\u0026quot;App 运行了\u0026quot;)看看App运行了几次\n第1次得到0时“App 运行了”，点button又执行“App 运行了”\n证明:这个函数每更新一次UI就会运行一次。\n会再次得到一个对象(虚拟DIV)\n把新的虚拟DIV跟旧的虚拟DIV对比，看哪里有变化DOM Diff，然后局部更新真\u0026lt;div\u0026gt;\n每次调用App(),都会执行useState(0)\n第1次运行与第2次运行结果是一样的吗？\n验证:添加console.log(n:${n});\n点刷新n=0,点\u002b1n=1"
+}
+</script><meta property="og:title" content="Hooks 原理解析 | 目录 | 博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="http://lixueqin-4119.xyz/images/icon.png">
+
+
+<meta property="og:url" content="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" />
+
+
+
+
+<meta property="og:description" content="内容
+1.分析useState原理和源码
+2.useRef的作用
+3.useContext的作用
+4.Vue3 对比 React
+ 分析useState原理 import React from &quot;react&quot;; import ReactDOM from &quot;react-dom&quot;; const rootElement = document.getElementById(&quot;root&quot;); function App() { console.log(&quot;App 运行了&quot;) const [n, setN] = React.useState(0); console.log(`n:${n}`); return ( &lt;div className=&quot;App&quot;&gt; &lt;p&gt;{n}&lt;/p&gt; &lt;p&gt; &lt;button onClick={() =&gt; setN(n &#43; 1)}&gt;&#43;1&lt;/button&gt; &lt;/p&gt; &lt;/div&gt; ); } ReactDOM.render(&lt;App /&gt;, rootElement);  点击button后会发生什么？
+首次渲染render &lt;App/&gt;
+调用App()
+得到一个对象(虚拟DIV)
+React就会把这个虚拟DIV变成页面中真实的&lt;div&gt;
+用户点击button就会调用onClick函数,执行setN(n&#43;1)
+再次render &lt;App/&gt;,调用App()
+验证:添加console.log(&quot;App 运行了&quot;)看看App运行了几次
+第1次得到0时“App 运行了”，点button又执行“App 运行了”
+证明:这个函数每更新一次UI就会运行一次。
+会再次得到一个对象(虚拟DIV)
+把新的虚拟DIV跟旧的虚拟DIV对比，看哪里有变化DOM Diff，然后局部更新真&lt;div&gt;
+每次调用App(),都会执行useState(0)
+第1次运行与第2次运行结果是一样的吗？
+验证:添加console.log(n:${n});
+点刷新n=0,点&#43;1n=1" />
+
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="docs" />
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">简介</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于我</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+
+
+<div class="lg:pt-12">
+    <div class="flex flex-col md:flex-row bg-secondary-bg rounded">
+        <div class="md:w-1/4 lg:w-1/5 border-e">
+            <div class="sticky top-16 pt-6">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sidebar-title" class="md:hidden mx-4 px-2 pt-4 pb-2 md:border-b text-tertiary-text md:text-primary-text">
+    <span class="font-semibold">Table of Contents</span>
+    <i class='fas fa-caret-right ms-1'></i>
+</div>
+
+<div id="sidebar-toc"
+    class="hidden md:block overflow-y-auto mx-6 md:mx-0 pe-6 pt-2 md:max-h-doc-sidebar bg-primary-bg md:bg-transparent">
+    <div class="flex flex-wrap ms-4 -me-2 p-2 bg-secondary-bg md:bg-primary-bg rounded">
+        <a class=" hover:text-eureka"
+            href="http://lixueqin-4119.xyz/docs/example-doc/">目录</a>
+        
+        
+        
+
+
+    </div>
+    
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/">【HTML全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A0%87%E7%AD%BE/">HTML标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A6%82%E8%A7%88/">HTML概览</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E9%87%8D%E7%82%B9%E6%A0%87%E7%AD%BE/">HTML重点标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/%E6%89%8B%E6%9C%BA%E9%A2%84%E8%A7%88-%E8%B0%83%E8%AF%95/">手机预览 &amp; 调试</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/">HTTP 状态码</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/">URL 是什么</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/">请求和响应 &amp; Node.js Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/">JavaScript 的诞生</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/">JS函数</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/">JS对象</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/">JS对象分类</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">JS数据类型</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/">JS数组</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JS正则表达式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/">js获取屏幕宽高</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/">JS语法</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/">JS运算符</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/">DOM 编程</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/">DOM事件与事件委托</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/">jQuery 中的设计模式(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/">jQuery 中的设计模式(下)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/">手写DOM库(1)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/">MVC(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/">MVC(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/">Class 组件详解</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" text-eureka  hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">Hooks 原理解析</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/">Hooks 各个击破</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">React 类组件和函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/">React起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/">手写 Redux</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/">computed 和 watch</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/">Vue Router -前端路由实现的思路</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">数据响应式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/">构造选项</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/">模板、指令与修饰符</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">深入理解Vue动画原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/">表单与v-model</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/">起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/">进阶构造属性</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/">云服务器</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/">AJAX 的原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/">Ajax实战:Cookie、Session</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/">异步与Promise</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/">跨域、CORS、JSONP</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/">静态服务器Static Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/">Webpack(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/">Webpack(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+</ul>
+
+</div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <div class="w-full md:w-3/4 lg:w-4/5 pb-8 pt-2 md:pt-8">
+            <div class="flex">
+                <div class="w-full lg:w-3/4 px-6">
+                    <article class="prose">
+  <h1 class="mb-4">Hooks 原理解析</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2020-10-16</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>4 min read</span>
+  </div>
+
+  
+
+  
+</div>
+
+
+  
+  
+
+  <blockquote>
+<p><strong>内容</strong><br>
+1.分析useState原理和源码<br>
+2.useRef的作用<br>
+3.useContext的作用<br>
+4.Vue3 对比 React</p>
+</blockquote>
+<h2 id="分析usestate原理">分析useState原理</h2>
+<pre><code class="language-js">import React from &quot;react&quot;;
+import ReactDOM from &quot;react-dom&quot;;
+const rootElement = document.getElementById(&quot;root&quot;);
+
+function App() {
+  console.log(&quot;App 运行了&quot;)
+  const [n, setN] = React.useState(0);
+  console.log(`n:${n}`);
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;p&gt;{n}&lt;/p&gt;
+      &lt;p&gt;
+        &lt;button onClick={() =&gt; setN(n + 1)}&gt;+1&lt;/button&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+ReactDOM.render(&lt;App /&gt;, rootElement); 
+</code></pre>
+<p><strong>点击button后会发生什么？</strong></p>
+<p>首次渲染<code>render &lt;App/&gt;</code></p>
+<p>调用App()</p>
+<p>得到一个<strong>对象</strong>(虚拟DIV)</p>
+<p>React就会把这个虚拟DIV变成页面中真实的<code>&lt;div&gt;</code></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6fd1fc3a90dc4dec9c5129062079630a~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>用户点击button就会调用onClick函数,执行setN(n+1)</p>
+<p>再次<code>render &lt;App/&gt;</code>,调用App()</p>
+<p>验证:添加<code>console.log(&quot;App 运行了&quot;)</code>看看App运行了几次</p>
+<p>第1次得到0时“App 运行了”，点button又执行“App 运行了”</p>
+<p>证明:这个函数每更新一次UI就会运行一次。</p>
+<p>会再次得到一个<strong>对象</strong>(虚拟DIV)</p>
+<p>把<code>新的虚拟DIV</code>跟<code>旧的虚拟DIV</code>对比，看哪里有变化DOM Diff，然后<strong>局部</strong>更新真<code>&lt;div&gt;</code></p>
+<p>每次调用App(),都会执行<code>useState(0)</code></p>
+<p>第1次运行与第2次运行结果是一样的吗？<br>
+验证:添加<code>console.log(</code>n:${n}<code>);</code><br>
+点刷新n=0,点<code>+1</code>n=1<br>
+证明:同样一句话<code>const [n, setN] = React.useState(0);</code>每次执行时，n的值都不一样。</p>
+<p><strong>useState到底做了什么，让每次n的值都不同？</strong><br>
+执行setN的时候会发生什么？重新渲染UI<br>
+n会变吗？setN不会改变n<br>
+App()会重新执行吗？当然会<br>
+既然App()会重新执行，那么<code>useState(0)</code>的时候，n每次的值会有不同吗？会不同</p>
+<p><strong>分析</strong><br>
+<strong>1.setN</strong><br>
+setN一定会修改<code>某个数据x</code>,将n+1存入<code>某个数据x里</code><br>
+setN一定会触发<App/>重新渲染(re-render)<br>
+<strong>2.useState</strong><br>
+useState肯定会从<code>某个数据x</code>读取n的最新值<br>
+<strong>3.x</strong><br>
+每个组件有自己的数据x,我们将其命名为state</p>
+<h3 id="实现reactusestate">实现React.useState</h3>
+<p>1.初次尝试实现<code>React.useState(0);</code></p>
+<p>n是变量，setN是函数</p>
+<pre><code class="language-js">import React from &quot;react&quot;;
+import ReactDOM from &quot;react-dom&quot;;
+const rootElement = document.getElementById(&quot;root&quot;);
+
+let _state;
+const myUseState = (initicalValue) =&gt; {
+  console.log(&quot;myUseState run&quot;);
+  _state = _state === undefined ? initicalValue : _state;
+  const setState = (newValue) =&gt; {
+    console.log(&quot;setState run&quot;);
+    _state = newValue;
+    render();
+  };
+  return [_state, setState];
+};
+//教学需要,render只是简化，不用在意render的实现
+const render = () =&gt; ReactDOM.render(&lt;App /&gt;, rootElement);
+
+function App() {
+  const [n, setN] = myUseState(0);
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;p&gt;{n}&lt;/p&gt;
+      &lt;p&gt;
+        &lt;button onClick={() =&gt; setN(n + 1)}&gt;+1&lt;/button&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+ReactDOM.render(&lt;App /&gt;, rootElement);
+</code></pre>
+<p><strong>因为myUseState会将state重置</strong><br>
+我们需要一个不会被myUseState重置的变量<br>
+这个变量<code>_state</code>只要声明在myUseState外面即可</p>
+<h3 id="如何让两个usestate不冲突">如何让两个useState不冲突</h3>
+<p><strong>如果一个组件用了两个useState怎么办？</strong><br>
+第一次使用myUseState时会把0赋值给state,第二次再使用myUseState时又把0赋值给state，那这个state到底是n还是m?</p>
+<pre><code class="language-js">const [n, setN] = myUseState(0);
+const [m, setM] = myUseState(0);
+</code></pre>
+<p>由于所有数据都放在_state,所以会冲突。</p>
+<p><strong>改进思路</strong><br>
+<strong>把_state做成一个对象</strong><br>
+比如<code>_state={n:0,m:0}</code><br>
+不行，因为useState(0)并不知道变量叫n还是m<br>
+<strong>把_state做成数组</strong>(_state数组方案)<br>
+比如_state=[0,0]<br>
+貌似可行，试试看</p>
+<pre><code class="language-js">//多个useState
+import React from &quot;react&quot;;
+import ReactDOM from &quot;react-dom&quot;;
+const rootElement = document.getElementById(&quot;root&quot;);
+
+let _state = [];
+let index = 0;
+function myUseState(initialValue) {
+    const currentIndex = index //保存当前的index
+  //console.log('currentIndex:'+currentIndex)
+    _state[currentIndex] = _state[currentIndex] === undefined ? initialValue : _state[currentIndex];
+    const setState = (newState) =&gt; {
+        _state[currentIndex] = newState;
+      //console.log(&quot;_state:&quot; + _state)
+        render();
+    }
+    index += 1
+  //console.log(&quot;currentIndex:&quot; + currentIndex + &quot;index:&quot; + index)
+    return [_state[currentIndex], setState];
+}
+
+const render = () =&gt; {
+    index = 0 //重置index
+    ReactDOM.render(&lt;App /&gt;, rootElement)
+};
+
+function App() {
+    const [n, setN] = myUseState(0);
+    const [m, setM] = myUseState(0);
+    return (
+        &lt;div className=&quot;App&quot;&gt;
+            &lt;p&gt;{n}&lt;/p&gt;
+            &lt;p&gt;
+                &lt;button onClick={() =&gt; setN(n + 1)}&gt;+1&lt;/button&gt;
+            &lt;/p&gt;
+            &lt;p&gt;{m}&lt;/p&gt;
+            &lt;p&gt;
+                &lt;button onClick={() =&gt; setM(m + 1)}&gt;+1&lt;/button&gt;
+            &lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+ReactDOM.render(&lt;App /&gt;, rootElement);
+</code></pre>
+<p><strong>解析</strong></p>
+<p><strong>1.需求:实现index+1的功能。</strong></p>
+<p>思路: 添加中间量存储当前值</p>
+<p>因为这个index会+1，currentIndex我们不会去改它。然后你再对index+1时就不会影响&quot;当前的index&quot;了。</p>
+<p><strong>2.<code>+1</code>没反应</strong></p>
+<p>调试<code>console.log(&quot;_state:&quot; + _state)</code></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/efeb881c62f747729564e3ec339e9d95~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>什么改变了下标的值？</strong><br>
+看看currentIndex是不是超过了1？<br>
+<code>console.log(&quot;currentIndex:&quot; + currentIndex)</code></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/86a47fe5d1dd4c0f9030446f8a59572b~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>怎么会超过1呢？这就是为什么state会变长。<br>
+<strong>原因:</strong> 因为你一直在不停的运行App。</p>
+<p>第1次设置n运行结果是0、1，第2次设置m结果是2、3，所以导致了index一直往前加。</p>
+<pre><code class="language-js">function App() {
+  const [n, setN] = myUseState(0);
+  const [m, setM] = myUseState(0);
+}
+</code></pre>
+<p><strong>解决方法:</strong> 每次在渲染App之前，就应该重置<code>index=0</code><br>
+<strong>上面_state数组方案的缺点</strong><br>
+<strong>useState调用顺序</strong><br>
+若第一次渲染时n是第一个，m是第二个，k是第三个<br>
+则第二次渲染时必须保证顺序完全一致<br>
+所以React不允许出现如下代码，会打乱顺序并出现bug<br>
+useState不能写在if里</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e0f6646c6af248768f52e48b79fac2ce~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<pre><code class="language-js">function App(){
+  const [n,setN]=React.useState(0)
+  let m,setM
+  if(n % 2 === 1){ //只在某个时候才去用它
+    [m,setN]=React.useState(0)
+  }
+  ...
+}
+</code></pre>
+<p>题外话:Vue 3克服了这个问题</p>
+<p><strong>现在的代码还有问题</strong><br>
+<strong>App用了_state和index,那其它组件用什么？</strong><br>
+解决方法:给每个组件创建一个_state和index</p>
+<p><strong>又有问题:放在全局作用域里重名了咋整？</strong><br>
+解决方法:放在组件对应的虚拟节点对象上</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/70cb3450730e4a9f87b810e72520fe72~tplv-k3u1fbpfcp-zoom-1.image" alt="请添加图片描述"></p>
+<p>虚拟DOM是函数组件运行得出来的，函数组件运行中会使用useState(),useState的_state和index放在虚拟DOM上，一开始虚拟DOM是空的，运行后就不是空的了。但这个虚拟DOM一开始就有_state和index这2个值，用来存储App组件里的state。</p>
+<p>得到<code>App1</code>组件后就可以渲染到虚拟DOM树上，这个DOM树就会映射到div上。在用户点击button后就会执行set(N+1)，set(N+1)会再次执行App组件，App组件再次执行useState就会再次读取_state和index得到<code>App2</code>。</p>
+<p><code>App1</code>和<code>App2</code>的区别就是n不同，做个Diff，把<code>App1</code>和<code>App2</code>差别之处做成一个对象，这个对象叫Patch。把这个Patch再次运行到刚才的div上，那它就知道刚才n=0,现在n=1,那我就会更新n的值。</p>
+<p>其实它的模型非常简单，就是我去改这个虚拟组件，我所有的东西都放在虚拟组件的上面。函数每次执行都会得到虚拟组件的对象<code>App1</code>，这个对象<code>Patch</code>可以去更新这个虚拟组件。
+每一个组件都有自己的虚拟节点，每一个虚拟节点都会存储_state和index。</p>
+<p><strong>总结</strong><br>
+<strong>1.每个函数组件对应一个React节点</strong>*<br>
+<strong>2.每个节点保存着state和index</strong><br>
+<strong>3.每个函数里用useState会读取对应节点的state[index]</strong>
+<strong>4.index由useState出现的顺序决定</strong><br>
+第一次调用useState index等于0.第二次调用index等于1，以此类推。<br>
+<strong>5.setState会修改state，并触发更新</strong><br>
+useState会得到setState，得到n和setN，setN会修改n的对应的state,这个state是存在节点上的，修改之后会触发更新。</p>
+<blockquote>
+<p><strong>注意:</strong> 这篇文章对React的实现做了简化，React节点应该是FiberNode,_state的真实名称为memorizedState,index的实现则用到了链表，有兴趣的可以<a href="https://juejin.cn/post/6844903704437456909">自行学习</a></p>
+</blockquote>
+<h3 id="纠正下多数人对usestate错误的理解">纠正下多数人对useState错误的理解。</h3>
+<p><strong>错误1:误以为setN会改变n,实际上setN不会改变n</strong></p>
+<pre><code class="language-js">import React from &quot;react&quot;;
+import ReactDOM from &quot;react-dom&quot;;
+const rootElement = document.getElementById(&quot;root&quot;);
+
+function App() {
+  const [n, setN] = React.useState(0);
+  const log = () =&gt; setTimeout(() =&gt; console.log(`n: ${n}`), 3000);
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;p&gt;{n}&lt;/p&gt;
+      &lt;p&gt;
+        &lt;button onClick={() =&gt; setN(n + 1)}&gt;+1&lt;/button&gt;
+        &lt;button onClick={log}&gt;log&lt;/button&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+ReactDOM.render(&lt;App /&gt;, rootElement);
+</code></pre>
+<p><strong>两种操作</strong></p>
+<p>一.先+1后log,无bug</p>
+<p>二.先log后+1，有bug</p>
+<p>问题:为什么log出了旧数据？</p>
+<p><strong>因为有多个n</strong></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f1d6f67f22594b2b9263b7338540bfef~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>第2条线:</strong></p>
+<p><strong>先点log</strong>,第一次App()</p>
+<p>n和setN不变，<code>console.log(n)</code>会先读取n的值,然后在3s后打印<code>0</code></p>
+<p><strong>再点+1</strong>,第二次App()</p>
+<p>会生成一个新的n,这2次渲染<code>n=0</code>和<code>n=1</code>是同时存在内存的。</p>
+<h3 id="那我希望有一个贯穿始终的状态怎么做">那我希望有一个贯穿始终的状态，怎么做？</h3>
+<blockquote>
+<p>题外话:Vue 3可以实现。只有一个n,每次改的都是同一个n。</p>
+</blockquote>
+<p><strong>三种方法</strong><br>
+<strong>1&rsquo; 全局变量</strong><br>
+用window.xxx即可<br>
+<strong>2&rsquo; useRef</strong><br>
+useRef不仅可以用于div,还能用于任意数据<br>
+<strong>3&rsquo; useContext</strong><br>
+useContext不仅能贯穿始终，还能贯穿不同组件</p>
+<p><strong>useRef例子</strong></p>
+<p>因为只有一个n,只有一个current值。</p>
+<p>但是有个bug,useRef不会让App重新渲染，所以<strong>页面上的n不会实时更新</strong>。</p>
+<p><strong>题外话:</strong> Vue 3可以做到当你修改useRef值时，自动渲染App。</p>
+<pre><code class="language-js">function App() {
+  const nRef = React.useRef(0); //{current:0}
+  const log = () =&gt; setTimeout(() =&gt; console.log(`n: ${nRef.current}`), 1000);
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;p&gt;{nRef.current} 这里并不能实时更新&lt;/p&gt;
+      &lt;p&gt;
+        &lt;button onClick={() =&gt; (nRef.current += 1)}&gt;+1&lt;/button&gt;
+        &lt;button onClick={log}&gt;log&lt;/button&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<p>useRef不会让App重新渲染，React不支持。</p>
+<p>但是理论上还是可以造出一个手动触发App更新的API,代码如下。</p>
+<pre><code class="language-js">function App() {
+  const nRef = React.useRef(0); //{current:0}
+  const update = React.useState()[1];
+  const log = () =&gt; setTimeout(() =&gt; console.log(`n: ${nRef.current}`), 1000);
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;p&gt;{nRef.current} 这里并不能实时更新&lt;/p&gt;
+      &lt;p&gt;
+        &lt;button onClick={() =&gt; ((nRef.current += 1), update(nRef.current))}&gt;
+          +1
+        &lt;/button&gt;
+        &lt;button onClick={log}&gt;log&lt;/button&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<p>这种情况不如直接学Vue3。</p>
+<p>Vue3<br>
+1.借鉴了hook这个思想<br>
+2.不使用useState 而是使用useRef，并把useRef用到了极致。<br>
+3.自创:当你对<code>useRef.current</code>的值进行变更时，它会自动的去update。</p>
+<p><strong>useContext例子：</strong> 全局切换主题<br>
+useRef只是贯穿一个组件的前中后，useContext不仅能贯穿始终还能贯穿所有组件。</p>
+<p><strong>什么是上下文？</strong><br>
+上下文就是一个全局变量，只不过它是局部的全局变量。</p>
+<pre><code class="language-js">import React from &quot;react&quot;;
+import ReactDOM from &quot;react-dom&quot;;
+import &quot;./styles.css&quot;;
+const rootElement = document.getElementById(&quot;root&quot;);
+
+const themeContext = React.createContext(null);//初始化一个上下文themeContext
+
+function App() {
+  const [theme, setTheme] = React.useState(&quot;red&quot;);
+  return (
+    &lt;themeContext.Provider value={{ theme, setTheme }}&gt;
+      &lt;div className={`App ${theme}`}&gt;
+        &lt;p&gt;{theme}&lt;/p&gt;
+        &lt;div&gt;
+          &lt;ChildA /&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;ChildB /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/themeContext.Provider&gt;
+  );
+}
+
+function ChildA() {
+  const { setTheme } = React.useContext(themeContext);
+  return (
+    &lt;div&gt;
+      &lt;button onClick={() =&gt; setTheme(&quot;red&quot;)}&gt;red&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+function ChildB() {
+  const { setTheme } = React.useContext(themeContext);
+  return (
+    &lt;div&gt;
+      &lt;button onClick={() =&gt; setTheme(&quot;blue&quot;)}&gt;blue&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+ReactDOM.render(&lt;App /&gt;, rootElement);
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cf7ab4ea61194d98a49bd1b7fcc350eb~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>详解</strong></p>
+<p>1.<code>value={{ theme, setTheme }}</code></p>
+<p><code>value={}</code>表示里面是JS，theme是<code>theme:theme</code>的缩写，setTheme也是缩写。
+表示我们一开始就把这个全局变量的初始值赋值为一个对象，这个对象有theme、setTheme两个属性。</p>
+<p>2.<code>&lt;themeContext.Provider&gt;</code>标签</p>
+<pre><code class="language-js">&lt;themeContext.Provider&gt;
+  //标签内是上下文全局变量themeContext的作用域。
+&lt;/themeContext.Provider&gt;
+</code></pre>
+<p><strong>3.如何在点击button时调用全局变量setTheme？</strong><br>
+用全局变量,从themeContext读取setTheme</p>
+<pre><code class="language-js">const { setTheme } = React.useContext(themeContext);
+</code></pre>
+<p>一般是用一个函数放在它身上，这样我们就可以在任何一个子组件/子孙组件里调用最上面的那个组件的全局方法。useContext非常适用于切换主题。</p>
+<p>大部分时候用useRef，useRef用多了你就会想用Vue3。</p>
+<p><strong>总结</strong><br>
+<strong>1.组件每次重新渲染，组件函数就会再次执行</strong><br>
+<strong>2.对应的所有state都会出现分身</strong><br>
+新旧n会同时存在，如果你没有setTimeout,旧的n就会自动消失，会被垃圾回收掉。<br>
+如果你有setTimeout，它就会setTimeout之后再被垃圾回收掉。<br>
+<strong>3.如果你不希望出现分身,可以用useRef/useContect 或者Vue3</strong></p>
+
+</article>
+
+                    
+                    
+                    
+
+                    
+
+
+
+                    
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+        <span class="text-primary-text block font-bold"
+          >Previous</span
+        >
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/" class="block">Class 组件详解</a>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+        <span class="text-primary-text block font-bold">Next</span>
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/" class="block">Hooks 各个击破</a>
+      
+    </div>
+  </div>
+
+
+                    
+
+
+
+                </div>
+                
+                <div class="hidden lg:block lg:w-1/4">
+                    
+                    <div
+  class="
+    bg-secondary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>On This Page</h3>
+</div>
+<div
+  class="sticky-toc 
+    border-s
+   hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#分析usestate原理">分析useState原理</a>
+      <ul>
+        <li><a href="#实现reactusestate">实现React.useState</a></li>
+        <li><a href="#如何让两个usestate不冲突">如何让两个useState不冲突</a></li>
+        <li><a href="#纠正下多数人对usestate错误的理解">纠正下多数人对useState错误的理解。</a></li>
+        <li><a href="#那我希望有一个贯穿始终的状态怎么做">那我希望有一个贯穿始终的状态，怎么做？</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+                    
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        hljs.initHighlightingOnLoad();
+        changeSidebarHeight();
+        switchDocToc();
+    })
+</script>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2021 <a href="https://www.wangchucheng.com/">WANG Chucheng</a> and <a href="https://www.ruiqima.com/">MA Ruiqi</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>

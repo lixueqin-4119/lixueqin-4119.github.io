@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JS进阶 on 博客</title>
+    <link>http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/</link>
+    <description>Recent content in JS进阶 on 博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MVC(上)</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/</guid>
+      <description>MVC是进入Vue/React的必经之路，MVC本来就是模糊的，你觉得MVC是什么就是什么，只要能自圆其说即可。这就是抽象，抽象就是不具体。
+ 什么是MVC?  设计模式是个框，什么都能往里装，MVC是框里的一个东西。设计模式就是对通用代码取个名字而已。
+ 越抽象能解决的问题就越多。具体问题只能针对具体需求，但抽象问题能针对更多需求。mvc属于设计模式的一种，但我们并不把它称为设计模式。因为它太著名了，每个程序员都知道mvc,它就叫MVC。设计模式就是对通用代码取个名字而已。
+为什么要有设计模式？
+Don&amp;rsquo;t repeat yourself.DRY原则
+哪里重复了？
+1.代码级别的重复
+你把相同的3行代码写了2遍，那么你就应该重构它。
+重构:把这3行代码取个名字放到函数里，到时再调用这个函数名。可以取消重复。
+2.页面级别
+你把类似的页面做了10遍，那么你就应该想出一个万金油写法。
+3.mvc就是一个万金油
+所有页面都可以使用MVC来优化代码结构
+不学MVC又怎样？
+1.意大利面条式代码
+2.你将变成外包式程序员
+不停重复自己，不懂得抽象。只会调用API，不能提升自己。
+只会写业务，不会封装，更不会造轮子，更不会加薪。
+MVC是啥？
+每个模块都可以写成3个对象，分别是M、V、C
+M Model(数据模型)负责操作所有数据
+V View(视图)负责所有UI界面
+C Controller(控制器)负责监听用户事件，然后调用M和V更新数据和视图
+面试题
+能说说你对MVC的理解吗？
+中英文全称(80分’)+剩下全靠扯(20分’)
+Model(数据模型)负责操作所有数据,View(视图)负责所有UI界面,Controller(控制器)负责其它。
+示例代码 内容
+1.主要要引入2个东西:模块、类
+2.在index页面中做4个功能:加减乘除、tab切换、左晃右晃、悬浮变色
+3.演示如何用MVC让代码更严谨。
+运行:parcel src/index.html 用parcel前最好新建js文件，因为没有js可能有bug。  知识点
+1.用新方法:js import引入css
+main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import性能比较低
+新建单独的reset.css文件reset css，统一在main.js里引入。
+让app1占屏幕的1/4: 设置width和height各50vh
+2.用新方法:js import引入jquery
+ 点击+1按钮实现+1,用jquery实现,需要引入jquery
+之前是用&amp;lt;script src=&amp;quot;CDN地址&amp;quot;&amp;gt;引入，现在也用新方法js import
+ 方法: 先安装再使用
+安装: yarn init -y yarn add jquery //或npm i jquery 使用:import $ from &#39;jquery&#39; //引用jquery变量，使用时可直接用$代替jquery //import &#39;jquery&#39; 注:main.</description>
+    </item>
+    
+    <item>
+      <title>MVC(下)</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/</guid>
+      <description>主要内容:使用类优化代码
+1.引入类(class)
+2.引入继承(class继承class)
+3.初识Vue
+抽象思维四:事不过三 同样的代码写三遍，就应该抽成一个函数
+同样的属性写三遍，就应该做成共用属性(原型或类)
+同样的原型写三遍，就应该用继承
+代价
+有的时候会造成继承层级太深，无法一下看懂代码
+可以通过写文档、画类图解决
+步骤
+对比MVC的app1.js 和 app2.js，属性几乎一模一样。
+何不把公共的属性抽成公共属性/原型，在js里公共属性就是原型。
+它们两个v的属性一模一样，可以抽成原型。
+它们两个c的公共属性抽到公共属性里。
+第一部分:先抽m 步骤
+(1)新建目录base存放基础代码，新建文件Model.js(js中的类都大写)。
+class Model { }  (2)抽离共用的
+ 分析里面的属性或接口是共用的还是独享的。
+app1的data 与app2的data完全没有关系，是独享的不能抽。4个函数可以抽。
+可以用原型的思想或类的思想，这里用类的思想。
+ //(2)所有的model都有增删改查4个属性，不需要实现。 class Model { constructor(options) { //data初始化时给我 this.data = options.data } create() { console?.error?.(&amp;quot;你还没实现create&amp;quot;)//兼容IE } delete() { console?.error?.(&amp;quot;你还没实现delete&amp;quot;) } update() { console?.error?.(&amp;quot;你还没实现update&amp;quot;) } get() { console?.error?.(&amp;quot;你还没实现get&amp;quot;) } } export default Model  (3)使用
+app1.js import Model from &#39;./base/Model.js&#39; //.js可加可不加 const m = new Model({ //使用 data: { n: parseInt(localStorage.</description>
+    </item>
+    
+  </channel>
+</rss>

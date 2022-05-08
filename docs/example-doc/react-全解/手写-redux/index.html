@@ -1,0 +1,1841 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>手写 Redux | 目录 | 博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.1" />
+<link rel="stylesheet" href="http://lixueqin-4119.xyz/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
+<script defer src="http://lixueqin-4119.xyz/js/eureka.min.f1639ee98d6cbd85b2b5f034d27320da962002ff83159ed4e01dbc5948c42a1ab26c2d6e74c66e93f5cec4d24dbd166d.js" integrity="sha384-8WOe6Y1svYWytfA00nMg2pYgAv&#43;DFZ7U4B28WUjEKhqybC1udMZuk/XOxNJNvRZt"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+
+<script defer type="text/javascript" src="http://lixueqin-4119.xyz/js/fontawesome.min.7b735802cbde01152678cc4a867f0b4bb0597876e29adfcaf1e5b5e99d39d7af87f348fdfd91c7eaf9ed7dc1eece7c61.js" integrity="sha384-e3NYAsveARUmeMxKhn8LS7BZeHbimt/K8eW16Z0516&#43;H80j9/ZHH6vntfcHuznxh"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="从零开始手写redux
+ 全局state的读写 例1.使用Context读写appState
+import React, { useState, useContext } from &quot;react&quot; import ReactDOM from &#39;react-dom&#39; import &#39;./style.css&#39; const appContext = React.createContext(null) const App = () =&gt; { const [appState, setAppState] = useState({ user: { name: &#39;frank&#39;, age: 18 } }) const contextValue = { appState, setAppState } //封装成一个对象，塞给上下文 return ( &lt;appContext.Provider value={contextValue}&gt; &lt;大儿子 /&gt; &lt;二儿子 /&gt; &lt;小儿子 /&gt; &lt;/appContext.Provider &gt; ) } const 大儿子 = () =&gt; &lt;section&gt;大儿子&lt;User /&gt;&lt;/section&gt; const 二儿子 = () =&gt; &lt;section&gt;二儿子&lt;UserModifier /&gt;&lt;/section&gt; const 小儿子 = () =&gt; &lt;section&gt;小儿子&lt;/section&gt; const User = () =&gt; { //获取信息 const contextValue = useContext(appContext) return &lt;div&gt; User:{contextValue.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"",
+      "item":"http://lixueqin-4119.xyz/docs/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"目录",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/"},{
+      "@type": "ListItem",
+      "position": 3 ,
+      "name":"React全解",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/"},{
+      "@type": "ListItem",
+      "position": 4 ,
+      "name":"手写 Redux",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/"
+    },
+    "headline": "手写 Redux | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
+    "dateModified": "2020-10-16T00:00:00+00:00",
+    "wordCount":  1527 ,
+    "publisher": {
+        "@type": "Person",
+        "name": "WANG Chucheng",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "http://lixueqin-4119.xyz/images/icon.png"
+        }
+        },
+    "description": "从零开始手写redux\n 全局state的读写 例1.使用Context读写appState\nimport React, { useState, useContext } from \u0026quot;react\u0026quot; import ReactDOM from \u0027react-dom\u0027 import \u0027.\/style.css\u0027 const appContext = React.createContext(null) const App = () =\u0026gt; { const [appState, setAppState] = useState({ user: { name: \u0027frank\u0027, age: 18 } }) const contextValue = { appState, setAppState } \/\/封装成一个对象，塞给上下文 return ( \u0026lt;appContext.Provider value={contextValue}\u0026gt; \u0026lt;大儿子 \/\u0026gt; \u0026lt;二儿子 \/\u0026gt; \u0026lt;小儿子 \/\u0026gt; \u0026lt;\/appContext.Provider \u0026gt; ) } const 大儿子 = () =\u0026gt; \u0026lt;section\u0026gt;大儿子\u0026lt;User \/\u0026gt;\u0026lt;\/section\u0026gt; const 二儿子 = () =\u0026gt; \u0026lt;section\u0026gt;二儿子\u0026lt;UserModifier \/\u0026gt;\u0026lt;\/section\u0026gt; const 小儿子 = () =\u0026gt; \u0026lt;section\u0026gt;小儿子\u0026lt;\/section\u0026gt; const User = () =\u0026gt; { \/\/获取信息 const contextValue = useContext(appContext) return \u0026lt;div\u0026gt; User:{contextValue."
+}
+</script><meta property="og:title" content="手写 Redux | 目录 | 博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="http://lixueqin-4119.xyz/images/icon.png">
+
+
+<meta property="og:url" content="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/" />
+
+
+
+
+<meta property="og:description" content="从零开始手写redux
+ 全局state的读写 例1.使用Context读写appState
+import React, { useState, useContext } from &quot;react&quot; import ReactDOM from &#39;react-dom&#39; import &#39;./style.css&#39; const appContext = React.createContext(null) const App = () =&gt; { const [appState, setAppState] = useState({ user: { name: &#39;frank&#39;, age: 18 } }) const contextValue = { appState, setAppState } //封装成一个对象，塞给上下文 return ( &lt;appContext.Provider value={contextValue}&gt; &lt;大儿子 /&gt; &lt;二儿子 /&gt; &lt;小儿子 /&gt; &lt;/appContext.Provider &gt; ) } const 大儿子 = () =&gt; &lt;section&gt;大儿子&lt;User /&gt;&lt;/section&gt; const 二儿子 = () =&gt; &lt;section&gt;二儿子&lt;UserModifier /&gt;&lt;/section&gt; const 小儿子 = () =&gt; &lt;section&gt;小儿子&lt;/section&gt; const User = () =&gt; { //获取信息 const contextValue = useContext(appContext) return &lt;div&gt; User:{contextValue." />
+
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="docs" />
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">简介</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于我</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+
+
+<div class="lg:pt-12">
+    <div class="flex flex-col md:flex-row bg-secondary-bg rounded">
+        <div class="md:w-1/4 lg:w-1/5 border-e">
+            <div class="sticky top-16 pt-6">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sidebar-title" class="md:hidden mx-4 px-2 pt-4 pb-2 md:border-b text-tertiary-text md:text-primary-text">
+    <span class="font-semibold">Table of Contents</span>
+    <i class='fas fa-caret-right ms-1'></i>
+</div>
+
+<div id="sidebar-toc"
+    class="hidden md:block overflow-y-auto mx-6 md:mx-0 pe-6 pt-2 md:max-h-doc-sidebar bg-primary-bg md:bg-transparent">
+    <div class="flex flex-wrap ms-4 -me-2 p-2 bg-secondary-bg md:bg-primary-bg rounded">
+        <a class=" hover:text-eureka"
+            href="http://lixueqin-4119.xyz/docs/example-doc/">目录</a>
+        
+        
+        
+
+
+    </div>
+    
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/">【HTML全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A0%87%E7%AD%BE/">HTML标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A6%82%E8%A7%88/">HTML概览</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E9%87%8D%E7%82%B9%E6%A0%87%E7%AD%BE/">HTML重点标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/%E6%89%8B%E6%9C%BA%E9%A2%84%E8%A7%88-%E8%B0%83%E8%AF%95/">手机预览 &amp; 调试</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/">HTTP 状态码</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/">URL 是什么</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/">请求和响应 &amp; Node.js Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/">JavaScript 的诞生</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/">JS函数</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/">JS对象</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/">JS对象分类</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">JS数据类型</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/">JS数组</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JS正则表达式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/">js获取屏幕宽高</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/">JS语法</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/">JS运算符</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/">DOM 编程</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/">DOM事件与事件委托</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/">jQuery 中的设计模式(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/">jQuery 中的设计模式(下)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/">手写DOM库(1)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/">MVC(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/">MVC(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/">Class 组件详解</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">Hooks 原理解析</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/">Hooks 各个击破</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">React 类组件和函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/">React起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" text-eureka  hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/">手写 Redux</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/">computed 和 watch</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/">Vue Router -前端路由实现的思路</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">数据响应式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/">构造选项</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/">模板、指令与修饰符</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">深入理解Vue动画原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/">表单与v-model</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/">起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/">进阶构造属性</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/">云服务器</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/">AJAX 的原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/">Ajax实战:Cookie、Session</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/">异步与Promise</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/">跨域、CORS、JSONP</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/">静态服务器Static Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/">Webpack(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/">Webpack(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+</ul>
+
+</div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <div class="w-full md:w-3/4 lg:w-4/5 pb-8 pt-2 md:pt-8">
+            <div class="flex">
+                <div class="w-full lg:w-3/4 px-6">
+                    <article class="prose">
+  <h1 class="mb-4">手写 Redux</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2020-10-16</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>8 min read</span>
+  </div>
+
+  
+
+  
+</div>
+
+
+  
+  
+
+  <blockquote>
+<p>从零开始手写redux</p>
+</blockquote>
+<h3 id="全局state的读写">全局state的读写</h3>
+<p><strong>例1</strong>.使用Context读写appState</p>
+<pre><code class="language-js">import React, { useState, useContext } from &quot;react&quot;
+import ReactDOM from 'react-dom'
+import './style.css'
+
+const appContext = React.createContext(null)
+const App = () =&gt; {
+  const [appState, setAppState] = useState({
+    user: { name: 'frank', age: 18 }
+  })
+  const contextValue = { appState, setAppState } //封装成一个对象，塞给上下文
+  return (
+    &lt;appContext.Provider value={contextValue}&gt;
+      &lt;大儿子 /&gt;
+      &lt;二儿子 /&gt;
+      &lt;小儿子 /&gt;
+    &lt;/appContext.Provider &gt;
+  )
+}
+const 大儿子 = () =&gt; &lt;section&gt;大儿子&lt;User /&gt;&lt;/section&gt;
+const 二儿子 = () =&gt; &lt;section&gt;二儿子&lt;UserModifier /&gt;&lt;/section&gt;
+const 小儿子 = () =&gt; &lt;section&gt;小儿子&lt;/section&gt;
+
+const User = () =&gt; { //获取信息
+  const contextValue = useContext(appContext)
+  return &lt;div&gt; User:{contextValue.appState.user.name} &lt;/div&gt;
+}
+const UserModifier = () =&gt; { //修改信息
+  const { appState, setAppState } = useContext(appContext);
+  const onChange = (e) =&gt; {
+    appState.user.name = e.target.value
+    setAppState({ ...appState })
+  }
+  return &lt;div&gt;
+    &lt;input value={appState.user.name} onChange={onChange} /&gt;
+  &lt;/div&gt;
+}
+const rootElement = document.getElementById(&quot;root&quot;);
+ReactDOM.render(&lt;App /&gt;, rootElement);
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9986cbf3832b43f1b91a59cb986e0a83~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>1.setState特点</strong></p>
+<p>如果你给的对象是原来那个对象的引用，只要是引用相同，那我直接不变，setState时是不会生效的。</p>
+<p><strong>解决方法:</strong> 创建一个新的对象，新的对象包含了appState的所有属性</p>
+<pre><code class="language-js">const contextValue = { appState, setAppState } 
+
+const UserModifier = () =&gt; { //修改
+  const contextValue = useContext(appContext);
+  onChange(e){
+    contextValue.appState.user.name = e.target.value
+      contextValue.setAppState({...contextValue.appState})
+   // contextValue.setAppState(contextValue.appState) 错误
+  } 
+  ... 
+}
+</code></pre>
+<h3 id="reducer的来历">reducer的来历</h3>
+<blockquote>
+<p>reducer是如何规范state的创建流程的。</p>
+</blockquote>
+<p>目前创建的state特别不规范，它直接修改了原始的state，</p>
+<p>我们应该提供一个函数来帮它创建新的state。</p>
+<pre><code class="language-js">const reducer = (state, actionType, actionData) =&gt; {
+//const createNewState = (state, actionType, actionData) =&gt; {
+  if (actionType === 'updateUser') {
+    return {   //新的对象
+      ...state,//首先会拷贝user之外的属性
+      user: {  //创建user
+        ...state.user,
+        ...actionData 
+      }
+    }
+  } else {
+    return state
+  }
+}
+const UserModifier = () =&gt; {
+  const { appState, setAppState } = useContext(appContext);
+  const onChange = (e) =&gt; {
+    setAppState(createNewState(appState, 'updateUser', 
+      {name: e.target.value}))
+  //setAppState(reducer(appState, 'updateUser', {name: e.target.value}))    
+  }
+  return &lt;div&gt;
+    &lt;input value={appState.user.name} onChange={onChange} /&gt;
+  &lt;/div&gt;
+}
+</code></pre>
+<p>return的是全新的对象，规范了创建state的过程。</p>
+<p><strong>现在把函数名<code>createNewState</code>改为<code>reducer</code>，这就是reducer的由来。</strong></p>
+<p><strong>不同的是reducer只接受2个参数</strong>:将<code>actionType, actionData</code>统一成一个叫<strong>action</strong>的东西，它接受一个<strong>type和payload</strong><code>{type,payload}</code>，payload比较麻烦，其实就是data的意思。</p>
+<pre><code class="language-js">const reducer = (state, { type, payload }) =&gt; {
+  if (type === 'updateUser') {
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        ...payload
+      }
+    }
+  } else {
+    return state
+  }
+}
+const UserModifier = () =&gt; {
+  const { appState, setAppState } = useContext(appContext);
+  const onChange = (e) =&gt; { 
+    setAppState(reducer(appState, { type: 'updateUser',
+      payload: { name: e.target.value } }))
+  }
+  return &lt;div&gt;
+    &lt;input value={appState.user.name} onChange={onChange} /&gt;
+  &lt;/div&gt;
+}
+</code></pre>
+<p><strong>reducer就是用来规范state创建流程的一个函数。</strong></p>
+<h3 id="dispatch的来历">dispatch的来历</h3>
+<blockquote>
+<p>如何使用dispatch来规范setState的流程。</p>
+</blockquote>
+<p>先看下我们是如何setState的:</p>
+<p>当我们改name、age、group时，每次都要写前面3个单词，既然每次setState都要复制这3份，不如干脆写一个函数 <strong><code>dispatch</code></strong>。</p>
+<pre><code class="language-js">setAppState(reducer(appState, { type: 'updateUser', payload: { name: e.target.value } }))
+setAppState(reducer(appState, { type: 'updateUser', payload: { age: e.target.value } }))
+setAppState(reducer(appState, { type: 'updateGroup', payload: { group: e.target.value } }))
+</code></pre>
+<p><code>dispatch</code>接受一个action,但由于dispatch没法访问到<code>setAppState</code>和<code>appState</code>,所以<strong>不能直接使用</strong>dispatch。</p>
+<p>因为<code>setAppState</code>和<code>appState</code>这2个变量在useContext里，React规定只能在组件内部使用Hooks，那把dispacth也放到组件<code>UserModifier</code>里？不行，因为dispatch我是要抽到我的组件<code>redux</code>里的。</p>
+<p>那咋办？</p>
+<p>其实之所以出现这种窘境是因为我们把state放到了context，那不放context行不？不行，那样改动太大了。那怎样才能<strong>让dispatch可以访问到state和setState</strong></p>
+<p><strong>解决思路</strong>:用一个组件包住dispatch,然后再把dispatch给这个组件。</p>
+<pre><code class="language-js">const 二儿子 = () =&gt; &lt;section&gt;二儿子&lt;Wrapper /&gt;&lt;/section&gt;
+
+const Wrapper = () =&gt; {
+  const { appState, setAppState } = useContext(appContext);
+  const dispatch = (action) =&gt; {
+    setAppState(reducer(appState, action))
+  }
+  return &lt;UserModifier dispatch={dispatch} state={appState} /&gt;
+}
+const UserModifier = ({ dispatch, state }) =&gt; {
+  const onChange = (e) =&gt; {
+    dispatch({ type: 'updateUser', payload: {name: e.target.value}})
+  }
+  return &lt;div&gt;
+    &lt;input value={state.user.name} onChange={onChange} /&gt;
+  &lt;/div&gt;
+}
+</code></pre>
+<p><strong>解析</strong></p>
+<p>由于坏继母从中作梗，遗嘱<code>dispatch</code>不能直接交给亲女儿<code>context</code>，于是富商用画<code>Wrapper</code>将<code>dispatch</code>包了起来，接着将自己的遗嘱<code>dispatch</code>交给了聪明的金毛<code>&lt;UserModifier /&gt;</code>，光有指纹不够还需要印章<code>state</code>，最后金毛<code>UserModifier</code>通过<code>props</code>成功拿到了物证<code>dispatch</code>和<code>state</code></p>
+<p><strong>总结</strong></p>
+<p>目前我们完成了<code>UserModifier</code>一个组件的封装，它可以通过props来读写全局数据。但实际上这个功能不是由<strong>redux</strong>实现的，而是由redux的第2个库<code>React-redux</code>，其实大家用都是一起用的，所以这里就不做区分了。
+直接调dispatch不用再去调那三个了。</p>
+<p><strong>dispatch就是用来规范setState流程的一个函数。</strong></p>
+<h3 id="connect">connect</h3>
+<blockquote>
+<p>内容:如何写出一个connect高阶组件</p>
+</blockquote>
+<p>我们将<code>UserModifier</code>包装成了<code>Wrapper</code>,用的时候一定要使用<code>&lt;Wrapper /&gt;</code>,因为如果你直接使用<code>UserModifier</code>是得不到<code>dispatch</code>和<code>state</code>的。因此任何一个组件要想读写state都需要封装<code>&lt;Wrapper /&gt;</code>，那岂不写累死啦</p>
+<p><strong>我们需要声明一个函数来做这件事。</strong></p>
+<pre><code class="language-js">const 二儿子 = () =&gt; &lt;section&gt;二儿子&lt;UserModifier /&gt;&lt;/section&gt;
+
+const createWrapper = (Component) =&gt; { //自动创建Wrapper
+  const Wrapper = () =&gt; {
+    const { appState, setAppState } = useContext(appContext);
+    const dispatch = (action) =&gt; {
+      setAppState(reducer(appState, action))
+    }
+    return &lt;Component dispatch={dispatch} state={appState} /&gt;
+  }
+  return Wrapper
+}
+
+const UserModifier = createWrapper(({ dispatch, state }) =&gt; {
+  const onChange = (e) =&gt; {
+   dispatch({ type: 'updateUser', payload: { name: e.target.value } })
+  }
+  return &lt;div&gt;
+    &lt;input value={state.user.name} onChange={onChange} /&gt;
+  &lt;/div&gt;
+})
+</code></pre>
+<p>现在我们创建组件的过程就是在组件的外面写上一个<strong>createWrapper</strong>
+它的作用就是将这个组件与全局状态连接起来，所以redux叫做<code>connect</code>。<code>connect</code>是由redux的第二个库React-redux提供的。将<code>createWrapper</code>改为<code>connect</code></p>
+<p>Wrapper声明也只用了一次，不用特意声明，直接return这个函数就好了。</p>
+<pre><code class="language-js">const connect = (Component) =&gt; {
+  return () =&gt; {
+    const { appState, setAppState } = useContext(appContext);
+    const dispatch = (action) =&gt; {
+      setAppState(reducer(appState, action))
+    }
+    return &lt;Component dispatch={dispatch} state={appState} /&gt;
+  }
+}
+
+const UserModifier = connect(({ dispatch, state }) =&gt; {
+  const onChange = (e) =&gt; {
+    dispatch({ type:'updateUser', payload:{ name:e.target.value }})
+  }
+  return &lt;div&gt;
+    &lt;input value={state.user.name} onChange={onChange} /&gt;
+  &lt;/div&gt;
+})
+</code></pre>
+<h3 id="如何传组件的属性">如何传组件的属性</h3>
+<p><strong>如果我在<code>&lt;UserModifier /&gt;</code>上加一个属性<code>x={'x'}</code></strong>,
+那就得把这个x传给哪个真正的组件，让它从这里可以拿到x。</p>
+<p><strong>怎么传？</strong>
+需要让<strong>返回组件的props全部都放到<code>&lt;Component /&gt;</code>上面</strong></p>
+<pre><code class="language-js">const 二儿子 = () =&gt; &lt;section&gt;二儿子&lt;UserModifier x={'x'} /&gt;&lt;/section&gt;
+
+const connect = (Component) =&gt; {
+ return (props) =&gt; {
+  ...
+  return &lt;Component {...props} dispatch={dispatch} state={appState} /&gt;
+ }
+}
+const UserModifier = connect(({ dispatch, state, x }) =&gt; { ... })
+</code></pre>
+<h3 id="如何传组件的子内容">如何传组件的子内容</h3>
+<p><strong>方法:</strong> 一般是通过children拿的，就是因为我们把这个<code>props</code>全部透传给了<code>{...props}</code>,所以props children也传进去了。</p>
+<pre><code class="language-js">const 二儿子 = () =&gt; &lt;section&gt;二儿子&lt;UserModifier&gt; 内容 &lt;/UserModifier&gt;&lt;/section&gt;
+
+const connect = (Component) =&gt; {
+  return (props) =&gt; {
+   ...
+   return &lt;Component {...props} dispatch={dispatch} state={appState} /&gt;
+  }
+}
+const UserModifier = connect(({ dispatch, state, children }) =&gt; {
+    const onChange = (e) =&gt; {
+        dispatch({ type: 'updateUser', payload: { name: e.target.value } })
+    }
+    return &lt;div&gt;
+        {children}
+        &lt;input value={state.user.name} onChange={onChange} /&gt;
+    &lt;/div&gt;
+})
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a163f8d61b1c494e8195039fea8b956d~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>connect的作用:让组件与全局状态连接起来。</strong></p>
+<p><strong>什么是高阶组件?</strong></p>
+<p><strong>一个函数它接受一个组件，返回一个新的组件，那么这就叫做高阶组件。</strong></p>
+<p>实际上就是类比于高阶函数的这么一个说法。</p>
+<p>如果你看redux提供的connect，你会发现它接受的参数比我还多，这个我们后面再讲。</p>
+<h3 id="利用connect减少render">利用connect减少render</h3>
+<p><strong>目前的问题:太多render了</strong></p>
+<p>给每个组件打印出一句话，看下效果</p>
+<pre><code class="language-js">const 大儿子 = () =&gt; {
+    console.log('大儿子执行了', +Math.random())
+    return &lt;section&gt;大儿子&lt;User /&gt;&lt;/section&gt;
+}
+const 二儿子 = () =&gt; {
+    console.log('二儿子执行了', +Math.random())
+    return &lt;section&gt;二儿子&lt;UserModifier /&gt;&lt;/section&gt;
+}
+const 小儿子 = () =&gt; {
+    console.log('小儿子执行了', +Math.random())
+    return &lt;section&gt;小儿子&lt;/section&gt;
+}
+...
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/92d6d27700124c9590a98471fb7724e5~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>产生的原因:</strong>
+当我们改变input值时会调用<code>setAppState</code>,setAppState是通过<code>dispatch</code>调用到的，dispatch最终会setAppState，它是从Context来的，Context最初是在这里拿到的。</p>
+<pre><code class="language-js">const App = () =&gt; {
+  const [appState, setAppState] = useState({ user: { name: 'frank', age: 18 }})
+}
+...
+const connect = (Component) =&gt; {
+  return () =&gt; {
+    const { appState, setAppState } = useContext(appContext);
+    const dispatch = (action) =&gt; {
+      setAppState(reducer(appState, action))
+    }
+    return &lt;Component dispatch={dispatch} state={appState} /&gt;
+  }
+}
+</code></pre>
+<p>根据React组件规定，只要你调用了这个组件的setState，这个组件一定会再次执行。只要你给setState传的是新对象，App就一定会重新执行，只要App重新执行，里面的子组件都会重新执行。</p>
+<p><strong>如何阻止多余的render？</strong></p>
+<p>使用useMemo，但不推荐这种写法，太麻烦。</p>
+<pre><code class="language-js">//阻止小儿子重复render
+const App = () =&gt; {
+    ...
+  const x = useMemo(() =&gt; {
+    return &lt;小儿子 /&gt;
+  }, [])
+
+  const contextValue = { appState, setAppState }
+    return (
+      &lt;appContext.Provider value={contextValue}&gt;
+        &lt;大儿子 /&gt;
+        &lt;二儿子 /&gt;
+        {x}
+      &lt;/appContext.Provider &gt;
+  )
+}
+</code></pre>
+<p>多个render其实对性能的影响并不大，每一个render影响都很小，它不会去修改页面上的任何东西。只是会执行下函数，但如果这种小的性能影响积累太多也不好，所以尽量不要让它积累的太多，一两个可以放过，但是几千个是不能放过的，不推荐。</p>
+<p><strong>redux能不能给我设计出一种机制，只有用到User的地方，在User变化时才重新执行?</strong></p>
+<p>1.首先需要把setAppState干掉，因为它必然会导致后面的这些东西重新执行。</p>
+<p>把它放到store对象上，怎么用呢？</p>
+<p>state默认存储初始信息，这里先写死，到时候再去弄。</p>
+<p>setState接受一个新的state，去修改store的state。</p>
+<pre><code class="language-js">const store = {
+  state: { user: { name: 'frank', age: 18 } },
+  setState(newState) { store.state = newState }
+}
+</code></pre>
+<p>那appState就用state代替了，setAppState就用setState代替了。</p>
+<p>直接传store，可以用上下文拿到state、setState。</p>
+<pre><code class="language-js">const appContext = React.createContext(null)
+const store = {
+  state: {
+    user: { name: 'frank', age: 18 }
+  },
+  setState(newState) {
+    console.log(newState)
+    store.state = newState
+  }
+}
+const App = () =&gt; {
+  return (
+    &lt;appContext.Provider value={store}&gt;
+      &lt;大儿子 /&gt;
+      &lt;二儿子 /&gt;
+      &lt;小儿子 /&gt;
+    &lt;/appContext.Provider &gt;
+  )
+}
+const 大儿子 = () =&gt; {
+  console.log('大儿子执行了', +Math.random())
+  return &lt;section&gt;大儿子&lt;User /&gt;&lt;/section&gt;
+}
+const 二儿子 = () =&gt; {
+  console.log('二儿子执行了', +Math.random())
+  return &lt;section&gt;二儿子&lt;UserModifier /&gt;&lt;/section&gt;
+}
+const 小儿子 = () =&gt; {
+  console.log('小儿子执行了', +Math.random())
+  return &lt;section&gt;小儿子&lt;/section&gt;
+}
+
+const User = () =&gt; {
+  console.log('User执行了', +Math.random())
+  const { state } = useContext(appContext)
+  return &lt;div&gt; User:{state.user.name} &lt;/div&gt;
+}
+const reducer = (state, { type, payload }) =&gt; {
+  if (type === 'updateUser') {
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        ...payload
+      }
+    }
+  } else {
+    return state
+  }
+}
+
+const connect = (Component) =&gt; {
+  return () =&gt; {
+    const { state, setState } = useContext(appContext);
+    const dispatch = (action) =&gt; {
+      setState(reducer(state, action))
+    }
+    return &lt;Component dispatch={dispatch} state={state} /&gt;
+  }
+}
+
+const UserModifier = connect(({ dispatch, state }) =&gt; {
+  const onChange = (e) =&gt; {
+    dispatch({ type: 'updateUser', payload: { name: e.target.value } })
+  }
+  return &lt;div&gt;
+    &lt;input value={state.user.name} onChange={onChange} /&gt;
+  &lt;/div&gt;
+})
+</code></pre>
+<p>展示没问题，但是修改有问题，改不了，其实已经修改了。
+数据没有变是因为<strong>没有调用App的setState。</strong></p>
+<p><strong>那怎么办？你得让它去刷新这些组件啊</strong></p>
+<p>connect里面有个Wrapper，虽然没有名字，但是它就是Wrapper，给Wrapper声明一个刷新的东西</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a92ee945ebf146fabd3a30303ab950c6~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<pre><code class="language-js">//这个update只能实现一个组件的渲染
+const connect = (Component) =&gt; {
+  return () =&gt; {
+    const { state, setState } = useContext(appContext);
+    const [, update] = useState({}) 
+    const dispatch = (action) =&gt; {
+      setState(reducer(state, action))
+      update({}) //调用新的update对象
+    }
+    return &lt;Component dispatch={dispatch} state={state} /&gt;
+  }
+}
+</code></pre>
+<p><strong>什么时候想update呢？</strong></p>
+<p>调用update，传一个对象</p>
+<p>每次我调用了<code>setState</code>之后，我去调用update<strong>新的对象</strong>，因为新的对象跟旧的对象永远<code>不相等</code>，所以它就会强制刷新Wrapper组件，Wrapper组件一刷新，里面的组件也会自动刷新，这样就能保证被connect的组件才会刷新。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/aeb5b037c0424d6a9a863bf3bc054f4e~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>为什么输入时会显示?</strong></p>
+<p>因为当我输入&quot;阿斯顿&quot;时它会把我最新的值setState到store上去，然后store的值就变了。</p>
+<p>这个时候再调用update<code>update({})</code>就会导致当前Wrapper组件重新渲染，重新渲染它就从上下文里又拿到新的state，然后新的state再传给我们的<code>&lt;Component /&gt;</code>组件,这个组件的state就变了。</p>
+<p><strong>为什么上面的没变？</strong></p>
+<p>因为上面的组件没有被调用它的dispatch,每一个组件封装了一个它自己的dispatch，所以一个组件只能更新自己，那怎么办？我们需要让每一个组件的dispatch都知道state变化了，只能去<strong>订阅变化</strong>。</p>
+<p><strong>步骤</strong></p>
+<p><strong>1.添加subscribe事件监听</strong></p>
+<p>每一个组件订阅state的变化。订阅时得告诉我订阅之后你要做什么，所以提供一个函数。</p>
+<p>这个函数之后会调用，但我现在不调用，现在需要把这个函数放到我的一个队列<code>listeners</code>里。
+把所有监听者放进来,<code>listeners</code>默认是数组。</p>
+<pre><code class="language-js">const store = {
+  state: {user: { name: 'frank', age: 18 }},
+  setState(newState) {store.state = newState},
+  listeners: [], //订阅者
+  subscribe(fn) {
+    store.listeners.push(fn) //订阅
+      return () =&gt; { //取消订阅
+        const index = store.listeners.indexOf(fn)
+          store.listeners.splice(index)
+      }
+  }
+}
+</code></pre>
+<p>订阅之后你可能会去取消订阅，所以要返回一个取消订阅的函数，这个函数可以把fn从<code>listeners</code>里面去掉，分两步走。先找到fn的index,然后把它删掉。</p>
+<p><strong>2.执行订阅</strong></p>
+<p>什么时候去执行订阅的内容？</p>
+<p>在我变动的时候，<strong>一旦我被setState了</strong>，我就得告诉我的订阅者说我已经变了。
+遍历订阅者，对于每个订阅者，它给我提供了fn,我把fn调用一下。
+为了方便，我把最新的state给它，这样就不要去取了，不给也行。</p>
+<p><strong>只要我setState了</strong>，就会通知所有订阅者说，我变了，然后执行它给我的那个回调。然后把我最新的state给它</p>
+<pre><code class="language-js">const store = {
+  state: {user: { name: 'frank', age: 18 }},
+  setState(newState) {
+    store.state = newState
+    store.listeners.map(fn=&gt;fn(store.state))//把最新的state给它
+  },
+  ...
+ }
+</code></pre>
+<p>这边每一个dispatch的上面就可以订阅下。
+订阅也是在store上，我们也可以通过上下文来。
+我们只订阅一次，不希望每次都订阅，所以我们要把它包裹在useEffect里。</p>
+<p><strong>User需要connect下,connect后就可以拿到state和dispatch</strong>,当然它不写也会拿到，只要connect就会拿到了，那它就不需要拿到上下文了，直接state，一定要connect。</p>
+<pre><code class="language-js">const connect = (Component) =&gt; {
+    return () =&gt; {
+        const { state, setState } = useContext(appContext);
+        const [, update] = useState({})
+        useEffect(() =&gt; {
+            store.subscribe(() =&gt; {
+                update({})
+            })
+        }, [])
+        const dispatch = (action) =&gt; {
+            setState(reducer(state, action))
+        }
+        return &lt;Component dispatch={dispatch} state={state} /&gt;
+    }
+}
+
+const App = () =&gt; {    
+  const User = connect(({ state, dispatch }) =&gt; {
+    return &lt;div&gt; User:{state.user.name} &lt;/div&gt;
+  })
+}
+</code></pre>
+<h3 id="redux乍现">Redux乍现</h3>
+<p><strong>新建文件redux.js</strong>,把redux有关的移到文件里。</p>
+<p>只把组件留下，剩下的都可以移走。</p>
+<pre><code class="language-js">index.js
+import ReactDOM from 'react-dom'
+import './style.css'
+import { appContext, store, connect } from &quot;./redux&quot;
+
+const App = () =&gt; {
+  return (
+    &lt;appContext.Provider value={store}&gt;
+      &lt;大儿子 /&gt;
+      &lt;二儿子 /&gt;
+      &lt;小儿子 /&gt;
+    &lt;/appContext.Provider &gt;
+  )
+}
+const 大儿子 = () =&gt; {
+  console.log('大儿子执行了', +Math.random())
+  return &lt;section&gt;大儿子&lt;User /&gt;&lt;/section&gt;
+}
+const 二儿子 = () =&gt; {
+  console.log('二儿子执行了', +Math.random())
+  return &lt;section&gt;二儿子&lt;UserModifier /&gt;&lt;/section&gt;
+}
+const 小儿子 = () =&gt; {
+  console.log('小儿子执行了', +Math.random())
+  return &lt;section&gt;小儿子&lt;/section&gt;
+}
+
+const User = connect(({ state, dispatch }) =&gt; {
+  console.log(&quot;user 执行了&quot;)
+  return &lt;div&gt; User:{state.user.name} &lt;/div&gt;
+})
+
+const UserModifier = connect(({ dispatch, state }) =&gt; {
+  const onChange = (e) =&gt; {
+    dispatch({ type: 'updateUser', 
+      payload: { name: e.target.value } })
+  }
+  return &lt;div&gt;
+    &lt;input value={state.user.name} onChange={onChange} /&gt;
+  &lt;/div&gt;
+})
+const rootElement = document.getElementById(&quot;root&quot;);
+ReactDOM.render(&lt;App /&gt;, rootElement);
+</code></pre>
+<pre><code class="language-js">redux.js
+import React, { useState, useContext, useEffect } from &quot;react&quot;
+
+export const store = {
+  state: {
+    user: { name: 'frank', age: 18 }
+  },
+  setState(newState) {
+    console.log(newState)
+    store.state = newState
+    store.listeners.map(fn =&gt; fn(store.state))
+  },
+  listeners: [],
+  subscribe(fn) {
+    store.listeners.push(fn) //订阅
+    return () =&gt; { //取消订阅
+      const index = store.listeners.indexOf(fn)
+      store.listeners.splice(index)
+    }
+  }
+}
+
+const reducer = (state, { type, payload }) =&gt; {
+  if (type === 'updateUser') {
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        ...payload
+      }
+    }
+  } else {
+    return state
+  }
+}
+
+export const connect = (Component) =&gt; {
+  return () =&gt; {
+    const { state, setState } = useContext(appContext);
+    const [, update] = useState({})
+    useEffect(()=&gt; { store.subscribe(()=&gt; { update({})}) }, [])
+      const dispatch = (action) =&gt; {
+        setState(reducer(state, action))
+      }
+      return &lt;Component dispatch={dispatch} state={state} /&gt;
+  }
+}
+export const appContext = React.createContext(null)
+</code></pre>
+
+</article>
+
+                    
+                    
+                    
+
+                    
+
+
+
+                    
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+        <span class="text-primary-text block font-bold"
+          >Previous</span
+        >
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/" class="block">函数组件</a>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+    </div>
+  </div>
+
+
+                    
+
+
+
+                </div>
+                
+                <div class="hidden lg:block lg:w-1/4">
+                    
+                    <div
+  class="
+    bg-secondary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>On This Page</h3>
+</div>
+<div
+  class="sticky-toc 
+    border-s
+   hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#全局state的读写">全局state的读写</a></li>
+        <li><a href="#reducer的来历">reducer的来历</a></li>
+        <li><a href="#dispatch的来历">dispatch的来历</a></li>
+        <li><a href="#connect">connect</a></li>
+        <li><a href="#如何传组件的属性">如何传组件的属性</a></li>
+        <li><a href="#如何传组件的子内容">如何传组件的子内容</a></li>
+        <li><a href="#利用connect减少render">利用connect减少render</a></li>
+        <li><a href="#redux乍现">Redux乍现</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+                    
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        hljs.initHighlightingOnLoad();
+        changeSidebarHeight();
+        switchDocToc();
+    })
+</script>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2021 <a href="https://www.wangchucheng.com/">WANG Chucheng</a> and <a href="https://www.ruiqima.com/">MA Ruiqi</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>

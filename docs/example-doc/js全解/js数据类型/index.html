@@ -1,0 +1,1702 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>JS数据类型 | 目录 | 博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.1" />
+<link rel="stylesheet" href="http://lixueqin-4119.xyz/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
+<script defer src="http://lixueqin-4119.xyz/js/eureka.min.f1639ee98d6cbd85b2b5f034d27320da962002ff83159ed4e01dbc5948c42a1ab26c2d6e74c66e93f5cec4d24dbd166d.js" integrity="sha384-8WOe6Y1svYWytfA00nMg2pYgAv&#43;DFZ7U4B28WUjEKhqybC1udMZuk/XOxNJNvRZt"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+
+<script defer type="text/javascript" src="http://lixueqin-4119.xyz/js/fontawesome.min.7b735802cbde01152678cc4a867f0b4bb0597876e29adfcaf1e5b5e99d39d7af87f348fdfd91c7eaf9ed7dc1eece7c61.js" integrity="sha384-e3NYAsveARUmeMxKhn8LS7BZeHbimt/K8eW16Z0516&#43;H80j9/ZHH6vntfcHuznxh"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="其它
+1.推荐阅读《我用了两个月的时间才理解 let》
+2.markdown如何输入上下标 输入上标，如x^2 , 则输入x^2
+3.键盘怎么打顿号？中文状态下点击&quot;|&ldquo;键
+4.二进制只有0和1
+5.前6种类型都是简单类型，只有object叫做复杂类型
+6.JS秘密花园收录了JS的各种bug
+7.JS新增了一种类型bigint 因为太新了用得很少,面试基本不考。
+ 数据为什么需要类型？ 数字与字符串
+(1)功能不同
+数字是数字，字符串是字符串，要严谨
+数字能加减乘除，字符串不行
+字符串能表示电话号码(有时候电话号码还可以有字母)，数字不同
+(2)存储形式不同
+JS中，数字是用64位浮点数的形式存储的
+JS中，字符串是用类似UTF8形式存储的(UCS-2)
+JS是如何存数字的？ 就是把所有数字变成二进制存下来，再用十六进制简化。
+把所有的十进制都转为二进制
+补充：内存里只能存0和1，2都存不了。2就要把它变成1或0。
+二进制
+1.十进制转二进制
+例子：31变成二进制 31 = ?x2^5 &#43; ?x2^4 &#43; ?x2^3 &#43; ?x2^2 &#43; ?x2^1 &#43; ?x2^0
+经过一番尝试 31=0x2^5 &#43; 1x2^4 &#43; 1x2^3 &#43; 1x2^2 &#43; 1x2^1 &#43; 1x2^0
+所以31(十进制)=01 1111(二进制)
+2.二进制转十进制
+例子：100011变成十进制 每位数乘以2的N次方，然后加起来即可
+100011=2^5 &#43; 2^1 &#43; 2^0=35
+用十六进制表示二进制
+十六进制是二进制的简写(把每4位改写成1位)
+十六进制：0 1 2 3 4 5 6 7 8 9 A B C D E F">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"",
+      "item":"http://lixueqin-4119.xyz/docs/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"目录",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/"},{
+      "@type": "ListItem",
+      "position": 3 ,
+      "name":"JS全解",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/"},{
+      "@type": "ListItem",
+      "position": 4 ,
+      "name":"JS数据类型",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"
+    },
+    "headline": "JS数据类型 | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
+    "dateModified": "2020-10-16T00:00:00+00:00",
+    "wordCount":  475 ,
+    "publisher": {
+        "@type": "Person",
+        "name": "WANG Chucheng",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "http://lixueqin-4119.xyz/images/icon.png"
+        }
+        },
+    "description": "其它\n1.推荐阅读《我用了两个月的时间才理解 let》\n2.markdown如何输入上下标 输入上标，如x^2 , 则输入x^2\n3.键盘怎么打顿号？中文状态下点击\u0026quot;|\u0026ldquo;键\n4.二进制只有0和1\n5.前6种类型都是简单类型，只有object叫做复杂类型\n6.JS秘密花园收录了JS的各种bug\n7.JS新增了一种类型bigint 因为太新了用得很少,面试基本不考。\n 数据为什么需要类型？ 数字与字符串\n(1)功能不同\n数字是数字，字符串是字符串，要严谨\n数字能加减乘除，字符串不行\n字符串能表示电话号码(有时候电话号码还可以有字母)，数字不同\n(2)存储形式不同\nJS中，数字是用64位浮点数的形式存储的\nJS中，字符串是用类似UTF8形式存储的(UCS-2)\nJS是如何存数字的？ 就是把所有数字变成二进制存下来，再用十六进制简化。\n把所有的十进制都转为二进制\n补充：内存里只能存0和1，2都存不了。2就要把它变成1或0。\n二进制\n1.十进制转二进制\n例子：31变成二进制 31 = ?x2^5 \u002b ?x2^4 \u002b ?x2^3 \u002b ?x2^2 \u002b ?x2^1 \u002b ?x2^0\n经过一番尝试 31=0x2^5 \u002b 1x2^4 \u002b 1x2^3 \u002b 1x2^2 \u002b 1x2^1 \u002b 1x2^0\n所以31(十进制)=01 1111(二进制)\n2.二进制转十进制\n例子：100011变成十进制 每位数乘以2的N次方，然后加起来即可\n100011=2^5 \u002b 2^1 \u002b 2^0=35\n用十六进制表示二进制\n十六进制是二进制的简写(把每4位改写成1位)\n十六进制：0 1 2 3 4 5 6 7 8 9 A B C D E F"
+}
+</script><meta property="og:title" content="JS数据类型 | 目录 | 博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="http://lixueqin-4119.xyz/images/icon.png">
+
+
+<meta property="og:url" content="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" />
+
+
+
+
+<meta property="og:description" content="其它
+1.推荐阅读《我用了两个月的时间才理解 let》
+2.markdown如何输入上下标 输入上标，如x^2 , 则输入x^2
+3.键盘怎么打顿号？中文状态下点击&quot;|&ldquo;键
+4.二进制只有0和1
+5.前6种类型都是简单类型，只有object叫做复杂类型
+6.JS秘密花园收录了JS的各种bug
+7.JS新增了一种类型bigint 因为太新了用得很少,面试基本不考。
+ 数据为什么需要类型？ 数字与字符串
+(1)功能不同
+数字是数字，字符串是字符串，要严谨
+数字能加减乘除，字符串不行
+字符串能表示电话号码(有时候电话号码还可以有字母)，数字不同
+(2)存储形式不同
+JS中，数字是用64位浮点数的形式存储的
+JS中，字符串是用类似UTF8形式存储的(UCS-2)
+JS是如何存数字的？ 就是把所有数字变成二进制存下来，再用十六进制简化。
+把所有的十进制都转为二进制
+补充：内存里只能存0和1，2都存不了。2就要把它变成1或0。
+二进制
+1.十进制转二进制
+例子：31变成二进制 31 = ?x2^5 &#43; ?x2^4 &#43; ?x2^3 &#43; ?x2^2 &#43; ?x2^1 &#43; ?x2^0
+经过一番尝试 31=0x2^5 &#43; 1x2^4 &#43; 1x2^3 &#43; 1x2^2 &#43; 1x2^1 &#43; 1x2^0
+所以31(十进制)=01 1111(二进制)
+2.二进制转十进制
+例子：100011变成十进制 每位数乘以2的N次方，然后加起来即可
+100011=2^5 &#43; 2^1 &#43; 2^0=35
+用十六进制表示二进制
+十六进制是二进制的简写(把每4位改写成1位)
+十六进制：0 1 2 3 4 5 6 7 8 9 A B C D E F" />
+
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="docs" />
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">简介</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于我</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+
+
+<div class="lg:pt-12">
+    <div class="flex flex-col md:flex-row bg-secondary-bg rounded">
+        <div class="md:w-1/4 lg:w-1/5 border-e">
+            <div class="sticky top-16 pt-6">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sidebar-title" class="md:hidden mx-4 px-2 pt-4 pb-2 md:border-b text-tertiary-text md:text-primary-text">
+    <span class="font-semibold">Table of Contents</span>
+    <i class='fas fa-caret-right ms-1'></i>
+</div>
+
+<div id="sidebar-toc"
+    class="hidden md:block overflow-y-auto mx-6 md:mx-0 pe-6 pt-2 md:max-h-doc-sidebar bg-primary-bg md:bg-transparent">
+    <div class="flex flex-wrap ms-4 -me-2 p-2 bg-secondary-bg md:bg-primary-bg rounded">
+        <a class=" hover:text-eureka"
+            href="http://lixueqin-4119.xyz/docs/example-doc/">目录</a>
+        
+        
+        
+
+
+    </div>
+    
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/">【HTML全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A0%87%E7%AD%BE/">HTML标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A6%82%E8%A7%88/">HTML概览</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E9%87%8D%E7%82%B9%E6%A0%87%E7%AD%BE/">HTML重点标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/%E6%89%8B%E6%9C%BA%E9%A2%84%E8%A7%88-%E8%B0%83%E8%AF%95/">手机预览 &amp; 调试</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/">HTTP 状态码</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/">URL 是什么</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/">请求和响应 &amp; Node.js Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/">JavaScript 的诞生</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/">JS函数</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/">JS对象</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/">JS对象分类</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" text-eureka  hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">JS数据类型</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/">JS数组</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JS正则表达式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/">js获取屏幕宽高</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/">JS语法</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/">JS运算符</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/">DOM 编程</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/">DOM事件与事件委托</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/">jQuery 中的设计模式(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/">jQuery 中的设计模式(下)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/">手写DOM库(1)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/">MVC(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/">MVC(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/">Class 组件详解</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">Hooks 原理解析</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/">Hooks 各个击破</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">React 类组件和函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/">React起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/">手写 Redux</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/">computed 和 watch</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/">Vue Router -前端路由实现的思路</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">数据响应式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/">构造选项</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/">模板、指令与修饰符</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">深入理解Vue动画原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/">表单与v-model</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/">起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/">进阶构造属性</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/">云服务器</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/">AJAX 的原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/">Ajax实战:Cookie、Session</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/">异步与Promise</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/">跨域、CORS、JSONP</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/">静态服务器Static Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/">Webpack(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/">Webpack(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+</ul>
+
+</div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <div class="w-full md:w-3/4 lg:w-4/5 pb-8 pt-2 md:pt-8">
+            <div class="flex">
+                <div class="w-full lg:w-3/4 px-6">
+                    <article class="prose">
+  <h1 class="mb-4">JS数据类型</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2020-10-16</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>3 min read</span>
+  </div>
+
+  
+
+  
+</div>
+
+
+  
+  
+
+  <blockquote>
+<p>其它</p>
+<p>1.推荐阅读<a href="https://zhuanlan.zhihu.com/p/28140450">《我用了两个月的时间才理解 let》</a></p>
+<p>2.markdown如何输入上下标
+输入上标，如x^2 , 则输入<code>x^2</code></p>
+<p>3.键盘怎么打顿号？中文状态下点击&quot;|&ldquo;键</p>
+<p>4.二进制只有0和1</p>
+<p>5.前6种类型都是简单类型，只有object叫做复杂类型</p>
+<p>6.JS秘密花园收录了JS的各种bug</p>
+<p>7.JS新增了一种类型bigint 因为太新了用得很少,面试基本不考。</p>
+</blockquote>
+<h2 id="数据为什么需要类型"><strong>数据为什么需要类型？</strong></h2>
+<p>数字与字符串</p>
+<p>(1)功能不同</p>
+<p>数字是数字，字符串是字符串，要严谨</p>
+<p>数字能加减乘除，字符串不行</p>
+<p>字符串能表示电话号码(有时候电话号码还可以有字母)，数字不同</p>
+<p>(2)存储形式不同</p>
+<p>JS中，数字是用64位浮点数的形式存储的</p>
+<p>JS中，字符串是用类似UTF8形式存储的(UCS-2)</p>
+<h2 id="js是如何存数字的">JS是如何存数字的？</h2>
+<p>就是把所有数字变成二进制存下来，再用十六进制简化。</p>
+<p>把所有的十进制都转为二进制</p>
+<p>补充：内存里只能存0和1，2都存不了。2就要把它变成1或0。</p>
+<p><strong>二进制</strong></p>
+<p>1.十进制转二进制</p>
+<p>例子：31变成二进制 31 = ?x2^5 + ?x2^4 + ?x2^3 + ?x2^2 + ?x2^1 + ?x2^0</p>
+<p>经过一番尝试 31=0x2^5 + 1x2^4 + 1x2^3 + 1x2^2 + 1x2^1 + 1x2^0</p>
+<p>所以31(十进制)=01 1111(二进制)</p>
+<p>2.二进制转十进制</p>
+<p>例子：100011变成十进制
+<img src="https://upload-images.jianshu.io/upload_images/21487050-ef8e34ec0e93cd14?imageMogr2/auto-orient/strip%7CimageView2/2/w/680/format/webp" alt=""></p>
+<p>每位数乘以2的N次方，然后加起来即可</p>
+<p>100011=2^5 + 2^1 + 2^0=35</p>
+<p><strong>用十六进制表示二进制</strong></p>
+<p>十六进制是二进制的简写(把每4位改写成1位)</p>
+<p>十六进制：0 1 2 3 4 5 6 7 8 9 A B C D E F</p>
+<p>十六进制没有大于9的数字，后面是字母替代</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21487050-356dc7cd60a5ab91?imageMogr2/auto-orient/strip%7CimageView2/2/w/720/format/webp" alt=""></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21487050-b6318a60c9cb5218?imageMogr2/auto-orient/strip%7CimageView2/2/w/720/format/webp" alt=""></p>
+<h2 id="js如何存字符">JS如何存字符？</h2>
+<p><strong>1.英文编号</strong></p>
+<p>转成数字，但是注意‘1’不能用1来表示</p>
+<p>编号表示，用0～127表示所有符号</p>
+<p>最常用的：0是48，A是65，a是97</p>
+<p>上面是外国的编号只能存128个字符，于是中文也开始编号了。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21487050-2216f37d3e1f4ef4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/280/format/webp" alt=""></p>
+<p><strong>2.中文编号「国标2312」</strong></p>
+<p><strong>中文编号由中国国家标准局来编，名称「国标2312」</strong></p>
+<p>国标是16位，也就是2个字节。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21487050-2cdb60ab71d4a3f7?imageMogr2/auto-orient/strip%7CimageView2/2/w/720/format/webp" alt=""></p>
+<p><strong>3.国标扩简称GBK</strong></p>
+<p>怎么表示生僻字，繁体字，韩文？之前忘了编进取。微软推出了一个国标扩展，简称GBK。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21487050-4a48ebaa0aebe0ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/280/format/webp" alt=""></p>
+<p>国标局推出GB18030想取代微软的GBK但由于不兼容GB2312，所以没人愿意使用。</p>
+<p><strong>4.藏文泰语还是没法支持，于是推出了万国码 Unicode</strong></p>
+<p>Unicode优点：已收录13万字符(大于16位)，全世界通用。以后还会继续扩充不会停止。</p>
+<p>缺点：两个字节不够用，每个字符要用3个及以上字节。这样所有文件都扩大50%不划算。
+那怎么办？</p>
+<p>虽然用Unicode但存的时候偷懒，UTF-8就被发明出来了。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21487050-c291293d349fdbc9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/396/format/webp" alt=""></p>
+<p>UTF-8就是通过&quot;让前面那个人告诉计算机我有多少位&quot;来把这个变长得以实现，从而得到节省空间的目的。</p>
+<p>字符也是存数字，数字也是存数字。计算机怎么知道存的是字符还是数字呢？</p>
+<p>很简单，计算机根本不知道，它看你的文件格式。文件后缀是txt那存的就是字符串。</p>
+<h2 id="js中的数据类型">js中的数据类型</h2>
+<p><strong>8种</strong></p>
+<p>数字number</p>
+<p>字符串string</p>
+<p>布尔bool, 只有两个值true和false(注意大小写)</p>
+<p>符号symbol</p>
+<p>空undefined</p>
+<p>空null</p>
+<p>对象object</p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/BigInt">BigInt</a></p>
+<p>总结：4基2空1对象</p>
+<p>前6种类型都是简单类型，只有object叫做复杂类型</p>
+<p><strong>以下不是数据类型</strong></p>
+<p>数组,函数，日期</p>
+<p>它们都属于object</p>
+<h2 id="一数字number-64位浮点数"><strong>一.数字number 64位浮点数</strong></h2>
+<p><strong>1.写法</strong></p>
+<p>(1)整数写法     1</p>
+<p>(2)小数写法     0.1</p>
+<p>(3)科学计数法   1.23e4(1.23x10^4 )</p>
+<p>(4)八进制写法   0123或00123或0o123</p>
+<p>(5)十六进制写法 0x3F或0X3F</p>
+<p>(6)二进制写法   0b11或0B11</p>
+<p><strong>2.特殊值</strong></p>
+<p>(1)正0和负0</p>
+<p>(2)无穷大</p>
+<p>infinity、+infinity、-infinity</p>
+<p>(3)无法表示的数字</p>
+<p>NaN(not a number)</p>
+<p>无法表示的数字是数字(认知有限时的替代)</p>
+<p>NaN==NaN</p>
+<p>输出结果是false</p>
+<p><strong>为什么是64位浮点数？</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21487050-885b117e7f156893?imageMogr2/auto-orient/strip%7CimageView2/2/w/586/format/webp" alt=""></p>
+<p>要先转为二进制，然后再改写。</p>
+<pre><code>例子：0.5的存储形式是？ 
+首先转为二进制0.1，所以是 0 -1 0
+</code></pre>
+<h3 id="64位浮点数最大小存多少"><strong>64位浮点数最大/小存多少？</strong></h3>
+<p>范围和精度</p>
+<p><strong>范围(忽略符号位)</strong></p>
+<p>指数拉满2^1024、有效数字拉满全是1，得到最大二进制数字。</p>
+<p>转化为十进制就是(<strong>1后面接300个0</strong>)</p>
+<p>Number.MAX_VALUE:1.7976931348623157e+308</p>
+<p>指数负方向拉满2^-1023  、 有效数字最小1，得到最小值(<strong>0后面加300个小数点0</strong>)</p>
+<p>Number.MIN_VALUE:5e-324</p>
+<p><strong>精度(有效数字)</strong></p>
+<p>最多只能到52+1个二进制位表示有效数字</p>
+<p>2^52 对应的十进制是9后面15个0，所以<strong>15位有效数字</strong>都能精确表示</p>
+<p>16位有效数字如果小于90开头也能精确表示</p>
+<p>9110 0000 0000 0001就存不下来</p>
+<h2 id="二字符串string"><strong>二.字符串string</strong></h2>
+<p>每个字符两个字节(阉割版UTF8)</p>
+<p><strong>写法</strong></p>
+<pre><code>单引号'你好' 双引号&quot;你好&quot; 反引号`你好`
+</code></pre>
+<p><strong>注意</strong></p>
+<p>引号不属于字符串的一部分，就像书名不属于书名的一部分一样</p>
+<p>如果要在单引号里面包含单引号怎么办？</p>
+<pre><code>例子:'it's ok'
+正确写法：'it\'s ok'  //这就是转义
+或者&quot;it's ok&quot;
+或者`it's ok`
+</code></pre>
+<h3 id="什么是转义"><strong>什么是转义？</strong></h3>
+<p><strong>用另一种写法表示你想要的东西(背下来)</strong></p>
+<pre><code>\' 表示'
+\&quot; 表示&quot;
+\n 表示换行
+\r 表示回车
+\t 表示tab制表符
+\\ 表示\
+\uFFFF 表示对应的Unicode字符 
+\xFF 	表示前256个Unicode字符
+</code></pre>
+<p>例子:   🔍你 Unicode</p>
+<pre><code>控制台: &quot;\u4F60&quot;
+输出:   '你'
+ 
+控制台: &quot;\x33&quot;
+输出:   '3'
+</code></pre>
+<h3 id="多行字符串"><strong>多行字符串</strong></h3>
+<p>用反引号<code> </code>可以做到</p>
+<pre><code>let s=`大家好
+我是小红
+你是谁
+ `
+控制行输入: s
+输出结果:
+&quot;大家好
+我是小红
+你是谁&quot;
+</code></pre>
+<h3 id="字符串的属性"><strong>字符串的属性</strong></h3>
+<p>等等，对象才有属性，为什么字符串也有属性？</p>
+<p>只有对象才有属性，字符串 数字 布尔没有属性这么一说的。</p>
+<p>为什么字符串也属性？等学完对象才能解答</p>
+<p><strong>字符串的长度</strong></p>
+<p>string.length</p>
+<pre><code>'123'.length    //3
+'\n\r\t'.length //3
+'\\\\\\'.length //3
+''.length       //0
+' '.length      //1
+</code></pre>
+<h3 id="通过下标读取字符"><strong>通过下标读取字符</strong></h3>
+<p><strong>1.string[index]</strong></p>
+<p>let s=&lsquo;hello&rsquo;</p>
+<p>s[0]//&ldquo;h&rdquo;</p>
+<p><strong>2.注意index从0开始</strong></p>
+<p>s[0]是第一个字符</p>
+<p><strong>3.注意index到length</strong></p>
+<p>let s=&ldquo;hello&rdquo;</p>
+<p>s[5] //undefined,居然不报错</p>
+<h3 id="base64转码"><strong>base64转码</strong></h3>
+<p>1.window.btoa</p>
+<p>正常字符串转为 Base64 编码的字符串</p>
+<p><strong>编码</strong></p>
+<pre><code>例子：window.btoa('123')
+输出结果：'MTIz'
+</code></pre>
+<p>2.window.atob</p>
+<p>Base64编码的字符串转为原来的字符串</p>
+<p><strong>反编码</strong></p>
+<pre><code>例子：window.atob('MTIz')
+ 输出结果：'123'
+</code></pre>
+<p><strong>3.一般用来隐藏招聘启事里的简历</strong></p>
+<p>邮箱：ZmFuZ3lpbmdoYW5nQGZveG1haWwuY29t</p>
+<p>有时候也用来自欺欺人</p>
+<p>所谓的「加密」也就能骗过一部分外行</p>
+<pre><code>例子：window.atob('ZmFuZ3lpbmdoYW5nQGZveG1haWwuY29t')
+输出结果：'fangyinghang@foxmail.com'
+</code></pre>
+<h2 id="三布尔bool两个值true和false"><strong>三.布尔bool两个值true和false</strong></h2>
+<p>1.下列运算符会得到bool值</p>
+<p>(1)否定运算</p>
+<p>例如：!value</p>
+<p>(2)相等运算</p>
+<p>例如：1==2、1！=2、3===4、3!==4</p>
+<p>(3)比较运算</p>
+<p>例如：1&gt;2、1&gt;=2、3&lt;4、3&lt;=4</p>
+<p><strong>2.if配bool</strong></p>
+<p><strong>(1)if语句常常需要判断真假</strong></p>
+<p>if(value){&hellip;}else{&hellip;}</p>
+<p><strong>(2)问题来了</strong></p>
+<p>如果value是bool值还好说</p>
+<p>如果value不是bool值咋办，谁真谁假?</p>
+<p>1是真还是假，0是真还是假?</p>
+<p>命令行：成功返回0，失败返回12345</p>
+<p>主要还是由程序员决定的</p>
+<p>&lsquo;1&rsquo;是真还是假，&lsquo;0&rsquo;是真还是假?</p>
+<p>那怎么判断呢？</p>
+<h2 id="5个falsy值背下来"><strong>5个falsy值(背下来)</strong></h2>
+<p>falsy就是相当于false但是又不是false的值</p>
+<p><strong>分别是undefined null 0 NaN &lsquo;&rsquo;(注意没空格)</strong></p>
+<p><strong>假：2个空2个数字1个字符串</strong></p>
+<p>2个空undefined null，2个数字0 NaN，1个字符串&rsquo;&rsquo;。</p>
+<p>判断1：1是真还是假，0是真还是假?</p>
+<p>1不属于2个数字所以是真，0属于2个数字所以是假</p>
+<p>1是真，0是假</p>
+<p>判断2：&lsquo;1&rsquo;是真还是假，&lsquo;0&rsquo;是真还是假?</p>
+<p>&lsquo;1&rsquo;和'0&rsquo;都是真</p>
+<p><strong>总结：</strong></p>
+<p><strong>7个数据类型</strong></p>
+<p>数字number 字符串string 布尔bool 符号symbol 空undefined 空null  对象object</p>
+<p>4基2空1对象</p>
+<p><strong>5个falsy值</strong></p>
+<p>undefined null 0 NaN '&rsquo;</p>
+<p>2空2数字1字符串</p>
+<h3 id="undefined和null两种空类型"><strong>undefined和null两种空类型</strong></h3>
+<p>为什么有两个空，这就是js原(la)创(ji)之处</p>
+<p><strong>区别</strong></p>
+<p>没有本质区别</p>
+<p>细节一</p>
+<p>如果一个变量声明了但没有赋值，那么默认值就是undefined,而不是null</p>
+<pre><code>var a  //a的值就是undefined
+</code></pre>
+<p>细节二</p>
+<p>如果一个函数没有写return，那么默认return undefined,而不是null</p>
+<p>细节三</p>
+<p><strong>前端程序员习惯把非对象的空值写为undefined,把对象的空值写为null</strong></p>
+<p>四.符号symbol(很少用，没用)</p>
+<h2 id="变量声明">变量声明</h2>
+<h3 id="三种声明方式"><strong>三种声明方式</strong></h3>
+<pre><code>var a=1
+let a=1
+const a=1
+a=1
+</code></pre>
+<p><strong>区别</strong></p>
+<p>var是过时的、不好用的方式</p>
+<p>let是新的，更合理的方式</p>
+<p>const是声明时必须赋值，且不能再改的方式</p>
+<p>最后这种方式时错误的不准这样声明</p>
+<p><strong>总结：</strong></p>
+<p><strong>以后就用let或const,不要用var!</strong></p>
+<p><strong>let声明变量 const声明常量(不能变的量)</strong></p>
+<p>var变量提升押题时再讲</p>
+<h3 id="let声明"><strong>let声明</strong></h3>
+<p><strong>规则</strong></p>
+<p>1.遵循块作用域，即使用范围不能超出{}</p>
+<p>2.不能重复申明</p>
+<pre><code>let a=1
+let a=2 //错误
+</code></pre>
+<p>3.可以赋值也可以不赋值</p>
+<p>4.必须先声明再使用，否则报错</p>
+<p>5.全局声明的let变量，不会变成window的属性(var可以)</p>
+<p>6.for循环配合let有奇效</p>
+<p><strong>面试题</strong></p>
+<pre><code> for(var i=0;i&lt;5;i++){
+   setTimeout(()=&gt;console.log(i),0)
+ }
+ 输出结果：5
+         5
+         5
+         5
+         5
+</code></pre>
+<pre><code> for(let i=0;i&lt;5;i++){
+   setTimeout(()=&gt;console.log(i),0)
+ }
+ 输出结果：0
+         1
+         2
+         3
+         4
+</code></pre>
+<h3 id="const声明"><strong>const声明</strong></h3>
+<p>const变量是只读变量，又叫做常量，不会变</p>
+<p><strong>规则</strong></p>
+<p>跟let几乎一样</p>
+<p><strong>只有一条不一样：声明时就要赋值，赋值后不能改</strong></p>
+<pre><code>const i=1
+i=2 //错误，不能修改
+</code></pre>
+<p>变量声明时，既指定了值又指定了<strong>类型！(重要)</strong></p>
+<p><strong>name和&rsquo;name&rsquo;的区别？</strong></p>
+<p><strong>name是变量</strong></p>
+<p>值可变，可能是&rsquo;name&rsquo;,也可能是&rsquo;hello&rsquo;</p>
+<p><strong>&rsquo;name&rsquo;是字符串常量</strong></p>
+<p>常量就是不变量</p>
+<p>&rsquo;name&rsquo;只能是&rsquo;name&rsquo;，不能是其他值</p>
+<h2 id="类型转换"><strong>类型转换</strong></h2>
+<p><strong>1.number=&gt;string</strong></p>
+<p>1&rsquo; String(n)</p>
+<p>2&rsquo; n+&rsquo;&rsquo;(前端流行做法)</p>
+<p>例子</p>
+<pre><code>1' var n=1
+   String(n)
+   输出结果：&quot;1&quot;
+
+2' var n=1
+   n+''
+   输出结果：&quot;1&quot;
+</code></pre>
+<p>补充</p>
+<p>js有个bug:String(100000000)</p>
+<p>当括号内位数达到22位时突然变成科学计数法就无法正常转换字符串</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21487050-51366f98a560ba07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/444/format/webp" alt=""></p>
+<p><a href="https://segmentfault.com/q/1010000010460890">解决js数字过大表现为科学计数法的问题</a></p>
+<p><strong>2.string=&gt;number</strong></p>
+<p>1&rsquo; Number(s)</p>
+<p>2&rsquo; s-0(前端流行做法)</p>
+<p>3&rsquo; parseInt(s)/parseFloat(s)</p>
+<p>例子</p>
+<pre><code>1' var s='123'
+   Number(s)
+   输出结果：123
+
+2' var s='123'
+   s-0
+   输出结果：123
+   
+3' parseInt(s)  
+</code></pre>
+<p><strong>3.x=&gt;bool</strong></p>
+<p>1&rsquo; Boolean(x)</p>
+<p>2&rsquo; !!x(前端流行做法)</p>
+<p><strong>4.x=&gt;string</strong></p>
+<p>1&rsquo; String(x)</p>
+<p>2&rsquo; x.toString()</p>
+<p><strong>toString有个bug: 1.toString()</strong></p>
+<pre><code>改为(1).toString()或者1..toString()
+</code></pre>
+<p><a href="https://bonsaiden.github.io/JavaScript-Garden/zh/">JS秘密花园</a><strong>收录了JS的各种bug</strong></p>
+<p>JS新增了一种类型<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/BigInt">bigint</a>
+因为太新了用得很少,面试基本不考。</p>
+
+</article>
+
+                    
+                    
+                    
+
+                    
+
+
+
+                    
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+        <span class="text-primary-text block font-bold"
+          >Previous</span
+        >
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/" class="block">JS对象分类</a>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+        <span class="text-primary-text block font-bold">Next</span>
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/" class="block">JS数组</a>
+      
+    </div>
+  </div>
+
+
+                    
+
+
+
+                </div>
+                
+                <div class="hidden lg:block lg:w-1/4">
+                    
+                    <div
+  class="
+    bg-secondary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>On This Page</h3>
+</div>
+<div
+  class="sticky-toc 
+    border-s
+   hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#数据为什么需要类型"><strong>数据为什么需要类型？</strong></a></li>
+    <li><a href="#js是如何存数字的">JS是如何存数字的？</a></li>
+    <li><a href="#js如何存字符">JS如何存字符？</a></li>
+    <li><a href="#js中的数据类型">js中的数据类型</a></li>
+    <li><a href="#一数字number-64位浮点数"><strong>一.数字number 64位浮点数</strong></a>
+      <ul>
+        <li><a href="#64位浮点数最大小存多少"><strong>64位浮点数最大/小存多少？</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#二字符串string"><strong>二.字符串string</strong></a>
+      <ul>
+        <li><a href="#什么是转义"><strong>什么是转义？</strong></a></li>
+        <li><a href="#多行字符串"><strong>多行字符串</strong></a></li>
+        <li><a href="#字符串的属性"><strong>字符串的属性</strong></a></li>
+        <li><a href="#通过下标读取字符"><strong>通过下标读取字符</strong></a></li>
+        <li><a href="#base64转码"><strong>base64转码</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#三布尔bool两个值true和false"><strong>三.布尔bool两个值true和false</strong></a></li>
+    <li><a href="#5个falsy值背下来"><strong>5个falsy值(背下来)</strong></a>
+      <ul>
+        <li><a href="#undefined和null两种空类型"><strong>undefined和null两种空类型</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#变量声明">变量声明</a>
+      <ul>
+        <li><a href="#三种声明方式"><strong>三种声明方式</strong></a></li>
+        <li><a href="#let声明"><strong>let声明</strong></a></li>
+        <li><a href="#const声明"><strong>const声明</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#类型转换"><strong>类型转换</strong></a></li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+                    
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        hljs.initHighlightingOnLoad();
+        changeSidebarHeight();
+        switchDocToc();
+    })
+</script>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2021 <a href="https://www.wangchucheng.com/">WANG Chucheng</a> and <a href="https://www.ruiqima.com/">MA Ruiqi</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>

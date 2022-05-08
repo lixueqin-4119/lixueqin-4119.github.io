@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>Ajax实战:Cookie、Session | 目录 | 博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.1" />
+<link rel="stylesheet" href="http://lixueqin-4119.xyz/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
+<script defer src="http://lixueqin-4119.xyz/js/eureka.min.f1639ee98d6cbd85b2b5f034d27320da962002ff83159ed4e01dbc5948c42a1ab26c2d6e74c66e93f5cec4d24dbd166d.js" integrity="sha384-8WOe6Y1svYWytfA00nMg2pYgAv&#43;DFZ7U4B28WUjEKhqybC1udMZuk/XOxNJNvRZt"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+
+<script defer type="text/javascript" src="http://lixueqin-4119.xyz/js/fontawesome.min.7b735802cbde01152678cc4a867f0b4bb0597876e29adfcaf1e5b5e99d39d7af87f348fdfd91c7eaf9ed7dc1eece7c61.js" integrity="sha384-e3NYAsveARUmeMxKhn8LS7BZeHbimt/K8eW16Z0516&#43;H80j9/ZHH6vntfcHuznxh"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="文档：Node.js中文档、Set-Cookie响应头
+内容：动态服务器
+ 什么是动态服务器? 静态服务器(网页) VS 动态服务器(网页)
+判断依据
+是否请求了数据库。
+没有请求数据库，就是静态服务器。请求了数据库，就是动态服务器。
+今天直接用json文件当作数据库。
+步骤 查看代码
+1.新建目录db和文件users.json
+[ {&quot;id&quot;:1,&quot;name&quot;:&quot;李白&quot;,&quot;password&quot;:&quot;xxx&quot;,&quot;age&quot;:18}, {&quot;id&quot;:2,&quot;name&quot;:&quot;李宇春&quot;,&quot;password&quot;:&quot;yyy&quot;,&quot;age&quot;:20} ]  2.读数据库
+新建test.js用来测试数据
+fs用来读文件的，要想获取文件数据，首先要引入fs。
+const fs = require(&#39;fs&#39;) //引入fs const usersString = fs.readFileSync(&#39;./db/users.json&#39;).toString() console.log(usersString)  toString() 方法返回一个表示该对象的字符串。
+运行:node test.js
+把字符串变成数组
+const usersArray = JSON.parse(usersString) console.log(typeof usersString) console.log(usersString) console.log(typeof usersArray) console.log(usersArray) console.log(usersArray instanceof Array)  3.写数据库
+const user3 = { id: 3, name: &#39;李明&#39;, password: &#39;zzz&#39;, age: 25 } usersArray.push(user3)  存到数据库。我们的数据库是文件，文件只能存字符串
+console.log(typeof user3) //object const string = JSON.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"",
+      "item":"http://lixueqin-4119.xyz/docs/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"目录",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/"},{
+      "@type": "ListItem",
+      "position": 3 ,
+      "name":"前后分离",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/"},{
+      "@type": "ListItem",
+      "position": 4 ,
+      "name":"Ajax实战:Cookie、Session",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/"
+    },
+    "headline": "Ajax实战:Cookie、Session | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
+    "dateModified": "2020-10-16T00:00:00+00:00",
+    "wordCount":  1032 ,
+    "publisher": {
+        "@type": "Person",
+        "name": "WANG Chucheng",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "http://lixueqin-4119.xyz/images/icon.png"
+        }
+        },
+    "description": "文档：Node.js中文档、Set-Cookie响应头\n内容：动态服务器\n 什么是动态服务器? 静态服务器(网页) VS 动态服务器(网页)\n判断依据\n是否请求了数据库。\n没有请求数据库，就是静态服务器。请求了数据库，就是动态服务器。\n今天直接用json文件当作数据库。\n步骤 查看代码\n1.新建目录db和文件users.json\n[ {\u0026quot;id\u0026quot;:1,\u0026quot;name\u0026quot;:\u0026quot;李白\u0026quot;,\u0026quot;password\u0026quot;:\u0026quot;xxx\u0026quot;,\u0026quot;age\u0026quot;:18}, {\u0026quot;id\u0026quot;:2,\u0026quot;name\u0026quot;:\u0026quot;李宇春\u0026quot;,\u0026quot;password\u0026quot;:\u0026quot;yyy\u0026quot;,\u0026quot;age\u0026quot;:20} ]  2.读数据库\n新建test.js用来测试数据\nfs用来读文件的，要想获取文件数据，首先要引入fs。\nconst fs = require(\u0027fs\u0027) \/\/引入fs const usersString = fs.readFileSync(\u0027.\/db\/users.json\u0027).toString() console.log(usersString)  toString() 方法返回一个表示该对象的字符串。\n运行:node test.js\n把字符串变成数组\nconst usersArray = JSON.parse(usersString) console.log(typeof usersString) console.log(usersString) console.log(typeof usersArray) console.log(usersArray) console.log(usersArray instanceof Array)  3.写数据库\nconst user3 = { id: 3, name: \u0027李明\u0027, password: \u0027zzz\u0027, age: 25 } usersArray.push(user3)  存到数据库。我们的数据库是文件，文件只能存字符串\nconsole.log(typeof user3) \/\/object const string = JSON."
+}
+</script><meta property="og:title" content="Ajax实战:Cookie、Session | 目录 | 博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="http://lixueqin-4119.xyz/images/icon.png">
+
+
+<meta property="og:url" content="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/" />
+
+
+
+
+<meta property="og:description" content="文档：Node.js中文档、Set-Cookie响应头
+内容：动态服务器
+ 什么是动态服务器? 静态服务器(网页) VS 动态服务器(网页)
+判断依据
+是否请求了数据库。
+没有请求数据库，就是静态服务器。请求了数据库，就是动态服务器。
+今天直接用json文件当作数据库。
+步骤 查看代码
+1.新建目录db和文件users.json
+[ {&quot;id&quot;:1,&quot;name&quot;:&quot;李白&quot;,&quot;password&quot;:&quot;xxx&quot;,&quot;age&quot;:18}, {&quot;id&quot;:2,&quot;name&quot;:&quot;李宇春&quot;,&quot;password&quot;:&quot;yyy&quot;,&quot;age&quot;:20} ]  2.读数据库
+新建test.js用来测试数据
+fs用来读文件的，要想获取文件数据，首先要引入fs。
+const fs = require(&#39;fs&#39;) //引入fs const usersString = fs.readFileSync(&#39;./db/users.json&#39;).toString() console.log(usersString)  toString() 方法返回一个表示该对象的字符串。
+运行:node test.js
+把字符串变成数组
+const usersArray = JSON.parse(usersString) console.log(typeof usersString) console.log(usersString) console.log(typeof usersArray) console.log(usersArray) console.log(usersArray instanceof Array)  3.写数据库
+const user3 = { id: 3, name: &#39;李明&#39;, password: &#39;zzz&#39;, age: 25 } usersArray.push(user3)  存到数据库。我们的数据库是文件，文件只能存字符串
+console.log(typeof user3) //object const string = JSON." />
+
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="docs" />
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">简介</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于我</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+
+
+<div class="lg:pt-12">
+    <div class="flex flex-col md:flex-row bg-secondary-bg rounded">
+        <div class="md:w-1/4 lg:w-1/5 border-e">
+            <div class="sticky top-16 pt-6">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sidebar-title" class="md:hidden mx-4 px-2 pt-4 pb-2 md:border-b text-tertiary-text md:text-primary-text">
+    <span class="font-semibold">Table of Contents</span>
+    <i class='fas fa-caret-right ms-1'></i>
+</div>
+
+<div id="sidebar-toc"
+    class="hidden md:block overflow-y-auto mx-6 md:mx-0 pe-6 pt-2 md:max-h-doc-sidebar bg-primary-bg md:bg-transparent">
+    <div class="flex flex-wrap ms-4 -me-2 p-2 bg-secondary-bg md:bg-primary-bg rounded">
+        <a class=" hover:text-eureka"
+            href="http://lixueqin-4119.xyz/docs/example-doc/">目录</a>
+        
+        
+        
+
+
+    </div>
+    
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/">【HTML全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A0%87%E7%AD%BE/">HTML标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A6%82%E8%A7%88/">HTML概览</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E9%87%8D%E7%82%B9%E6%A0%87%E7%AD%BE/">HTML重点标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/%E6%89%8B%E6%9C%BA%E9%A2%84%E8%A7%88-%E8%B0%83%E8%AF%95/">手机预览 &amp; 调试</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/">HTTP 状态码</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/">URL 是什么</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/">请求和响应 &amp; Node.js Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/">JavaScript 的诞生</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/">JS函数</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/">JS对象</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/">JS对象分类</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">JS数据类型</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/">JS数组</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JS正则表达式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/">js获取屏幕宽高</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/">JS语法</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/">JS运算符</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/">DOM 编程</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/">DOM事件与事件委托</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/">jQuery 中的设计模式(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/">jQuery 中的设计模式(下)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/">手写DOM库(1)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/">MVC(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/">MVC(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/">Class 组件详解</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">Hooks 原理解析</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/">Hooks 各个击破</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">React 类组件和函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/">React起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/">手写 Redux</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/">computed 和 watch</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/">Vue Router -前端路由实现的思路</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">数据响应式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/">构造选项</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/">模板、指令与修饰符</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">深入理解Vue动画原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/">表单与v-model</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/">起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/">进阶构造属性</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/">云服务器</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/">AJAX 的原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" text-eureka  hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/">Ajax实战:Cookie、Session</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/">异步与Promise</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/">跨域、CORS、JSONP</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/">静态服务器Static Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/">Webpack(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/">Webpack(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+</ul>
+
+</div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <div class="w-full md:w-3/4 lg:w-4/5 pb-8 pt-2 md:pt-8">
+            <div class="flex">
+                <div class="w-full lg:w-3/4 px-6">
+                    <article class="prose">
+  <h1 class="mb-4">Ajax实战:Cookie、Session</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2020-10-16</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>5 min read</span>
+  </div>
+
+  
+
+  
+</div>
+
+
+  
+  
+
+  <blockquote>
+<p>文档：<a href="http://nodejs.cn/api/">Node.js中文档</a>、<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies#set-cookie%E5%93%8D%E5%BA%94%E5%A4%B4%E9%83%A8%E5%92%8Ccookie%E8%AF%B7%E6%B1%82%E5%A4%B4%E9%83%A8">Set-Cookie响应头</a><br>
+内容：动态服务器</p>
+</blockquote>
+<h3 id="什么是动态服务器">什么是动态服务器?</h3>
+<p>静态服务器(网页) VS 动态服务器(网页)<br>
+判断依据<br>
+是否请求了数据库。<br>
+没有请求数据库，就是静态服务器。<strong>请求了数据库，就是动态服务器。</strong></p>
+<p>今天直接用json文件当作数据库。<br>
+<strong>步骤</strong> <a href="https://github.com/lixueqin-4119/js-demo34/blob/master/test.js">查看代码</a><br>
+<strong>1.新建目录db和文件users.json</strong></p>
+<pre><code class="language-json">[
+    {&quot;id&quot;:1,&quot;name&quot;:&quot;李白&quot;,&quot;password&quot;:&quot;xxx&quot;,&quot;age&quot;:18},
+    {&quot;id&quot;:2,&quot;name&quot;:&quot;李宇春&quot;,&quot;password&quot;:&quot;yyy&quot;,&quot;age&quot;:20}
+]
+</code></pre>
+<p><strong>2.读数据库</strong><br>
+新建test.js用来测试数据<br>
+fs用来读文件的，要想获取文件数据，首先要引入fs。</p>
+<pre><code class="language-js">const fs = require('fs') //引入fs
+const usersString = fs.readFileSync('./db/users.json').toString()
+console.log(usersString)
+</code></pre>
+<p>toString() 方法返回一个表示该对象的字符串。<br>
+运行:<code>node test.js</code></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8ca5a12db38f4284ac059214e5ee57a1~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>把字符串变成数组</p>
+<pre><code class="language-js">const usersArray = JSON.parse(usersString)
+console.log(typeof usersString)
+console.log(usersString)
+console.log(typeof usersArray)
+console.log(usersArray)
+console.log(usersArray instanceof Array)
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f30927fada37474c9755b5e90e93bd9b~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>3.写数据库</strong></p>
+<pre><code class="language-js">const user3 = { id: 3, name: '李明', password: 'zzz', age: 25 }
+usersArray.push(user3)
+</code></pre>
+<p><strong>存到数据库</strong>。我们的数据库是文件，文件只能存字符串</p>
+<pre><code class="language-js">console.log(typeof user3) //object
+const string = JSON.stringify(usersArray)
+fs.writeFileSync('./db/users.json', string)
+</code></pre>
+<p>每运行一次<strong>node test.js</strong>就会写一次user3</p>
+<p><strong>知识点：</strong></p>
+<p>1.<strong>JSON.stringify()序列化/字符串化</strong><br>
+序列化就是将一个js对象或值转换为符合JSON语法字符串。<br>
+<strong>JSON.parse()反序列化/反字符串化</strong><br>
+反序列化就是解析JSON字符串，构造由字符串描述的js值或对象。<br>
+<strong>2.json文件清空的话必须留个[]，不然会报错</strong><br>
+3.UTF-8的编码怎么变成字符串？<br>
+用<code>Buffer.concat(）</code></p>
+<pre><code>例子:const string=Buffer.concat(array).toString()
+</code></pre>
+<p><strong>4.js数组使用JSON.stringify()和toString()的区别</strong></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b55a34e0d29a43bfb1767c7b22571633~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>toString()是将<strong>数组</strong>转化成字符串，因此不带[]</p>
+<p>JSON.stringify()将一个js对象或值(一般是对象)转换为符合JSON语法字符串,是带[]的。</p>
+<p>另外JSON.parse()是解析JSON字符串，构造由字符串描述的js值或对象(一般是对象)</p>
+<p><strong>经验</strong></p>
+<p><strong>1.读数据时</strong>需要先将json数据文件toString()转化为字符串，符合JSON语法的字符串,toString也会<strong>反</strong>UTF-8编码。然后再解析JSON字符串JSON.parse()构造由字符串描述的js值或对象。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f24947ca7ae24555acb55c3a85a51d1a~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c5ceb9c1f95246f1a59ca77bcca78bf1~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><code>JSON.parse()//[object Object],[object Object]</code></p>
+<p><strong>2.写数据时</strong>，需要将数据JSON.stringify()将一个js对象或值转换为符合JSON语法字符串,是带[]的。因为我们的数据库是文件，文件只能存字符串。</p>
+<p><strong>总结</strong>
+/db/users.json<br>
+<strong>结构：一个数组</strong></p>
+<pre><code class="language-json">[
+  { id: 1, name: '李白', password: 'xxx', age: 18 },
+  { id: 2, name: '李宇春', password: 'yyy', age: 20 }
+]
+</code></pre>
+<p><strong>读users数据</strong><br>
+先fs.readFileSync(&rsquo;./db/users.json).toString()<br>
+然后JSON.parse一下(反序列化)，得到数组<br>
+<strong>写users数据</strong><br>
+先JSON.stringify一下(序列化)，得到字符串<br>
+然后fs.writeFileSync(&rsquo;./db/users.json&rsquo;,data)</p>
+<h3 id="目标1实现用户注册功能httpsgithubcomlixueqin-4119js-demo35treemasterpublic">目标1.<a href="https://github.com/lixueqin-4119/js-demo35/tree/master/public">实现用户注册功能</a></h3>
+<p>用户提交用户名和密码<br>
+users.json里就新增了一行数据<br>
+<strong>思路</strong><br>
+前端写一个form,让用户填写name和password<br>
+前端监听submit事件<br>
+前端发送post请求，数据位于请求体<br>
+后端接收post请求<br>
+后端获取请求体中的name和password<br>
+后端存储数据</p>
+<p><strong>步骤</strong><br>
+首先，先质空users.json只留下[]<br>
+1.新建注册页面register.html<br>
+2.重置meta:vp能够在手机上运行<br>
+3.引入jQuery:我使用的是<a href="https://www.bootcdn.cn/jquery/">BootCDN</a>，选择/jquery.min.js，点击复制<code>&lt;script&gt;</code>标签。当然你也可以使用一些更高级的写法(比如npm)<br>
+必须先引入jquery,然后才能使用。<br>
+4.监听表单的submit事件<br>
+表单有默认事件，第一步就是要阻止默认事件，不阻止的话会自动刷新页面<br>
+5.拿到name和password后要<strong>提交</strong>下，怎么提交呢？<br>
+<strong>发一个ajax请求</strong></p>
+<pre><code class="language-html">&lt;form id=&quot;registerForm&quot;&gt;
+  &lt;div&gt;
+    &lt;label&gt;用户名&lt;input type=&quot;text&quot; name=&quot;name&quot;&gt;&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;label&gt;密码&lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;button type=&quot;submit&quot;&gt;注册&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+&lt;script src=&quot;https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+const $form = $('#registerForm')
+  $form.on('submit', (e) =&gt; {
+    e.preventDefault() //阻止默认事件
+    const name = $form.find('input[name=name]').val()
+    const password = $form.find('input[name=password]').val()
+    console.log(name, password)
+    $.ajax({
+      url: '/register',
+      data: JSON.stringify({
+      name, //name:name 冗余可缩写,
+      password ,
+    })
+  })
+})
+&lt;/script&gt;
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ac4719a1393645dfabec35fef49816b6~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>GET请求只能把数据放到url上面，改为POST请求。</strong></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a8e06e82f06a42eca6c2a77cd245bf3a~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>我们上传给服务器的是json字符串，那服务器是怎么知道的呢？</strong><br>
+设置contentType</p>
+<pre><code class="language-js">$.ajax({
+  method: 'POST',
+  url: '/register',
+  contentType: 'text/json;charset=UTF-8',
+  data: JSON.stringify({ name,password })
+})
+</code></pre>
+<h3 id="获取post数据">获取post数据</h3>
+<p><strong>1.首先先处理/register.html请求</strong><br>
+server.js</p>
+<pre><code class="language-js">if (path === '/register' &amp;&amp; method === &quot;POST&quot;) {
+  response.setHeader('Content-Type', 'text/html;charset=UTF-8')
+  response.end(&quot;你好&quot;)
+} else { ...}
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b8a5ce6a33584d0797ebb7417b3e7341~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>2.服务器如何获取name和password呢？</strong><br>
+GET请求可以通过query拿到，POST请求怎么拿到？<br>
+<strong>思路</strong><br>
+<strong>(1)声明一个空数组用来装数据。</strong> 因为数据有可能是<strong>分段</strong>上传的。<br>
+就两条数据为什么这么点数据也要分段一个一个上传？<br>
+因为不能确定你的数据长度是多少。也许你只传个name、password，但也许你也可能传个100兆的文件。100兆的文件上传是一点一点上传的，所以我们在获取时也要一条一条获取。<br>
+<strong>(2)监听请求上的数据(data上传事件)</strong><br>
+server.js</p>
+<pre><code class="language-js">const array = []
+request.on('data', (chunk) =&gt; {
+  array.push(chunk) //先上传name再上传password
+})
+request.on('end', () =&gt; { //结束后做的事情
+  console.log(array)
+  const string=Buffer.concat(array).toString()
+  console.log(string)
+  response.end('很好')
+})
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f5e1b17e3a7c496ea98f8712b3cd4242~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>这就是UTF-8的编码，怎么变成字符串？</strong></p>
+<p>用<code>Buffer.concat(）</code></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d90cb63b93c34a0189e3673c4bc6e0f6~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>别忘了JSON.parse()解析JSON字符串，构造由字符串描述的js值或对象(一般是对象)。</p>
+<pre><code class="language-js">server.js
+request.on('end', () =&gt; {
+  console.log(array)
+  const string = Buffer.concat(array).toString()
+  console.log(string)
+  const obj = JSON.parse(string) 
+  console.log(obj.name)
+  console.log(obj.password)
+  response.end('很好')
+})
+</code></pre>
+<p>js、node.js、浏览器都有全局方法JSON</p>
+<p>现在服务器就可以获取我的name和password了。</p>
+<p><strong>如何获取当前id呢？</strong></p>
+<p>思路：先读再写。先读出JSON数据库中id最大的，一般是最后一个。然后再写</p>
+<pre><code class="language-js">server.js
+if (path === '/register' &amp;&amp; method === &quot;POST&quot;) {
+  const userArray = JSON.parse(fs.readFileSync('./db/users.json').toString())
+  request.on('end', () =&gt; {
+    const lastUser = userArray[userArray.length - 1]
+    const newUser = {
+      //id为最后一个用户的id+1
+       id: lastUser ? lastUser.id + 1 : 1, //如果是空的就给个保底值id:1
+       name: obj.name,
+       password: obj.password
+     }
+      userArray.push(newUser)
+     fs.writeFileSync('./db/users.json', JSON.stringify(userArray))
+     response.end()
+        })
+  }
+}
+</code></pre>
+<p><strong>注册成功后跳转首页</strong></p>
+<p>新建登录页sign_in.html</p>
+<pre><code class="language-js">register.html
+$.ajax({
+  ...
+}).then(() =&gt; {
+  alert(&quot;注册成功&quot;)
+  //window.open()
+  location.href = '/sign_in.html'
+  }, () =&gt; {})
+})
+</code></pre>
+<p>then的第1个参数是成功，第2个参数是失败</p>
+<p>代码其实很简单，只需要弄懂http协议。</p>
+<p><strong>记住流程比代码更重要，最好把每一步的流程记下来！</strong></p>
+<p><a href="https://www.zhihu.com/question/19982659">CSDN用明文存储密码？意外还是故意？</a></p>
+<p>用md5加密是门外汉的行为</p>
+<h3 id="目标2实现用户登录功能httpsgithubcomlixueqin-4119js-demo38">目标2.<a href="https://github.com/lixueqin-4119/js-demo38">实现用户登录功能</a></h3>
+<p>首页home.html,已登录用户可看到自己名<br>
+登录页sign_in.html,提交用户名和密码<br>
+输入的用户名和密码如果是匹配的，就自动跳转首页</p>
+<p><strong>sign_in.html思路</strong>
+前端写一个form,让用户填写name和password<br>
+前端监听submit事件<br>
+前端发送post请求，数据位于请求体<br>
+后端接收post请求<br>
+后端获取请求体中的name和password<br>
+后端读取数据，看是否有匹配的name和password<br>
+如果匹配，后端应标记用户已登录，可是怎么标记？</p>
+<p><strong>步骤</strong><br>
+1.新建home.html<br>
+如果已登录就显示:李雪芹 已登录。如果未登录就显示:未登录，请登录</p>
+<pre><code class="language-html">&lt;p&gt;你好,{{user.name}}&lt;/p&gt; //html不能读取数据库，只能用占位
+&lt;p&gt;&lt;a href=&quot;sign_in.html&quot;&gt;登录&lt;/a&gt;&lt;/p&gt;
+</code></pre>
+<p><strong>{{user.name}}怎么替换？</strong>  单独写个home的server</p>
+<pre><code class="language-js">if (path = &quot;/home.html&quot;) {
+  //当前用户无法得知，写不出来
+} else if (path === '/register' &amp;&amp; method === &quot;POST&quot;) {...}
+</code></pre>
+<p><strong>2.编写sign_in.html，登录思路与注册register.html思路基本一致</strong></p>
+<pre><code class="language-html">&lt;form id=&quot;signInForm&quot;&gt;
+  &lt;div&gt;
+    &lt;label&gt;用户名&lt;input type=&quot;text&quot; name=&quot;name&quot;&gt;&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;label&gt;密码&lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;button type=&quot;submit&quot;&gt;登录&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+&lt;script src=&quot;https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script&gt;
+    const $form = $('#signInForm')
+    $form.on('submit', (e) =&gt; {
+      e.preventDefault()//阻止默认事件
+      const name = $form.find('input[name=name]').val()
+      const password = $form.find('input[name=password]').val()
+      console.log(name, password)
+      $.ajax({
+        method: 'POST',
+        url: '/sign_in',
+        contentType: 'text/json;charset=UTF-8',
+        data: JSON.stringify({ //把name、password对象变成字符串上传给服务器
+          name,
+          password
+        })
+    }).then(() =&gt; {
+      alert(&quot;登录成功&quot;)
+      location.href = '/sign_in.html'
+      }, () =&gt; {})
+    })
+  &lt;/script&gt;
+</code></pre>
+<p><strong>3.编写后端逻辑</strong></p>
+<pre><code class="language-js">server.js
+
+if (path === '/sign_in' &amp;&amp; method === 'POST') {
+  const userArray = JSON.parse(fs.readFileSync('./db/users.json').toString())
+  const array = []
+  request.on('data', (chunk) =&gt; {
+    array.push(chunk)
+  })
+  request.on('end', () =&gt; {
+    const string = Buffer.concat(array).toString()
+    const obj = JSON.parse(string) //js、node.js浏览器都有JSON，name、password
+    //find()查找一个数组里有没有符合要求的
+    const user = userArray.find((user) =&gt; user.name === obj.name &amp;&amp; user.password === user.password)
+      if(user === undefined){ //如果undefined说明用户还没有注册。设置400并提示不匹配
+        response.statusCode = 400
+        //response.end('name password 不匹配')
+        response.setHeader('Content-Type', 'text/json;charset=UTF-8')
+        response.end(`{&quot;errorCode&quot;:4001}`)
+      } else {
+        response.statusCode = 200
+        response.end()
+      }
+   })
+} else if (path = &quot;/home.html&quot;) { 
+  //写不出来。读取当前用户，但不知道当前用户是谁。
+  response.end('home')//直接返回一个home
+} else if (path === '/register' &amp;&amp; method === &quot;POST&quot;) { ... }
+} else { ... }             
+</code></pre>
+<p>直接拷贝地址(未通过身份验证)为undefined<br>
+如果是undefined就说明user是空的，用户未注册。设置状态码400并提示报错的内容<br>
+<strong>一般请求字符串没什么用，最好是能返回个JSON然后给它个错误码。</strong></p>
+<pre><code class="language-js">response.setHeader('Content-Type', 'text/html;charset=UTF-8') //告诉浏览器我是JSON
+response.end(`{&quot;errorCode&quot;:4001}`)
+</code></pre>
+<p><strong>为什么4001就是&quot;用户名密码不匹配&quot;呢？</strong><br>
+例子:4001表示是400的第1种错误。<br>
+这个是你自己在文档里写的，你愿意写4001表示用户名密码不匹配，那4001就是。<br>
+每个公司都有自己的errorCode编码，如果没有那就说明公司很挫。<br>
+<strong>未注册时：</strong>
+<img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9006e026770240008e1dc9b573e534a4~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d47d0226f66b4f9987b3356c00443db3~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>知识点</strong><br>
+1.<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/find">🔍mdn array find</a>查找数组里有没有符合要求的。<br>
+浏览器兼容性：IE不支持，node.js支持就行了。<br>
+用法</p>
+<pre><code>const array1 = [5, 12, 8, 130, 44];
+const found = array1.find(element =&gt; element &gt; 10);
+console.log(found); // expected output: 12
+</code></pre>
+<p>find() 方法返回数组中满足提供的测试函数的第一个元素的值。否则返回 undefined。<br>
+<strong>例子</strong><br>
+find里面写个函数,函数内容:满足条件就返回true,如果有这么个对象就返回函数的第1个元素值。</p>
+<pre><code class="language-js">const user=userArray.find((user) =&gt; user.name === obj.name &amp;&amp; user.password === obj.password)
+</code></pre>
+<p><strong>2.400,4开头的响应statusCode表示都是错的</strong><br>
+response.statusCode = 400<br>
+<strong>3.等待状态</strong></p>
+<p>当没编写(path = &ldquo;/home.html&quot;的逻辑时，浏览器就会一直处于等待状态，必须写点内容。
+没有response.end()也会导致一直处于&quot;请求状态&rdquo;,记得end</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3466a8eefc71480caf8c787c80a5f662~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>总结：目标2受阻，目标太大了，目标应该尽量小。<br>
+把目标调小点，你能想到的目标与你的能力不匹配，所以你需要有经验的人给你定目标。<br>
+改一下，这次不要显示用户名了，标记用户已经登录。</p>
+<h3 id="目标3标记用户已登录httpsgithubcomlixueqin-4119js-demo39">目标3.<a href="https://github.com/lixueqin-4119/js-demo39">标记用户已登录</a></h3>
+<blockquote>
+<p>使用Cookie标记用户</p>
+</blockquote>
+<pre><code class="language-html">home.html
+&lt;p&gt;{{loginStatus}}&lt;/p&gt; 
+&lt;p&gt;&lt;a href=&quot;sign_in.html&quot;&gt;登录&lt;/a&gt;&lt;/p&gt;
+</code></pre>
+<p>把loginStatus变成true(登录)或false(未登录)<br>
+<strong>如何识别一个用户是否登录？</strong>  使用Cookie标记用户</p>
+<h4 id="cookie">Cookie</h4>
+<p><strong>定义</strong><br>
+Cookie是服务器下发给浏览器的一段字符串<br>
+浏览器必须保存这个Cookie(除非用户删除)<br>
+之后发起<strong>相同二级域名</strong>请求(任何请求)时，浏览器必须附上Cookie<br>
+<strong>举例说明</strong><br>
+假如你是公园检票员，你怎么知道谁能进谁不能？有票能进，没票不能进。<br>
+Cookie就是门票<br>
+有Cookie就是登录了，没Cookie就没登录<br>
+那后端给浏览器下发一个Cookie不就完事了嘛<br>
+代码</p>
+<pre><code>response.setHeader('Set-Cookie','logined=1')//发票，1是true
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a58b26a50d4146c788fa99fd4591043d~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c496e35d96164153a9a63e9c48838e96~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/13eb11c50e604649a910b6e2274c861a~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>读票</strong></p>
+<p>🔍nodejs request cookie</p>
+<pre><code class="language-js">const cookie = request.headers['cookie']
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/db48e7efd52d45f18fdf8abf099ea588~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>如果登录过了logined=1，没登录就undefined。</strong></p>
+<pre><code class="language-js">else if (path === '/home.html') {
+  //console.log(request.headers)
+  const cookie = request.headers['cookie']
+  if (cookie === 'logined=1') {
+    const homeHtml = fs.readFileSync('./public/home.html').toString()
+    const string = homeHtml.replace('{{loginStatus}}', '已登陆')
+    response.write(string)
+    //console.log(cookie)
+  } else {
+    const homeHtml = fs.readFileSync('./public/home.html').toString()
+    const string = homeHtml.replace('{{loginStatus}}', '未登陆')
+    response.write(string)
+  }
+</code></pre>
+<p><strong>知识点</strong><br>
+1.<a href="https://blog.csdn.net/junmoxi/article/details/76976692">response.setHeader的各种用法</a><br>
+2.<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies#set-cookie%E5%93%8D%E5%BA%94%E5%A4%B4%E9%83%A8%E5%92%8Ccookie%E8%AF%B7%E6%B1%82%E5%A4%B4%E9%83%A8">🔍mdn set cookie</a><br>
+语法:<code>Set-Cookie:&lt;cookie-name&gt;=&lt;cookie-value&gt;</code><br>
+使用:登录成功时请求头cookie</p>
+<pre><code class="language-js">response.setHeader('Set-Cookie','logined=1') //1是true，Set-Cookie:name=value
+</code></pre>
+<p><strong>Set-Cookie的其它参数:</strong><br>
+Expires=<date>设置一个过期的时间，时间一过期，票就不会到你身上了。<br>
+Max-Age最大时间，过了这段时间票也不会到你身上了。<br>
+Domain域名、Path路径、Secure是否只在https时附带<br>
+<strong>HttpOnly</strong>不准前端碰我的cookie,前端能改说明用户就能改,后端要坚决杜绝前端修改一定要加HttpOnly</p>
+<pre><code class="language-js">Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Secure; HttpOnly
+</code></pre>
+<p>3.request.headers、request.getHeader、request.getHeaders、request.getHeaderNames区别?</p>
+<pre><code class="language-js">request.headers['Cookie'];
+request.getHeader(&quot;Accept-Encoding&quot;);获取单个请求头name对应的value值
+request.getHeaders(&quot;Accept-Encoding&quot;)获取多个同名请求头对应的一组value值，因此返回枚举类型数据
+request.getHeaderNames();获取请求头的所有name值,返回的数据也是一个枚举类型的数据，
+将枚举中的元素依次遍历出来，根据name获取对应的value值，即可得到Http请求头的所有信息
+</code></pre>
+<p>4.<strong>注意：fs.readFileSync读文件后最好toString,因为默认不是一个String</strong><br>
+返回值可能是String，也可能是<strong>Buffer类型</strong>，默认不是string<br>
+.toString()能确保是String类型，后面的JSON.parse才能正常处理<br>
+5.cookie是否只能后端设置？<br>
+不是，但是建议永远只在后端设置cookie，前端js千万不要碰cookie。<br>
+cookie是否能伪造？</p>
+<h3 id="使用cookie记录user-id">使用Cookie记录user id</h3>
+<p><strong>home.html怎么知道登录的是谁呢？</strong><br>
+通过cookie里面存的id就知道了。<br>
+思路:把logined改成user_id，user_id去拿这个user，user存在就把这个userName替换到页面中。<br>
+这样home就知道了当前登录的用户是谁了</p>
+<pre><code class="language-js">if (path === '/sign_in' &amp;&amp; method === 'POST') {
+   request.on('end', () =&gt; {
+      if(user === undefined){ 
+        ... 
+      }else{
+        response.statusCode = 200
+        response.setHeader('Set-Cookie', `user_id=${user.id}; HttpOnly`)
+        response.end()
+      }
+   }
+}
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9259a72af7ae4bdb833bbc24997ead21~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>获取userId</strong></p>
+<pre><code class="language-js">else if (path === '/home.html') {
+  const cookie = request.headers[&quot;cookie&quot;]
+  console.log(cookie)
+  let userId
+  try { //没有userId可能会报错
+    userId = cookie.split(';').filter(s =&gt; s.indexOf('user_id=') &gt;= 0)[0].split('=')[1]
+} catch (error) { }
+</code></pre>
+<pre><code>解析：[ 'logined=1', ' user_id=2' ]
+     cookie.split(';').filter(s =&gt; s.indexOf('user_id=') &lt; 0) //[ 'logined=1' ]
+     cookie.split(';').filter(s =&gt; s.indexOf('user_id=') &gt;= 0)[0]因为是数组，所以取第0个，user_id=2
+</code></pre>
+<p><strong>现在只需要判断是否有userId即可</strong></p>
+<pre><code class="language-js">if (userId) {
+  const userArray = JSON.parse(fs.readFileSync('./db/users.json'))
+  const user = userArray.find(user =&gt; user.id.toString() === userId)
+  let string
+  if (user) {
+    string = homeHtml.replace('{{loginStatus}}', '已登陆').replace('{{user.name}}', user.name)
+  } else { }
+    response.write(string)
+  } else {
+    const homeHtml = fs.readFileSync('./public/home.html').toString()
+    const string = homeHtml.replace('{{loginStatus}}', '未登陆').replace('{{user.name}}', '')
+    response.write(string)
+  }
+</code></pre>
+<p><strong>user可能有也可能没有。</strong><br>
+如果有user说明已登录，如果没有user说明没登录。<br>
+如果已登录时将用户名告诉我，如果未登录把user.name给删掉</p>
+<p><strong>显示用户名</strong><br>
+home.html渲染前获取user信息<br>
+如果有user,则将{{user.name}}替换成user.name<br>
+如果无user,则显示登录按钮</p>
+<pre><code class="language-html">home.html
+&lt;p&gt;
+  {{user.name}}
+  {{loginStatus}}
+&lt;/p&gt;
+</code></pre>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/21a7e0a7cf1c4dc4a3ef5e42b2ed64d7~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<h3 id="目标4防篡改user_idhttpsgithubcomlixueqin-4119js-demo40blobmasterserverjs">目标4.<a href="https://github.com/lixueqin-4119/js-demo40/blob/master/server.js">防篡改user_id</a></h3>
+<p><strong>Bug:用户可以篡改user_id</strong><br>
+如果是HttpOnly只能用开发者工具改，如果没有HttpOnly那JS就能改。<br>
+如何解决用户篡改cookie的问题？<br>
+<strong>思路1，把信息隐藏在服务器，推荐</strong><br>
+用随机数<br>
+把用户信息放在服务器的X里，再给信息一个随机id<br>
+把随机id发给浏览器<br>
+后端下次读取到id时，通过x[id]获取用户信息<br>
+想想为什么用户无法篡改id(因为id很长，而且随机)<br>
+x是什么？是文件。不能用内存，因为断电内存就清空<br>
+这个x又被叫做session(会话)<br>
+<strong>步骤</strong><br>
+1.新建文件session.json(用什么形式无所谓)<br>
+<strong>session.json默认是个对象</strong><br>
+如果我给浏览器这个数字(0.05239442708348885),意思就是我给了你这个对象(user_id是2)，表驱动编程。</p>
+<pre><code>{
+  // &quot;0.05239442708348885&quot;:{&quot;user_id&quot;:2} 记得清空，内容是自动生成的无需手写。
+}
+</code></pre>
+<p><strong>2.使用js自带的随机数,还要把随机数记到我的文件session里面</strong></p>
+<pre><code class="language-js">request.on('end', () =&gt; {
+  if (user === undefined) {
+    ...
+  } else {
+    response.statusCode = 200;
+    const random = Math.random()
+    const session = JSON.parse(fs.readFileSync('./session.json').toString())
+    session[random] = { user_id: user.id }
+    fs.writeFileSync('./session.json', JSON.stringify(session))
+    response.setHeader(&quot;Set-Cookie&quot;, `session_id=${random}; HttpOnly`);
+  }
+  response.end()
+});
+</code></pre>
+<p>把id给浏览器，浏览器并不知道id对应的啥，那我怎么知道呢？我的session.json记录了。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d16dde5039554d948163e9db771acb01~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/87f282ba81e24a56ad25119520a22753~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>3.home怎么获取user_id?</strong></p>
+<pre><code class="language-js">//let userId
+let sessionId
+try {
+  sessionId=cookie.split(';').filter(s =&gt; s.indexOf('sessionId=') &gt;= 0)[0].split('=')[1]
+} catch (error) { }   
+const session = JSON.parse(fs.readFileSync('./session.json').toString())
+if (sessionId &amp;&amp; session[sessionId]) {
+  const userId = session[sessionId].user_id
+  const userArray = JSON.parse(fs.readFileSync(&quot;./db/users.json&quot;));
+  const user = userArray.find(user =&gt; user.id === userId);
+  const homeHtml = fs.readFileSync(&quot;./public/home.html&quot;).toString();
+  let string = ''
+  if (user) {
+    string = homeHtml.replace(&quot;{{loginStatus}}&quot;, &quot;已登录&quot;)
+    .replace('{{user.name}}', user.name)
+  }
+  response.write(string);
+  } else {
+    const homeHtml = fs.readFileSync(&quot;./public/home.html&quot;).toString();
+    const string = homeHtml.replace(&quot;{{loginStatus}}&quot;, &quot;未登录&quot;)
+    .replace('{{user.name}}', '')
+    response.write(string);
+    }
+  response.end()     
+</code></pre>
+<p><strong>session的时效性:</strong>  数据通过文件操作时可用性很强，因为数据是在服务器上的，Session保存在服务器的文件中。可以随时删掉有问题的sesstionId。服务器一般会将Session id放到Cookie中，发放给浏览器。<br>
+<strong>加密</strong>数据是在用户那边的，无法修改。</p>
+<p><strong>思路2，加密</strong>
+将user_id加密发送给前端，后端读取user_id时解密，此法可行但有安全漏洞。<br>
+漏洞：加密后的内容可以无限期使用<strong>没办法注销掉</strong>，如果被窃听者拿到了加密的user_id，他就可以一直用这个加密的user_id复制到他的浏览器上，然后不停的模拟你登录。<br>
+解决办法：JWT</p>
+<p><br>
+<strong>注销功能一般如何实现?</strong><br>
+安全起见，不能用JS删Cookie，应该使用HttpOnly的Cookie，然后JS发请求让服务器删 Cookie<br>
+安全起见，除了删除浏览器端的Cookie，还需要把对应的Session数据删掉</p>
+
+</article>
+
+                    
+                    
+                    
+
+                    
+
+
+
+                    
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+        <span class="text-primary-text block font-bold"
+          >Previous</span
+        >
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/" class="block">AJAX 的原理</a>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+        <span class="text-primary-text block font-bold">Next</span>
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/" class="block">异步与Promise</a>
+      
+    </div>
+  </div>
+
+
+                    
+
+
+
+                </div>
+                
+                <div class="hidden lg:block lg:w-1/4">
+                    
+                    <div
+  class="
+    bg-secondary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>On This Page</h3>
+</div>
+<div
+  class="sticky-toc 
+    border-s
+   hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#什么是动态服务器">什么是动态服务器?</a></li>
+        <li><a href="#目标1实现用户注册功能httpsgithubcomlixueqin-4119js-demo35treemasterpublic">目标1.<a href="https://github.com/lixueqin-4119/js-demo35/tree/master/public">实现用户注册功能</a></a></li>
+        <li><a href="#获取post数据">获取post数据</a></li>
+        <li><a href="#目标2实现用户登录功能httpsgithubcomlixueqin-4119js-demo38">目标2.<a href="https://github.com/lixueqin-4119/js-demo38">实现用户登录功能</a></a></li>
+        <li><a href="#目标3标记用户已登录httpsgithubcomlixueqin-4119js-demo39">目标3.<a href="https://github.com/lixueqin-4119/js-demo39">标记用户已登录</a></a>
+          <ul>
+            <li><a href="#cookie">Cookie</a></li>
+          </ul>
+        </li>
+        <li><a href="#使用cookie记录user-id">使用Cookie记录user id</a></li>
+        <li><a href="#目标4防篡改user_idhttpsgithubcomlixueqin-4119js-demo40blobmasterserverjs">目标4.<a href="https://github.com/lixueqin-4119/js-demo40/blob/master/server.js">防篡改user_id</a></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+                    
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        hljs.initHighlightingOnLoad();
+        changeSidebarHeight();
+        switchDocToc();
+    })
+</script>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2021 <a href="https://www.wangchucheng.com/">WANG Chucheng</a> and <a href="https://www.ruiqima.com/">MA Ruiqi</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>

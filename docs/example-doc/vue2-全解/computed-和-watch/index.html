@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>computed 和 watch | 目录 | 博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.1" />
+<link rel="stylesheet" href="http://lixueqin-4119.xyz/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
+<script defer src="http://lixueqin-4119.xyz/js/eureka.min.f1639ee98d6cbd85b2b5f034d27320da962002ff83159ed4e01dbc5948c42a1ab26c2d6e74c66e93f5cec4d24dbd166d.js" integrity="sha384-8WOe6Y1svYWytfA00nMg2pYgAv&#43;DFZ7U4B28WUjEKhqybC1udMZuk/XOxNJNvRZt"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+
+<script defer type="text/javascript" src="http://lixueqin-4119.xyz/js/fontawesome.min.7b735802cbde01152678cc4a867f0b4bb0597876e29adfcaf1e5b5e99d39d7af87f348fdfd91c7eaf9ed7dc1eece7c61.js" integrity="sha384-e3NYAsveARUmeMxKhn8LS7BZeHbimt/K8eW16Z0516&#43;H80j9/ZHH6vntfcHuznxh"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="Vue2 options文档
+ 响应式原理options.data
+1.data会被Vue监听
+2.会被Vue实例代理,vm就是data的代理
+3.每次对data的读写都会被Vue监控。不管你是读写它的本身还是读写代理都会被监控，data对象会被篡改,本来的n会变成get n和set n。
+4.Vue会在data变化时更新UI
+data变化时除了更新UI，还能做些啥？
+一.Computed 计算属性  1.用途:被计算出来的属性就是计算属性
+2.缓存： 如果依赖的属性没有变化，就不会重新计算
+getter/setter默认不会做缓存，Vue做了特殊处理
+ 例1:用户名展示
+new Vue({ data: { user: { email: &quot;1231231231@qq.com&quot;, nickname: &quot;小白&quot;, phone: &quot;13812345678&quot;//手机号用string存，因为有时候会出现&#43;86 } }, computed: { //计算属性 displayName: { get() { const user = this.user; return user.nickname || user.email || user.phone; }, set(value) { console.log(value); this.user.nickname = value; } } }, // Don&#39;t repeat yourself // 用 computed 来计算 displayName template: ` &lt;div&gt; {{displayName}} &lt;!">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"",
+      "item":"http://lixueqin-4119.xyz/docs/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"目录",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/"},{
+      "@type": "ListItem",
+      "position": 3 ,
+      "name":"Vue2 全解",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/"},{
+      "@type": "ListItem",
+      "position": 4 ,
+      "name":"computed 和 watch",
+      "item":"http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/"
+    },
+    "headline": "computed 和 watch | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
+    "dateModified": "2020-10-16T00:00:00+00:00",
+    "wordCount":  754 ,
+    "publisher": {
+        "@type": "Person",
+        "name": "WANG Chucheng",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "http://lixueqin-4119.xyz/images/icon.png"
+        }
+        },
+    "description": "Vue2 options文档\n 响应式原理options.data\n1.data会被Vue监听\n2.会被Vue实例代理,vm就是data的代理\n3.每次对data的读写都会被Vue监控。不管你是读写它的本身还是读写代理都会被监控，data对象会被篡改,本来的n会变成get n和set n。\n4.Vue会在data变化时更新UI\ndata变化时除了更新UI，还能做些啥？\n一.Computed 计算属性  1.用途:被计算出来的属性就是计算属性\n2.缓存： 如果依赖的属性没有变化，就不会重新计算\ngetter\/setter默认不会做缓存，Vue做了特殊处理\n 例1:用户名展示\nnew Vue({ data: { user: { email: \u0026quot;1231231231@qq.com\u0026quot;, nickname: \u0026quot;小白\u0026quot;, phone: \u0026quot;13812345678\u0026quot;\/\/手机号用string存，因为有时候会出现\u002b86 } }, computed: { \/\/计算属性 displayName: { get() { const user = this.user; return user.nickname || user.email || user.phone; }, set(value) { console.log(value); this.user.nickname = value; } } }, \/\/ Don\u0027t repeat yourself \/\/ 用 computed 来计算 displayName template: ` \u0026lt;div\u0026gt; {{displayName}} \u0026lt;!"
+}
+</script><meta property="og:title" content="computed 和 watch | 目录 | 博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="http://lixueqin-4119.xyz/images/icon.png">
+
+
+<meta property="og:url" content="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/" />
+
+
+
+
+<meta property="og:description" content="Vue2 options文档
+ 响应式原理options.data
+1.data会被Vue监听
+2.会被Vue实例代理,vm就是data的代理
+3.每次对data的读写都会被Vue监控。不管你是读写它的本身还是读写代理都会被监控，data对象会被篡改,本来的n会变成get n和set n。
+4.Vue会在data变化时更新UI
+data变化时除了更新UI，还能做些啥？
+一.Computed 计算属性  1.用途:被计算出来的属性就是计算属性
+2.缓存： 如果依赖的属性没有变化，就不会重新计算
+getter/setter默认不会做缓存，Vue做了特殊处理
+ 例1:用户名展示
+new Vue({ data: { user: { email: &quot;1231231231@qq.com&quot;, nickname: &quot;小白&quot;, phone: &quot;13812345678&quot;//手机号用string存，因为有时候会出现&#43;86 } }, computed: { //计算属性 displayName: { get() { const user = this.user; return user.nickname || user.email || user.phone; }, set(value) { console.log(value); this.user.nickname = value; } } }, // Don&#39;t repeat yourself // 用 computed 来计算 displayName template: ` &lt;div&gt; {{displayName}} &lt;!" />
+
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="docs" />
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">简介</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于我</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+
+
+<div class="lg:pt-12">
+    <div class="flex flex-col md:flex-row bg-secondary-bg rounded">
+        <div class="md:w-1/4 lg:w-1/5 border-e">
+            <div class="sticky top-16 pt-6">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sidebar-title" class="md:hidden mx-4 px-2 pt-4 pb-2 md:border-b text-tertiary-text md:text-primary-text">
+    <span class="font-semibold">Table of Contents</span>
+    <i class='fas fa-caret-right ms-1'></i>
+</div>
+
+<div id="sidebar-toc"
+    class="hidden md:block overflow-y-auto mx-6 md:mx-0 pe-6 pt-2 md:max-h-doc-sidebar bg-primary-bg md:bg-transparent">
+    <div class="flex flex-wrap ms-4 -me-2 p-2 bg-secondary-bg md:bg-primary-bg rounded">
+        <a class=" hover:text-eureka"
+            href="http://lixueqin-4119.xyz/docs/example-doc/">目录</a>
+        
+        
+        
+
+
+    </div>
+    
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/">【HTML全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A0%87%E7%AD%BE/">HTML标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A6%82%E8%A7%88/">HTML概览</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E9%87%8D%E7%82%B9%E6%A0%87%E7%AD%BE/">HTML重点标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/%E6%89%8B%E6%9C%BA%E9%A2%84%E8%A7%88-%E8%B0%83%E8%AF%95/">手机预览 &amp; 调试</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/">HTTP 状态码</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/">URL 是什么</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/">请求和响应 &amp; Node.js Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/">JavaScript 的诞生</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/">JS函数</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/">JS对象</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/">JS对象分类</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">JS数据类型</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/">JS数组</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JS正则表达式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/">js获取屏幕宽高</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/">JS语法</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/">JS运算符</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/">DOM 编程</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/">DOM事件与事件委托</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/">jQuery 中的设计模式(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/">jQuery 中的设计模式(下)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/">手写DOM库(1)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/">MVC(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/">MVC(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/">Class 组件详解</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">Hooks 原理解析</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/">Hooks 各个击破</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">React 类组件和函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/">React起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/">手写 Redux</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" text-eureka  hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/">computed 和 watch</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/">Vue Router -前端路由实现的思路</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">数据响应式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/">构造选项</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/">模板、指令与修饰符</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">深入理解Vue动画原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/">表单与v-model</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/">起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/">进阶构造属性</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/">云服务器</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/">AJAX 的原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/">Ajax实战:Cookie、Session</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/">异步与Promise</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/">跨域、CORS、JSONP</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/">静态服务器Static Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/">Webpack(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/">Webpack(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+</ul>
+
+</div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <div class="w-full md:w-3/4 lg:w-4/5 pb-8 pt-2 md:pt-8">
+            <div class="flex">
+                <div class="w-full lg:w-3/4 px-6">
+                    <article class="prose">
+  <h1 class="mb-4">computed 和 watch</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2020-10-16</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>4 min read</span>
+  </div>
+
+  
+
+  
+</div>
+
+
+  
+  
+
+  <blockquote>
+<p><a href="https://cn.vuejs.org/v2/api/#%E9%80%89%E9%A1%B9-%E6%95%B0%E6%8D%AE">Vue2 options文档</a></p>
+</blockquote>
+<p><strong>响应式原理options.data</strong></p>
+<p>1.data会被Vue监听</p>
+<p>2.会被<strong>Vue实例代理</strong>,vm就是data的代理</p>
+<p>3.每次对data的<strong>读写都会被</strong>Vue监控。不管你是读写它的本身还是读写代理都会被监控，data对象会被篡改,本来的n会变成<code>get n</code>和<code>set n</code>。</p>
+<p>4.Vue会在data变化时更新UI</p>
+<p><strong>data变化时除了更新UI，还能做些啥？</strong></p>
+<h2 id="一computed-计算属性">一.Computed 计算属性</h2>
+<blockquote>
+<p><strong>1.用途:被计算出来的属性就是计算属性</strong></p>
+<p><strong>2.缓存：</strong> 如果依赖的属性没有变化，就不会重新计算</p>
+<p>getter/setter默认不会做缓存，Vue做了特殊处理</p>
+</blockquote>
+<p><strong>例1:用户名展示</strong></p>
+<pre><code class="language-js">new Vue({
+  data: {
+    user: {
+      email: &quot;1231231231@qq.com&quot;,
+      nickname: &quot;小白&quot;,
+      phone: &quot;13812345678&quot;//手机号用string存，因为有时候会出现+86
+    }
+  },
+  computed: { //计算属性
+    displayName: {
+      get() {
+        const user = this.user;
+        return user.nickname || user.email || user.phone;
+      },
+      set(value) {
+        console.log(value);
+        this.user.nickname = value;
+      }
+    }
+  },
+  // Don't repeat yourself
+  // 用 computed 来计算 displayName
+  template: `
+    &lt;div&gt;
+      {{displayName}}
+ &lt;!-- {{user.nickname || user.email || user.phone}} --&gt;
+      &lt;div&gt;
+        {{displayName}}
+ &lt;!-- {{user.nickname || user.email || user.phone}} --&gt;
+        &lt;button @click=&quot;add&quot;&gt;set&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  `,
+  methods: {
+    add() {
+      console.log(&quot;add&quot;);
+      this.displayName = &quot;小红&quot;;
+    }
+  }
+}).$mount(&quot;#app&quot;);
+</code></pre>
+<p><strong>什么时候用computed？</strong></p>
+<p>如果我想在页面的100处展示<code>{{user.nickname || user.email || user.phone}}</code>，那就需要把这行代码复制100次。假如需求变了:调整顺序，那就需要一个个修改。为了解决这个问题可以用<code>computed</code>计算属性。</p>
+<p><strong>计算属性的好处：</strong><br>
+让一些“根据其它属性计算而来的属性”变成一个属性，比如displayName。</p>
+<p><strong>怎么设置修改一个属性？</strong><a href="https://cn.vuejs.org/v2/api/#computed">文档</a> <br>
+<img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e2a1e3aaf8c7474bba2f11883441be2d~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<blockquote>
+<p><strong>1&rsquo; key(属性名):函数</strong></p>
+<p><strong>2&rsquo; <code>key:{get:Function,set:Function}</code></strong></p>
+</blockquote>
+<pre><code class="language-js">computed: {
+    displayName: { //key:{get:Function,set:Function}
+      get() {
+        const user = this.user;
+        return user.nickname || user.email || user.phone;
+      },
+      set(value) {
+        this.user.nickname = value;
+      }
+    }
+  },
+</code></pre>
+<p><strong>例2:<a href="https://codesandbox.io/s/bold-matsumoto-efn0i">列表展示</a></strong></p>
+<pre><code class="language-js">let id = 0;
+const createUser = (name, gender) =&gt; { //DRY原则：1.封装createUser
+  id += 1;
+  return { id, name, gender };
+};
+new Vue({
+  data() {
+    return {
+      users: [
+        createUser(&quot;小百&quot;, &quot;男&quot;),//直接调用已封装的createUser
+        createUser(&quot;圆圆&quot;, &quot;女&quot;),
+        createUser(&quot;小新&quot;, &quot;男&quot;),
+        createUser(&quot;小白&quot;, &quot;女&quot;)
+      ],
+    displayUsers: []
+    };
+  },
+  created() {
+    this.displayUsers = this.users
+  },
+  methods: {
+    showMale() {
+    //把性别男的filter出来，将得到的新数组的地址赋值给displayUsers
+      this.displayUsers = this.users.filter(u =&gt; u.gender === &quot;男&quot;)
+    },
+    showFemale() {
+      this.displayUsers = this.users.filter(u =&gt; u.gender === &quot;女&quot;)
+    },
+    showAll() {
+      this.displayUsers = this.users
+    }
+  },
+    // 如何给三个按钮加事件处理函数
+    // 思路一：点击之后改users
+    // 思路二：使用computed
+  template: `
+  &lt;div&gt;
+    &lt;div&gt;
+      &lt;button @click=&quot;showAll&quot;&gt;全部&lt;/button&gt;
+      &lt;button @click=&quot;showMale&quot;&gt;男&lt;/button&gt;
+      &lt;button @click=&quot;showFemale&quot;&gt;女&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;ul&gt;
+      &lt;li v-for=&quot;(u,index) in displayUsers&quot; :key=&quot;index&quot;&gt;
+        {{u.name}} - {{u.gender}}
+      &lt;/li&gt;
+   &lt;/ul&gt;
+  &lt;/div&gt;
+  `
+}).$mount(&quot;#app&quot;);
+</code></pre>
+<p><strong>使用computed</strong></p>
+<pre><code class="language-js">let id = 0;
+const createUser = (name, gender) =&gt; {
+  id += 1;
+  return { id, name, gender };
+};
+new Vue({
+  data() {
+    return {
+      users: [
+        createUser(&quot;方方&quot;, &quot;男&quot;),
+        createUser(&quot;圆圆&quot;, &quot;女&quot;),
+        createUser(&quot;小新&quot;, &quot;男&quot;),
+        createUser(&quot;小葵&quot;, &quot;女&quot;)
+      ],
+      //displayUsers: []
+      gender: &quot;&quot;
+    };
+  },
+  computed: {
+    //使用computed思路
+    displayUsers() {
+      const hash = {
+        male: &quot;男&quot;,
+        female: &quot;女&quot;
+      };
+      const { users, gender } = this; //析构赋值
+
+      if (gender === &quot;&quot;) {
+        return users;
+      } else if (typeof gender === &quot;string&quot;) {
+        return users.filter((u) =&gt; u.gender === hash[gender]);
+      } else {
+        throw new Error(&quot;gender 的值是意外的值&quot;);
+      }
+    }
+  },
+  methods: {
+    setGender(string) {
+      this.gender = string;
+    }
+  },
+  // 如何给三个按钮加事件处理函数
+  // 思路一：点击之后改users
+  // 思路二：使用computed
+  template: `
+    &lt;div&gt;
+      &lt;div&gt;
+        &lt;button @click=&quot;setGender('')&quot;&gt;全部&lt;/button&gt;
+        &lt;button @click=&quot;setGender('male')&quot;&gt;男&lt;/button&gt;
+        &lt;button @click=&quot;setGender('female')&quot;&gt;女&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;ul&gt;
+        &lt;li v-for=&quot;(u,index) in displayUsers&quot; :key=&quot;index&quot;&gt;
+          {{u.name}} - {{u.gender}}
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  `
+}).$mount(&quot;#app&quot;);
+</code></pre>
+<p>computed让逻辑更清晰</p>
+<p><strong>知识点</strong><br>
+<strong>1.Vue循环 v-for</strong><br>
+<strong>注意:<code>v-for</code>后面必须接key</strong><br>
+<code>v-for=&quot;u in users&quot;</code>把<code>users</code>里面的每一项取名为<code>u</code>,
+后面就可以直接使用u，代表我们遍历到的那个东西。</p>
+<pre><code class="language-js">&lt;li v-for=&quot;(u,index) in users&quot; :key=&quot;index&quot;&gt;{{u.name}} - {{u.gender}}&lt;/li&gt;
+//&lt;li v-for=&quot;u in users&quot; :key=&quot;u.id&quot;&gt;{{u.name}} - {{u.gender}}&lt;/li&gt;
+</code></pre>
+<h2 id="二watch-监听侦听">二.Watch 监听/侦听</h2>
+<blockquote>
+<p><strong>用途：</strong> 当数据变化时，执行一个函数</p>
+</blockquote>
+<p><a href="https://codesandbox.io/s/lucid-shamir-cpcw3">例1</a></p>
+<p><strong>watch默认不监听第1次的值。watch是“完美的实现历史功能”的一个方法。</strong></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4f3dc019de22427696dc6e57701eb5ff~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<h4 id="撤销功能">撤销功能</h4>
+<p>思路：就是把某项弹出来，再用from值覆盖。</p>
+<pre><code class="language-js">[ { &quot;from&quot;: 0, &quot;to&quot;: 1 }, { &quot;from&quot;: 1, &quot;to&quot;: 2 } ]
+比如撤销第2项:就是把最后项pop，提取from值:const old = last.from,
+再用from值覆盖掉当前n:this.n = old
+</code></pre>
+<p>虽然第2项被删掉了，但是又增加了一条<code>from 2 to 1</code>这是因为撤销操作也被watch了，如何解决？vuejs官方<a href="https://github.com/vuejs/vue">github</a></p>
+<blockquote>
+<p><strong>解决思路</strong>:<strong>watch就是监听它的变化的</strong>。你要做的是:自己控制，用变量控制。例如<code> inUndoMode: false</code>是否处在撤销模式</p>
+<p>默认不在撤销模式，当点击<strong>撤销</strong>时才处于<strong>撤销模式</strong>。</p>
+<p>watch判断下:如果当前不在撤销模式就push,如果在撤销模式就直接return</p>
+<p>设置处于撤销模式<code>this.inUndoMode = true</code>watch就不会记录n的变化了。</p>
+</blockquote>
+<p><strong>注意:当前代码中watch是异步</strong>,所以watch没有发现它在撤销模式。</p>
+<pre><code class="language-js">new Vue({
+  data: {
+    n: 0,
+    history: [],
+    inUndoMode: false //默认不在撤销模式
+  },
+  watch: {
+    n(newValue, oldValue) {
+      console.log(`在不在撤销模式：${this.inUndoMode ? '在' : '不在'}`)
+      if (!this.inUndoMode) { //如果当前不在撤销模式就push
+        this.history.push({ from: oldValue, to: newValue })
+      }
+    }
+  },
+  template: `
+  &lt;div&gt;
+    {{n}}
+    &lt;hr /&gt;
+    &lt;button @click=&quot;add1&quot;&gt;+1&lt;/button&gt;
+    &lt;button @click=&quot;add2&quot;&gt;+2&lt;/button&gt;
+    &lt;button @click=&quot;minus1&quot;&gt;-1&lt;/button&gt;
+    &lt;button @click=&quot;minus2&quot;&gt;-2&lt;/button&gt;
+    &lt;hr/&gt;
+    &lt;button @click=&quot;undo&quot;&gt;撤销&lt;/button&gt;
+    &lt;hr/&gt;
+
+    {{history}}
+  &lt;/div&gt;
+  `,
+  methods: {
+    add1() {
+      this.n += 1;
+    },
+    add2() {
+      this.n += 2;
+    },
+    minus1() {
+      this.n -= 1;
+    },
+    minus2() {
+      this.n -= 2;
+    },
+    undo() {
+      const last = this.history.pop() //拿到最后项
+      console.log(last)
+      const old = last.from //取出from值
+      this.inUndoMode = true
+      this.n = old //watch n的函数会异步调用，不会立即得结果
+      this.$nextTick(() =&gt; { //setTimeout
+        this.inUndoMode = false
+      }, 0)
+    }
+  }
+}).$mount(&quot;#app&quot;);
+</code></pre>
+<p>异步结果要想先得到值，可以将下一步也改成异步状态,比如<code>setTimeout</code>
+watch用的<strong>异步接口</strong>是Vue自己封装的叫<code>this.$nextTick</code></p>
+<p><strong>例2 模拟computed</strong></p>
+<pre><code class="language-js">new Vue({
+  data: {
+    user: {
+      email: &quot;fangfang@qq.com&quot;,
+      nickname: &quot;方方&quot;,
+      phone: &quot;13812312312&quot;
+    },
+    displayName: &quot;&quot;
+  },
+  watch: {
+    &quot;user.email&quot;: {
+      handler: &quot;changed&quot;,
+      immediate: true //第一次渲染时也触发watch
+    },
+    &quot;user.nickname&quot;: {
+      handler: &quot;changed&quot;,
+      immediate: true //第一次渲染时也触发watch
+    },
+    &quot;user.phone&quot;: {
+      handler: &quot;changed&quot;,
+      immediate: true //第一次渲染时也触发watch
+    }
+  },
+  template: `
+    &lt;div&gt;
+       {{displayName}}
+       &lt;button @click=&quot;user.nickname=undefined&quot;&gt;remove nickname&lt;/button&gt;
+    &lt;/div&gt;
+  `,
+  methods: {
+    changed() {
+      console.log(arguments);
+      const user = this.user;
+      this.displayName = user.nickname || user.email || user.phone;
+    }
+  }
+}).$mount(&quot;#app&quot;);
+</code></pre>
+<p><strong>watch默认不监听第1次的值。</strong><br>
+所以页面中的{{displayName}}不显示，当点击按钮后才会重新触发计算displayName</p>
+<p><strong>如何展示第1次计算出来的displayName？</strong><br>
+先把它变成<strong>对象</strong>，然后添加<code>handler(){...},immediate:true</code><br>
+<strong>优先使用computed，computed不满足就使用watch.</strong><br>
+它们都是在数据变化时执行一个函数，只不过computed着重于依赖之间的变化以及缓存，watch着重于变化时去执行什么东西而不是得出一个结果。</p>
+<p><strong>对watch来说或者对Vue的所有监听器来说，什么叫做变化？</strong><br>
+1.当改变 <strong>简单的数据类型</strong> 的值时，值变了就是变了。<br>
+2.如果改变 <strong>对象里面的简单类型</strong>，就只做值的对比。值变了才是变了，值没变就是没变。<br>
+比如<code>obj: { a: &quot;a&quot; }</code>改成<code>a: &quot;ahi&quot;</code>，obj没变，因为地址没变，<strong>只是改了里面的值</strong>。obj.a变了。<br>
+3.如果你把一个 <strong>对象的地址</strong> 变了，Vue才会认为这个对象变了。<br>
+里面的依然是比较值。</p>
+<p>比如<code>obj: { a: &quot;a&quot; }</code>改成<code>obj: { a: &quot;a&quot; }</code>，obj变了，因为地址变了，<strong>obj赋给了一个新的对象。</strong><br>
+但是<strong>obj.a</strong>没变，因为值没变。<br>
+简单类型看值，复杂类型(对象)看地址，其实就是===的规则。</p>
+<p>4.<strong>增加需求:</strong> 只要对象里任何一个属性变了就都算obj变了。<br>
+Vue提供了一个选项<code>deep:true</code> <strong>方法</strong>:添加<code>handler(){}、deep:true</code></p>
+<h4 id="watch语法">watch语法</h4>
+<p><a href="https://cn.vuejs.org/v2/api/#watch">推荐文档</a></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0f0b01f7a3c844aebdb62cd8d9dc392a~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>watch接收一个对象，对象的key必须是string，value可以是<code>string</code>或<code>函数</code>或<code>对象</code>或<code>数组</code>。</p>
+<p><strong>语法一</strong></p>
+<pre><code class="language-js">watch: { //不要使用箭头函数来定义watch函数
+  a: function (val, oldVal) { ... }, //这两个参数是Vue传给你的
+  b(){ ... },
+  c:[f1,f2],//当c变化时依次执行f1、f2
+  d:'methodName', //当d变化时会去methods里面找对应名字的函数,方法名
+  e:{handle:fn,deep:true,immediate:true}, //immediate立即调用
+   //handler: function (val, oldVal) { /* ... */ },
+  'object.a':function(){ ... } //在object.a变化时执行
+  //这里的function最好不要省，主要看webpack版本
+</code></pre>
+<p><strong>不要使用箭头函数来定义watch函数</strong></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7721b524779e43cf9c8279eb557bc1fe~tplv-k3u1fbpfcp-zoom-1.image" alt=""></p>
+<p>箭头函数是没有this的，这个this是它外面函数的this。</p>
+<p>new Vue()不是函数，是<strong>函数调用</strong>。所以箭头函数的外层函数是全局作用域，全局作用域的this是全局对象<code>window或global</code></p>
+<p><strong>语法二</strong><br>
+<code>vm.$watch('xxx',fn,{deep:...,immediate:..})</code>加$防止冲突<br>
+其中<code>'xxx'</code>可以改为一个返回字符串的函数</p>
+<p>也可以移到里面</p>
+<pre><code class="language-js">//是否与DOM有关
+
+//如果与DOM无关就放到created，当实例被创建到内存时监听n,一旦n变了就执行函数...
+created(){
+  this.$watch('n',fn,{deep:...,immediate:..})
+}
+</code></pre>
+<p><strong>computed VS watch</strong><br>
+watch当数据变化时，执行一个函数<br>
+computed如果一个数据变了，我就计算出一个新的属性。</p>
+<p><strong>面试题(常考)</strong><br>
+<strong>computed 与 watch有什么区别？</strong><br>
+computed是计算属性的意思，watch是监听的意思。<br>
+<strong>computed:</strong><br>
+1.computed是用来计算出一个值的，这个值在调用的时候不需要加括号，可以当属性样用。<br>
+2.根据依赖自动缓存，如果依赖不变computed值就不会重新计算。</p>
+<p><strong>watch:</strong><br>
+1.watch是用来监听的，它有2个选项immediate和deep。<br>
+2.immediate表示是否在第一次渲染的时候要执行这个函数。<br>
+deep如果我们监听一个对象那么是否要看里面的属性的变化。<br>
+定义:如果某个属性变化了我就去执行这个函数。<br>
+这就是computed 和 watch的区别。</p>
+
+</article>
+
+                    
+                    
+                    
+
+                    
+
+
+
+                    
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+        <span class="text-primary-text block font-bold">Next</span>
+        <a href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/" class="block">Vue Router -前端路由实现的思路</a>
+      
+    </div>
+  </div>
+
+
+                    
+
+
+
+                </div>
+                
+                <div class="hidden lg:block lg:w-1/4">
+                    
+                    <div
+  class="
+    bg-secondary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>On This Page</h3>
+</div>
+<div
+  class="sticky-toc 
+    border-s
+   hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一computed-计算属性">一.Computed 计算属性</a></li>
+    <li><a href="#二watch-监听侦听">二.Watch 监听/侦听</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#撤销功能">撤销功能</a></li>
+            <li><a href="#watch语法">watch语法</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+                    
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        hljs.initHighlightingOnLoad();
+        changeSidebarHeight();
+        switchDocToc();
+    })
+</script>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2021 <a href="https://www.wangchucheng.com/">WANG Chucheng</a> and <a href="https://www.ruiqima.com/">MA Ruiqi</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>

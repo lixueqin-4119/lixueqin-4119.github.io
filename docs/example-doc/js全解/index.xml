@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JS全解 on 博客</title>
+    <link>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/</link>
+    <description>Recent content in JS全解 on 博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JavaScript 的诞生</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/</guid>
+      <description>JavaScript（通常缩写为JS）是一种高级的、解释型的编程语言。 JavaScript是一门基于原型、头等函数的语言，是一门多范式的语言，它支持面向对象程序设计，指令式编程，以及函数式编程。 它提供语法来操控文本、数组、日期以及正则表达式等，不支持I/O，比如网络、存储和图形等，但这些都可以由它的宿主环境提供支持。 它已经由ECMA（欧洲电脑制造商协会）通过ECMAScript实现语言的标准化。它被世界上的绝大多数网站所使用，也被世界主流浏览器（Chrome、IE、Firefox、Safari、Opera）支持。
+  JavaScript与Java在名字或语法上都有很多相似性，但这两门编程语言从设计之初就有很大的不同，JavaScript的语言设计主要受到了Self（一种基于原型的编程语言）和Scheme（一门函数式编程语言）的影响。 在语法结构上它又与C语言有很多相似（例如if条件语句、switch语句、while循环、do-while循环等）。
+  在客户端，JavaScript在传统意义上被实现为一种解释语言，但在最近，它已经可以被即时编译（JIT）执行。 随着最新的HTML5和CSS3语言标准的推行它还可用于游戏、桌面和移动应用程序的开发和在服务器端网络环境运行，如Node.js。
+ Javascript的历史   1995年，Netscape（网景）公司的布兰登·艾奇（Brendan Eich）在网景导航者浏览器上首次设计出了JavaScript。 Netscape最初将这个脚本语言命名为LiveScript，后来Netscape公司与Sun公司（2009年被Oracle公司收购）合作之后将其改名为JavaScript，这是由于当时Sun公司推出的Java语言备受关注，Netscape公司为了营销借用了Java这个名称，但实际上JavaScript与Java的关系就像“雷锋”与“雷峰塔”，它们本质上是两种不同的编程语言。 在设计之初，JavaScript是一种可以嵌入到网页中的编程语言，用来控制浏览器的行为。随着JavaScript的发展，JavaScript的用途已经不仅局限于浏览器了。 Node.js 的出现使得开发人员能够在服务器端编写JavaScript代码，使得JavaScript的应用更加广泛。
+ 概论  完整的JavaScript包括以下几个部分：
+ ECMAScript，描述了该语言的语法和基本对象 文档对象模型（DOM），描述处理网页内容的方法和接口 浏览器对象模型（BOM），描述与浏览器进行交互的方法和接口  JavaScript的基本特点：
+ 是一种解释性脚本语言。 主要用来向HTML页面添加交互行为。 可以直接嵌入HTML页面，但写成单独的js文件有利于结构和行为的分离。  JavaScript常用来完成以下任务：
+ 嵌入动态文本于HTML页面 对浏览器事件作出响应 读写HTML元素 在数据被提交到服务器之前验证数据 检测访客的浏览器信息 控制cookie，包括创建和修改等  特性   不同于服务器端脚本语言，例如PHP与ASP，JavaScript主要被作为客户端脚本语言在用户的浏览器上运行，不需要服务器的支持。所以在早期程序员比较青睐于JavaScript以减少对服务器的负担，而与此同时也带来另一个问题：安全性。 随着服务器变得强大，现在的程序员更喜欢运行于服务端的脚本以保证安全，但JavaScript仍然以其跨平台、容易上手等优势大行其道。 同时，有些特殊功能（如AJAX）必须依赖JavaScript在客户端进行支持。随着引擎V8和框架Node.js的发展，及其事件驱动及异步IO等特性，JavaScript逐渐被用来编写服务器端程序。 在近几年中，Node.js的出世，让JavaScript也具有了一定的服务器功能。
+ 以下是 ECMAScript通常实现所共有的特性。
+指令式与结构化
+ JavaScript从支持许多C语言的结构化编程语法（例如if条件语句、while循环、switch语句、do-while循环等）。 但作用域是一个例外：JavaScript在过去只支持使用var关键字来定义变量的函数作用域。 ECMAScript 2015加入了let关键字来支持块级作用域。意味着JavaScript现在既支持函数作用域又支持块级作用域。 和C语言一样，JavaScript中的表达式和语句是不同的。有一点格式上的不同，JavaScript支持自动在语句末添加分号，因此允许忽略语句末尾的分号。
+ 弱类型
+ Javascript是弱类型的，这意味着变量可以被隐式地转换为另一个类型。 二元运算符+会把两个操作数转换为字符串，除非两个操作数都为数字类型。这是因为+也表示字符串连接操作。 二元操作符-会把两个操作数转换为数字类型。 一元操作符，包括+和-，都会把操作数转换为数字。 下列为变量转换为字符串的例子：
+ 字符串类型不变。 数字会转换为其字符串表示。 数组的元素会转换为字符串，然后连接成通过逗号,分隔的长字符串。 其它对象会转换为[object Object]，其中Object中该对象的构造函数名</description>
+    </item>
+    
+    <item>
+      <title>JS函数</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/</guid>
+      <description>本节课主要讲解函数对象，JS的第二座大山this
+ 其它
+1.对象:object对象、数组对象、函数对象(函数是一种特殊的对象)
+2.for循环里的i是字符串下标。
+定义函数  4种方式:具名函数、匿名函数、箭头函数、用构造函数
+ 1.具名函数
+全局作用域
+function 函数名(形式参数1，形式参数2){ 语句 return 返回值 }  2.匿名函数
+上面的具名函数，去掉函数名就是匿名函数
+let a=function(x,y){return x+y}  等于号右边又叫函数表达式
+面试题
+let a=function fn(x,y){return x+y} fn(1,2) //作用域  请问fn能成功调用吗？
+不能。函数在等于号右边，那么fn作用域只能在等于号右边，要用的话也只能用a。
+3.箭头函数
+let f1 = x =&amp;gt; x*x  箭头=&amp;gt;左边是输入参数，右边是输出参数
+let f2 = (x,y) =&amp;gt; x+y  当有2个参数时需要扩起来
+let f3 = (x,y) =&amp;gt; { x+y }  2个语句需要用{}括起来,并且要return
+let f4 = (x,y) =&amp;gt; ({name:x,age:y}) //括号内表示是一个整体  直接返回对象会出错，必须加个圆括号
+4.用构造函数(没人用)
+let f=new Function(&#39;x&#39;,&#39;y&#39;,&#39;return x+y&#39;)  基本没人用，但是能让你知道函数是谁构造的</description>
+    </item>
+    
+    <item>
+      <title>JS对象</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/</guid>
+      <description>本节课主要讲解js的第7种数据类型，唯一一种复杂类型:对象object
+  其它
+  1.新手学js的三座大山:原型、this、ajax
+  2.读对象的属性时(重要知识点)
+  (1)如果使用[ ]语法，那么JS 先求[ ]中表达式的值，注意区分表达式是&amp;quot;变量&amp;quot;还是常量。
+  (2)如果使用点语法，那么点后面一定是 string 常量。
+  3.7种数据类型:4基2空1对象
+  string number bool symbol undefined null object
+  除了bool的false外，其它数据类型也有假的值。
+  5个falsy值:：2个空2个数字1个字符串
+  undefined null 0 NaN &amp;lsquo;&amp;rsquo;(空字符串)
+  4.打印出一个对象的所有key
+ var obj={ 2:&#39;22222&#39; } Object.keys(obj) 输出结果:[&#39;2&#39;]   5.若一个属性不存在则它的值为undefined。
+  6.log返回的值永远是undefined
+  7.原型是对象，原型包含了共有属性。
+ 对象object 前6种是简单类型，不能包含其它任何东西。
+对象是复杂类型，可以包含其它的6种东西甚至包括自己。
+语法
+1.定义
+无序的数据集合
+键值对的集合
+2.写法</description>
+    </item>
+    
+    <item>
+      <title>JS对象分类</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/</guid>
+      <description>其它
+1.推荐文章
+你可以不会class，但是一定要学会prototype
+JS的new到底是干什么的？
+JS中proto和prototype存在的意义是什么？
+ES6 所有新特性
+2.构造函数就是可以构造出对象的函数
+3.封装:把细节写到一个函数里，别人只需要调用函数并且传个参数(宽度)
+4.函数也是对象
+5.js之父为了让new可以运行提前规定:
+所有js里的函数自带prototype属性。
+prototype属性自带constructor。
+constructor的值等于函数本身。
+6.共有属性与原型的关系：包含与被包含。
+共有属性这整个对象叫做原型。
+对象的地址就是原型的地址，里面的每一个属性叫共有属性。
+对象需要分类吗？  需求：输出各种形状的面积和周长
+ 正方形 分析 正方形有三个属性:边长、面积、周长 let square={ width:5, getArea(){ return this.width * this.width }, getLength(){ return this.width * 4 } }  来一打正方形
+let squareList=[] for(let i=0;i&amp;lt;12;i++){ squareList[1]={ width:5, getArea(){ return this.width * this.width }, getLength(){ return this.width * 4 } } }  width不全是5怎么办？
+let squareList=[] let widthList=[5,6,7,8,5,6,7,5,5,4,5,6] for(let i=0;i&amp;lt;12;i++){ squareList[i]={ width:widthList[i], getArea(){ return this.width * this.</description>
+    </item>
+    
+    <item>
+      <title>JS数据类型</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
+      <description>其它
+1.推荐阅读《我用了两个月的时间才理解 let》
+2.markdown如何输入上下标 输入上标，如x^2 , 则输入x^2
+3.键盘怎么打顿号？中文状态下点击&amp;quot;|&amp;ldquo;键
+4.二进制只有0和1
+5.前6种类型都是简单类型，只有object叫做复杂类型
+6.JS秘密花园收录了JS的各种bug
+7.JS新增了一种类型bigint 因为太新了用得很少,面试基本不考。
+ 数据为什么需要类型？ 数字与字符串
+(1)功能不同
+数字是数字，字符串是字符串，要严谨
+数字能加减乘除，字符串不行
+字符串能表示电话号码(有时候电话号码还可以有字母)，数字不同
+(2)存储形式不同
+JS中，数字是用64位浮点数的形式存储的
+JS中，字符串是用类似UTF8形式存储的(UCS-2)
+JS是如何存数字的？ 就是把所有数字变成二进制存下来，再用十六进制简化。
+把所有的十进制都转为二进制
+补充：内存里只能存0和1，2都存不了。2就要把它变成1或0。
+二进制
+1.十进制转二进制
+例子：31变成二进制 31 = ?x2^5 + ?x2^4 + ?x2^3 + ?x2^2 + ?x2^1 + ?x2^0
+经过一番尝试 31=0x2^5 + 1x2^4 + 1x2^3 + 1x2^2 + 1x2^1 + 1x2^0
+所以31(十进制)=01 1111(二进制)
+2.二进制转十进制
+例子：100011变成十进制 每位数乘以2的N次方，然后加起来即可
+100011=2^5 + 2^1 + 2^0=35
+用十六进制表示二进制
+十六进制是二进制的简写(把每4位改写成1位)
+十六进制：0 1 2 3 4 5 6 7 8 9 A B C D E F</description>
+    </item>
+    
+    <item>
+      <title>JS数组</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/</guid>
+      <description>object可以分很多类，其中最著名的2个类是数组和函数。
+数组对象是一种特殊的对象，所以对象能做的事情，数组都能做。
+2021年12月24日js其实没有真正的数组，只是用对象模拟数组。
+ 其它
+1.第1层__proto__是共有属性，第2层是构造该Object的prorotype
+2.let divList=document.querySelectorAll(&amp;lsquo;div&amp;rsquo;) 获取所有div
+3.一个对象提供的函数就叫做API
+4.${} 意思是可以插入一个变量
+5.for循环里的i是字符串下标的值
+6.数组中reduce和splice功能特别强大,最重要
+7.n % 2 === 1? sum += n : false
+8.x%2只有2个值0或1,0偶数1奇数
+9.js中各种类型的toString方法
+js中定义了7种数据类型，在这7种数据类型中，除了undefined和null类型之外，都有toString方法。
+JS的数组不是典型数组 典型的数组
+元素的数据类型相同
+使用连续的内存存储
+通过数字下标获取元素
+但JS的数组不这样
+元素的数据类型可以不同
+内存不一定是连续的(对象是随机存储的)
+不能通过数字下标,而是通过字符串下标
+这意味着数组可以有任何key
+比如
+let arr=[1,2,3]
+arr[&amp;lsquo;xxx&amp;rsquo;]=1 //&amp;lsquo;xxx&amp;rsquo;是字符串下标哦
+js的所有数组并不是数组，假的，它实际上还是个对象。
+注意：下标是字符串，没有数字
+创建一个数组 方式一：
+let arr=[1,2,3]
+let arr=new Array(1,2,3) //参数只有1个就是长度，多个就是元素
+let arr=new Array[3] //长度为3
+方式二：通过字符串创建数组
+转化
+let arr=&amp;lsquo;1,2,3&amp;rsquo;.split(&amp;rsquo;,&amp;rsquo;)
+let arr=&amp;lsquo;123&amp;rsquo;.split(&amp;rsquo;&amp;rsquo;)
+Array.from(&amp;lsquo;123&amp;rsquo;)
+要满足条件才能够转化：有&amp;quot;0123下标&amp;quot;和&amp;quot;length属性&amp;quot;
+js会自动将数字.toString()成字符串
+变态
+1.如果下标与length不一致呢？
+Array.from({0:&#39;a&#39;,1:&#39;b&#39;,2:&#39;c&#39;,3:&#39;d&#39;,length:2}) 输出结果：[&#39;a&#39;, &#39;b&#39;]  2.伪数组
+伪数组的原型链中并没有数组的原型
+第1层__proto__是共有属性，第2层是构造该Object的prorotype。</description>
+    </item>
+    
+    <item>
+      <title>JS正则表达式</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</guid>
+      <description>文档 30分钟入门正则表达式、菜鸟教程
+工具 在线测试
+ 概念 在编写处理字符串的程序或网页时，经常会有查找符合某些复杂规则的字符串的需要。正则表达式就是用于描述这些规则的工具。换句话说，正则表达式就是记录文本规则的代码，通过特殊字符（称为&amp;quot;元字符&amp;quot;）+普通字符（例如，a 到 z 之间的字母）来进行模式描述，方便提取我们想要的信息。
+正则表达式目前被集成到了各种文本编辑器/文本处理工具当中。
+简介
+也许你并没有接触过正则表达式，但你一定使用过不涉及脚本的某些正则表达式概念。比如用 ? 和 * 通配符来查找硬盘上的文件。? 通配符匹配文件名中的 0 个或 1 个字符，而 * 通配符匹配零个或多个字符。
+像 data(\w)?.dat 这样的模式将查找下列文件：
+data.dat data1.dat datax.dat dataN.dat  使用 * 字符代替 ? 字符扩大了找到的文件的数量。data.*.dat 匹配下列所有文件：
+data.dat data1.dat data12.dat datax.dat dataXYZ.dat  尽管这种搜索方法很有用，但有限。通过理解 * 通配符的工作原理，引入了正则表达式所依赖的概念，但正则表达式功能更强大，而且更加灵活。
+示例：
+^ 为匹配输入字符串的开始位置。
+[0-9]+匹配多个数字， [0-9] 匹配单个数字，+ 匹配一个或者多个。
+abc$匹配字母 abc 并以 abc 结尾，$ 为匹配输入字符串的结束位置。
+我们在写用户注册表单时，只允许用户名包含字符、数字、下划线和连接字符(-)，并设置用户名的长度，我们就可以使用以下正则表达式来设定。 以上的正则表达式可以匹配 runoob、runoob1、run-oob、run_oob， 但不匹配 ru，因为它包含的字母太短了，小于 3 个无法匹配。也不匹配 runoob$, 因为它包含特殊字符。
+正则表达式能做什么？ 1.测试字符串内的模式
+例如，可以测试输入字符串，以查看字符串内是否出现电话号码模式或信用卡号码模式。这称为数据验证。
+2.替换文本
+可以使用正则表达式来识别文档中的特定文本，完全删除该文本或者用其他文本替换它。</description>
+    </item>
+    
+    <item>
+      <title>js获取屏幕宽高</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/</guid>
+      <description>BODY对象宽和高度 document.body.clientWidth document.body.clientHeight 可见区域宽和高度 document.documentElement.clientWidth document.documentElement.clientHeight 网页可见区域宽和高(包含边线的宽和高) document.body.offsetWidth document.body.offsetHeight 网页正文全文宽和高 document.body.scrollWidth document.body.scrollHeight 网页被卷去的高 document.body.scrollTop 网页被卷去的左 document.body.scrollLeft 网页正文部分上 window.screenTop 网页正文部分左 window.screenLeft 屏幕分辨率的宽和高 window.screen.width window.screen.height 屏幕可用工作区宽和高 window.screen.availWidth window.screen.availHeight - - - - jQuery函数 - - - - 浏览器时下窗口可视区域宽和高 $(window).width() $(window).height() 浏览器时下窗口文档的宽和高 $(document).width() $(document).height()　浏览器时下窗口文档body的宽和高 $(document.body).width()　$(document.body).height() 浏览器时下窗口文档body的总宽高度(包含margin padding border) $(document.body).outerWidth(true) $(document.body).outerHeight(true) HTML精确定位 scrollWidth 获取对象的滚动宽度 scrollHeight获取对象的滚动高度 scrollLeft:设置或获取位于对象左边界和窗口中目前可见内容的最左端之间的距离 scrollTop:设置或获取位于对象最顶端和窗口中可见内容的最顶端之间的距离 offsetHeight:获取对象相对于版面或由父坐标 offsetParent 属性指定的父坐标的高度 offsetLeft:获取对象相对于版面或由 offsetParent 属性指定的父坐标的计算左侧位置 offsetTop:获取对象相对于版面或由 offsetTop 属性指定的父坐标的计算顶端位置 相对文档的水平和垂直座标 event.clientX event.clientY 相对容器的水平和垂直坐标 event.offsetX event.offsetY document.documentElement.scrollTop 垂直方向滚动的值 event.clientX+document.documentElement.scrollTop 相对文档的水平座标+垂直方向滚动的量  </description>
+    </item>
+    
+    <item>
+      <title>JS语法</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/</guid>
+      <description>前言
+1.这节课教的JS版本是ES 6
+2.对ES 6的评价
+为啥说ES 6一半垃圾一半好？
+JS的原创之处并不优秀，JS的优秀之处并非原创。
+因为 ES 不能删除以前的特性，要兼容网站。
+也就是说以前能运行的网站，以后都要能运行。
+优点兼容，稳定。升级的时候以前的代码不需要重写。
+3.JS与ECMAScript(缩写ES)的关系
+ECMAScript是纸上的标准，JS是浏览器的实现。
+纸上标准往往落后于浏览器，先实现，再写进标准。
+4.chrome控制台换行不执行命令快捷键:shift+enter
+5.推荐书籍 阮一峰的免费教程
+适合入门《网道 JavaScript 教程》
+适合进阶《你不知道的 JavaScript（上卷）》
+ 表达式、语句、标识符 一.表达式与语句 1.表达式
+(1)1+2表达式的值是3
+(2)函数调用add(1,2)，这个函数调用也是表达式。它的值为函数的返回值。
+补充：值与返回值是不一样的。只有函数才有返回值。  (3)console.log表达式(属于函数表达式)的值为函数本身
+console.log是函数,注意没()。函数表达式的值为函数本身。 console.log表达式的值就是console.log  (4)面试题
+console.log(3)表达式的值为？undefined  解析:跟add(1,2)一样都是“函数+()”，函数调用的值为函数的返回值。
+所以log(3)函数的返回值是undefined。console.log(3)打印出来的东西是3。
+2.语句
+var a=1是一个语句
+语句没有值，表达式才有值。语句主要是用来改变环境的。
+例子: var a=1 输出结果:undefined  二者的区别
+(1)表达式一般都有值，语句可能有也可能没有
+(2)语句一般会改变环境(声明，赋值)
+(3)上面两句话并不是绝对的
+总结
+1.关于表达式
+重要:一定要搞清什么是值，什么是返回值，什么是打印出来的东西！
+二.大小写敏感 var a 和 var A是不同的
+object 和 Object是不同的
+function 和 Function是不同的
+window 和 Window是不同的。平时只用window，大Window从来不用
+三.空格 大部分空格没有实际意义</description>
+    </item>
+    
+    <item>
+      <title>JS运算符</title>
+      <link>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/</guid>
+      <description>目录
+ 算术运算符 比较运算符 布尔运算符 二进制位运算符 其它运算符  其它 1.!n //表示n不存在 2.简写
+let f= (x) =&amp;gt;{ return x+1 } 简写let f= x =&amp;gt; x+1  一.算术运算符 1.number运算
+加减乘除`+-*/` 余数x%7 指数x**3 自增自减x++/++x/x--/--x 求值运算符+x 负数运算符-x  2.string运算
+连接运算 &#39;123&#39;+&#39;456&#39;  解析：
+1.除法不能除以0 例：-5/0 输出结果：-infinity //负无穷大
+2.10%7=3、-7%7=-0、-12%7=-5
+3.7**2=49 7的平方，n的n次方
+4.自增自减
+let a=10 let b=a++ //b=10 let b=++a //b=11  a在前，表达式的值取之前的状态。a在后，表达式的值取之后的状态。
+a在前，值为前。a在后，值为后。
+let a=10 let b=a-- //b=10 let b=--a //b=9  a在前值为前。a在后值为后。
+忠告：尽量少用自增自减，a++可以写成a +=1
+for循环可以写，因为大家都知道for（let i=0;i&amp;lt;10;i++）{}
+5.求值运算符+
+let a=8 +a 输出结果:8  只是表示求一下这个数的值</description>
+    </item>
+    
+  </channel>
+</rss>
