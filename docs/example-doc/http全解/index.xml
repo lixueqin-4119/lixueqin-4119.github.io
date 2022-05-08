@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>HTTP全解 on 博客</title>
-    <link>http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/</link>
+    <link>https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/</link>
     <description>Recent content in HTTP全解 on 博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>HTTP 状态码</title>
-      <link>http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/</guid>
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/</guid>
       <description>面试题 -常见状态码
  HTTP 状态码(HTTP Status Code)是用来表示 HTTP 响应状态的 3 位数字代码。
 概览
@@ -49,10 +49,10 @@
     
     <item>
       <title>URL 是什么</title>
-      <link>http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/</guid>
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/</guid>
       <description>李爵士发明的三样东西 WWW=URL+HTTP+HTML
 今天主要讲解什么是URL
  IP(协议)  IP协议用来表示每个设备的地址。
@@ -107,10 +107,10 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
     
     <item>
       <title>请求和响应 &amp; Node.js Server</title>
-      <link>http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/</guid>
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/</guid>
       <description>主要内容
 用代码实现http(演示Node.js服务)
 前置条件:安装Node.js 14

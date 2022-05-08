@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Vue2 全解 on 博客</title>
-    <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/</link>
+    <link>https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/</link>
     <description>Recent content in Vue2 全解 on 博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>computed 和 watch</title>
-      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/</guid>
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/</guid>
       <description>Vue2 options文档
  响应式原理options.data
 1.data会被Vue监听
@@ -31,10 +31,10 @@ new Vue({ data: { user: { email: &amp;quot;1231231231@qq.com&amp;quot;, nickname
     
     <item>
       <title>Vue Router -前端路由实现的思路</title>
-      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/</guid>
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/</guid>
       <description>路由器(面试题)
 一.前端路由是什么？
 二.hash模式? history模式? memory模式?
@@ -50,10 +50,10 @@ index.html &amp;lt;a href=&amp;quot;#1&amp;quot;&amp;gt;go to 1&amp;lt;/a&amp;gt
     
     <item>
       <title>数据响应式</title>
-      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/</guid>
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/</guid>
       <description>主要原理:深入响应式原理
 内容:深入理解options.data
  Vue对data做了什么？ const myData = { n: 0 }; console.log(myData); new Vue({ data: myData, template: ` &amp;lt;div&amp;gt;{{n}}&amp;lt;/div&amp;gt; ` }).$mount(&amp;quot;#app&amp;quot;); setTimeout(() =&amp;gt; { myData.n += 10; console.log(myData); }, 3000);  3s后n变成10，这次没有在vm里面加，而是在外面，说明在外面也可以变更myData。
@@ -68,10 +68,10 @@ new Vue({ template:` &amp;lt;div&amp;gt; {{n}} &amp;lt;button @click=&amp;quot;a
     
     <item>
       <title>构造选项</title>
-      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/</guid>
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/</guid>
       <description>V2 options文档
 内容:new Vue(options)options取值详解
 查看示例代码
@@ -107,10 +107,10 @@ el 挂载点 //你要用你的模版替换页面上的哪一块，你的挂载�
     
     <item>
       <title>模板、指令与修饰符</title>
-      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/</guid>
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/</guid>
       <description>Vue的模版语法  我们把HTMl模版叫做template。
  template的3种写法
 1&amp;rsquo; Vue完整版,写在HTML里
@@ -125,10 +125,10 @@ new Vue({})运行后，template里面的&amp;lt;div&amp;gt;会替换掉页面的
     
     <item>
       <title>深入理解Vue动画原理</title>
-      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/</guid>
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/</guid>
       <description>文档 过渡 &amp;amp; 动画
  轮播组件slides
 轮播难点在于最末位到首位的切换方式，在讲轮播之前需要讲下动画。 Vue动画支持很多种不同的方式。
@@ -142,10 +142,10 @@ Vue动画方式1 - CSS transition  Vue提供了transition组件
     
     <item>
       <title>表单与v-model</title>
-      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/</guid>
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/</guid>
       <description>Ant Design Vue文档
  表单基本用法
 input/textarea/checkbox/radio/select/from
@@ -163,10 +163,10 @@ vue create . 选择在当前目录创建,使用默认的vue2 yarn serve  表单�
     
     <item>
       <title>起手式</title>
-      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/</guid>
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/</guid>
       <description>Vue中文文档 、工具@vue/cli文档
  Vue的历史 vue、Angular.js、React.js前端三大主流框架。 MVC中的V是Vue的重点，M和V则被简化。 Vue和vue.js没有区别，vue就是vue.js的简称。 Vue你可以认为是框架也可以说是库，Vue中文英文文档都是尤雨溪写的。
 15年的1.0版本Vue自称是MVVM框架，不是MVC是MVVM，不过这已经成历史了。现在Vue是MV * 框架,意思就是你说MVC、MVVM都行。但是Vue升级到2.0后，它虽然看起来是MVVM框架，但实际不是MVVM框架了。Vue3直接抄袭React。 Vue作者尤雨溪，主要作品: Vue、Vue Router、Vuex、@vue/cli(主要维护者是蒋豪群) Vue2版本vue.runtime.min.js Vue3版本vue.runtime.global.prod.js
@@ -190,10 +190,10 @@ cd vue-demo yarn serve 中断control+c，然后把生成的目录vue-demo拖进�
     
     <item>
       <title>进阶构造属性</title>
-      <link>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/</guid>
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/</guid>
       <description>Vue构造属性: directives、mixins、extends、provide、inject
  1.Directives 指令 2种写法
 1&amp;rsquo; 声明一个全局指令

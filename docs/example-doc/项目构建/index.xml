@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>项目构建 on 博客</title>
-    <link>http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/</link>
+    <link>https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/</link>
     <description>Recent content in 项目构建 on 博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Webpack(上)</title>
-      <link>http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/</guid>
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/</guid>
       <description>前端框架Webpack，前端最重要的工具之一。
 CRM法学webpack,通过11个任务学会webpack。
 webpack文档、npm文档
@@ -44,10 +44,10 @@ const path = require(&#39;path&#39;); module.</description>
     
     <item>
       <title>Webpack(下)</title>
-      <link>http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/</guid>
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/</guid>
       <description>loader VS plugin 用webpack生成JS
 我们给它个js文件，这个js文件通过webpack得到了一个新的js文件。 内置了babel-loader(库),通过这个loader把js load到webpack里面，然后webpack就输出了另外一个js。
 用webpack生成CSS

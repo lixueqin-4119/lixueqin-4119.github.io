@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>前后分离 on 博客</title>
-    <link>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/</link>
+    <link>https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/</link>
     <description>Recent content in 前后分离 on 博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>AJAX 的原理</title>
-      <link>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/</guid>
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/</guid>
       <description>js三座大山之Ajax
 Ajax的全部内容: 用js控制浏览器发请求和收响应
  背景(原理)
@@ -39,10 +39,10 @@ http://localhost:8888/index.html 注意浏览器路径要一致！ if (path === 
     
     <item>
       <title>Ajax实战:Cookie、Session</title>
-      <link>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/</guid>
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/</guid>
       <description>文档：Node.js中文档、Set-Cookie响应头
 内容：动态服务器
  什么是动态服务器? 静态服务器(网页) VS 动态服务器(网页)
@@ -65,10 +65,10 @@ console.log(typeof user3) //object const string = JSON.</description>
     
     <item>
       <title>异步与Promise</title>
-      <link>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/</guid>
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/</guid>
       <description>面试必考
 AJAX(Async JavaScript And XML)
 内容:Ajax异步编程在js里的统一解决方案(js异步编程模型) Promise
@@ -103,10 +103,10 @@ request.onreadystatechange就是我写给浏览器调用的
     
     <item>
       <title>跨域、CORS、JSONP</title>
-      <link>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/</guid>
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/</guid>
       <description>面试必考
 ajax和Promise的跨域问题
 跨域一般用2种方案JSONP和CORS
@@ -159,10 +159,10 @@ diaoyu-com目录新建server.js,模拟坏人空间
     
     <item>
       <title>静态服务器Static Server</title>
-      <link>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/</guid>
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/</guid>
       <description>优化server.js
  优化前
 var http = require(&#39;http&#39;) var fs = require(&#39;fs&#39;) var url = require(&#39;url&#39;) var port = process.argv[2] if (!port) { console.log(&#39;请指定端口号好不啦？\nnode server.js 8888 这样不会吗？&#39;) process.exit(1) } var server = http.createServer(function (request, response) { var parsedUrl = url.parse(request.url, true) var pathWithQuery = request.url var queryString = &#39;&#39; if (pathWithQuery.indexOf(&#39;?&#39;) &amp;gt;= 0) { queryString = pathWithQuery.substring(pathWithQuery.indexOf(&#39;?&#39;)) } var path = parsedUrl.pathname var query = parsedUrl.query var method = request.method /******** 从这里开始看，上面不要看 ************/ console.log(&#39;有个傻子发请求过来啦！路径（带查询参数）为：&#39; + pathWithQuery) if (path === &#39;/&#39;) { response.</description>
