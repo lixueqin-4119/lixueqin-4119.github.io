@@ -62,7 +62,7 @@
 <meta name="description"
   content="李爵士发明的三样东西 WWW=URL&#43;HTTP&#43;HTML
 今天主要讲解什么是URL
- IP(协议)  IP协议用来表示每个设备的地址。
+IP(协议)  IP协议用来表示每个设备的地址。
  IP是Internet Protocol(网络之间互连的协议)的缩写，是TCP/IP体系中的网络层协议。
 IP主要约定了两件事：
 1.如何定位一台设备
@@ -109,7 +109,8 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
 3.编辑好后，按 esc键退出,然后输入:wq
 端口port  一台机器可以提供很多服务
 每个服务一个号码，这个号码就叫端口号port
- 一.">
+ 一.一台机器可以提供不同服务
+1.要提供HTTP服务最好使用80端口">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -125,7 +126,7 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
       "item":"https://lixueqin-4119.xyz/docs/example-doc/"},{
       "@type": "ListItem",
       "position": 3 ,
-      "name":"HTTP全解",
+      "name":"【HTTP全解】",
       "item":"https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/"},{
       "@type": "ListItem",
       "position": 4 ,
@@ -155,7 +156,7 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
             "url": "https://lixueqin-4119.xyz/images/icon.png"
         }
         },
-    "description": "李爵士发明的三样东西 WWW=URL\u002bHTTP\u002bHTML\n今天主要讲解什么是URL\n IP(协议)  IP协议用来表示每个设备的地址。\n IP是Internet Protocol(网络之间互连的协议)的缩写，是TCP\/IP体系中的网络层协议。\nIP主要约定了两件事：\n1.如何定位一台设备\n有IP就可以定位一台设备\n2.如何封装数据报文，以跟其它设备交流\nIP分内网IP和外网IP\n外网就是路由器之外，内网就是路由器包括的有线和无线\n如何获取外网IP\n1.从电信租用宽带，一年一千多\n2.买个猫(调制解调器)，光猫就是把光信号变成电信号。把光信号变成路由器能理解的网络信号\n3.买个路由器，手机和电脑分别连接路由器广播出来的有线WIFI\n只要路由器通过光猫连上电信的服务器，那么路由器就会有个「外网IP」,比如「14.17.32.211」，\n这就是你在互联网中的地址。\n4.但是如果你重启路由器，那么你很有可能被重新分配一个「外网IP」。也就是说你的路由器没有「固定的外网IP」\n查看外网IP\n1’终端命令\nipconfig  2’网站 ip138.com 不能告诉别人，别人会通过地址找到你\n你的路由器的外网IP如果是14.17.32.211那么你的手机和电脑的IP又是什么呢？\n是「内网」\n内网IP\n1.路由器会在你家创建个内网，内网中的设备使用内网IP，一般这个IP格式是192.168.xxx.xxx\n2.一般路由器会给自己分配个好记的内网IP，如192.168.1.1\n3.然后路由会再给每一个内网中的设备分配一个不同的内网IP，比如电脑是192.168.1.2，手机是192.169.1.3，以此类推\n路由器的功能\n路由器有两个IP，一个外网IP和一个内网IP\n内网中的设备可以互相访问，但是不能直接访问外网\n内网设备想要访问外网必须经过路由器中转\n外网中的设备可以互相访问但无法访问你的内网\n外网设备想要把内容送到内网也必须通过路由器\n也就是说内网和外网就像两个隔绝的空间，无法互通，唯一的联通点就是路由器\n所以路由器有时候也被叫做「网关」\n几个特殊的IP\n1.127.0.0.1 表示自己\n2.可以通过hosts将localhost指定为自己\n127.0.0.1:8080 = localhost:8080\nhosts可使任意字符串变成一个对应的ip\nhosts文件在哪？\nMAC修改hosts文件\nhosts文件位于 \/private\/etc\/hosts，可以通过下面的方法修改。\n1.终端命令\nsudo vi \/etc\/hosts  回车后再输入密码，再回车就可以打开我们的hosts文件了。\n2.输入 i 就可以编辑了，此时状态为insert\n加上要配置的 ip\u002b空格\u002b域名\n3.编辑好后，按 esc键退出,然后输入:wq\n端口port  一台机器可以提供很多服务\n每个服务一个号码，这个号码就叫端口号port\n 一."
+    "description": "李爵士发明的三样东西 WWW=URL\u002bHTTP\u002bHTML\n今天主要讲解什么是URL\nIP(协议)  IP协议用来表示每个设备的地址。\n IP是Internet Protocol(网络之间互连的协议)的缩写，是TCP\/IP体系中的网络层协议。\nIP主要约定了两件事：\n1.如何定位一台设备\n有IP就可以定位一台设备\n2.如何封装数据报文，以跟其它设备交流\nIP分内网IP和外网IP\n外网就是路由器之外，内网就是路由器包括的有线和无线\n如何获取外网IP\n1.从电信租用宽带，一年一千多\n2.买个猫(调制解调器)，光猫就是把光信号变成电信号。把光信号变成路由器能理解的网络信号\n3.买个路由器，手机和电脑分别连接路由器广播出来的有线WIFI\n只要路由器通过光猫连上电信的服务器，那么路由器就会有个「外网IP」,比如「14.17.32.211」，\n这就是你在互联网中的地址。\n4.但是如果你重启路由器，那么你很有可能被重新分配一个「外网IP」。也就是说你的路由器没有「固定的外网IP」\n查看外网IP\n1’终端命令\nipconfig  2’网站 ip138.com 不能告诉别人，别人会通过地址找到你\n你的路由器的外网IP如果是14.17.32.211那么你的手机和电脑的IP又是什么呢？\n是「内网」\n内网IP\n1.路由器会在你家创建个内网，内网中的设备使用内网IP，一般这个IP格式是192.168.xxx.xxx\n2.一般路由器会给自己分配个好记的内网IP，如192.168.1.1\n3.然后路由会再给每一个内网中的设备分配一个不同的内网IP，比如电脑是192.168.1.2，手机是192.169.1.3，以此类推\n路由器的功能\n路由器有两个IP，一个外网IP和一个内网IP\n内网中的设备可以互相访问，但是不能直接访问外网\n内网设备想要访问外网必须经过路由器中转\n外网中的设备可以互相访问但无法访问你的内网\n外网设备想要把内容送到内网也必须通过路由器\n也就是说内网和外网就像两个隔绝的空间，无法互通，唯一的联通点就是路由器\n所以路由器有时候也被叫做「网关」\n几个特殊的IP\n1.127.0.0.1 表示自己\n2.可以通过hosts将localhost指定为自己\n127.0.0.1:8080 = localhost:8080\nhosts可使任意字符串变成一个对应的ip\nhosts文件在哪？\nMAC修改hosts文件\nhosts文件位于 \/private\/etc\/hosts，可以通过下面的方法修改。\n1.终端命令\nsudo vi \/etc\/hosts  回车后再输入密码，再回车就可以打开我们的hosts文件了。\n2.输入 i 就可以编辑了，此时状态为insert\n加上要配置的 ip\u002b空格\u002b域名\n3.编辑好后，按 esc键退出,然后输入:wq\n端口port  一台机器可以提供很多服务\n每个服务一个号码，这个号码就叫端口号port\n 一.一台机器可以提供不同服务\n1.要提供HTTP服务最好使用80端口"
 }
 </script><meta property="og:title" content="URL 是什么 | 目录 | 博客" />
 <meta property="og:type" content="article" />
@@ -171,7 +172,7 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
 
 <meta property="og:description" content="李爵士发明的三样东西 WWW=URL&#43;HTTP&#43;HTML
 今天主要讲解什么是URL
- IP(协议)  IP协议用来表示每个设备的地址。
+IP(协议)  IP协议用来表示每个设备的地址。
  IP是Internet Protocol(网络之间互连的协议)的缩写，是TCP/IP体系中的网络层协议。
 IP主要约定了两件事：
 1.如何定位一台设备
@@ -218,7 +219,8 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
 3.编辑好后，按 esc键退出,然后输入:wq
 端口port  一台机器可以提供很多服务
 每个服务一个号码，这个号码就叫端口号port
- 一." />
+ 一.一台机器可以提供不同服务
+1.要提供HTTP服务最好使用80端口" />
 
 
 
@@ -366,7 +368,7 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">【CSS全解】</a>
         </div>
         
         
@@ -377,7 +379,7 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
         </div>
         
     </li>
@@ -388,7 +390,7 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
         </div>
         
     </li>
@@ -399,7 +401,7 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
         </div>
         
     </li>
@@ -410,7 +412,68 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
         </div>
         
     </li>
@@ -488,68 +551,7 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
-        </div>
-        
-        
-<ul class="ps-6">
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
-        </div>
-        
-    </li>
-    
-    
-</ul>
-
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class=" pb-2 ">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">【HTTP全解】</a>
         </div>
         
         
@@ -599,7 +601,7 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">【JS全解】</a>
         </div>
         
         
@@ -726,7 +728,7 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">【JS编程接口】</a>
         </div>
         
         
@@ -798,7 +800,7 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">【JS进阶】</a>
         </div>
         
         
@@ -837,7 +839,7 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">【React全解】</a>
         </div>
         
         
@@ -931,7 +933,7 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">【Vue2 全解】</a>
         </div>
         
         
@@ -1047,7 +1049,7 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">【其它】</a>
         </div>
         
         
@@ -1075,7 +1077,7 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">【前后分离】</a>
         </div>
         
         
@@ -1147,11 +1149,33 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">【算法与数据结构】</a>
         </div>
         
         
 <ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8A/">排序算法(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8B/">排序算法(下)</a>
+        </div>
+        
+    </li>
+    
     
     
     
@@ -1175,7 +1199,7 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">【项目构建】</a>
         </div>
         
         
@@ -1251,10 +1275,8 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
   
   
 
-  <blockquote>
-<p>李爵士发明的三样东西 WWW=URL+HTTP+HTML</p>
-<p>今天主要讲解什么是URL</p>
-</blockquote>
+  <p>李爵士发明的三样东西 WWW=URL+HTTP+HTML<br>
+今天主要讲解什么是URL</p>
 <h2 id="ip协议">IP(协议)</h2>
 <blockquote>
 <p>IP协议用来表示每个设备的地址。</p>
@@ -1266,7 +1288,7 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
 <p>2.如何封装数据报文，以跟其它设备交流</p>
 <p>I<strong>P分内网IP和外网IP</strong></p>
 <p>外网就是路由器之外，内网就是路由器包括的有线和无线</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/21487050-5da394e260ac4b9c?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/bbfb3140204d486b934c553f181c2fb2.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAYndjeGw=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
 <p><strong>如何获取外网IP</strong></p>
 <p>1.从电信租用宽带，一年一千多</p>
 <p>2.买个猫(调制解调器)，光猫就是把光信号变成电信号。把光信号变成路由器能理解的网络信号</p>
@@ -1391,7 +1413,7 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
 </blockquote>
 <h2 id="url-统一资源定位服务">URL 统一资源定位服务</h2>
 <p><strong>URL = 协议+域名或IP+端口号+路径+查询字符串+锚点</strong>
-<img src="https://upload-images.jianshu.io/upload_images/21487050-d49f70df7fcd59e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="在这里插入图片描述"></p>
+<img src="https://img-blog.csdnimg.cn/7479614e6a134553830cd4d4edf1b95a.png" alt="在这里插入图片描述"></p>
 <p>1.对前端来说只有两种协议http或者https
 https默认端口号443</p>
 <p>2.查询参数?wd=,同一页面我们想看不同的查询结果</p>
@@ -1421,9 +1443,9 @@ curl -s -v --https://www.baidu.com
 </code></pre>
 <p>http到底是做什么的呢？</p>
 <p>http作用，规定如何写这5行请求</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/21487050-552a2a6f668e808e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/4855b6154dc74ffb838b60f19ca3efba.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAYndjeGw=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
 <p>以及如何返回这几十行响应的文件</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/21487050-4a079f07bd146bdc?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/d57996ae0c17419db5a66a59c5bfe254.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAYndjeGw=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
 <p>http就是个文件，上面写了请求怎么写，响应怎么写</p>
 
 </article>

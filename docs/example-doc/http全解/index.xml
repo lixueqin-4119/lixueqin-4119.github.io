@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>HTTP全解 on 博客</title>
+    <title>【HTTP全解】 on 博客</title>
     <link>https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/</link>
-    <description>Recent content in HTTP全解 on 博客</description>
+    <description>Recent content in 【HTTP全解】 on 博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 07 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>HTTP 状态码</title>
       <link>https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/</link>
@@ -55,7 +55,7 @@
       <guid>https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/</guid>
       <description>李爵士发明的三样东西 WWW=URL+HTTP+HTML
 今天主要讲解什么是URL
- IP(协议)  IP协议用来表示每个设备的地址。
+IP(协议)  IP协议用来表示每个设备的地址。
  IP是Internet Protocol(网络之间互连的协议)的缩写，是TCP/IP体系中的网络层协议。
 IP主要约定了两件事：
 1.如何定位一台设备
@@ -102,7 +102,8 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
 3.编辑好后，按 esc键退出,然后输入:wq
 端口port  一台机器可以提供很多服务
 每个服务一个号码，这个号码就叫端口号port
- 一.</description>
+ 一.一台机器可以提供不同服务
+1.要提供HTTP服务最好使用80端口</description>
     </item>
     
     <item>

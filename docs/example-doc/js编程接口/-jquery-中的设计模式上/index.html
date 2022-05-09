@@ -61,19 +61,15 @@
 
 <meta name="description"
   content="手写 DOM 库(2)，上一次我们用对象风格封装DOM操作(原生js)，这次用jQuery风格重新封装。
- 其它
+其它
 1.window.jQuery=function(){}
-jQuery是全局变量可以直接使用jQuery()
-jQuery核心思想
-接受一个selector。
+Query是全局变量可以直接使用jQuery()\ jQuery核心思想 接受一个selector。
 根据这个选择器得到一些元素。
 return 一个对象。
 这个对象有些方法可以操作这个元素。
-2.旧语法key:value //&ldquo;addClass&rdquo;:function(参数){}
-ES6新语法 //addClass(参数) {}
+2.旧语法key:value //&ldquo;addClass&rdquo;:function(参数){} ES6新语法 //addClass(参数) {}
 3.声明一个对象api，再return这个对象。
-其实可以直接return这个对象！
-4.当变量声明后只使用一次时，可省略不用声明。
+其实可以直接return这个对象！\ 4.当变量声明后只使用一次时，可省略不用声明。
 5.array3 = array1.concat(array2); //concat里是伪数组
 相当于array3 = array1 &#43; array2
 concat方法创建一个新的数组，它由被调用的对象中的元素组成。
@@ -82,7 +78,7 @@ concat方法创建一个新的数组，它由被调用的对象中的元素组�
 7.const不能重复赋值，而且在声明时必须赋值
 可以用let
 if (typeof selectorOrArray === &#39;string&#39;) { ... } else if (selectorOrArray instanceof Array) { //x instanceof object ... }  对象用instanceof
-9.语法 arr.indexOf(searchElement[, fromIndex]) //fromIndex可选，示例略
+9.语法 arr.indexOf(searchElement[, fromIndex]) //fromIndex可选
 indexOf()方法返回在数组中可以找到一个给定元素的第一个索引。
 &gt;=0表示存在，===-1表示不存在。
 const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;]; console.log(beasts.indexOf(&#39;bison&#39;)); // 1 console.log(beasts.indexOf(&#39;giraffe&#39;)); // -1  10.">
@@ -101,7 +97,7 @@ const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;
       "item":"https://lixueqin-4119.xyz/docs/example-doc/"},{
       "@type": "ListItem",
       "position": 3 ,
-      "name":"JS编程接口",
+      "name":"【JS编程接口】",
       "item":"https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/"},{
       "@type": "ListItem",
       "position": 4 ,
@@ -131,7 +127,7 @@ const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;
             "url": "https://lixueqin-4119.xyz/images/icon.png"
         }
         },
-    "description": "手写 DOM 库(2)，上一次我们用对象风格封装DOM操作(原生js)，这次用jQuery风格重新封装。\n 其它\n1.window.jQuery=function(){}\njQuery是全局变量可以直接使用jQuery()\njQuery核心思想\n接受一个selector。\n根据这个选择器得到一些元素。\nreturn 一个对象。\n这个对象有些方法可以操作这个元素。\n2.旧语法key:value \/\/\u0026ldquo;addClass\u0026rdquo;:function(参数){}\nES6新语法 \/\/addClass(参数) {}\n3.声明一个对象api，再return这个对象。\n其实可以直接return这个对象！\n4.当变量声明后只使用一次时，可省略不用声明。\n5.array3 = array1.concat(array2); \/\/concat里是伪数组\n相当于array3 = array1 \u002b array2\nconcat方法创建一个新的数组，它由被调用的对象中的元素组成。\n将伪数组变成数组 Array.from()\n6.伪数组\n7.const不能重复赋值，而且在声明时必须赋值\n可以用let\nif (typeof selectorOrArray === \u0027string\u0027) { ... } else if (selectorOrArray instanceof Array) { \/\/x instanceof object ... }  对象用instanceof\n9.语法 arr.indexOf(searchElement[, fromIndex]) \/\/fromIndex可选，示例略\nindexOf()方法返回在数组中可以找到一个给定元素的第一个索引。\n\u0026gt;=0表示存在，===-1表示不存在。\nconst beasts = [\u0027ant\u0027, \u0027bison\u0027, \u0027camel\u0027, \u0027bison\u0027]; console.log(beasts.indexOf(\u0027bison\u0027)); \/\/ 1 console.log(beasts.indexOf(\u0027giraffe\u0027)); \/\/ -1  10."
+    "description": "手写 DOM 库(2)，上一次我们用对象风格封装DOM操作(原生js)，这次用jQuery风格重新封装。\n其它\n1.window.jQuery=function(){}\nQuery是全局变量可以直接使用jQuery()\\ jQuery核心思想 接受一个selector。\n根据这个选择器得到一些元素。\nreturn 一个对象。\n这个对象有些方法可以操作这个元素。\n2.旧语法key:value \/\/\u0026ldquo;addClass\u0026rdquo;:function(参数){} ES6新语法 \/\/addClass(参数) {}\n3.声明一个对象api，再return这个对象。\n其实可以直接return这个对象！\\ 4.当变量声明后只使用一次时，可省略不用声明。\n5.array3 = array1.concat(array2); \/\/concat里是伪数组\n相当于array3 = array1 \u002b array2\nconcat方法创建一个新的数组，它由被调用的对象中的元素组成。\n将伪数组变成数组 Array.from()\n6.伪数组\n7.const不能重复赋值，而且在声明时必须赋值\n可以用let\nif (typeof selectorOrArray === \u0027string\u0027) { ... } else if (selectorOrArray instanceof Array) { \/\/x instanceof object ... }  对象用instanceof\n9.语法 arr.indexOf(searchElement[, fromIndex]) \/\/fromIndex可选\nindexOf()方法返回在数组中可以找到一个给定元素的第一个索引。\n\u0026gt;=0表示存在，===-1表示不存在。\nconst beasts = [\u0027ant\u0027, \u0027bison\u0027, \u0027camel\u0027, \u0027bison\u0027]; console.log(beasts.indexOf(\u0027bison\u0027)); \/\/ 1 console.log(beasts.indexOf(\u0027giraffe\u0027)); \/\/ -1  10."
 }
 </script><meta property="og:title" content="jQuery 中的设计模式(上) | 目录 | 博客" />
 <meta property="og:type" content="article" />
@@ -146,19 +142,15 @@ const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;
 
 
 <meta property="og:description" content="手写 DOM 库(2)，上一次我们用对象风格封装DOM操作(原生js)，这次用jQuery风格重新封装。
- 其它
+其它
 1.window.jQuery=function(){}
-jQuery是全局变量可以直接使用jQuery()
-jQuery核心思想
-接受一个selector。
+Query是全局变量可以直接使用jQuery()\ jQuery核心思想 接受一个selector。
 根据这个选择器得到一些元素。
 return 一个对象。
 这个对象有些方法可以操作这个元素。
-2.旧语法key:value //&ldquo;addClass&rdquo;:function(参数){}
-ES6新语法 //addClass(参数) {}
+2.旧语法key:value //&ldquo;addClass&rdquo;:function(参数){} ES6新语法 //addClass(参数) {}
 3.声明一个对象api，再return这个对象。
-其实可以直接return这个对象！
-4.当变量声明后只使用一次时，可省略不用声明。
+其实可以直接return这个对象！\ 4.当变量声明后只使用一次时，可省略不用声明。
 5.array3 = array1.concat(array2); //concat里是伪数组
 相当于array3 = array1 &#43; array2
 concat方法创建一个新的数组，它由被调用的对象中的元素组成。
@@ -167,7 +159,7 @@ concat方法创建一个新的数组，它由被调用的对象中的元素组�
 7.const不能重复赋值，而且在声明时必须赋值
 可以用let
 if (typeof selectorOrArray === &#39;string&#39;) { ... } else if (selectorOrArray instanceof Array) { //x instanceof object ... }  对象用instanceof
-9.语法 arr.indexOf(searchElement[, fromIndex]) //fromIndex可选，示例略
+9.语法 arr.indexOf(searchElement[, fromIndex]) //fromIndex可选
 indexOf()方法返回在数组中可以找到一个给定元素的第一个索引。
 &gt;=0表示存在，===-1表示不存在。
 const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;]; console.log(beasts.indexOf(&#39;bison&#39;)); // 1 console.log(beasts.indexOf(&#39;giraffe&#39;)); // -1  10." />
@@ -318,7 +310,7 @@ const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">【CSS全解】</a>
         </div>
         
         
@@ -329,7 +321,7 @@ const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
         </div>
         
     </li>
@@ -340,7 +332,7 @@ const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
         </div>
         
     </li>
@@ -351,7 +343,7 @@ const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
         </div>
         
     </li>
@@ -362,7 +354,68 @@ const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
         </div>
         
     </li>
@@ -440,68 +493,7 @@ const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
-        </div>
-        
-        
-<ul class="ps-6">
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
-        </div>
-        
-    </li>
-    
-    
-</ul>
-
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class=" pb-2 ">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">【HTTP全解】</a>
         </div>
         
         
@@ -551,7 +543,7 @@ const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">【JS全解】</a>
         </div>
         
         
@@ -678,7 +670,7 @@ const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">【JS编程接口】</a>
         </div>
         
         
@@ -750,7 +742,7 @@ const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">【JS进阶】</a>
         </div>
         
         
@@ -789,7 +781,7 @@ const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">【React全解】</a>
         </div>
         
         
@@ -883,7 +875,7 @@ const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">【Vue2 全解】</a>
         </div>
         
         
@@ -999,7 +991,7 @@ const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">【其它】</a>
         </div>
         
         
@@ -1027,7 +1019,7 @@ const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">【前后分离】</a>
         </div>
         
         
@@ -1099,11 +1091,33 @@ const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">【算法与数据结构】</a>
         </div>
         
         
 <ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8A/">排序算法(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8B/">排序算法(下)</a>
+        </div>
+        
+    </li>
+    
     
     
     
@@ -1127,7 +1141,7 @@ const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">【项目构建】</a>
         </div>
         
         
@@ -1203,29 +1217,27 @@ const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;
   
   
 
-  <blockquote>
-<p>手写 DOM 库(2)，上一次我们用对象风格封装DOM操作(原生js)，这次用jQuery风格重新封装。</p>
-</blockquote>
-<p><strong>其它</strong></p>
-<p>1.window.jQuery=function(){}</p>
-<p>jQuery是全局变量可以直接使用jQuery()</p>
-<p><strong>jQuery核心思想</strong></p>
-<p>接受一个selector。</p>
-<p>根据这个选择器得到一些元素。</p>
-<p>return 一个对象。</p>
-<p>这个对象有些方法可以操作这个元素。</p>
-<p>2.旧语法key:value   //&ldquo;addClass&rdquo;:function(参数){}</p>
-<p>ES6新语法       //addClass(参数) {}</p>
-<p>3.声明一个对象api，再return这个对象。</p>
-<p>其实可以直接return这个对象！</p>
-<p>4.<strong>当变量声明后只使用一次时，可省略不用声明。</strong></p>
-<p>5.array3 = array1.concat(array2); //concat里是伪数组</p>
-<p>相当于array3 = array1 + array2</p>
-<p>concat方法创建一个新的数组，它由被调用的对象中的元素组成。</p>
-<p>将伪数组变成数组 Array.from()</p>
-<p>6.<a href="https://zhuanlan.zhihu.com/p/454629738">伪数组</a></p>
-<p>7.const不能重复赋值，而且在声明时必须赋值</p>
-<p>可以用let</p>
+  <p>手写 DOM 库(2)，上一次我们用对象风格封装DOM操作(原生js)，这次用jQuery风格重新封装。</p>
+<p><strong>其它</strong><br>
+1.window.jQuery=function(){}<br>
+Query是全局变量可以直接使用jQuery()\
+<strong>jQuery核心思想</strong> <br>
+接受一个selector。<br>
+根据这个选择器得到一些元素。<br>
+return 一个对象。<br>
+这个对象有些方法可以操作这个元素。<br>
+2.旧语法key:value   //&ldquo;addClass&rdquo;:function(参数){} <br>
+ES6新语法       //addClass(参数) {}<br>
+3.声明一个对象api，再return这个对象。<br>
+其实可以直接return这个对象！\
+4.<strong>当变量声明后只使用一次时，可省略不用声明。</strong><br>
+5.array3 = array1.concat(array2); //concat里是伪数组<br>
+相当于array3 = array1 + array2<br>
+concat方法创建一个新的数组，它由被调用的对象中的元素组成。<br>
+将伪数组变成数组 Array.from()<br>
+6.<a href="https://zhuanlan.zhihu.com/p/454629738">伪数组</a><br>
+7.const不能重复赋值，而且在声明时必须赋值<br>
+可以用let</p>
 <pre><code>if (typeof selectorOrArray === 'string') { 
   ... 
   } else if (selectorOrArray instanceof Array) { 
@@ -1234,9 +1246,9 @@ const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;
    }
 </code></pre>
 <p><strong>对象用instanceof</strong></p>
-<p>9.语法 arr.indexOf(searchElement[, fromIndex]) //fromIndex可选，示例略</p>
-<p>indexOf()方法返回在数组中可以找到一个给定元素的第一个索引。</p>
-<p><code>&gt;=0</code>表示存在，<code>===-1</code>表示不存在。</p>
+<p>9.语法 arr.indexOf(searchElement[, fromIndex]) //fromIndex可选<br>
+indexOf()方法返回在数组中可以找到一个给定元素的第一个索引。<br>
+<code>&gt;=0</code>表示存在，<code>===-1</code>表示不存在。</p>
 <pre><code>const beasts = ['ant', 'bison', 'camel', 'bison'];
 console.log(beasts.indexOf('bison'));   // 1
 console.log(beasts.indexOf('giraffe')); // -1
@@ -1296,17 +1308,17 @@ api.addClass('red') //遍历所有获取的元素，添加.red
 const api = jQuery('.test')
 api.addClass('red').addClass('blue')//链式操作
 </code></pre>
-<p><strong>解析</strong></p>
-<p>方法,addClass函数里return api。</p>
-<p>你用api调了一函数(addClass)，这个函数返回前面的那个东西(api)。</p>
-<p>这样你就可以继续在后面调addClass。<strong>这种操作就叫链式操作。</strong></p>
+<p><strong>解析</strong><br>
+方法,addClass函数里return api。<br>
+你用api调了一函数(addClass)，这个函数返回前面的那个东西(api)。<br>
+这样你就可以继续在后面调addClass。<strong>这种操作就叫链式操作。</strong></p>
 <p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3f08a59b88154a439b37b8da5e1d5a19~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
 <h3 id="this">this</h3>
-<p><strong>obj.fn(p1)</strong></p>
-<p><strong>obj.fn.call(obj,p1)</strong></p>
-<p><strong>函数里的this就是obj</strong></p>
-<p>api.addClass(&lsquo;red&rsquo;).addClass(&lsquo;blue&rsquo;)</p>
-<p>this就是api</p>
+<p><strong>obj.fn(p1)</strong><br>
+<strong>obj.fn.call(obj,p1)</strong><br>
+<strong>函数里的this就是obj</strong><br>
+api.addClass(&lsquo;red&rsquo;).addClass(&lsquo;blue&rsquo;)<br>
+this就是api</p>
 <pre><code>addClass(className){
     ...
     return this //api
@@ -1325,15 +1337,15 @@ api.addClass('red').addClass('blue')//链式操作
      }
 }
 </code></pre>
-<p><strong>总结</strong></p>
-<p><strong>jquery核心思想</strong></p>
-<p><strong>1.用闭包维持elements</strong></p>
-<p>const api=jQuery(&rsquo;.test&rsquo;)</p>
-<p>jQuery提供一个函数，这个函数接收一个选择器(css中的选择器)。</p>
-<p>根据选择器获取到这些元素，但是它不会返回给你这些元素，只会返回一个对象，这个对象会有一些方法(函数),由函数操作你的元素。</p>
-<p><strong>2.链式操作return this</strong></p>
-<p>this是<strong>调用后</strong>才确定的!(未知的)</p>
-<p>你在addClass前面传的什么，this就是什么。</p>
+<p><strong>总结</strong><br>
+<strong>jquery核心思想</strong><br>
+<strong>1.用闭包维持elements</strong><br>
+const api=jQuery(&rsquo;.test&rsquo;)<br>
+jQuery提供一个函数，这个函数接收一个选择器(css中的选择器)。<br>
+根据选择器获取到这些元素，但是它不会返回给你这些元素，只会返回一个对象，这个对象会有一些方法(函数),由函数操作你的元素。<br>
+<strong>2.链式操作return this</strong><br>
+this是<strong>调用后</strong>才确定的!(未知的)<br>
+你在addClass前面传的什么，this就是什么。</p>
 <pre><code>const api = jQuery('.test') 
 api.addClass('red').addClass('blue')
 //this就是api
@@ -1345,22 +1357,22 @@ api.addClass('red').addClass('blue')
   .addClass('blue')
 </code></pre>
 <h3 id="jquery对象">jQuery对象</h3>
-<p>var obj=new Object()</p>
-<p>Object就是构造函数</p>
-<p><strong>jQuery是构造函数吗？</strong></p>
-<p>是，因为jQuery函数确实构造出了一个对象</p>
-<p>不是，因为不需要写new jQuery()就能构造一个对象，以前讲的构造函数都要结合new才行。</p>
-<p><strong>结论</strong></p>
-<p><strong>jQuery是一个不需要加new的构造函数</strong></p>
-<p>jQuery不是常规意义上的构造函数</p>
-<p>这是因为jQuery用了一些技巧</p>
-<p><strong>jQuery对象</strong>代指jQuery函数构造出来的对象(口头约定)</p>
-<p>只是口头约定下，jquery是函数不是普通对象</p>
-<p><strong>术语</strong></p>
-<p>举例</p>
-<p>Object是个函数，<strong>Object对象</strong>表示Object构造出的对象</p>
-<p>Array是个函数，Array对象/数组对象表示Array构造出来的对象</p>
-<p>Function是个函数，Function对象/函数对象表示Function构造出来的对象</p>
+<p>var obj=new Object()<br>
+Object就是构造函数<br>
+<strong>jQuery是构造函数吗？</strong><br>
+是，因为jQuery函数确实构造出了一个对象<br>
+不是，因为不需要写new jQuery()就能构造一个对象，以前讲的构造函数都要结合new才行。</p>
+<p><strong>结论</strong><br>
+<strong>jQuery是一个不需要加new的构造函数</strong><br>
+jQuery不是常规意义上的构造函数<br>
+这是因为jQuery用了一些技巧<br>
+<strong>jQuery对象</strong>代指jQuery函数构造出来的对象(口头约定)<br>
+只是口头约定下，jquery是函数不是普通对象<br>
+<strong>术语</strong><br>
+举例<br>
+Object是个函数，<strong>Object对象</strong>表示Object构造出的对象<br>
+Array是个函数，Array对象/数组对象表示Array构造出来的对象<br>
+Function是个函数，Function对象/函数对象表示Function构造出来的对象</p>
 <h2 id="链式风格">链式风格</h2>
 <p><strong>查</strong></p>
 <pre><code>1.jQuery('#xxx')返回值不是元素而是一个api对象
@@ -1461,9 +1473,9 @@ jQuery('.test')
     .addClass('fuck')      
 </code></pre>
 <p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f1679cda034c42d38829c796622ee1a1~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
-<p>jQuery构造出来的newApi。</p>
-<p>const newApi = jQuery(arr),参数arr传入下面jQuery重新生成一个新arr数组。</p>
-<p>window.jQuery = function (selectorOrArray) {}</p>
+<p>jQuery构造出来的newApi。<br>
+const newApi = jQuery(arr),参数arr传入下面jQuery重新生成一个新arr数组。<br>
+window.jQuery = function (selectorOrArray) {}</p>
 <h3 id="3实现end函数">3.实现end函数</h3>
 <pre><code>jQuery('.test')
   .find('.child')
@@ -1495,9 +1507,9 @@ const api1 = jQuery('.test')
 const api2 = api1.find('.child').addClass('red')
 const oldApi = api2.end().addClass('blue')   //当前为oldApi
 </code></pre>
-<p>oldApi放到数组上了并没有放到api上，api是操作数组，this是api而不是arr。</p>
-<p>应该把oldApi复制过来
-<code>oldApi: selectorOrArray.oldApi,//把oldApi复制过来,</code></p>
+<p>oldApi放到数组上了并没有放到api上，api是操作数组，this是api而不是arr。<br>
+应该把oldApi复制过来
+<code>oldApi: selectorOrArray.oldApi</code></p>
 <p><strong>4.jQuery(&rsquo;.red&rsquo;).each(fn)遍历并对每个元素执行fn</strong></p>
 <pre><code>each(fn) {
   for (let i = 0; i &lt; elements.length; i++) {//elements是闭包,会一直在上面
@@ -1556,7 +1568,7 @@ x.children().print()
 等同于
 node.children[0],node.children[1],node.children[2]
 </code></pre>
-<h2 id="实现createelementgetappendtoappend">实现createElement、get、appendTo、append、</h2>
+<h3 id="实现createelementgetappendtoappend">实现createElement、get、appendTo、append、</h3>
 <pre><code>window.jQuery = function (selectorOrArrayOrTemplate) {
   let elements
   if (typeof selectorOrArrayOrTemplate === 'string') {
@@ -1680,9 +1692,9 @@ $('body').append($childList)
     <li><a href="#链式风格">链式风格</a>
       <ul>
         <li><a href="#3实现end函数">3.实现end函数</a></li>
+        <li><a href="#实现createelementgetappendtoappend">实现createElement、get、appendTo、append、</a></li>
       </ul>
     </li>
-    <li><a href="#实现createelementgetappendtoappend">实现createElement、get、appendTo、append、</a></li>
   </ul>
 </nav>
 </div>

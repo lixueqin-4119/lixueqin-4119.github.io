@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>React全解 on 博客</title>
+    <title>【React全解】 on 博客</title>
     <link>https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/</link>
-    <description>Recent content in React全解 on 博客</description>
+    <description>Recent content in 【React全解】 on 博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 07 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Class 组件详解</title>
       <link>https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/</link>

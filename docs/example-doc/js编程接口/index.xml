@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>JS编程接口 on 博客</title>
+    <title>【JS编程接口】 on 博客</title>
     <link>https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/</link>
-    <description>Recent content in JS编程接口 on 博客</description>
+    <description>Recent content in 【JS编程接口】 on 博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 07 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>DOM 编程</title>
       <link>https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/</link>
@@ -64,7 +64,9 @@ IE5认为先调fnEr，网景认为先调fnYe,然后掐上了，最后闹到了W3
 捕获总是在冒泡前面
 这个过程是固定的，只是看中间有没有函数。
 有监听函数就调用，并提供事件信息，没有就掉过。
-术语 从外向内找监听函数，叫事件捕获 从内向外找监听函数，叫事件冒泡
+术语
+从外向内找监听函数，叫事件捕获
+从内向外找监听函数，叫事件冒泡\
 冒泡是IE创建的事件模型(一般要冒泡)
 疑问：那岂不是fnYe/fnBa/fnEr都调用两次?非也！
 开发者自己选择把fnYe放在捕获阶段还是冒泡阶段
@@ -72,8 +74,7 @@ DOM事件机制图 第二部分.代码实践 addEventListener函数
 事件绑定API
 IE5*:baba.attachEvent(&amp;lsquo;onclick&amp;rsquo;,fn) //冒泡
 网景:baba.addEventListener(&amp;lsquo;click&amp;rsquo;,fn) //捕获
-W3C:baba.addEventListener(&amp;lsquo;click&amp;rsquo;,fn,bool)
-如果bool不传或为falsy(类似于false的值)
+W3C:baba.addEventListener(&amp;lsquo;click&amp;rsquo;,fn,bool) 如果bool不传或为falsy(类似于false的值)
 就让fn走冒泡，即当浏览器在冒泡阶段发现baba有fn监听函数，就会调用fn,并提供事件信息
 如果bool为true
 就让fn走捕获，即当浏览器在捕获阶段发现baba有fn监听函数，就会调用fn,并提供事件信息
@@ -94,19 +95,15 @@ let n=1 level1.</description>
       
       <guid>https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/</guid>
       <description>手写 DOM 库(2)，上一次我们用对象风格封装DOM操作(原生js)，这次用jQuery风格重新封装。
- 其它
+其它
 1.window.jQuery=function(){}
-jQuery是全局变量可以直接使用jQuery()
-jQuery核心思想
-接受一个selector。
+Query是全局变量可以直接使用jQuery()\ jQuery核心思想 接受一个selector。
 根据这个选择器得到一些元素。
 return 一个对象。
 这个对象有些方法可以操作这个元素。
-2.旧语法key:value //&amp;ldquo;addClass&amp;rdquo;:function(参数){}
-ES6新语法 //addClass(参数) {}
+2.旧语法key:value //&amp;ldquo;addClass&amp;rdquo;:function(参数){} ES6新语法 //addClass(参数) {}
 3.声明一个对象api，再return这个对象。
-其实可以直接return这个对象！
-4.当变量声明后只使用一次时，可省略不用声明。
+其实可以直接return这个对象！\ 4.当变量声明后只使用一次时，可省略不用声明。
 5.array3 = array1.concat(array2); //concat里是伪数组
 相当于array3 = array1 + array2
 concat方法创建一个新的数组，它由被调用的对象中的元素组成。
@@ -115,7 +112,7 @@ concat方法创建一个新的数组，它由被调用的对象中的元素组�
 7.const不能重复赋值，而且在声明时必须赋值
 可以用let
 if (typeof selectorOrArray === &#39;string&#39;) { ... } else if (selectorOrArray instanceof Array) { //x instanceof object ... }  对象用instanceof
-9.语法 arr.indexOf(searchElement[, fromIndex]) //fromIndex可选，示例略
+9.语法 arr.indexOf(searchElement[, fromIndex]) //fromIndex可选
 indexOf()方法返回在数组中可以找到一个给定元素的第一个索引。
 &amp;gt;=0表示存在，===-1表示不存在。
 const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;]; console.log(beasts.indexOf(&#39;bison&#39;)); // 1 console.log(beasts.indexOf(&#39;giraffe&#39;)); // -1  10.</description>
@@ -127,14 +124,13 @@ const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/</guid>
-      <description>1.文章 阮一峰 、中文文档(jQuery有哪些功能)
-2.完整代码
-1.简写jQuery window.$=window.jQuery  方法:页面最后添加window.$=window.jQuery,任意地方就可以直接使用$
-代码：$(&#39;.test&#39;).children().print()
+      <description>文章:阮一峰 、jQuery有哪些功能、完整代码
+1.简写jQuery window.$=window.jQuery  方法:页面最后添加上面的代码,那么任意地方就可以直接使用$
+比如：$(&#39;.test&#39;).children().print()
 类似于bash alias,添加一个别名即可。
 window.jQuery=function(selectorOrArrayOrtemplate){...} window.$=window.jQuery 这两句可以合成下面一句 window.$=window.jQuery=function(selectorOrArrayOrtemplate){...}  执行顺序：当两个=在同一行时,那么是从右边开始执行的。
-也就是说，先执行window.jQuery=function(selectorOrArrayOrtemplate){&amp;hellip;}，
-得到window.jQuery的值后，再将值赋值给window.$。
+也就是说，先执行
+window.jQuery=function(selectorOrArrayOrtemplate){...}  得到window.jQuery的值后，再将值赋值给window.$。
 2.命名风格 下面的代码令人误解
 const div1=$(&#39;.test&#39;) const div2=document.querySelector(&#39;.test&#39;)  我们会误以为div1是一个DOM,实际上div1是jQuery构造的api对象。
 DOM对象只能用DOM API 如querySelector、appendChild
@@ -160,7 +156,7 @@ $div.remove() $div.empty()  三.改
       <guid>https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/</guid>
       <description>手把手教你封装DOM，封装出一些接口，用来操作DOM(页面的节点)。
 把一个复杂的东西打包成服务，然后只需要简单的命令就可以操作它。
- 什么叫封装
+什么叫封装
 举例
 笔记本电脑就是CPU、内存、硬盘、主板、显卡的封装
 用户只需要接触显示器、键盘、鼠标、触控板等设备，即可操作复杂的计算机。

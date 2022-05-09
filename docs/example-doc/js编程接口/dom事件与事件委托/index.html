@@ -78,7 +78,9 @@ IE5认为先调fnEr，网景认为先调fnYe,然后掐上了，最后闹到了W3
 捕获总是在冒泡前面
 这个过程是固定的，只是看中间有没有函数。
 有监听函数就调用，并提供事件信息，没有就掉过。
-术语 从外向内找监听函数，叫事件捕获 从内向外找监听函数，叫事件冒泡
+术语
+从外向内找监听函数，叫事件捕获
+从内向外找监听函数，叫事件冒泡\
 冒泡是IE创建的事件模型(一般要冒泡)
 疑问：那岂不是fnYe/fnBa/fnEr都调用两次?非也！
 开发者自己选择把fnYe放在捕获阶段还是冒泡阶段
@@ -86,8 +88,7 @@ DOM事件机制图 第二部分.代码实践 addEventListener函数
 事件绑定API
 IE5*:baba.attachEvent(&lsquo;onclick&rsquo;,fn) //冒泡
 网景:baba.addEventListener(&lsquo;click&rsquo;,fn) //捕获
-W3C:baba.addEventListener(&lsquo;click&rsquo;,fn,bool)
-如果bool不传或为falsy(类似于false的值)
+W3C:baba.addEventListener(&lsquo;click&rsquo;,fn,bool) 如果bool不传或为falsy(类似于false的值)
 就让fn走冒泡，即当浏览器在冒泡阶段发现baba有fn监听函数，就会调用fn,并提供事件信息
 如果bool为true
 就让fn走捕获，即当浏览器在捕获阶段发现baba有fn监听函数，就会调用fn,并提供事件信息
@@ -114,7 +115,7 @@ let n=1 level1.">
       "item":"https://lixueqin-4119.xyz/docs/example-doc/"},{
       "@type": "ListItem",
       "position": 3 ,
-      "name":"JS编程接口",
+      "name":"【JS编程接口】",
       "item":"https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/"},{
       "@type": "ListItem",
       "position": 4 ,
@@ -135,7 +136,7 @@ let n=1 level1.">
     },
     "headline": "DOM事件与事件委托 | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
     "dateModified": "2020-10-16T00:00:00+00:00",
-    "wordCount":  539 ,
+    "wordCount":  538 ,
     "publisher": {
         "@type": "Person",
         "name": "WANG Chucheng",
@@ -144,7 +145,7 @@ let n=1 level1.">
             "url": "https://lixueqin-4119.xyz/images/icon.png"
         }
         },
-    "description": "点击事件 第一部分.概念\n\u0026lt;div class=爷爷\u0026gt; \u0026lt;div class=爸爸\u0026gt; \u0026lt;div class=儿子\u0026gt;文字\u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt;  给3个div分别添加事件监听fnYe\/fnBa\/fnEr\n提问一：点击了谁？\n点击文字，算不算点击儿子？\n点击文字，算不算点击爸爸？\n点击文字，算不算点击爷爷？\n都算\n提问二：调用顺序\n点击文字，最先调用fnYe\/fnBa\/fnEr中的哪个函数？\n都行\nIE5认为先调fnEr，网景认为先调fnYe,然后掐上了，最后闹到了W3C\n和事佬W3C 2002年，W3C发布标准，文档名为\u0026quot;DOM Level 2 Events Specification\u0026quot;\n规定浏览器应该同时支持两种调用顺序\n首先按爷爷=\u0026gt;爸爸=\u0026gt;儿子顺序看有没有函数监听\n然后按儿子=\u0026gt;爸爸=\u0026gt;爷爷顺序看有没有函数监听\n捕获总是在冒泡前面\n这个过程是固定的，只是看中间有没有函数。\n有监听函数就调用，并提供事件信息，没有就掉过。\n术语 从外向内找监听函数，叫事件捕获 从内向外找监听函数，叫事件冒泡\n冒泡是IE创建的事件模型(一般要冒泡)\n疑问：那岂不是fnYe\/fnBa\/fnEr都调用两次?非也！\n开发者自己选择把fnYe放在捕获阶段还是冒泡阶段\nDOM事件机制图 第二部分.代码实践 addEventListener函数\n事件绑定API\nIE5*:baba.attachEvent(\u0026lsquo;onclick\u0026rsquo;,fn) \/\/冒泡\n网景:baba.addEventListener(\u0026lsquo;click\u0026rsquo;,fn) \/\/捕获\nW3C:baba.addEventListener(\u0026lsquo;click\u0026rsquo;,fn,bool)\n如果bool不传或为falsy(类似于false的值)\n就让fn走冒泡，即当浏览器在冒泡阶段发现baba有fn监听函数，就会调用fn,并提供事件信息\n如果bool为true\n就让fn走捕获，即当浏览器在捕获阶段发现baba有fn监听函数，就会调用fn,并提供事件信息\n注意:走冒泡阶段不是说只走这个阶段。而是说捕获、冒泡这个阶段是一定要走的，只不过是你在哪边执行函数的问题。传false就是把fn放冒泡阶段执行，传true就是把fn放捕获阶段执行。\n例子 代码\n1.css\ndiv[class^=level] { border: 1px solid; border-radius: 50%; display: inline-flex; }  2.e会在事件结束后自动消亡，e只存在于事件点击的那一瞬间。\n1秒钟之后就没有这个点击事件了。\ne是空的。\n保存e 代码：const t=e.currentTarget\nlet n=1 level1."
+    "description": "点击事件 第一部分.概念\n\u0026lt;div class=爷爷\u0026gt; \u0026lt;div class=爸爸\u0026gt; \u0026lt;div class=儿子\u0026gt;文字\u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt;  给3个div分别添加事件监听fnYe\/fnBa\/fnEr\n提问一：点击了谁？\n点击文字，算不算点击儿子？\n点击文字，算不算点击爸爸？\n点击文字，算不算点击爷爷？\n都算\n提问二：调用顺序\n点击文字，最先调用fnYe\/fnBa\/fnEr中的哪个函数？\n都行\nIE5认为先调fnEr，网景认为先调fnYe,然后掐上了，最后闹到了W3C\n和事佬W3C 2002年，W3C发布标准，文档名为\u0026quot;DOM Level 2 Events Specification\u0026quot;\n规定浏览器应该同时支持两种调用顺序\n首先按爷爷=\u0026gt;爸爸=\u0026gt;儿子顺序看有没有函数监听\n然后按儿子=\u0026gt;爸爸=\u0026gt;爷爷顺序看有没有函数监听\n捕获总是在冒泡前面\n这个过程是固定的，只是看中间有没有函数。\n有监听函数就调用，并提供事件信息，没有就掉过。\n术语\n从外向内找监听函数，叫事件捕获\n从内向外找监听函数，叫事件冒泡\\\n冒泡是IE创建的事件模型(一般要冒泡)\n疑问：那岂不是fnYe\/fnBa\/fnEr都调用两次?非也！\n开发者自己选择把fnYe放在捕获阶段还是冒泡阶段\nDOM事件机制图 第二部分.代码实践 addEventListener函数\n事件绑定API\nIE5*:baba.attachEvent(\u0026lsquo;onclick\u0026rsquo;,fn) \/\/冒泡\n网景:baba.addEventListener(\u0026lsquo;click\u0026rsquo;,fn) \/\/捕获\nW3C:baba.addEventListener(\u0026lsquo;click\u0026rsquo;,fn,bool) 如果bool不传或为falsy(类似于false的值)\n就让fn走冒泡，即当浏览器在冒泡阶段发现baba有fn监听函数，就会调用fn,并提供事件信息\n如果bool为true\n就让fn走捕获，即当浏览器在捕获阶段发现baba有fn监听函数，就会调用fn,并提供事件信息\n注意:走冒泡阶段不是说只走这个阶段。而是说捕获、冒泡这个阶段是一定要走的，只不过是你在哪边执行函数的问题。传false就是把fn放冒泡阶段执行，传true就是把fn放捕获阶段执行。\n例子 代码\n1.css\ndiv[class^=level] { border: 1px solid; border-radius: 50%; display: inline-flex; }  2.e会在事件结束后自动消亡，e只存在于事件点击的那一瞬间。\n1秒钟之后就没有这个点击事件了。\ne是空的。\n保存e 代码：const t=e.currentTarget\nlet n=1 level1."
 }
 </script><meta property="og:title" content="DOM事件与事件委托 | 目录 | 博客" />
 <meta property="og:type" content="article" />
@@ -176,7 +177,9 @@ IE5认为先调fnEr，网景认为先调fnYe,然后掐上了，最后闹到了W3
 捕获总是在冒泡前面
 这个过程是固定的，只是看中间有没有函数。
 有监听函数就调用，并提供事件信息，没有就掉过。
-术语 从外向内找监听函数，叫事件捕获 从内向外找监听函数，叫事件冒泡
+术语
+从外向内找监听函数，叫事件捕获
+从内向外找监听函数，叫事件冒泡\
 冒泡是IE创建的事件模型(一般要冒泡)
 疑问：那岂不是fnYe/fnBa/fnEr都调用两次?非也！
 开发者自己选择把fnYe放在捕获阶段还是冒泡阶段
@@ -184,8 +187,7 @@ DOM事件机制图 第二部分.代码实践 addEventListener函数
 事件绑定API
 IE5*:baba.attachEvent(&lsquo;onclick&rsquo;,fn) //冒泡
 网景:baba.addEventListener(&lsquo;click&rsquo;,fn) //捕获
-W3C:baba.addEventListener(&lsquo;click&rsquo;,fn,bool)
-如果bool不传或为falsy(类似于false的值)
+W3C:baba.addEventListener(&lsquo;click&rsquo;,fn,bool) 如果bool不传或为falsy(类似于false的值)
 就让fn走冒泡，即当浏览器在冒泡阶段发现baba有fn监听函数，就会调用fn,并提供事件信息
 如果bool为true
 就让fn走捕获，即当浏览器在捕获阶段发现baba有fn监听函数，就会调用fn,并提供事件信息
@@ -344,7 +346,7 @@ let n=1 level1." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">【CSS全解】</a>
         </div>
         
         
@@ -355,7 +357,7 @@ let n=1 level1." />
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
         </div>
         
     </li>
@@ -366,7 +368,7 @@ let n=1 level1." />
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
         </div>
         
     </li>
@@ -377,7 +379,7 @@ let n=1 level1." />
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
         </div>
         
     </li>
@@ -388,7 +390,68 @@ let n=1 level1." />
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
         </div>
         
     </li>
@@ -466,68 +529,7 @@ let n=1 level1." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
-        </div>
-        
-        
-<ul class="ps-6">
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
-        </div>
-        
-    </li>
-    
-    
-</ul>
-
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class=" pb-2 ">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">【HTTP全解】</a>
         </div>
         
         
@@ -577,7 +579,7 @@ let n=1 level1." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">【JS全解】</a>
         </div>
         
         
@@ -704,7 +706,7 @@ let n=1 level1." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">【JS编程接口】</a>
         </div>
         
         
@@ -776,7 +778,7 @@ let n=1 level1." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">【JS进阶】</a>
         </div>
         
         
@@ -815,7 +817,7 @@ let n=1 level1." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">【React全解】</a>
         </div>
         
         
@@ -909,7 +911,7 @@ let n=1 level1." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">【Vue2 全解】</a>
         </div>
         
         
@@ -1025,7 +1027,7 @@ let n=1 level1." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">【其它】</a>
         </div>
         
         
@@ -1053,7 +1055,7 @@ let n=1 level1." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">【前后分离】</a>
         </div>
         
         
@@ -1125,11 +1127,33 @@ let n=1 level1." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">【算法与数据结构】</a>
         </div>
         
         
 <ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8A/">排序算法(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8B/">排序算法(下)</a>
+        </div>
+        
+    </li>
+    
     
     
     
@@ -1153,7 +1177,7 @@ let n=1 level1." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">【项目构建】</a>
         </div>
         
         
@@ -1238,42 +1262,42 @@ let n=1 level1." />
 &lt;/div&gt;
 </code></pre>
 <p>给3个div分别添加事件监听fnYe/fnBa/fnEr</p>
-<p>提问一：点击了谁？</p>
-<p>点击文字，算不算点击儿子？</p>
-<p>点击文字，算不算点击爸爸？</p>
-<p>点击文字，算不算点击爷爷？</p>
-<p><strong>都算</strong></p>
-<p>提问二：调用顺序</p>
-<p>点击文字，最先调用fnYe/fnBa/fnEr中的哪个函数？</p>
-<p><strong>都行</strong></p>
-<p>IE5认为先调fnEr，网景认为先调fnYe,然后掐上了，最后闹到了W3C</p>
+<p>提问一：点击了谁？<br>
+点击文字，算不算点击儿子？<br>
+点击文字，算不算点击爸爸？<br>
+点击文字，算不算点击爷爷？<br>
+<strong>都算</strong></p>
+<p>提问二：调用顺序<br>
+点击文字，最先调用fnYe/fnBa/fnEr中的哪个函数？<br>
+<strong>都行</strong><br>
+IE5认为先调fnEr，网景认为先调fnYe,然后掐上了，最后闹到了W3C</p>
 <p>和事佬W3C
-2002年，W3C发布标准，文档名为&quot;DOM Level 2 Events Specification&quot;</p>
-<p>规定浏览器应该同时支持两种调用顺序</p>
-<p>首先按<strong>爷爷=&gt;爸爸=&gt;儿子</strong>顺序看有没有函数监听</p>
-<p>然后按<strong>儿子=&gt;爸爸=&gt;爷爷</strong>顺序看有没有函数监听</p>
-<p><strong>捕获总是在冒泡前面</strong></p>
-<p>这个过程是固定的，只是看中间有没有函数。</p>
-<p>有监听函数就调用，并提供<strong>事件信息</strong>，没有就掉过。</p>
-<p><strong>术语</strong>
-<strong>从外向内</strong>找监听函数，叫<strong>事件捕获</strong>
-<strong>从内向外</strong>找监听函数，叫<strong>事件冒泡</strong></p>
+2002年，W3C发布标准，文档名为&quot;DOM Level 2 Events Specification&quot;<br>
+规定浏览器应该同时支持两种调用顺序<br>
+首先按<strong>爷爷=&gt;爸爸=&gt;儿子</strong>顺序看有没有函数监听<br>
+然后按<strong>儿子=&gt;爸爸=&gt;爷爷</strong>顺序看有没有函数监听<br>
+<strong>捕获总是在冒泡前面</strong><br>
+这个过程是固定的，只是看中间有没有函数。<br>
+有监听函数就调用，并提供<strong>事件信息</strong>，没有就掉过。</p>
+<p><strong>术语</strong><br>
+<strong>从外向内</strong>找监听函数，叫<strong>事件捕获</strong><br>
+<strong>从内向外</strong>找监听函数，叫<strong>事件冒泡</strong>\</p>
 <p>冒泡是IE创建的事件模型(一般要冒泡)</p>
-<p>疑问：那岂不是fnYe/fnBa/fnEr都调用两次?非也！</p>
-<p>开发者<strong>自己选择</strong>把fnYe放在<strong>捕获阶段</strong>还是<strong>冒泡阶段</strong></p>
+<p>疑问：那岂不是fnYe/fnBa/fnEr都调用两次?非也！<br>
+开发者<strong>自己选择</strong>把fnYe放在<strong>捕获阶段</strong>还是<strong>冒泡阶段</strong></p>
 <p>DOM事件机制图
 <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/815f1903a11e46158aa8f80fc0f0f4d8~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
 <h3 id="第二部分代码实践">第二部分.代码实践</h3>
-<p><strong>addEventListener函数</strong></p>
-<p><strong>事件绑定API</strong></p>
-<p>IE5*:baba.attachEvent(&lsquo;onclick&rsquo;,fn)  //冒泡</p>
-<p>网景:baba.addEventListener(&lsquo;click&rsquo;,fn) //捕获</p>
-<p>W3C:baba.addEventListener(&lsquo;click&rsquo;,fn,bool)</p>
-<p><strong>如果bool不传或为falsy(类似于false的值)</strong></p>
-<p>就让fn走冒泡，即当浏览器在冒泡阶段发现baba有fn监听函数，就会调用fn,并提供事件信息</p>
-<p><strong>如果bool为true</strong></p>
-<p>就让fn走捕获，即当浏览器在捕获阶段发现baba有fn监听函数，就会调用fn,并提供事件信息</p>
-<p>注意:走冒泡阶段不是说只走这个阶段。而是说捕获、冒泡这个阶段是一定要走的，只不过是你在哪边执行函数的问题。<strong>传false就是把fn放冒泡阶段执行，传true就是把fn放捕获阶段执行。</strong></p>
+<p><strong>addEventListener函数</strong><br>
+<strong>事件绑定API</strong><br>
+IE5*:baba.attachEvent(&lsquo;onclick&rsquo;,fn)  //冒泡<br>
+网景:baba.addEventListener(&lsquo;click&rsquo;,fn) //捕获<br>
+W3C:baba.addEventListener(&lsquo;click&rsquo;,fn,bool) <br>
+<strong>如果bool不传或为falsy(类似于false的值)</strong><br>
+就让fn走冒泡，即当浏览器在冒泡阶段发现baba有fn监听函数，就会调用fn,并提供事件信息<br>
+<strong>如果bool为true</strong><br>
+就让fn走捕获，即当浏览器在捕获阶段发现baba有fn监听函数，就会调用fn,并提供事件信息<br>
+注意:走冒泡阶段不是说只走这个阶段。而是说捕获、冒泡这个阶段是一定要走的，只不过是你在哪边执行函数的问题。<strong>传false就是把fn放冒泡阶段执行，传true就是把fn放捕获阶段执行。</strong></p>
 <p>例子 <a href="http://js.jirengu.com/guterijaja/2/edit">代码</a></p>
 <p>1.css</p>
 <pre><code>div[class^=level] {
@@ -1296,10 +1320,10 @@ level1.addEventListener('click',(e)=&gt;{
   n +=1
 })
 </code></pre>
-<p>3.<strong>冒泡过程：</strong></p>
-<p>颜色变换顺序，从里到外。<strong>默认是冒泡(不加参数)</strong></p>
-<p><strong>捕获过程：</strong></p>
-<p>颜色变换顺序，从外到里。加true。</p>
+<p>3.<strong>冒泡过程：</strong><br>
+颜色变换顺序，从里到外。<strong>默认是冒泡(不加参数)</strong><br>
+<strong>捕获过程：</strong><br>
+颜色变换顺序，从外到里。加true。</p>
 <pre><code>level7.addEventListener('click',(e)=&gt;{
 const t=e.currentTarget
 setTimeout(()=&gt;{
@@ -1324,63 +1348,62 @@ level1.addEventListener('click',(e)=&gt;{
   n +=1
 })
 </code></pre>
-<p><strong>代码优化</strong></p>
-<p>把重复代码取个名字
-<img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9fac4b7730b64e9f8aaa5f55ee5008ef~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p><strong>代码优化</strong><br>
+把重复代码取个名字</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9fac4b7730b64e9f8aaa5f55ee5008ef~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
 <p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f2bd236d17c444ebb5addba380cbe114~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
-<p><strong>总结</strong></p>
-<p>儿子被点击了，算不算点击老子？<strong>算</strong></p>
-<p>那么先调用老子的函数还是先调用儿子的函数？</p>
-<p><strong>不确定。</strong></p>
-<p>IE里先调用儿子的函数,Firefox里先调用老子。w3c两个都支持，先从老子到儿子再从儿子到老子。</p>
-<p><strong>捕获与冒泡</strong></p>
-<p>捕获说先调用爸爸的监听函数</p>
-<p>冒泡说先调用儿子的监听函数</p>
-<p><strong>W3C事件模型</strong></p>
-<p>先捕获(先爸爸=&gt;儿子)<strong>再冒泡?</strong>(再儿子=&gt;爸爸)</p>
-<p>冒泡可以阻止</p>
-<p>注意e对象被传给所有监听函数</p>
-<p>2个过程同时存在，永远不会少任何一个过程。但是没有那么绝对，冒泡是可以阻止的。</p>
+<p><strong>总结</strong><br>
+儿子被点击了，算不算点击老子？<strong>算</strong><br>
+那么先调用老子的函数还是先调用儿子的函数？<br>
+<strong>不确定。</strong><br>
+IE里先调用儿子的函数,Firefox里先调用老子。w3c两个都支持，先从老子到儿子再从儿子到老子。</p>
+<p><strong>捕获与冒泡</strong><br>
+捕获说先调用爸爸的监听函数<br>
+冒泡说先调用儿子的监听函数<br>
+<strong>W3C事件模型</strong><br>
+先捕获(先爸爸=&gt;儿子)<strong>再冒泡?</strong>(再儿子=&gt;爸爸)<br>
+冒泡可以阻止<br>
+注意e对象被传给所有监听函数<br>
+2个过程同时存在，永远不会少任何一个过程。但是没有那么绝对，冒泡是可以阻止的。</p>
 <h3 id="target-vs-currenttarget">target vs currentTarget</h3>
-<p><strong>区别</strong></p>
-<p>e.target 用户操作的元素</p>
-<p>e.currentTarget 程序员监听的元素</p>
-<p>this是e.currentTarget(不推荐使用它)</p>
-<p><strong>举例</strong></p>
-<p>div&gt;span{文字}，用户点击文字</p>
-<p>e.target就是span</p>
-<p>e.currentTarget就是div</p>
+<p><strong>区别</strong><br>
+e.target 用户操作的元素<br>
+e.currentTarget 程序员监听的元素<br>
+this是e.currentTarget(不推荐使用它)<br>
+<strong>举例</strong><br>
+div&gt;span{文字}，用户点击文字<br>
+e.target就是span<br>
+e.currentTarget就是div</p>
 <pre><code>&lt;div&gt;&lt;span&gt;文字&lt;/span&gt;&lt;/div&gt;
 </code></pre>
 <h3 id="冒泡和默认事件">冒泡和默认事件</h3>
 <p><strong>1.取消冒泡e.stopPropagation()(面试题)</strong>
 <a href="http://js.jirengu.com/wumefamimu/2/edit">示例代码</a></p>
-<p>捕获不可取消，但冒泡可以</p>
-<p><strong>e.stopPropagation()可中断/取消冒泡，浏览器不再向上走</strong></p>
-<p>propagation传播、蔓延</p>
-<p><strong>一般用于封装某些 独立 的组件</strong></p>
-<p>示例</p>
+<p>捕获不可取消，但冒泡可以<br>
+<strong>e.stopPropagation()可中断/取消冒泡，浏览器不再向上走</strong><br>
+propagation传播、蔓延<br>
+<strong>一般用于封装某些 独立 的组件</strong><br>
+示例</p>
 <pre><code>level4.addEventListener('click',fn,true)
 level4.addEventListener('click',(e)=&gt;{
   e.stopPropagation()
   fm(e) //调用方法
 })
 </code></pre>
-<p><strong>2.查看Bubbles和Cancelable</strong></p>
-<p><strong>所有冒泡都可取消，默认动作有的可以取消有的不能取消</strong></p>
-<p>🔍scroll event mdn</p>
+<p><strong>2.查看Bubbles和Cancelable</strong><br>
+<strong>所有冒泡都可取消，默认动作有的可以取消有的不能取消</strong><br>
+🔍scroll event mdn</p>
 <p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6d74cbf64c724cd3922a69b40a3357f9~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
-<p>Bubbles的意思是,该事件是否冒泡</p>
-<p>Cancelable的意思是,开发者是否可以阻止默认事件</p>
-<p><strong>如何查看一个事件是否可以阻止默认动作？</strong></p>
-<p>搜索该事件，查看Bubbles和Cancelable的值</p>
-<p>比如，查看&quot;click事件&quot;就🔍 click event mdn</p>
-<p><strong>3.取消默认动作e.preventDefault()</strong></p>
-<p><strong>如何阻止滚动？</strong><a href="http://js.jirengu.com/sivakuleze/1/edit?html,js,console,output">示例代码</a></p>
-<p>解析:scroll的default不是滚动，scroll之后再去触发某个动作才叫默认动作(事件)，
-所以阻止scroll默认动作没用，因先有滚动才有滚动事件。</p>
-<p><strong>要阻止滚动事件，应当阻止滚轮事件wheel的默认动作。</strong></p>
-<p>但是滚动条还能用，🔍css hide scrollbar，用CSS让滚动条display:none;</p>
+<p>Bubbles的意思是,该事件是否冒泡<br>
+Cancelable的意思是,开发者是否可以阻止默认事件</p>
+<p><strong>如何查看一个事件是否可以阻止默认动作？</strong><br>
+搜索该事件，查看Bubbles和Cancelable的值<br>
+比如，查看&quot;click事件&quot;就🔍 click event mdn</p>
+<p><strong>3.取消默认动作e.preventDefault()</strong><br>
+<strong>如何阻止滚动？</strong><a href="http://js.jirengu.com/sivakuleze/1/edit?html,js,console,output">示例代码</a></p>
+<p>解析:scroll的default不是滚动，scroll之后再去触发某个动作才叫默认动作(事件)，所以阻止scroll默认动作没用，因先有滚动才有滚动事件。<br>
+<strong>要阻止滚动事件，应当阻止滚轮事件wheel的默认动作。</strong><br>
+但是滚动条还能用，🔍css hide scrollbar，用CSS让滚动条display:none;</p>
 <p><strong>别忘了考虑手机</strong></p>
 <pre><code>css
 ::-webkit-scrollbar { //设置滚轮宽度为0
@@ -1395,16 +1418,16 @@ x.addEventListener('touchstart',(e)=&gt;{ //取消touchstart事件
   e.preventDefault()
 })
 </code></pre>
-<p><strong>总结</strong></p>
-<p><strong>1.target和currentTarget</strong></p>
-<p>一个是用户点击的，一个是开发者监听的</p>
-<p><strong>2.取消冒泡</strong></p>
-<p>e.stopPropagation()</p>
-<p><strong>3.事件的特性</strong></p>
-<p>Bubbles表示是否冒泡</p>
-<p>Cancelable表示是否支持开发者取消默认事件</p>
-<p><strong>4.如何禁用滚动</strong></p>
-<p>取消特定元素的wheel和touchstart的默认动作</p>
+<p><strong>总结</strong><br>
+<strong>1.target和currentTarget</strong><br>
+一个是用户点击的，一个是开发者监听的<br>
+<strong>2.取消冒泡</strong><br>
+e.stopPropagation()<br>
+<strong>3.事件的特性</strong><br>
+Bubbles表示是否冒泡<br>
+Cancelable表示是否支持开发者取消默认事件<br>
+<strong>4.如何禁用滚动</strong><br>
+取消特定元素的wheel和touchstart的默认动作</p>
 <h3 id="自定义事件httpsdevelopermozillaorgzh-cndocswebeventscreating_and_triggering_eventse6b7bbe58aa0e887aae5ae9ae4b989e695b0e68dae_e28093_customevent"><a href="https://developer.mozilla.org/zh-CN/docs/Web/Events/Creating_and_triggering_events#%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE_%E2%80%93_customevent">自定义事件</a></h3>
 <p><strong>浏览器自带事件</strong></p>
 <p>除了click和scroll事件还有其它 <a href="https://developer.mozilla.org/zh-CN/docs/Web/Events">事件类型(eventType)</a></p>
@@ -1439,12 +1462,12 @@ button1.addEventListener('frank', (e) =&gt; {//触发自定义事件
 <p>第1种.用遍历。可以但不推荐，遍历100遍就添加了100个监听器，每添加一个监听都会有个监听器出现在内存。</p>
 <p>第2种.监听这100个按钮的祖先，等冒泡的时候判断target是不是这100个按钮中的一个。
 绑定到祖先div上就行</p>
-<p><strong>知识点</strong></p>
-<p>1.快捷录入:<code>div&gt;button{click $}*100</code></p>
-<p>2.将标签名小写 代码:x.tagName.toLowerCase()</p>
-<p>3.标签文本 代码:x.textContent</p>
-<p>4.获取id名  代码:x.dataset.id</p>
-<p><strong>dataset可以获取以data开头的属性的值</strong></p>
+<p><strong>知识点</strong><br>
+1.快捷录入:<code>div&gt;button{click $}*100</code><br>
+2.将标签名小写 代码:x.tagName.toLowerCase()<br>
+3.标签文本 代码:x.textContent<br>
+4.获取id名  代码:x.dataset.id<br>
+<strong>dataset可以获取以data开头的属性的值</strong></p>
 <p><code>&lt;button data-id=&quot;1&quot;&gt;click 1&lt;/button&gt; </code></p>
 <p>示例</p>
 <pre><code>&lt;div id=div1&gt;
@@ -1488,15 +1511,15 @@ div1.addEventListener('click', (e) =&gt; {
     }
 })
 </code></pre>
-<p><strong>优点:</strong></p>
-<p>1.省监听数(内存)</p>
-<p>2.可以监听动态元素</p>
+<p><strong>优点:</strong><br>
+1.省监听数(内存)<br>
+2.可以监听动态元素</p>
 <h3 id="封装事件委托">封装事件委托</h3>
-<p><strong>要求</strong>  <a href="http://js.jirengu.com/casuzodeji/4/edit">代码</a></p>
-<p>写出这样一个函数on(&lsquo;click&rsquo;,&rsquo;#testDiv&rsquo;,&rsquo;li&rsquo;,fn)</p>
-<p>当用户点击#testDiv里的li元素时，调用fn函数。要求用到事件委托。</p>
-<p><strong>思路</strong></p>
-<p>判断target是否匹配&rsquo;li&rsquo;</p>
+<p><strong>要求</strong>  <a href="http://js.jirengu.com/casuzodeji/4/edit">代码</a><br>
+写出这样一个函数on(&lsquo;click&rsquo;,&rsquo;#testDiv&rsquo;,&rsquo;li&rsquo;,fn)<br>
+当用户点击#testDiv里的li元素时，调用fn函数。要求用到事件委托。<br>
+<strong>思路</strong><br>
+判断target是否匹配&rsquo;li&rsquo;</p>
 <p>解析</p>
 <pre><code>on('click','#div1','button',()=&gt;{
   console.log('button被点击了')
@@ -1506,14 +1529,14 @@ function on(){
 }
 </code></pre>
 <p>只要用户用on事件就能在#div1上做事件委托来看button有没有被点击。</p>
-<p><strong>知识点</strong></p>
-<p>1.Element.matches()</p>
-<p><strong>语法</strong></p>
-<p>let result = element.matches(selectorString);</p>
-<p><strong>result 的值为 true 或 false.</strong></p>
-<p>selectorString 是个css选择器字符串.</p>
-<p>用来判断一个元素是否适合一个选择器，返回结果为true/false</p>
-<p>比如说，判断一个元素是不是button</p>
+<p><strong>知识点</strong><br>
+1.Element.matches()<br>
+<strong>语法</strong><br>
+let result = element.matches(selectorString);<br>
+<strong>result 的值为 true 或 false.</strong><br>
+selectorString 是个css选择器字符串.<br>
+用来判断一个元素是否适合一个选择器，返回结果为true/false<br>
+比如说，判断一个元素是不是button</p>
 <p>答案一</p>
 <pre><code>&lt;div id=div1&gt;&lt;/div&gt;
 
@@ -1537,8 +1560,8 @@ function on(eventType, element, selector, fn) {
   })
 }
 </code></pre>
-<p><strong>只要用on就能实现事件委托</strong></p>
-<p>实际上这个答案是错的，但在面试中却能得到满分。</p>
+<p><strong>只要用on就能实现事件委托</strong><br>
+实际上这个答案是错的，但在面试中却能得到满分。</p>
 <p>假设在button里套个span，点击按钮测试会有什么后果？<a href="http://js.jirengu.com/jubehalefu/2/edit">代码</a></p>
 <pre><code class="language-js">setTimeout(() =&gt; {
     const button = document.createElement('button')
@@ -1573,12 +1596,12 @@ function on(eventType, element, selector, fn) {
 <p>支持,也不支持。</p>
 <p>本节课讲的DOM事件不属于JS的功能，术语浏览器提供的DOM的功能。</p>
 <p>JS只是调用了DOM提供的addEventListener而已，js本身并不支持事件。</p>
-<p><strong>总结：今天讲的内容是DOM 事件不是JS事件。</strong></p>
-<p><strong>如何当JS支持事件？请手写一个事件系统。</strong></p>
-<p><strong>面试题</strong><a href="https://zhuanlan.zhihu.com/p/60324936">用队列</a></p>
-<p><strong>面试题(高频)</strong></p>
-<p>1.请简述DOM事件模型/机制</p>
-<p>2.请简述事件委托</p>
+<p><strong>总结：今天讲的内容是DOM 事件不是JS事件。</strong><br>
+<strong>如何当JS支持事件？请手写一个事件系统。</strong></p>
+<p><strong>面试题</strong><a href="https://zhuanlan.zhihu.com/p/60324936">用队列</a><br>
+<strong>面试题(高频)</strong> <br>
+1.请简述DOM事件模型/机制<br>
+2.请简述事件委托</p>
 
 </article>
 

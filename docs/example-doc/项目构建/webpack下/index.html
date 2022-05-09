@@ -65,7 +65,8 @@
 用webpack生成CSS
 引入css(js import &lsquo;./x.css&rsquo;),通过&#39;style-loader&#39;和&#39;css-loader&#39;把css变成&lt;style&gt;标签 给我个css,通过插件MiniCssExtractPlugin,把css变成文件。把n个css变成1个文件。
 加载器与插件的区别？
-loader是加载器，plugin是插件。 loader永远是1对1，plugin是n对1。loader功能比较单一就是用来加载文件的，plugin功能丰富。
+loader是加载器，plugin是插件。
+loader永远是1对1，plugin是n对1。loader功能比较单一就是用来加载文件的，plugin功能丰富。
 用webpack生成html
 html是通过HtmlWebpackPlugin生成新的html，该html会自动引入css、js。
 面试题(必考)
@@ -94,7 +95,7 @@ dart-sass已被重命名为sass
       "item":"https://lixueqin-4119.xyz/docs/example-doc/"},{
       "@type": "ListItem",
       "position": 3 ,
-      "name":"项目构建",
+      "name":"【项目构建】",
       "item":"https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/"},{
       "@type": "ListItem",
       "position": 4 ,
@@ -115,7 +116,7 @@ dart-sass已被重命名为sass
     },
     "headline": "Webpack(下) | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
     "dateModified": "2020-10-16T00:00:00+00:00",
-    "wordCount":  405 ,
+    "wordCount":  404 ,
     "publisher": {
         "@type": "Person",
         "name": "WANG Chucheng",
@@ -124,7 +125,7 @@ dart-sass已被重命名为sass
             "url": "https://lixueqin-4119.xyz/images/icon.png"
         }
         },
-    "description": "loader VS plugin 用webpack生成JS\n我们给它个js文件，这个js文件通过webpack得到了一个新的js文件。 内置了babel-loader(库),通过这个loader把js load到webpack里面，然后webpack就输出了另外一个js。\n用webpack生成CSS\n引入css(js import \u0026lsquo;.\/x.css\u0026rsquo;),通过\u0027style-loader\u0027和\u0027css-loader\u0027把css变成\u0026lt;style\u0026gt;标签 给我个css,通过插件MiniCssExtractPlugin,把css变成文件。把n个css变成1个文件。\n加载器与插件的区别？\nloader是加载器，plugin是插件。 loader永远是1对1，plugin是n对1。loader功能比较单一就是用来加载文件的，plugin功能丰富。\n用webpack生成html\nhtml是通过HtmlWebpackPlugin生成新的html，该html会自动引入css、js。\n面试题(必考)\nwebpack loader与plugin的区别是什么？\n1.webpack loader是用来加载文件的，webpack plugin是用来扩展webpack的功能的。\n2.loader主要用来加载一个个的文件。比如说，它可以加载js文件把js文件转译成低版本浏览器可以支持的js。它也可以加载css文件，\u0027style-loader\u0027和\u0027css-loader\u0027把css变成页面上的\u0026lt;style\u0026gt;标签或其它的一些处理。它也可以加载图片文件，对图片进行一些优化。\n3.plugin是用来加强webpack功能的。\n比如说HtmlWebpackPlugin,它是用来生成html文件的，MiniCssExtractPlugin是用来抽取css代码把它变成一个css文件的。\n目标五. webapck引入SCSS 要点\nnode-sass已经过时,请使用dart-sass。\ndart-sass已被重命名为sass\n步骤 🔍webpack scss loader\n1.yarn add sass-loader sass --dev 2.新建文件x.scss,并写好样式。 \/\/scss语法,还是最原始的css 3.x.js import \u0026quot;.\/x.scss\u0026quot;; import \u0026quot;.\/y.scss\u0026quot;; 4.webpack.config.base.js添加 module: { rules: [{ test: \/\\.scss$\/i, use: [ \u0026quot;style-loader\u0026quot;, \u0026quot;css-loader\u0026quot;, \u0026quot;sass-loader\u0026quot;, ],}, ], }, webpack.config.js添加 rules: [ ...base.module.rules,\/\/先抄过来再覆盖 { test: \/\\.css$\/i, use: [\u0027style-loader\u0027, \u0027css-loader\u0027] } ] webpack.config.prod.js添加 rules: [ ."
+    "description": "loader VS plugin 用webpack生成JS\n我们给它个js文件，这个js文件通过webpack得到了一个新的js文件。 内置了babel-loader(库),通过这个loader把js load到webpack里面，然后webpack就输出了另外一个js。\n用webpack生成CSS\n引入css(js import \u0026lsquo;.\/x.css\u0026rsquo;),通过\u0027style-loader\u0027和\u0027css-loader\u0027把css变成\u0026lt;style\u0026gt;标签 给我个css,通过插件MiniCssExtractPlugin,把css变成文件。把n个css变成1个文件。\n加载器与插件的区别？\nloader是加载器，plugin是插件。\nloader永远是1对1，plugin是n对1。loader功能比较单一就是用来加载文件的，plugin功能丰富。\n用webpack生成html\nhtml是通过HtmlWebpackPlugin生成新的html，该html会自动引入css、js。\n面试题(必考)\nwebpack loader与plugin的区别是什么？\n1.webpack loader是用来加载文件的，webpack plugin是用来扩展webpack的功能的。\n2.loader主要用来加载一个个的文件。比如说，它可以加载js文件把js文件转译成低版本浏览器可以支持的js。它也可以加载css文件，\u0027style-loader\u0027和\u0027css-loader\u0027把css变成页面上的\u0026lt;style\u0026gt;标签或其它的一些处理。它也可以加载图片文件，对图片进行一些优化。\n3.plugin是用来加强webpack功能的。\n比如说HtmlWebpackPlugin,它是用来生成html文件的，MiniCssExtractPlugin是用来抽取css代码把它变成一个css文件的。\n目标五. webapck引入SCSS 要点\nnode-sass已经过时,请使用dart-sass。\ndart-sass已被重命名为sass\n步骤 🔍webpack scss loader\n1.yarn add sass-loader sass --dev 2.新建文件x.scss,并写好样式。 \/\/scss语法,还是最原始的css 3.x.js import \u0026quot;.\/x.scss\u0026quot;; import \u0026quot;.\/y.scss\u0026quot;; 4.webpack.config.base.js添加 module: { rules: [{ test: \/\\.scss$\/i, use: [ \u0026quot;style-loader\u0026quot;, \u0026quot;css-loader\u0026quot;, \u0026quot;sass-loader\u0026quot;, ],}, ], }, webpack.config.js添加 rules: [ ...base.module.rules,\/\/先抄过来再覆盖 { test: \/\\.css$\/i, use: [\u0027style-loader\u0027, \u0027css-loader\u0027] } ] webpack.config.prod.js添加 rules: [ ."
 }
 </script><meta property="og:title" content="Webpack(下) | 目录 | 博客" />
 <meta property="og:type" content="article" />
@@ -143,7 +144,8 @@ dart-sass已被重命名为sass
 用webpack生成CSS
 引入css(js import &lsquo;./x.css&rsquo;),通过&#39;style-loader&#39;和&#39;css-loader&#39;把css变成&lt;style&gt;标签 给我个css,通过插件MiniCssExtractPlugin,把css变成文件。把n个css变成1个文件。
 加载器与插件的区别？
-loader是加载器，plugin是插件。 loader永远是1对1，plugin是n对1。loader功能比较单一就是用来加载文件的，plugin功能丰富。
+loader是加载器，plugin是插件。
+loader永远是1对1，plugin是n对1。loader功能比较单一就是用来加载文件的，plugin功能丰富。
 用webpack生成html
 html是通过HtmlWebpackPlugin生成新的html，该html会自动引入css、js。
 面试题(必考)
@@ -304,7 +306,7 @@ dart-sass已被重命名为sass
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">【CSS全解】</a>
         </div>
         
         
@@ -315,7 +317,7 @@ dart-sass已被重命名为sass
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
         </div>
         
     </li>
@@ -326,7 +328,7 @@ dart-sass已被重命名为sass
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
         </div>
         
     </li>
@@ -337,7 +339,7 @@ dart-sass已被重命名为sass
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
         </div>
         
     </li>
@@ -348,7 +350,68 @@ dart-sass已被重命名为sass
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
         </div>
         
     </li>
@@ -426,68 +489,7 @@ dart-sass已被重命名为sass
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
-        </div>
-        
-        
-<ul class="ps-6">
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
-        </div>
-        
-    </li>
-    
-    
-</ul>
-
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class=" pb-2 ">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">【HTTP全解】</a>
         </div>
         
         
@@ -537,7 +539,7 @@ dart-sass已被重命名为sass
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">【JS全解】</a>
         </div>
         
         
@@ -664,7 +666,7 @@ dart-sass已被重命名为sass
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">【JS编程接口】</a>
         </div>
         
         
@@ -736,7 +738,7 @@ dart-sass已被重命名为sass
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">【JS进阶】</a>
         </div>
         
         
@@ -775,7 +777,7 @@ dart-sass已被重命名为sass
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">【React全解】</a>
         </div>
         
         
@@ -869,7 +871,7 @@ dart-sass已被重命名为sass
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">【Vue2 全解】</a>
         </div>
         
         
@@ -985,7 +987,7 @@ dart-sass已被重命名为sass
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">【其它】</a>
         </div>
         
         
@@ -1013,7 +1015,7 @@ dart-sass已被重命名为sass
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">【前后分离】</a>
         </div>
         
         
@@ -1085,11 +1087,33 @@ dart-sass已被重命名为sass
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">【算法与数据结构】</a>
         </div>
         
         
 <ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8A/">排序算法(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8B/">排序算法(下)</a>
+        </div>
+        
+    </li>
+    
     
     
     
@@ -1113,7 +1137,7 @@ dart-sass已被重命名为sass
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">【项目构建】</a>
         </div>
         
         
@@ -1191,17 +1215,17 @@ dart-sass已被重命名为sass
 
   <h3 id="loader-vs-plugin">loader VS plugin</h3>
 <p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/730a46d493fc4b1abdfcfc85331424b3~tplv-k3u1fbpfcp-zoom-1.image" alt="图片"></p>
-<p><strong>用webpack生成JS</strong></p>
-<p>我们给它个js文件，这个js文件通过webpack得到了一个新的js文件。
+<p><strong>用webpack生成JS</strong><br>
+我们给它个js文件，这个js文件通过webpack得到了一个新的js文件。
 内置了<code>babel-loader</code>(库),通过这个loader把js load到webpack里面，然后webpack就输出了另外一个js。</p>
-<p><strong>用webpack生成CSS</strong></p>
-<p>引入css(js import &lsquo;./x.css&rsquo;),通过<code>'style-loader'和'css-loader'</code>把css变成<code>&lt;style&gt;</code>标签
+<p><strong>用webpack生成CSS</strong><br>
+引入css(js import &lsquo;./x.css&rsquo;),通过<code>'style-loader'和'css-loader'</code>把css变成<code>&lt;style&gt;</code>标签
 给我个css,通过插件<code>MiniCssExtractPlugin</code>,把css变成文件。把n个css变成1个文件。</p>
-<p><strong>加载器与插件的区别？</strong></p>
-<p>loader是加载器，plugin是插件。
+<p><strong>加载器与插件的区别？</strong><br>
+loader是加载器，plugin是插件。<br>
 loader永远是1对1，plugin是n对1。loader功能比较单一就是用来加载文件的，plugin功能丰富。</p>
-<p><strong>用webpack生成html</strong></p>
-<p>html是通过<code>HtmlWebpackPlugin</code>生成新的html，该html会自动引入css、js。</p>
+<p><strong>用webpack生成html</strong><br>
+html是通过<code>HtmlWebpackPlugin</code>生成新的html，该html会自动引入css、js。</p>
 <p><strong>面试题(必考)</strong><br>
 <strong>webpack loader与plugin的区别是什么？</strong><br>
 1.webpack loader是用来加载文件的，webpack plugin是用来扩展webpack的功能的。<br>
@@ -1209,9 +1233,9 @@ loader永远是1对1，plugin是n对1。loader功能比较单一就是用来加�
 3.plugin是用来加强webpack功能的。</p>
 <p>比如说<code>HtmlWebpackPlugin</code>,它是用来生成html文件的，<code>MiniCssExtractPlugin</code>是用来抽取css代码把它变成一个css文件的。</p>
 <h3 id="目标五-webapck引入scss">目标五. webapck引入SCSS</h3>
-<p><strong>要点</strong></p>
-<p>node-sass已经过时,请使用dart-sass。</p>
-<p>dart-sass已被重命名为sass</p>
+<p><strong>要点</strong><br>
+node-sass已经过时,请使用dart-sass。<br>
+dart-sass已被重命名为sass</p>
 <p><strong>步骤</strong> 🔍<a href="https://github.com/webpack-contrib/sass-loader#getting-started">webpack scss loader</a></p>
 <pre><code class="language-js">1.yarn add sass-loader sass --dev
 2.新建文件x.scss,并写好样式。
@@ -1263,9 +1287,8 @@ webpack.config.prod.js添加
      }
 </code></pre>
 <h3 id="目标六用webapck-引入-less-和-stylus">目标六.用webapck 引入 LESS 和 Stylus</h3>
-<p><strong>经验</strong></p>
-<p>CSS有SASS、LESS、Stylus3种变种语言</p>
-<p><strong>引入less的步骤</strong> <a href="https://www.webpackjs.com/loaders/less-loader/#%E5%AE%89%E8%A3%85">🔍webpack less loader</a></p>
+<p>CSS有SASS、LESS、Stylus3种变种语言<br>
+<strong>引入less的步骤</strong> <a href="https://www.webpackjs.com/loaders/less-loader/#%E5%AE%89%E8%A3%85">🔍webpack less loader</a></p>
 <pre><code class="language-js">1.yarn add less-loader less --dev
 2.新建文件y.less,并写好样式。
 //sass,less都兼容css,所以直接修改后缀即可
@@ -1326,11 +1349,8 @@ rules: [
 <p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8a0ee587509b4c2da46a4b7b0a0c4245~tplv-k3u1fbpfcp-zoom-1.image" alt="图片"></p>
 <p><strong>遇到警告&quot;<a href="https://github.com/lixueqin-4119/webpack-demo/tree/master#readme">3步走</a>&quot;</strong></p>
 <h3 id="目标七用webpack引入图片">目标七.用webpack引入图片</h3>
-<blockquote>
-<p>用file-loader引入图片，所以东西都能用webpack引入。
-<strong>要点</strong></p>
-</blockquote>
-<p>万物皆JS</p>
+<p>用file-loader引入图片，所以东西都能用webpack引入。<br>
+<strong>要点</strong> 万物皆JS</p>
 <p>方法1&rsquo;把图片上传公司的CDN，<code>src=&quot;图片的网络地址&quot;</code> 。</p>
 <p><strong>方法2&rsquo;用相对路径。</strong> 但图片无法加载,因为server不是当前目录，而是在dist目录下。</p>
 <p><strong>步骤</strong>🔍<a href="https://www.webpackjs.com/loaders/file-loader/#%E5%AE%89%E8%A3%85">webpack image loader</a></p>
@@ -1356,9 +1376,9 @@ rules: [
 <p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b57756d6ac414197963e70cb851e9e55~tplv-k3u1fbpfcp-zoom-1.image" alt="图片"></p>
 <p>每张图片都要引一次，loader一对一。</p>
 <h3 id="目标八webpack-import-懒加载">目标八.webpack import() 懒加载</h3>
-<p><strong>使用懒加载</strong></p>
-<p><strong>为什么要懒加载，为什么不一开始就加载？</strong></p>
-<p>因为体积大。如果有100个模块那用户就要等好久才能出现。不如当用户开启某个模块时再用。</p>
+<p><strong>使用懒加载</strong><br>
+<strong>为什么要懒加载，为什么不一开始就加载？</strong><br>
+因为体积大。如果有100个模块那用户就要等好久才能出现。不如当用户开启某个模块时再用。</p>
 <p><strong>步骤</strong></p>
 <pre><code class="language-js">1.新建文件lazy.js
  export default function lazy(){
@@ -1409,11 +1429,11 @@ git push //提交新代码
 </code></pre>
 <p>如果你已经添加过想换一个新的地址，将add改为set即可。
 <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7de9b5d6c77140f69101f9bc376f5421~tplv-k3u1fbpfcp-zoom-1.image" alt="图片"></p>
-<p><strong>2&rsquo; 使用分支</strong></p>
-<p>1.先把本地dist目录删掉再重新build,新建分支并进入。</p>
-<p>2.把dist里面的东西全弄出来:除dist外全部删掉，把<code>node_modules</code>和<code>.gitignore</code>也留下。</p>
-<p>删多了可以通过重置<code>git reset --hart HEAD</code>挽回。</p>
-<p>3.把dist里面的东西都拷出来</p>
+<p><strong>2&rsquo; 使用分支</strong><br>
+1.先把本地dist目录删掉再重新build,新建分支并进入。<br>
+2.把dist里面的东西全弄出来:除dist外全部删掉，把<code>node_modules</code>和<code>.gitignore</code>也留下。<br>
+删多了可以通过重置<code>git reset --hart HEAD</code>挽回。<br>
+3.把dist里面的东西都拷出来</p>
 <pre><code class="language-js">rm -rf dist
 git add .
 git commit -m 'remove dist'

@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>命令行入门 | 目录 | 博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.1" />
+<link rel="stylesheet" href="https://lixueqin-4119.xyz/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
+<script defer src="https://lixueqin-4119.xyz/js/eureka.min.f1639ee98d6cbd85b2b5f034d27320da962002ff83159ed4e01dbc5948c42a1ab26c2d6e74c66e93f5cec4d24dbd166d.js" integrity="sha384-8WOe6Y1svYWytfA00nMg2pYgAv&#43;DFZ7U4B28WUjEKhqybC1udMZuk/XOxNJNvRZt"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+
+<script defer type="text/javascript" src="https://lixueqin-4119.xyz/js/fontawesome.min.7b735802cbde01152678cc4a867f0b4bb0597876e29adfcaf1e5b5e99d39d7af87f348fdfd91c7eaf9ed7dc1eece7c61.js" integrity="sha384-e3NYAsveARUmeMxKhn8LS7BZeHbimt/K8eW16Z0516&#43;H80j9/ZHH6vntfcHuznxh"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="https://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="一.命令缩写 程序员把动词缩写，就变成了命令 1.file不是命令没有缩写,recursive和force表示选项，无缩写
+2.cd就是改变目录的意思
+3.Git Bash 和 git 的关系是（mac系统里的终端就相当于 Git Bash）完全不一样的东西，一个是 bash，一个是 git，两种不同的软件.
+二.文件的增删改查 其它事项：
+1.程序员宿命(文件的增删改查，DOM的增删改查，HTTP的增删改查)
+2.无论做什么操作首先要确定现在的位置 cd ~/Desktop/
+3.cmd是windows自带的命令行工具缺点多,Cmder更高级需要配置！Mac推荐iterm2
+4.救命快捷键:control&#43;C 用于中断一个命令
+5.clear 清除代码
+6.~ 指用户目录，cd ~ 进入用户目录
+7.code demo用vscode打开文件
+ 查文件
+ 1.用命令行进入桌面 cd ~/Desktop/
+2.查看当前绝对路经pwd
+3.查看当前目录文件ls
+查看指定目录子文件ls&#43;文件名
+补充: ls有个潜规则默认不显示.开头的文件,例如.git
+4.查看指定文件内容代码 cat&#43;文件
+cd demo/ cat style.css  5.除了cat外，head路径/tail路径/less路径都能查看内容，区别在哪？
+(1)cat会全部展示包括多余的空格，很少用 电影里代码一直滚动效果就是用的cat,代码太多时会一直滚。
+(2)less可以通过按上下键滚动查看，退出按q键，比cat智能,高亮时要先esc
+(3)head默认展示前10行,tail默认展示后10行，但是都可以通过参数选择。
+head style.css -n 14//展示前14行 tail style.css -n 14//展示后14行   增加文件
+ 创建文件: touch/echo
+1.创建文件touch
+touch 1.txt 若不存在则创建,修改文件最后更新时间 touch 2.txt 3.txt 同时创建多个文件  2.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"",
+      "item":"https://lixueqin-4119.xyz/docs/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"目录",
+      "item":"https://lixueqin-4119.xyz/docs/example-doc/"},{
+      "@type": "ListItem",
+      "position": 3 ,
+      "name":"【Git入门】",
+      "item":"https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/"},{
+      "@type": "ListItem",
+      "position": 4 ,
+      "name":"命令行入门",
+      "item":"https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/"
+    },
+    "headline": "命令行入门 | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
+    "dateModified": "2020-10-16T00:00:00+00:00",
+    "wordCount":  255 ,
+    "publisher": {
+        "@type": "Person",
+        "name": "WANG Chucheng",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://lixueqin-4119.xyz/images/icon.png"
+        }
+        },
+    "description": "一.命令缩写 程序员把动词缩写，就变成了命令 1.file不是命令没有缩写,recursive和force表示选项，无缩写\n2.cd就是改变目录的意思\n3.Git Bash 和 git 的关系是（mac系统里的终端就相当于 Git Bash）完全不一样的东西，一个是 bash，一个是 git，两种不同的软件.\n二.文件的增删改查 其它事项：\n1.程序员宿命(文件的增删改查，DOM的增删改查，HTTP的增删改查)\n2.无论做什么操作首先要确定现在的位置 cd ~\/Desktop\/\n3.cmd是windows自带的命令行工具缺点多,Cmder更高级需要配置！Mac推荐iterm2\n4.救命快捷键:control\u002bC 用于中断一个命令\n5.clear 清除代码\n6.~ 指用户目录，cd ~ 进入用户目录\n7.code demo用vscode打开文件\n 查文件\n 1.用命令行进入桌面 cd ~\/Desktop\/\n2.查看当前绝对路经pwd\n3.查看当前目录文件ls\n查看指定目录子文件ls\u002b文件名\n补充: ls有个潜规则默认不显示.开头的文件,例如.git\n4.查看指定文件内容代码 cat\u002b文件\ncd demo\/ cat style.css  5.除了cat外，head路径\/tail路径\/less路径都能查看内容，区别在哪？\n(1)cat会全部展示包括多余的空格，很少用 电影里代码一直滚动效果就是用的cat,代码太多时会一直滚。\n(2)less可以通过按上下键滚动查看，退出按q键，比cat智能,高亮时要先esc\n(3)head默认展示前10行,tail默认展示后10行，但是都可以通过参数选择。\nhead style.css -n 14\/\/展示前14行 tail style.css -n 14\/\/展示后14行   增加文件\n 创建文件: touch\/echo\n1.创建文件touch\ntouch 1.txt 若不存在则创建,修改文件最后更新时间 touch 2.txt 3.txt 同时创建多个文件  2."
+}
+</script><meta property="og:title" content="命令行入门 | 目录 | 博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="https://lixueqin-4119.xyz/images/icon.png">
+
+
+<meta property="og:url" content="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/" />
+
+
+
+
+<meta property="og:description" content="一.命令缩写 程序员把动词缩写，就变成了命令 1.file不是命令没有缩写,recursive和force表示选项，无缩写
+2.cd就是改变目录的意思
+3.Git Bash 和 git 的关系是（mac系统里的终端就相当于 Git Bash）完全不一样的东西，一个是 bash，一个是 git，两种不同的软件.
+二.文件的增删改查 其它事项：
+1.程序员宿命(文件的增删改查，DOM的增删改查，HTTP的增删改查)
+2.无论做什么操作首先要确定现在的位置 cd ~/Desktop/
+3.cmd是windows自带的命令行工具缺点多,Cmder更高级需要配置！Mac推荐iterm2
+4.救命快捷键:control&#43;C 用于中断一个命令
+5.clear 清除代码
+6.~ 指用户目录，cd ~ 进入用户目录
+7.code demo用vscode打开文件
+ 查文件
+ 1.用命令行进入桌面 cd ~/Desktop/
+2.查看当前绝对路经pwd
+3.查看当前目录文件ls
+查看指定目录子文件ls&#43;文件名
+补充: ls有个潜规则默认不显示.开头的文件,例如.git
+4.查看指定文件内容代码 cat&#43;文件
+cd demo/ cat style.css  5.除了cat外，head路径/tail路径/less路径都能查看内容，区别在哪？
+(1)cat会全部展示包括多余的空格，很少用 电影里代码一直滚动效果就是用的cat,代码太多时会一直滚。
+(2)less可以通过按上下键滚动查看，退出按q键，比cat智能,高亮时要先esc
+(3)head默认展示前10行,tail默认展示后10行，但是都可以通过参数选择。
+head style.css -n 14//展示前14行 tail style.css -n 14//展示后14行   增加文件
+ 创建文件: touch/echo
+1.创建文件touch
+touch 1.txt 若不存在则创建,修改文件最后更新时间 touch 2.txt 3.txt 同时创建多个文件  2." />
+
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2020-10-16T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="docs" />
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">简介</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于我</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+
+
+<div class="lg:pt-12">
+    <div class="flex flex-col md:flex-row bg-secondary-bg rounded">
+        <div class="md:w-1/4 lg:w-1/5 border-e">
+            <div class="sticky top-16 pt-6">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sidebar-title" class="md:hidden mx-4 px-2 pt-4 pb-2 md:border-b text-tertiary-text md:text-primary-text">
+    <span class="font-semibold">Table of Contents</span>
+    <i class='fas fa-caret-right ms-1'></i>
+</div>
+
+<div id="sidebar-toc"
+    class="hidden md:block overflow-y-auto mx-6 md:mx-0 pe-6 pt-2 md:max-h-doc-sidebar bg-primary-bg md:bg-transparent">
+    <div class="flex flex-wrap ms-4 -me-2 p-2 bg-secondary-bg md:bg-primary-bg rounded">
+        <a class=" hover:text-eureka"
+            href="https://lixueqin-4119.xyz/docs/example-doc/">目录</a>
+        
+        
+        
+
+
+    </div>
+    
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">【CSS全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" text-eureka  hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/">【HTML全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A0%87%E7%AD%BE/">HTML标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A6%82%E8%A7%88/">HTML概览</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E9%87%8D%E7%82%B9%E6%A0%87%E7%AD%BE/">HTML重点标签</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/%E6%89%8B%E6%9C%BA%E9%A2%84%E8%A7%88-%E8%B0%83%E8%AF%95/">手机预览 &amp; 调试</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">【HTTP全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/http-%E7%8A%B6%E6%80%81%E7%A0%81/">HTTP 状态码</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/">URL 是什么</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94-node.js-server/">请求和响应 &amp; Node.js Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">【JS全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/">JavaScript 的诞生</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%87%BD%E6%95%B0/">JS函数</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1/">JS对象</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/">JS对象分类</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">JS数据类型</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E7%BB%84/">JS数组</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JS正则表达式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%8E%B7%E5%8F%96%E5%B1%8F%E5%B9%95%E5%AE%BD%E9%AB%98/">js获取屏幕宽高</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/">JS语法</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%BF%90%E7%AE%97%E7%AC%A6/">JS运算符</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">【JS编程接口】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom-%E7%BC%96%E7%A8%8B/">DOM 编程</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/dom%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/">DOM事件与事件委托</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/">jQuery 中的设计模式(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/">jQuery 中的设计模式(下)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/">手写DOM库(1)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">【JS进阶】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/">MVC(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/-mvc%E4%B8%8B-/">MVC(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">【React全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/class-%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3/">Class 组件详解</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">Hooks 原理解析</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/hooks-%E5%90%84%E4%B8%AA%E5%87%BB%E7%A0%B4/">Hooks 各个击破</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react-%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">React 类组件和函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/react%E8%B5%B7%E6%89%8B%E5%BC%8F/">React起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6/">函数组件</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/">手写 Redux</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">【Vue2 全解】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/">computed 和 watch</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/">Vue Router -前端路由实现的思路</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">数据响应式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%9E%84%E9%80%A0%E9%80%89%E9%A1%B9/">构造选项</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%A8%A1%E6%9D%BF%E6%8C%87%E4%BB%A4%E4%B8%8E%E4%BF%AE%E9%A5%B0%E7%AC%A6-/">模板、指令与修饰符</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">深入理解Vue动画原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%A1%A8%E5%8D%95%E4%B8%8Ev-model/">表单与v-model</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/">起手式</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%BF%9B%E9%98%B6%E6%9E%84%E9%80%A0%E5%B1%9E%E6%80%A7/">进阶构造属性</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">【其它】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/">云服务器</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">【前后分离】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/">AJAX 的原理</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/">Ajax实战:Cookie、Session</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E5%BC%82%E6%AD%A5%E4%B8%8Epromise/">异步与Promise</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E8%B7%A8%E5%9F%9Fcorsjsonp/">跨域、CORS、JSONP</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/">静态服务器Static Server</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">【算法与数据结构】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8A/">排序算法(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8B/">排序算法(下)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">【项目构建】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/">Webpack(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8B/">Webpack(下)</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+</ul>
+
+</div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <div class="w-full md:w-3/4 lg:w-4/5 pb-8 pt-2 md:pt-8">
+            <div class="flex">
+                <div class="w-full lg:w-3/4 px-6">
+                    <article class="prose">
+  <h1 class="mb-4">命令行入门</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2020-10-16</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>2 min read</span>
+  </div>
+
+  
+
+  
+</div>
+
+
+  
+  
+
+  <h2 id="一命令缩写">一.命令缩写</h2>
+<p>程序员把动词缩写，就变成了命令
+<img src="https://img-blog.csdnimg.cn/c610e34a6af040e9ac135cb172fed9a9.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAYndjeGw=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="请添加图片描述">
+1.file不是命令没有缩写,recursive和force表示选项，无缩写<br>
+2.cd就是改变目录的意思<br>
+3.Git Bash 和 git 的关系是（mac系统里的终端就相当于 Git Bash）完全不一样的东西，一个是 bash，一个是 git，两种不同的软件.</p>
+<h2 id="二文件的增删改查">二.文件的增删改查</h2>
+<p><strong>其它事项：</strong></p>
+<p>1.程序员宿命(文件的增删改查，DOM的增删改查，HTTP的增删改查)</p>
+<p>2.无论做什么操作首先要确定现在的位置 <code>cd ~/Desktop/</code></p>
+<p>3.cmd是windows自带的命令行工具缺点多,Cmder更高级需要配置！Mac推荐iterm2</p>
+<p>4.救命快捷键:control+C 用于中断一个命令</p>
+<p>5.clear 清除代码</p>
+<p>6.<code>~ </code>指用户目录，<code>cd ~ </code>进入用户目录</p>
+<p>7.<code>code demo</code>用vscode打开文件</p>
+<blockquote>
+<p>查文件</p>
+</blockquote>
+<p>1.用命令行进入桌面 <code>cd ~/Desktop/</code></p>
+<p>2.查看当前绝对路经<code>pwd</code></p>
+<p>3.查看当前目录文件<code>ls</code></p>
+<p>查看指定目录子文件<code>ls+文件名</code></p>
+<p><strong>补充:</strong> ls有个潜规则默认不显示<code>.</code>开头的文件,例如<code>.git</code></p>
+<p>4.查看指定文件内容代码 cat+文件</p>
+<pre><code>cd demo/
+cat style.css
+</code></pre>
+<p><strong>5.除了cat外，head路径/tail路径/less路径都能查看内容，区别在哪？</strong></p>
+<p>(1)cat会全部展示包括多余的空格，很少用
+电影里代码一直滚动效果就是用的<code>cat</code>,代码太多时会一直滚。</p>
+<p>(2)less可以通过按上下键滚动查看，退出按<code>q</code>键，比cat智能,高亮时要先<code>esc</code></p>
+<p>(3)head默认展示前10行,tail默认展示后10行，但是都可以通过参数选择。</p>
+<pre><code>head style.css -n 14//展示前14行
+tail style.css -n 14//展示后14行
+</code></pre>
+<blockquote>
+<p>增加文件</p>
+</blockquote>
+<p><strong>创建文件: touch/echo</strong></p>
+<p>1.创建文件<code>touch</code></p>
+<pre><code>touch 1.txt   若不存在则创建,修改文件最后更新时间
+touch 2.txt 3.txt  同时创建多个文件
+</code></pre>
+<p>2.echo回声 用于创建有内容的文件</p>
+<p>(1)<code>echo xxx </code>返回xxx</p>
+<p>例子：<code>echo 你好</code> 返回你好</p>
+<p>(2)<code>echo xxx &gt; 文件名</code> 创建文件内容为xxx</p>
+<p>例子：<code>echo hello &gt; index.html </code></p>
+<p>新建index.html，代码内容为hello,会被覆盖</p>
+<p>(3)<code>echo xxx &gt;&gt; 文件名</code> 追加新内容，不会被覆盖</p>
+<p>例子：<code>echo 世界 &gt;&gt; index.html</code></p>
+<p>(4)<code>echo -e &quot;xxx\nyyy&quot; &gt;&gt; index.html</code> 一次性增加2行内容</p>
+<p>例子：<code>echo -e &quot;hello\nworld&quot; &gt;&gt; index.html</code></p>
+<blockquote>
+<p>创建目录：mkdir</p>
+</blockquote>
+<p>1.<code>mkdir</code> 创建目录</p>
+<p>单个目录 <code>mkdir a</code>, 多个目录<code>mkdir a b c</code></p>
+<p>2.<code>mkdir -p 目录名</code> 创建多层目录</p>
+<p>例子：<code>mkdir -p a/b/c/d</code></p>
+<p>3.创建多个嵌套目录 <code>mkdir -p a/b/c a/d/c</code></p>
+<blockquote>
+<p>cp</p>
+</blockquote>
+<p>1.拷贝文件</p>
+<pre><code>echo hi &gt; index.html
+cp index.html index2.html          
+</code></pre>
+<p>2.复制目录cp -r 文件1 文件2</p>
+<pre><code>mkdir demo
+cp -r demo demo2  
+</code></pre>
+<blockquote>
+<p>删除</p>
+</blockquote>
+<pre><code>删文件 rm index.html
+删目录 rm -r demo
+</code></pre>
+<blockquote>
+<p>修改</p>
+</blockquote>
+<p><strong>1.修改文件内容</strong>
+1’用echo往里面追加<br>
+2’用code打开<br>
+3’start默认程序打开<br>
+修改和追加基本用这3种就能搞定<br>
+步骤:先设置默认打开程序为vscode,然后运行start demo</p>
+<p>2.<code>echo ' ' &gt; index.html</code> 清空文件,追加空字符</p>
+<p><strong>3.移动和重命名是一个操作！</strong><br>
+改文件名 <code>mv demo demo2</code></p>
+<p>4.<code>ls -l</code> 查看更新时间</p>
+<p>修改文件最后更新时间<code>touch style.css</code></p>
+<p>5.查文档命令记不住,太长不想读，tldr程序会提供最常用的命令。</p>
+<pre><code class="language-js">tldr ls  //查ls的用法
+yarn global add tldr //安装
+tldr --version
+</code></pre>
+<h2 id="三命令的组合">三.命令的组合</h2>
+<p>命令有成功和失败，终端成功不会显示且返回值为0，失败会提示error且返回值为非0的正数。<code>echo $?</code>可查看各个操作的返回值。</p>
+<p><strong>1.&amp;&amp;操作 当一条命令成功之后，执行另一条</strong></p>
+<p><strong>例子:</strong> touch 1.txt &amp;&amp; echo 创建成功</p>
+<p>当前面的成功之后才会继续执行下一个，也可以拼接多个</p>
+<p><strong>2.<code>;</code>操作 不管成功失败，都执行另一条</strong></p>
+<pre><code>rm 1.txt ; echo 删除成功
+</code></pre>
+<p><strong>3.把命令变成文件<code>chmod +x</code></strong></p>
+<p>例子:新建文件a包括3个子文件最少要10s，有没有方法一键搞定？</p>
+<pre><code>touch 一键搞定
+code 一键搞定
+</code></pre>
+<p>然后打开一键搞定添加操作：</p>
+<pre><code class="language-js">mkdir x  //回车代替;
+cd x 
+touch index.html
+touch style.css
+touch main.js
+echo -e &quot;&lt;!DOCTYPE html&gt;\n&lt;h1&gt;标题&lt;/h1&gt;&quot; &gt;&gt;index.html 
+</code></pre>
+<p>执行：</p>
+<pre><code class="language-js">chmod +x 一键搞定  //Mac添加可执行权限，一键搞定这个脚本它就是可执行的了    
+./一键搞定         //当前目录下
+</code></pre>
+<p><strong>传参数：</strong><br>
+再次执行<code>./一键搞定</code>则会报错，因为x已经存在了。<br>
+这个问题可以通过传参数搞定。</p>
+<p>怎么接收参数呢？把x改为<code>$1</code>, $1指要传递的参数
+<img src="https://img-blog.csdnimg.cn/a0c38ba9330342d58b4258f1efbaac1b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAYndjeGw=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<pre><code>终端: ./一键搞定 xxx
+</code></pre>
+<p><strong>总结</strong><br>
+1.这就是脚本的厉害之处，它可以把你之前通过鼠标不停重复的事情，全部写到一个文件里，通过接收一个参数一键帮你搞定。<br>
+2.可以用sh代替./ ,sh是bash的缩写。 命令行的本质就是个可执行的文件而已<br>
+3.shebang是一行注释加上之后就可以指定用什么程序来运行当前的脚本。今天学的是bash,所以是bash脚本文件，bashscript语法。</p>
+
+</article>
+
+                    
+                    
+                    
+
+                    
+
+
+
+                    
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+        <span class="text-primary-text block font-bold"
+          >Previous</span
+        >
+        <a href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/" class="block">Git远程仓库 -GitHub</a>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+        <span class="text-primary-text block font-bold">Next</span>
+        <a href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/" class="block">本地仓库</a>
+      
+    </div>
+  </div>
+
+
+                    
+
+
+
+                </div>
+                
+                <div class="hidden lg:block lg:w-1/4">
+                    
+                    <div
+  class="
+    bg-secondary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>On This Page</h3>
+</div>
+<div
+  class="sticky-toc 
+    border-s
+   hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一命令缩写">一.命令缩写</a></li>
+    <li><a href="#二文件的增删改查">二.文件的增删改查</a></li>
+    <li><a href="#三命令的组合">三.命令的组合</a></li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+                    
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        hljs.initHighlightingOnLoad();
+        changeSidebarHeight();
+        switchDocToc();
+    })
+</script>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2021 <a href="https://www.wangchucheng.com/">WANG Chucheng</a> and <a href="https://www.ruiqima.com/">MA Ruiqi</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>

@@ -60,14 +60,13 @@
 <link rel="apple-touch-icon" sizes="180x180" href="https://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
 
 <meta name="description"
-  content="1.文章 阮一峰 、中文文档(jQuery有哪些功能)
-2.完整代码
-1.简写jQuery window.$=window.jQuery  方法:页面最后添加window.$=window.jQuery,任意地方就可以直接使用$
-代码：$(&#39;.test&#39;).children().print()
+  content="文章:阮一峰 、jQuery有哪些功能、完整代码
+1.简写jQuery window.$=window.jQuery  方法:页面最后添加上面的代码,那么任意地方就可以直接使用$
+比如：$(&#39;.test&#39;).children().print()
 类似于bash alias,添加一个别名即可。
 window.jQuery=function(selectorOrArrayOrtemplate){...} window.$=window.jQuery 这两句可以合成下面一句 window.$=window.jQuery=function(selectorOrArrayOrtemplate){...}  执行顺序：当两个=在同一行时,那么是从右边开始执行的。
-也就是说，先执行window.jQuery=function(selectorOrArrayOrtemplate){&hellip;}，
-得到window.jQuery的值后，再将值赋值给window.$。
+也就是说，先执行
+window.jQuery=function(selectorOrArrayOrtemplate){...}  得到window.jQuery的值后，再将值赋值给window.$。
 2.命名风格 下面的代码令人误解
 const div1=$(&#39;.test&#39;) const div2=document.querySelector(&#39;.test&#39;)  我们会误以为div1是一个DOM,实际上div1是jQuery构造的api对象。
 DOM对象只能用DOM API 如querySelector、appendChild
@@ -98,7 +97,7 @@ $div.remove() $div.empty()  三.改
       "item":"https://lixueqin-4119.xyz/docs/example-doc/"},{
       "@type": "ListItem",
       "position": 3 ,
-      "name":"JS编程接口",
+      "name":"【JS编程接口】",
       "item":"https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/"},{
       "@type": "ListItem",
       "position": 4 ,
@@ -119,7 +118,7 @@ $div.remove() $div.empty()  三.改
     },
     "headline": "jQuery 中的设计模式(下) | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
     "dateModified": "2020-10-16T00:00:00+00:00",
-    "wordCount":  254 ,
+    "wordCount":  252 ,
     "publisher": {
         "@type": "Person",
         "name": "WANG Chucheng",
@@ -128,7 +127,7 @@ $div.remove() $div.empty()  三.改
             "url": "https://lixueqin-4119.xyz/images/icon.png"
         }
         },
-    "description": "1.文章 阮一峰 、中文文档(jQuery有哪些功能)\n2.完整代码\n1.简写jQuery window.$=window.jQuery  方法:页面最后添加window.$=window.jQuery,任意地方就可以直接使用$\n代码：$(\u0027.test\u0027).children().print()\n类似于bash alias,添加一个别名即可。\nwindow.jQuery=function(selectorOrArrayOrtemplate){...} window.$=window.jQuery 这两句可以合成下面一句 window.$=window.jQuery=function(selectorOrArrayOrtemplate){...}  执行顺序：当两个=在同一行时,那么是从右边开始执行的。\n也就是说，先执行window.jQuery=function(selectorOrArrayOrtemplate){\u0026hellip;}，\n得到window.jQuery的值后，再将值赋值给window.$。\n2.命名风格 下面的代码令人误解\nconst div1=$(\u0027.test\u0027) const div2=document.querySelector(\u0027.test\u0027)  我们会误以为div1是一个DOM,实际上div1是jQuery构造的api对象。\nDOM对象只能用DOM API 如querySelector、appendChild\njQuery对象只能用jQuery的API 如find、each\n错误用法：div1.document.querySelector(\u0026rsquo;.test\u0027)\n怎么避免这种误解，如何区分？\njQuery API加$ ,DOM API 加el或不加 。\nconst $div1=$(\u0027.test\u0027) const elDiv2=document.querySelector(\u0027.test\u0027) 或者 const div2=document.querySelector(\u0027.test\u0027)  $开头的变量都是jQuery对象\n3.链式风格 jQuery.prototyppe\njQuery实际上就是调用dom api,除此之外就是加一些if\/for循环\n一.增\n$(\u0027\u0026lt;div\u0026gt;\u0026lt;span\u0026gt;1\u0026lt;\/span\u0026gt;\u0026lt;\/div\u0026gt;\u0027) .appendTo(document.body) 插入到body中  思路:\nconst $div=$(\u0027\u0026lt;div\u0026gt;\u0026lt;\/div\u0026gt;\u0027) $div.appendTo(document.body)  二.删\n$div.remove() $div.empty()  三.改\n1.`$div.text(?)`读写文本内容 2.`$div.html?)`读写html内容 3.`$div.attr(\u0027title\u0027,?)`读写属性 4.`$div.css({color:\u0027red\u0027})`读写style 5.`$div.addClass(\u0027blue\u0027)`添加class 6.`$div.on(\u0027click\u0027,fn)` 添加事件监听 7."
+    "description": "文章:阮一峰 、jQuery有哪些功能、完整代码\n1.简写jQuery window.$=window.jQuery  方法:页面最后添加上面的代码,那么任意地方就可以直接使用$\n比如：$(\u0027.test\u0027).children().print()\n类似于bash alias,添加一个别名即可。\nwindow.jQuery=function(selectorOrArrayOrtemplate){...} window.$=window.jQuery 这两句可以合成下面一句 window.$=window.jQuery=function(selectorOrArrayOrtemplate){...}  执行顺序：当两个=在同一行时,那么是从右边开始执行的。\n也就是说，先执行\nwindow.jQuery=function(selectorOrArrayOrtemplate){...}  得到window.jQuery的值后，再将值赋值给window.$。\n2.命名风格 下面的代码令人误解\nconst div1=$(\u0027.test\u0027) const div2=document.querySelector(\u0027.test\u0027)  我们会误以为div1是一个DOM,实际上div1是jQuery构造的api对象。\nDOM对象只能用DOM API 如querySelector、appendChild\njQuery对象只能用jQuery的API 如find、each\n错误用法：div1.document.querySelector(\u0026rsquo;.test\u0027)\n怎么避免这种误解，如何区分？\njQuery API加$ ,DOM API 加el或不加 。\nconst $div1=$(\u0027.test\u0027) const elDiv2=document.querySelector(\u0027.test\u0027) 或者 const div2=document.querySelector(\u0027.test\u0027)  $开头的变量都是jQuery对象\n3.链式风格 jQuery.prototyppe\njQuery实际上就是调用dom api,除此之外就是加一些if\/for循环\n一.增\n$(\u0027\u0026lt;div\u0026gt;\u0026lt;span\u0026gt;1\u0026lt;\/span\u0026gt;\u0026lt;\/div\u0026gt;\u0027) .appendTo(document.body) 插入到body中  思路:\nconst $div=$(\u0027\u0026lt;div\u0026gt;\u0026lt;\/div\u0026gt;\u0027) $div.appendTo(document.body)  二.删\n$div.remove() $div.empty()  三.改\n1.`$div.text(?)`读写文本内容 2.`$div.html?)`读写html内容 3.`$div.attr(\u0027title\u0027,?)`读写属性 4.`$div.css({color:\u0027red\u0027})`读写style 5.`$div.addClass(\u0027blue\u0027)`添加class 6.`$div.on(\u0027click\u0027,fn)` 添加事件监听 7."
 }
 </script><meta property="og:title" content="jQuery 中的设计模式(下) | 目录 | 博客" />
 <meta property="og:type" content="article" />
@@ -142,14 +141,13 @@ $div.remove() $div.empty()  三.改
 
 
 
-<meta property="og:description" content="1.文章 阮一峰 、中文文档(jQuery有哪些功能)
-2.完整代码
-1.简写jQuery window.$=window.jQuery  方法:页面最后添加window.$=window.jQuery,任意地方就可以直接使用$
-代码：$(&#39;.test&#39;).children().print()
+<meta property="og:description" content="文章:阮一峰 、jQuery有哪些功能、完整代码
+1.简写jQuery window.$=window.jQuery  方法:页面最后添加上面的代码,那么任意地方就可以直接使用$
+比如：$(&#39;.test&#39;).children().print()
 类似于bash alias,添加一个别名即可。
 window.jQuery=function(selectorOrArrayOrtemplate){...} window.$=window.jQuery 这两句可以合成下面一句 window.$=window.jQuery=function(selectorOrArrayOrtemplate){...}  执行顺序：当两个=在同一行时,那么是从右边开始执行的。
-也就是说，先执行window.jQuery=function(selectorOrArrayOrtemplate){&hellip;}，
-得到window.jQuery的值后，再将值赋值给window.$。
+也就是说，先执行
+window.jQuery=function(selectorOrArrayOrtemplate){...}  得到window.jQuery的值后，再将值赋值给window.$。
 2.命名风格 下面的代码令人误解
 const div1=$(&#39;.test&#39;) const div2=document.querySelector(&#39;.test&#39;)  我们会误以为div1是一个DOM,实际上div1是jQuery构造的api对象。
 DOM对象只能用DOM API 如querySelector、appendChild
@@ -312,7 +310,7 @@ $div.remove() $div.empty()  三.改
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">【CSS全解】</a>
         </div>
         
         
@@ -323,7 +321,7 @@ $div.remove() $div.empty()  三.改
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
         </div>
         
     </li>
@@ -334,7 +332,7 @@ $div.remove() $div.empty()  三.改
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
         </div>
         
     </li>
@@ -345,7 +343,7 @@ $div.remove() $div.empty()  三.改
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
         </div>
         
     </li>
@@ -356,7 +354,68 @@ $div.remove() $div.empty()  三.改
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
         </div>
         
     </li>
@@ -434,68 +493,7 @@ $div.remove() $div.empty()  三.改
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
-        </div>
-        
-        
-<ul class="ps-6">
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
-        </div>
-        
-    </li>
-    
-    
-</ul>
-
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class=" pb-2 ">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">【HTTP全解】</a>
         </div>
         
         
@@ -545,7 +543,7 @@ $div.remove() $div.empty()  三.改
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">【JS全解】</a>
         </div>
         
         
@@ -672,7 +670,7 @@ $div.remove() $div.empty()  三.改
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">【JS编程接口】</a>
         </div>
         
         
@@ -744,7 +742,7 @@ $div.remove() $div.empty()  三.改
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">【JS进阶】</a>
         </div>
         
         
@@ -783,7 +781,7 @@ $div.remove() $div.empty()  三.改
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">【React全解】</a>
         </div>
         
         
@@ -877,7 +875,7 @@ $div.remove() $div.empty()  三.改
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">【Vue2 全解】</a>
         </div>
         
         
@@ -993,7 +991,7 @@ $div.remove() $div.empty()  三.改
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">【其它】</a>
         </div>
         
         
@@ -1021,7 +1019,7 @@ $div.remove() $div.empty()  三.改
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">【前后分离】</a>
         </div>
         
         
@@ -1093,11 +1091,33 @@ $div.remove() $div.empty()  三.改
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">【算法与数据结构】</a>
         </div>
         
         
 <ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8A/">排序算法(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8B/">排序算法(下)</a>
+        </div>
+        
+    </li>
+    
     
     
     
@@ -1121,7 +1141,7 @@ $div.remove() $div.empty()  三.改
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">【项目构建】</a>
         </div>
         
         
@@ -1197,21 +1217,22 @@ $div.remove() $div.empty()  三.改
   
   
 
-  <p>1.文章  <a href="http://www.ruanyifeng.com/blog/2011/07/jquery_fundamentals.html">阮一峰</a> 、<a href="https://www.jquery123.com/">中文文档(jQuery有哪些功能)</a></p>
-<p>2.<a href="https://github.com/FrankFang/dom-2-prototype/blob/master/src/jquery.js">完整代码</a></p>
+  <p>文章:<a href="http://www.ruanyifeng.com/blog/2011/07/jquery_fundamentals.html">阮一峰</a> 、<a href="https://www.jquery123.com/">jQuery有哪些功能</a>、<a href="https://github.com/FrankFang/dom-2-prototype/blob/master/src/jquery.js">完整代码</a></p>
 <h3 id="1简写jquery">1.简写jQuery</h3>
 <pre><code>window.$=window.jQuery
 </code></pre>
-<p>方法:页面最后添加<code>window.$=window.jQuery</code>,任意地方就可以直接使用<code>$</code></p>
-<p><code>代码：$('.test').children().print()</code></p>
-<p>类似于bash alias,添加一个别名即可。</p>
+<p>方法:页面最后添加上面的代码,那么任意地方就可以直接使用<code>$</code><br>
+比如<code>：$('.test').children().print()</code><br>
+类似于bash alias,添加一个别名即可。</p>
 <pre><code class="language-js">window.jQuery=function(selectorOrArrayOrtemplate){...}
 window.$=window.jQuery
 这两句可以合成下面一句
 window.$=window.jQuery=function(selectorOrArrayOrtemplate){...}
 </code></pre>
-<p><strong>执行顺序：当两个=在同一行时,那么是从右边开始执行的。</strong></p>
-<p>也就是说，先执行window.jQuery=function(selectorOrArrayOrtemplate){&hellip;}，</p>
+<p><strong>执行顺序：当两个=在同一行时,那么是从右边开始执行的。</strong><br>
+也就是说，先执行</p>
+<pre><code>window.jQuery=function(selectorOrArrayOrtemplate){...}
+</code></pre>
 <p>得到window.jQuery的值后，再将值赋值给window.$。</p>
 <h3 id="2命名风格">2.命名风格</h3>
 <p><strong>下面的代码令人误解</strong></p>
@@ -1219,20 +1240,20 @@ window.$=window.jQuery=function(selectorOrArrayOrtemplate){...}
 const div2=document.querySelector('.test')
 </code></pre>
 <p>我们会误以为div1是一个DOM,实际上div1是jQuery构造的api对象。</p>
-<p><strong>DOM对象只能用DOM API</strong> 如querySelector、appendChild</p>
-<p><strong>jQuery对象只能用jQuery的API</strong> 如find、each</p>
-<p>错误用法：div1.document.querySelector(&rsquo;.test')</p>
-<p><strong>怎么避免这种误解，如何区分？</strong></p>
-<p><strong>jQuery API加$ ,DOM API 加el或不加 。</strong></p>
+<p><strong>DOM对象只能用DOM API</strong> 如querySelector、appendChild<br>
+<strong>jQuery对象只能用jQuery的API</strong> 如find、each<br>
+错误用法：div1.document.querySelector(&rsquo;.test')</p>
+<p><strong>怎么避免这种误解，如何区分？</strong><br>
+<strong>jQuery API加$ ,DOM API 加el或不加 。</strong></p>
 <pre><code>const $div1=$('.test')
 const elDiv2=document.querySelector('.test') 
 或者 const div2=document.querySelector('.test') 
 </code></pre>
 <p><strong>$开头的变量都是jQuery对象</strong></p>
 <h2 id="3链式风格">3.链式风格</h2>
-<p>jQuery.prototyppe</p>
-<p>jQuery实际上就是调用dom api,除此之外就是加一些if/for循环</p>
-<p>一.增</p>
+<p>jQuery.prototyppe<br>
+jQuery实际上就是调用dom api,除此之外就是加一些if/for循环<br>
+一.增</p>
 <pre><code>$('&lt;div&gt;&lt;span&gt;1&lt;/span&gt;&lt;/div&gt;')
 
 .appendTo(document.body) 插入到body中
@@ -1262,17 +1283,16 @@ $div.empty()
 
 7.`$div.off('click',fn)`删除事件监听
 </code></pre>
-<p><strong>注意</strong></p>
-<p><code>$div</code>大部分时候对应了多个div元素</p>
-<p>思路</p>
-<p>传参就是写文本，没传参就是读文本。</p>
-<p>1.<code>$div.css</code>是用来操作&quot;内联的style&quot;</p>
-<p>2.<code>$div</code>有可能是一个也有可能是多个div,要默认div是数组然后遍历它，每一个操作都要遍历。</p>
+<p><strong>注意</strong>:<code>$div</code>大部分时候对应了多个div元素</p>
+<p>思路<br>
+传参就是写文本，没传参就是读文本。<br>
+1.<code>$div.css</code>是用来操作&quot;内联的style&quot;<br>
+2.<code>$div</code>有可能是一个也有可能是多个div,要默认div是数组然后遍历它，每一个操作都要遍历。</p>
 <h2 id="4使用原型节约内存">4.使用原型(节约内存)</h2>
-<p><strong>使用原型</strong></p>
-<p>把共用属性(函数)全部放到<code>$.prototype</code></p>
-<p><code>$.fn=$.prototype</code> //名字太长</p>
-<p>然后让api.__proto__指向<code>$.fn</code></p>
+<p><strong>使用原型</strong><br>
+把共用属性(函数)全部放到<code>$.prototype</code><br>
+<code>$.fn=$.prototype</code> //名字太长<br>
+然后让api.__proto__指向<code>$.fn</code></p>
 <p>我们声明了一个函数，这个函数会获取到这个elements，然后会返回一个对象，这个对象里面的api会去操作这个elements。</p>
 <pre><code>window.$ = window.jQuery = function (selectorOrArray) { //声明函数
   let elements  //获取elements
@@ -1292,12 +1312,12 @@ $div.empty()
 <pre><code>const api1=$('.red')
 const api2=$('.blue')
 </code></pre>
-<p>api1和api2的内存实际上是一摸一样的，都需要find和each。</p>
-<p><strong>那既然是共用属性，我们就可以把共用函数写到一个对象上去。</strong></p>
-<p>然后将原型指向共用对象__proto__:#619</p>
-<p><strong>那#619这个对象叫什么名字？放哪？</strong></p>
-<p>把这个对象放到jQuery上。#619=jQuery.prototype</p>
-<p>即api1.<strong>proto</strong>===jQuery.prototype</p>
+<p>api1和api2的内存实际上是一摸一样的，都需要find和each。<br>
+<strong>那既然是共用属性，我们就可以把共用函数写到一个对象上去。</strong><br>
+然后将原型指向共用对象__proto__:#619</p>
+<p><strong>那#619这个对象叫什么名字？放哪？</strong><br>
+把这个对象放到jQuery上。#619=jQuery.prototype<br>
+即api1.<strong>proto</strong>===jQuery.prototype</p>
 <h3 id="代码如何实现">代码如何实现？</h3>
 <p><strong>第1步</strong>
 <strong>先把函数都移走，只留下自己的属性。然后加上下面的代码：</strong></p>
@@ -1382,26 +1402,26 @@ setText('newValue')
 现在一个函数就够了：
 $div.text('newValue') //传了参数就是写，否则就是读。
 </code></pre>
-<p><strong>5.别名</strong></p>
-<p><code>$.fn是$.prototype</code>的别名，让一个名字=另外一个名字，这叫别名</p>
-<p><strong>6.适配器</strong></p>
-<p>jQuery针对不同的浏览器使用不同代码，这叫适配器。</p>
-<p>if&hellip;else</p>
-<p><strong>设计模式是啥？</strong></p>
-<p>这个代码写的太漂亮了，别人肯定也用得到</p>
-<p>那就给这种写法取个名字吧，比如适配器模式</p>
-<p>设计模式就是对通用代码取个名字而已</p>
+<p><strong>5.别名</strong><br>
+<code>$.fn是$.prototype</code>的别名，让一个名字=另外一个名字，这叫别名<br>
+<strong>6.适配器</strong><br>
+jQuery针对不同的浏览器使用不同代码，这叫适配器。<br>
+if&hellip;else</p>
+<p><strong>设计模式是啥？</strong><br>
+这个代码写的太漂亮了，别人肯定也用得到<br>
+那就给这种写法取个名字吧，比如适配器模式<br>
+设计模式就是对通用代码取个名字而已</p>
 <h3 id="应该学习设计模式吗">应该学习设计模式吗？</h3>
-<p><strong>设计模式不是用来学的</strong></p>
-<p>你看了这些代码，但你并不知道这代码解决什么问题</p>
-<p>看了白看</p>
-<p><strong>设计模式是用来总结的</strong></p>
-<p>你只管去写代码</p>
-<p>把你的代码尽量写好，不断重写</p>
-<p>总结你的代码，把写得好的地方抽象出来</p>
-<p>看看符合哪个设计模式</p>
-<p>你就可以告诉别人你用到了这几个设计模式</p>
-<p>jQuery简单又经典，通过jQuery可以学会很多封装技巧。</p>
+<p><strong>设计模式不是用来学的</strong><br>
+你看了这些代码，但你并不知道这代码解决什么问题<br>
+看了白看<br>
+<strong>设计模式是用来总结的</strong><br>
+你只管去写代码<br>
+把你的代码尽量写好，不断重写<br>
+总结你的代码，把写得好的地方抽象出来<br>
+看看符合哪个设计模式<br>
+你就可以告诉别人你用到了这几个设计模式<br>
+jQuery简单又经典，通过jQuery可以学会很多封装技巧。</p>
 
 </article>
 

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>JS全解 on 博客</title>
+    <title>【JS全解】 on 博客</title>
     <link>https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/</link>
-    <description>Recent content in JS全解 on 博客</description>
+    <description>Recent content in 【JS全解】 on 博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 07 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>JavaScript 的诞生</title>
       <link>https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/javascript-%E7%9A%84%E8%AF%9E%E7%94%9F/</link>
@@ -95,23 +95,21 @@ let f=new Function(&#39;x&#39;,&#39;y&#39;,&#39;return x+y&#39;)  基本没人�
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/</guid>
-      <description>其它
-1.推荐文章
+      <description>推荐文章
 你可以不会class，但是一定要学会prototype
 JS的new到底是干什么的？
 JS中proto和prototype存在的意义是什么？
 ES6 所有新特性
-2.构造函数就是可以构造出对象的函数
-3.封装:把细节写到一个函数里，别人只需要调用函数并且传个参数(宽度)
-4.函数也是对象
-5.js之父为了让new可以运行提前规定:
+1.构造函数就是可以构造出对象的函数
+2.封装:把细节写到一个函数里，别人只需要调用函数并且传个参数(宽度)
+3.函数也是对象
+4.js之父为了让new可以运行提前规定:
 所有js里的函数自带prototype属性。
 prototype属性自带constructor。
 constructor的值等于函数本身。
-6.共有属性与原型的关系：包含与被包含。
+5.共有属性与原型的关系：包含与被包含。
 共有属性这整个对象叫做原型。
-对象的地址就是原型的地址，里面的每一个属性叫共有属性。
-对象需要分类吗？  需求：输出各种形状的面积和周长
+对象的地址就是原型的地址，里面的每一个属性叫共有属性。 对象需要分类吗？  需求：输出各种形状的面积和周长
  正方形 分析 正方形有三个属性:边长、面积、周长 let square={ width:5, getArea(){ return this.width * this.width }, getLength(){ return this.width * 4 } }  来一打正方形
 let squareList=[] for(let i=0;i&amp;lt;12;i++){ squareList[1]={ width:5, getArea(){ return this.width * this.width }, getLength(){ return this.width * 4 } } }  width不全是5怎么办？
 let squareList=[] let widthList=[5,6,7,8,5,6,7,5,5,4,5,6] for(let i=0;i&amp;lt;12;i++){ squareList[i]={ width:widthList[i], getArea(){ return this.width * this.</description>
@@ -123,15 +121,8 @@ let squareList=[] let widthList=[5,6,7,8,5,6,7,5,5,4,5,6] for(let i=0;i&amp;lt;1
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
-      <description>其它
-1.推荐阅读《我用了两个月的时间才理解 let》
-2.markdown如何输入上下标 输入上标，如x^2 , 则输入x^2
-3.键盘怎么打顿号？中文状态下点击&amp;quot;|&amp;ldquo;键
-4.二进制只有0和1
-5.前6种类型都是简单类型，只有object叫做复杂类型
-6.JS秘密花园收录了JS的各种bug
-7.JS新增了一种类型bigint 因为太新了用得很少,面试基本不考。
- 数据为什么需要类型？ 数字与字符串
+      <description>推荐阅读《我用了两个月的时间才理解let》
+数据为什么需要类型？ 数字与字符串
 (1)功能不同
 数字是数字，字符串是字符串，要严谨
 数字能加减乘除，字符串不行
@@ -152,7 +143,11 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
 100011=2^5 + 2^1 + 2^0=35
 用十六进制表示二进制
 十六进制是二进制的简写(把每4位改写成1位)
-十六进制：0 1 2 3 4 5 6 7 8 9 A B C D E F</description>
+十六进制：0 1 2 3 4 5 6 7 8 9 A B C D E F
+十六进制没有大于9的数字，后面是字母替代
+JS如何存字符？ 1.英文编号
+转成数字，但是注意‘1’不能用1来表示
+编号表示，用0～127表示所有符号</description>
     </item>
     
     <item>
@@ -248,22 +243,20 @@ abc$匹配字母 abc 并以 abc 结尾，$ 为匹配输入字符串的结束位�
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/</guid>
-      <description>前言
-1.这节课教的JS版本是ES 6
-2.对ES 6的评价
+      <description>这节课教的JS版本是ES 6
+对ES 6的评价
 为啥说ES 6一半垃圾一半好？
 JS的原创之处并不优秀，JS的优秀之处并非原创。
 因为 ES 不能删除以前的特性，要兼容网站。
 也就是说以前能运行的网站，以后都要能运行。
 优点兼容，稳定。升级的时候以前的代码不需要重写。
-3.JS与ECMAScript(缩写ES)的关系
+JS与ECMAScript(缩写ES)的关系
 ECMAScript是纸上的标准，JS是浏览器的实现。
 纸上标准往往落后于浏览器，先实现，再写进标准。
-4.chrome控制台换行不执行命令快捷键:shift+enter
-5.推荐书籍 阮一峰的免费教程
+推荐书籍 阮一峰的免费教程
 适合入门《网道 JavaScript 教程》
 适合进阶《你不知道的 JavaScript（上卷）》
- 表达式、语句、标识符 一.表达式与语句 1.表达式
+表达式、语句、标识符 一.表达式与语句 1.表达式
 (1)1+2表达式的值是3
 (2)函数调用add(1,2)，这个函数调用也是表达式。它的值为函数的返回值。
 补充：值与返回值是不一样的。只有函数才有返回值。  (3)console.log表达式(属于函数表达式)的值为函数本身
@@ -284,7 +277,8 @@ var a=1是一个语句
 object 和 Object是不同的
 function 和 Function是不同的
 window 和 Window是不同的。平时只用window，大Window从来不用
-三.空格 大部分空格没有实际意义</description>
+三.空格 大部分空格没有实际意义
+1.var a=1和var a = 1没有区别</description>
     </item>
     
     <item>

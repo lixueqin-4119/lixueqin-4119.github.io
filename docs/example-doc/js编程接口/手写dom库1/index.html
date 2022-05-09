@@ -62,7 +62,7 @@
 <meta name="description"
   content="手把手教你封装DOM，封装出一些接口，用来操作DOM(页面的节点)。
 把一个复杂的东西打包成服务，然后只需要简单的命令就可以操作它。
- 什么叫封装
+什么叫封装
 举例
 笔记本电脑就是CPU、内存、硬盘、主板、显卡的封装
 用户只需要接触显示器、键盘、鼠标、触控板等设备，即可操作复杂的计算机。
@@ -103,7 +103,7 @@ const div =dom.create(&quot; &lt;td&gt;&lt;/td&gt;&quot;);  5.">
       "item":"https://lixueqin-4119.xyz/docs/example-doc/"},{
       "@type": "ListItem",
       "position": 3 ,
-      "name":"JS编程接口",
+      "name":"【JS编程接口】",
       "item":"https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/"},{
       "@type": "ListItem",
       "position": 4 ,
@@ -133,7 +133,7 @@ const div =dom.create(&quot; &lt;td&gt;&lt;/td&gt;&quot;);  5.">
             "url": "https://lixueqin-4119.xyz/images/icon.png"
         }
         },
-    "description": "手把手教你封装DOM，封装出一些接口，用来操作DOM(页面的节点)。\n把一个复杂的东西打包成服务，然后只需要简单的命令就可以操作它。\n 什么叫封装\n举例\n笔记本电脑就是CPU、内存、硬盘、主板、显卡的封装\n用户只需要接触显示器、键盘、鼠标、触控板等设备，即可操作复杂的计算机。\n接口\n被封装的东西需要暴露一些功能给外部\n这些功能就是接口，如USB接口、HDMI接口。\n这些接口都有规范的文档来说明。文档内容包含功能和实现的细节，别人就可以根据文档内容仿制。\n设备只要支持这些接口，即可与被封装的东西通讯\n比如键盘、鼠标支持USB接口，显示器支持HDMI接口\n封装和接口的关系，如下图所示：\n术语\n库\n我们把提供给其他人用的工具代码叫做库(很多函数放到一起给别人用就叫做库)\n比如jQuery、Underscore\nAPI\n库暴露出来的函数或属性叫做 API应用编程接口\n框架\n当你的库变的很大，并且需要学习才能看懂，\n那么这个库就叫框架，比如Vue\/React\n其它\n1.工具parcel\nyarn global add parcel \/\/yarn global add parcel @1.12.3 指定版本 parcel --version 使用:parcel src\/index.html \/\/启动一个服务器，这个服务器会自动刷新  2.简写\nwindow.dom.create = function () { } 可以简写成 window.dom = { create() { } } const childNodes = node.childNodes 可以简写成 const { childNodes } = node  3.template标签可以放任意元素,但不会在页面显示，是专门用来容纳的\n4.trim()去掉字符串两边的空格\nconst div =dom.create(\u0026quot; \u0026lt;td\u0026gt;\u0026lt;\/td\u0026gt;\u0026quot;);  5."
+    "description": "手把手教你封装DOM，封装出一些接口，用来操作DOM(页面的节点)。\n把一个复杂的东西打包成服务，然后只需要简单的命令就可以操作它。\n什么叫封装\n举例\n笔记本电脑就是CPU、内存、硬盘、主板、显卡的封装\n用户只需要接触显示器、键盘、鼠标、触控板等设备，即可操作复杂的计算机。\n接口\n被封装的东西需要暴露一些功能给外部\n这些功能就是接口，如USB接口、HDMI接口。\n这些接口都有规范的文档来说明。文档内容包含功能和实现的细节，别人就可以根据文档内容仿制。\n设备只要支持这些接口，即可与被封装的东西通讯\n比如键盘、鼠标支持USB接口，显示器支持HDMI接口\n封装和接口的关系，如下图所示：\n术语\n库\n我们把提供给其他人用的工具代码叫做库(很多函数放到一起给别人用就叫做库)\n比如jQuery、Underscore\nAPI\n库暴露出来的函数或属性叫做 API应用编程接口\n框架\n当你的库变的很大，并且需要学习才能看懂，\n那么这个库就叫框架，比如Vue\/React\n其它\n1.工具parcel\nyarn global add parcel \/\/yarn global add parcel @1.12.3 指定版本 parcel --version 使用:parcel src\/index.html \/\/启动一个服务器，这个服务器会自动刷新  2.简写\nwindow.dom.create = function () { } 可以简写成 window.dom = { create() { } } const childNodes = node.childNodes 可以简写成 const { childNodes } = node  3.template标签可以放任意元素,但不会在页面显示，是专门用来容纳的\n4.trim()去掉字符串两边的空格\nconst div =dom.create(\u0026quot; \u0026lt;td\u0026gt;\u0026lt;\/td\u0026gt;\u0026quot;);  5."
 }
 </script><meta property="og:title" content="手写DOM库(1) | 目录 | 博客" />
 <meta property="og:type" content="article" />
@@ -149,7 +149,7 @@ const div =dom.create(&quot; &lt;td&gt;&lt;/td&gt;&quot;);  5.">
 
 <meta property="og:description" content="手把手教你封装DOM，封装出一些接口，用来操作DOM(页面的节点)。
 把一个复杂的东西打包成服务，然后只需要简单的命令就可以操作它。
- 什么叫封装
+什么叫封装
 举例
 笔记本电脑就是CPU、内存、硬盘、主板、显卡的封装
 用户只需要接触显示器、键盘、鼠标、触控板等设备，即可操作复杂的计算机。
@@ -322,7 +322,7 @@ const div =dom.create(&quot; &lt;td&gt;&lt;/td&gt;&quot;);  5." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">【CSS全解】</a>
         </div>
         
         
@@ -333,7 +333,7 @@ const div =dom.create(&quot; &lt;td&gt;&lt;/td&gt;&quot;);  5." />
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
         </div>
         
     </li>
@@ -344,7 +344,7 @@ const div =dom.create(&quot; &lt;td&gt;&lt;/td&gt;&quot;);  5." />
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
         </div>
         
     </li>
@@ -355,7 +355,7 @@ const div =dom.create(&quot; &lt;td&gt;&lt;/td&gt;&quot;);  5." />
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
         </div>
         
     </li>
@@ -366,7 +366,68 @@ const div =dom.create(&quot; &lt;td&gt;&lt;/td&gt;&quot;);  5." />
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
         </div>
         
     </li>
@@ -444,68 +505,7 @@ const div =dom.create(&quot; &lt;td&gt;&lt;/td&gt;&quot;);  5." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
-        </div>
-        
-        
-<ul class="ps-6">
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
-        </div>
-        
-    </li>
-    
-    
-</ul>
-
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class=" pb-2 ">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">【HTTP全解】</a>
         </div>
         
         
@@ -555,7 +555,7 @@ const div =dom.create(&quot; &lt;td&gt;&lt;/td&gt;&quot;);  5." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">【JS全解】</a>
         </div>
         
         
@@ -682,7 +682,7 @@ const div =dom.create(&quot; &lt;td&gt;&lt;/td&gt;&quot;);  5." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">【JS编程接口】</a>
         </div>
         
         
@@ -754,7 +754,7 @@ const div =dom.create(&quot; &lt;td&gt;&lt;/td&gt;&quot;);  5." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">【JS进阶】</a>
         </div>
         
         
@@ -793,7 +793,7 @@ const div =dom.create(&quot; &lt;td&gt;&lt;/td&gt;&quot;);  5." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">【React全解】</a>
         </div>
         
         
@@ -887,7 +887,7 @@ const div =dom.create(&quot; &lt;td&gt;&lt;/td&gt;&quot;);  5." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">【Vue2 全解】</a>
         </div>
         
         
@@ -1003,7 +1003,7 @@ const div =dom.create(&quot; &lt;td&gt;&lt;/td&gt;&quot;);  5." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">【其它】</a>
         </div>
         
         
@@ -1031,7 +1031,7 @@ const div =dom.create(&quot; &lt;td&gt;&lt;/td&gt;&quot;);  5." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">【前后分离】</a>
         </div>
         
         
@@ -1103,11 +1103,33 @@ const div =dom.create(&quot; &lt;td&gt;&lt;/td&gt;&quot;);  5." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">【算法与数据结构】</a>
         </div>
         
         
 <ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8A/">排序算法(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8B/">排序算法(下)</a>
+        </div>
+        
+    </li>
+    
     
     
     
@@ -1131,7 +1153,7 @@ const div =dom.create(&quot; &lt;td&gt;&lt;/td&gt;&quot;);  5." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">【项目构建】</a>
         </div>
         
         
@@ -1207,33 +1229,31 @@ const div =dom.create(&quot; &lt;td&gt;&lt;/td&gt;&quot;);  5." />
   
   
 
-  <blockquote>
-<p>手把手教你封装DOM，封装出一些接口，用来操作DOM(页面的节点)。</p>
-<p>把一个复杂的东西打包成服务，然后只需要简单的命令就可以操作它。</p>
-</blockquote>
-<p><strong>什么叫封装</strong></p>
-<p><strong>举例</strong></p>
-<p>笔记本电脑就是CPU、内存、硬盘、主板、显卡的封装</p>
-<p>用户只需要接触显示器、键盘、鼠标、触控板等设备，即可操作复杂的计算机。</p>
-<p><strong>接口</strong></p>
-<p>被封装的东西需要暴露一些功能给外部</p>
-<p>这些功能就是<strong>接口</strong>，如USB接口、HDMI接口。</p>
-<p>这些接口都有规范的文档来说明。文档内容包含功能和实现的细节，别人就可以根据文档内容仿制。</p>
-<p>设备只要支持这些接口，即可与被封装的东西通讯</p>
-<p>比如键盘、鼠标支持USB接口，显示器支持HDMI接口</p>
-<p>封装和接口的关系，如下图所示：</p>
+  <p>手把手教你封装DOM，封装出一些接口，用来操作DOM(页面的节点)。<br>
+把一个复杂的东西打包成服务，然后只需要简单的命令就可以操作它。</p>
+<p><strong>什么叫封装</strong><br>
+<strong>举例</strong><br>
+笔记本电脑就是CPU、内存、硬盘、主板、显卡的封装<br>
+用户只需要接触显示器、键盘、鼠标、触控板等设备，即可操作复杂的计算机。<br>
+<strong>接口</strong><br>
+被封装的东西需要暴露一些功能给外部<br>
+这些功能就是<strong>接口</strong>，如USB接口、HDMI接口。<br>
+这些接口都有规范的文档来说明。文档内容包含功能和实现的细节，别人就可以根据文档内容仿制。<br>
+设备只要支持这些接口，即可与被封装的东西通讯<br>
+比如键盘、鼠标支持USB接口，显示器支持HDMI接口<br>
+封装和接口的关系，如下图所示：</p>
 <p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/669c6097434e48d5ab6d433199e92ca5~tplv-k3u1fbpfcp-watermark.image?" alt="image.png"></p>
-<p><strong>术语</strong></p>
-<p><strong>库</strong></p>
-<p>我们把提供给其他人用的工具代码叫做库(很多函数放到一起给别人用就叫做库)</p>
-<p>比如jQuery、Underscore</p>
-<p><strong>API</strong></p>
-<p>库暴露出来的函数或属性叫做 API应用编程接口</p>
-<p><strong>框架</strong></p>
-<p>当你的库变的很大，并且<strong>需要学习才能看懂</strong>，</p>
-<p>那么这个库就叫框架，比如Vue/React</p>
-<p><strong>其它</strong></p>
-<p>1.工具parcel</p>
+<p><strong>术语</strong><br>
+<strong>库</strong><br>
+我们把提供给其他人用的工具代码叫做库(很多函数放到一起给别人用就叫做库)<br>
+比如jQuery、Underscore<br>
+<strong>API</strong><br>
+库暴露出来的函数或属性叫做 API应用编程接口<br>
+<strong>框架</strong><br>
+当你的库变的很大，并且<strong>需要学习才能看懂</strong>，<br>
+那么这个库就叫框架，比如Vue/React</p>
+<p><strong>其它</strong><br>
+1.工具parcel</p>
 <pre><code>yarn global add parcel  //yarn global add parcel @1.12.3 指定版本
 parcel --version
 使用:parcel src/index.html  //启动一个服务器，这个服务器会自动刷新

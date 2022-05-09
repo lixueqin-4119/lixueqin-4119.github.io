@@ -26,20 +26,30 @@ Webpack、算法与数据结构、Vue2 全解、React全解、移动端、工程
     
     <item>
       <title>用hugo搭建个人博客</title>
-      <link>https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</link>
       <pubDate>Sat, 07 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</guid>
-      <description>目录 第一章 第1节.创建Hugo 第2节.插入图片 第3节.创建第2篇博客 第二章.购买域名 第三章.配置DNS
- 第一章 第1节.创建Hugo  Hugo文档 工具: Hugo是用Go语言实现的一个博客生成器，目前世界上最快的博客生成器。
- 步骤
-第1步.安装hugo (Mac用户) brew install hugo hugo version  Windows用户安装:
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</guid>
+      <description>目录
+第一章
+第1节.创建Hugo
+第2节.插入图片
+第3节.创建第2篇博客
+第二章.购买域名
+第三章.配置DNS
+第一章 第1节.创建Hugo Hugo文档
+工具: Hugo是用Go语言实现的一个博客生成器，目前世界上最快的博客生成器。
+步骤 第1步.安装hugo
+brew install hugo hugo version  Windows用户安装:
 1.去Hugo releases页面下载hugo_xxx_Windows-64bit.zip
 2.解压，把hugo.exe放到D:/Software/hugo/hugo.exe
 3.把D:/Software/hugo/加到PATH
-4.重启终端，运行hugo version 用VSCode打开终端运行hugo -v，看到版本号即成功安装。
+4.重启终端，运行hugo version
+用VSCode打开终端运行hugo -v，看到版本号即成功安装。
 第2步.创建博客的生成器 博客名是你github用户名,全小写
-hugo new site lixueqin-4119.github.io-creator //rm -rf lixueqin-4119.github.io/ 写错可以删掉 ls code lixueqin-4119.github.io-creator/  第3步.添加主题 cd lixueqin-4119.github.io-creator/ git init //安装主题 git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke echo theme = \&amp;quot;ananke\&amp;quot; &amp;gt;&amp;gt; config.toml //ananke主题  第4步.创建新的文章 hugo new posts/开博大吉.md code .  上面的原信息不能改，draft默认不会公布，写完笔记后记得改为false。</description>
+hugo new site lixueqin-4119.github.io-creator //rm -rf lixueqin-4119.github.io/ 写错可以删掉 ls code lixueqin-4119.github.io-creator/  第3步.添加主题 cd lixueqin-4119.github.io-creator/ git init //安装主题 git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke echo theme = \&amp;quot;ananke\&amp;quot; &amp;gt;&amp;gt; config.toml //ananke主题  第4步.创建新的文章 hugo new posts/开博大吉.md code .  上面的原信息不能改，draft默认不会公布，写完笔记后记得改为false。
+现在我们就可以愉快的写笔记啦。
+第5步.Start the Hugo server hugo server -D  点击read more就可以看到我们的文章了。</description>
     </item>
     
     <item>
@@ -50,7 +60,7 @@ hugo new site lixueqin-4119.github.io-creator //rm -rf lixueqin-4119.github.io/ 
       <guid>https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/</guid>
       <description>js三座大山之Ajax
 Ajax的全部内容: 用js控制浏览器发请求和收响应
- 背景(原理)
+背景(原理)
 1.Ajax是浏览器推出的一个功能
 浏览器可以发请求，收响应
 浏览器在window上加了一个XMLHttpRequest全局函数
@@ -76,9 +86,9 @@ http://localhost:8888/index.html 注意浏览器路径要一致！ if (path === 
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/</guid>
-      <description>文档：Node.js中文档、Set-Cookie响应头
+      <description>Node.js中文文档、Set-Cookie响应头
 内容：动态服务器
- 什么是动态服务器? 静态服务器(网页) VS 动态服务器(网页)
+什么是动态服务器? 静态服务器(网页) VS 动态服务器(网页)
 判断依据
 是否请求了数据库。
 没有请求数据库，就是静态服务器。请求了数据库，就是动态服务器。
@@ -93,7 +103,7 @@ const fs = require(&#39;fs&#39;) //引入fs const usersString = fs.readFileSync(
 把字符串变成数组
 const usersArray = JSON.parse(usersString) console.log(typeof usersString) console.log(usersString) console.log(typeof usersArray) console.log(usersArray) console.log(usersArray instanceof Array)  3.写数据库
 const user3 = { id: 3, name: &#39;李明&#39;, password: &#39;zzz&#39;, age: 25 } usersArray.push(user3)  存到数据库。我们的数据库是文件，文件只能存字符串
-console.log(typeof user3) //object const string = JSON.</description>
+console.log(typeof user3) //object const string = JSON.stringify(usersArray) fs.</description>
     </item>
     
     <item>
@@ -209,10 +219,8 @@ TL;DR
 在哪查资料
 标准制定者是谁
 2.如何学 -CRM
-copy
-run
-modify
- 前言
+copy、run、modify
+前言
 css 全称叫层叠样式表，是由李爵士的挪威同事赖先生提出的。
 层叠 表现在 &amp;ldquo;样式层叠&amp;rdquo; &amp;ldquo;选择器层叠&amp;rdquo; 和 “文件层叠”。
 2004～2011年的css2.1版本是使用 最广泛的版本 (IE支持)。 从css3开始 分模块升级，不存在css4了。
@@ -230,10 +238,10 @@ css 全称叫层叠样式表，是由李爵士的挪威同事赖先生提出的�
 怀疑某个元素有问题
 就给这个元素加border：1px solid red;
 (3)使用vscode/webstorm看颜色
-(3)工具搜索 🔍w3c css validator在线调试
-三.在哪查资料 1.MDN
-🔍flex mdn
-2.css tricks</description>
+(4)工具搜索 🔍w3c css validator在线调试
+三.在哪查资料 1.MDN 🔍flex mdn
+2.css tricks 🔍flex css tricks
+3.张鑫旭的博客 🔍flex 张鑫旭</description>
     </item>
     
     <item>
@@ -392,7 +400,9 @@ IE5认为先调fnEr，网景认为先调fnYe,然后掐上了，最后闹到了W3
 捕获总是在冒泡前面
 这个过程是固定的，只是看中间有没有函数。
 有监听函数就调用，并提供事件信息，没有就掉过。
-术语 从外向内找监听函数，叫事件捕获 从内向外找监听函数，叫事件冒泡
+术语
+从外向内找监听函数，叫事件捕获
+从内向外找监听函数，叫事件冒泡\
 冒泡是IE创建的事件模型(一般要冒泡)
 疑问：那岂不是fnYe/fnBa/fnEr都调用两次?非也！
 开发者自己选择把fnYe放在捕获阶段还是冒泡阶段
@@ -400,8 +410,7 @@ DOM事件机制图 第二部分.代码实践 addEventListener函数
 事件绑定API
 IE5*:baba.attachEvent(&amp;lsquo;onclick&amp;rsquo;,fn) //冒泡
 网景:baba.addEventListener(&amp;lsquo;click&amp;rsquo;,fn) //捕获
-W3C:baba.addEventListener(&amp;lsquo;click&amp;rsquo;,fn,bool)
-如果bool不传或为falsy(类似于false的值)
+W3C:baba.addEventListener(&amp;lsquo;click&amp;rsquo;,fn,bool) 如果bool不传或为falsy(类似于false的值)
 就让fn走冒泡，即当浏览器在冒泡阶段发现baba有fn监听函数，就会调用fn,并提供事件信息
 如果bool为true
 就让fn走捕获，即当浏览器在捕获阶段发现baba有fn监听函数，就会调用fn,并提供事件信息
@@ -417,27 +426,26 @@ let n=1 level1.</description>
     
     <item>
       <title>Git远程仓库 -GitHub</title>
-      <link>https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/</guid>
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/</guid>
       <description>Git 包括 本地仓库 和 远程仓库github, git 这个工具有个特点, 它的本地与远程是完全隔开的。在学习远程之前必须先搞熟本地。
-代码需要储存在云端，比如你需要在公司和家里写代码，比如你的笔记本被奶茶泡坏了，比如你不小心运行了rm-rf/ …
- Github可以存储你的代码，只需要2行命令：
-git remote add origin git@xxxxxxxx git push -u origin master  一.SSH key验证身份  GitHub 是如何知道是 &amp;ldquo;你&amp;quot;在操作 “你的代码”?
-有人说可以通过验证用户名和密码呀。每次上传时都要输入用户名和密码过于繁琐，有没有别的能验证身份的方式？ 有，SSH key验证
- 那SSH key怎么验证的？
+代码需要储存在云端，比如你需要在公司和家里写代码，比如你的笔记本被奶茶泡坏了，比如你不小心运行了rm-rf/ ...
+Github可以存储你的代码，只需要2行命令：
+git remote add origin git@xxxxxxxx git push -u origin master  一.SSH key验证身份 GitHub 是如何知道是 &amp;ldquo;你&amp;quot;在操作 &amp;ldquo;你的代码&amp;rdquo;?
+有人说可以通过验证用户名和密码呀。每次上传时都要输入用户名和密码过于繁琐，有没有别的能验证身份的方式？
+有，SSH key验证
+那SSH key怎么验证的？
 如上图所示，我们需要生成一个公钥上传到GitHub，然后生成一个私钥放到电脑上。当我们上传代码时，代码会用这个私钥加密代码上传。GitHub看不懂加密后的代码便用账号里面的公钥解密。如果能解开就证明是本人，解不开就是别人想偷你代码伪造上传的。公钥私钥是配对的，公钥加密只能找私钥解，私钥加秘只能找公钥。
-如何生成ssh key? Github帮助文档
-过程如下
+如何生成ssh key? Github文档
+步骤
 1.终端运行
-ssh-keygen -t ed25519 -C &amp;quot;your_email@example.com&amp;quot; //修改为你的邮箱  接下来一直回车即可。
-出现下图所示即代表成功。
-进入.ssh目录可查看当前目录，id_rsa.pub 公钥可以给任何人看, id_rsa私钥 泄露别人就能伪造你的身份篡改你的代码！ 2.打出公钥id_rsa.pub的内容并复制其内容
+ssh-keygen -t ed25519 -C &amp;quot;your_email@example.com&amp;quot; //修改为你的邮箱  接下来一直回车即可。 出现下图所示即代表成功。 进入.ssh目录可查看当前目录，id_rsa.pub 公钥可以给任何人看, id_rsa私钥 泄露别人就能伪造你的身份篡改你的代码！ 2.打出公钥id_rsa.pub的内容并复制其内容
 cat ~/.ssh/id_rsa.pub  3.打开GitHub，在设置页面的“SSH and GPG keys”选项卡里填入公钥：
 点击按钮“New SSH key”，把copy好的公钥粘贴进 Key，点击“Add SSH key”
 测试公私钥是否配对成功
-ssh -T git@github.com  这里GitHub也给我一个公钥证明它是它，我们两方都在证明自己的身份，输入yes接受它的公钥。当出现“Hi xxx!</description>
+ssh -T git@github.com  这里GitHub也给我一个公钥证明它是它，我们两方都在证明自己的身份，输入yes接受它的公钥。当出现“Hi xxx!You are successfully&amp;hellip;”代表已成功关联。</description>
     </item>
     
     <item>
@@ -527,27 +535,20 @@ class=&amp;ldquo;middle bordered&amp;rdquo;
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://lixueqin-4119.xyz/docs/example-doc/html%E5%85%A8%E8%A7%A3/html%E6%A6%82%E8%A7%88/</guid>
-      <description>一.HTML5概述  WWW指万维网(WWW=URL+HTTP+HTML),是1990年由李爵士发明的,17年被颁发图灵奖
-WWW的直观感受，如何使用万维网:你输入网址，看到网页，看不见的部分由HTTP搞定。
-MDN HTML5权威指南
- 李爵士做了啥？
+      <description>一.HTML5概述 WWW的直观感受，如何使用万维网:你输入网址，看到网页，看不见的部分由HTTP搞定。
+李爵士做了啥？
 自己写了第一个浏览器，第一个服务器，用自己写的浏览器访问了自己写的服务器。发明了WWW,同时发明了HTML HTTP和URL。
 李爵士这么做有什么意义？
 让每个人输入网址就能看到网页。没有网址就发明URL,没有网页就发明HTML，为了让系统更完善发明了HTTP。
 万维网与互联网的关系
 万维网是基于互联网实现的，输入地址就能看到网页的一个网络。
 制作网页需要的知识： 域名知识 + HTTP服务器知识 + HTML知识 + 其它
-二.HTML5技术集 html5分 狭义Html5和 广义Html5
+二.HTML5技术集 html5分狭义Html5和 广义Html5
 1.狭义指 Html5新增的+旧的，大概 110 个标签。
- 核心标签
+核心标签
 元数据：meta
-章节：section nav artical aside header footer main
-内容层次:ol+li ul+li dl+dt+dd
-文字：a
-嵌入内容：image video canvas svg
-表格：table tbody thead tfoot tr td th
-表单：form label input button select option textarea
- 2.广义标签包括 Html5和其它技术(包括CSS 3和javascript等)
+章节：section nav artical aside header footer main 内容层次:ol+li ul+li dl+dt+dd 文字：a 嵌入内容：image video canvas svg 表格：table tbody thead tfoot tr td th 表单：form label input button select option textarea
+2.广义标签包括 Html5和其它技术(包括CSS 3和javascript等)
 三. HTML的语法 标签
 &amp;lt;!DOCTYPE html&amp;gt; //文档类型 &amp;lt;tag attr=value&amp;gt;内容&amp;lt;/tag&amp;gt; //属性值加引号的规则 &amp;lt;tag attr&amp;gt;内容&amp;lt;/tag&amp;gt; //没有值的属性 &amp;lt;tag attr=value&amp;gt; //直接闭合  细节</description>
     </item>
@@ -657,19 +658,15 @@ vs code里的路径是基于文件的。浏览器里的路径是http服务的根
       
       <guid>https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/-jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8A/</guid>
       <description>手写 DOM 库(2)，上一次我们用对象风格封装DOM操作(原生js)，这次用jQuery风格重新封装。
- 其它
+其它
 1.window.jQuery=function(){}
-jQuery是全局变量可以直接使用jQuery()
-jQuery核心思想
-接受一个selector。
+Query是全局变量可以直接使用jQuery()\ jQuery核心思想 接受一个selector。
 根据这个选择器得到一些元素。
 return 一个对象。
 这个对象有些方法可以操作这个元素。
-2.旧语法key:value //&amp;ldquo;addClass&amp;rdquo;:function(参数){}
-ES6新语法 //addClass(参数) {}
+2.旧语法key:value //&amp;ldquo;addClass&amp;rdquo;:function(参数){} ES6新语法 //addClass(参数) {}
 3.声明一个对象api，再return这个对象。
-其实可以直接return这个对象！
-4.当变量声明后只使用一次时，可省略不用声明。
+其实可以直接return这个对象！\ 4.当变量声明后只使用一次时，可省略不用声明。
 5.array3 = array1.concat(array2); //concat里是伪数组
 相当于array3 = array1 + array2
 concat方法创建一个新的数组，它由被调用的对象中的元素组成。
@@ -678,7 +675,7 @@ concat方法创建一个新的数组，它由被调用的对象中的元素组�
 7.const不能重复赋值，而且在声明时必须赋值
 可以用let
 if (typeof selectorOrArray === &#39;string&#39;) { ... } else if (selectorOrArray instanceof Array) { //x instanceof object ... }  对象用instanceof
-9.语法 arr.indexOf(searchElement[, fromIndex]) //fromIndex可选，示例略
+9.语法 arr.indexOf(searchElement[, fromIndex]) //fromIndex可选
 indexOf()方法返回在数组中可以找到一个给定元素的第一个索引。
 &amp;gt;=0表示存在，===-1表示不存在。
 const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;]; console.log(beasts.indexOf(&#39;bison&#39;)); // 1 console.log(beasts.indexOf(&#39;giraffe&#39;)); // -1  10.</description>
@@ -690,14 +687,13 @@ const beasts = [&#39;ant&#39;, &#39;bison&#39;, &#39;camel&#39;, &#39;bison&#39;
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/jquery-%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8B/</guid>
-      <description>1.文章 阮一峰 、中文文档(jQuery有哪些功能)
-2.完整代码
-1.简写jQuery window.$=window.jQuery  方法:页面最后添加window.$=window.jQuery,任意地方就可以直接使用$
-代码：$(&#39;.test&#39;).children().print()
+      <description>文章:阮一峰 、jQuery有哪些功能、完整代码
+1.简写jQuery window.$=window.jQuery  方法:页面最后添加上面的代码,那么任意地方就可以直接使用$
+比如：$(&#39;.test&#39;).children().print()
 类似于bash alias,添加一个别名即可。
 window.jQuery=function(selectorOrArrayOrtemplate){...} window.$=window.jQuery 这两句可以合成下面一句 window.$=window.jQuery=function(selectorOrArrayOrtemplate){...}  执行顺序：当两个=在同一行时,那么是从右边开始执行的。
-也就是说，先执行window.jQuery=function(selectorOrArrayOrtemplate){&amp;hellip;}，
-得到window.jQuery的值后，再将值赋值给window.$。
+也就是说，先执行
+window.jQuery=function(selectorOrArrayOrtemplate){...}  得到window.jQuery的值后，再将值赋值给window.$。
 2.命名风格 下面的代码令人误解
 const div1=$(&#39;.test&#39;) const div2=document.querySelector(&#39;.test&#39;)  我们会误以为div1是一个DOM,实际上div1是jQuery构造的api对象。
 DOM对象只能用DOM API 如querySelector、appendChild
@@ -779,23 +775,21 @@ let f=new Function(&#39;x&#39;,&#39;y&#39;,&#39;return x+y&#39;)  基本没人�
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB/</guid>
-      <description>其它
-1.推荐文章
+      <description>推荐文章
 你可以不会class，但是一定要学会prototype
 JS的new到底是干什么的？
 JS中proto和prototype存在的意义是什么？
 ES6 所有新特性
-2.构造函数就是可以构造出对象的函数
-3.封装:把细节写到一个函数里，别人只需要调用函数并且传个参数(宽度)
-4.函数也是对象
-5.js之父为了让new可以运行提前规定:
+1.构造函数就是可以构造出对象的函数
+2.封装:把细节写到一个函数里，别人只需要调用函数并且传个参数(宽度)
+3.函数也是对象
+4.js之父为了让new可以运行提前规定:
 所有js里的函数自带prototype属性。
 prototype属性自带constructor。
 constructor的值等于函数本身。
-6.共有属性与原型的关系：包含与被包含。
+5.共有属性与原型的关系：包含与被包含。
 共有属性这整个对象叫做原型。
-对象的地址就是原型的地址，里面的每一个属性叫共有属性。
-对象需要分类吗？  需求：输出各种形状的面积和周长
+对象的地址就是原型的地址，里面的每一个属性叫共有属性。 对象需要分类吗？  需求：输出各种形状的面积和周长
  正方形 分析 正方形有三个属性:边长、面积、周长 let square={ width:5, getArea(){ return this.width * this.width }, getLength(){ return this.width * 4 } }  来一打正方形
 let squareList=[] for(let i=0;i&amp;lt;12;i++){ squareList[1]={ width:5, getArea(){ return this.width * this.width }, getLength(){ return this.width * 4 } } }  width不全是5怎么办？
 let squareList=[] let widthList=[5,6,7,8,5,6,7,5,5,4,5,6] for(let i=0;i&amp;lt;12;i++){ squareList[i]={ width:widthList[i], getArea(){ return this.width * this.</description>
@@ -807,15 +801,8 @@ let squareList=[] let widthList=[5,6,7,8,5,6,7,5,5,4,5,6] for(let i=0;i&amp;lt;1
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
-      <description>其它
-1.推荐阅读《我用了两个月的时间才理解 let》
-2.markdown如何输入上下标 输入上标，如x^2 , 则输入x^2
-3.键盘怎么打顿号？中文状态下点击&amp;quot;|&amp;ldquo;键
-4.二进制只有0和1
-5.前6种类型都是简单类型，只有object叫做复杂类型
-6.JS秘密花园收录了JS的各种bug
-7.JS新增了一种类型bigint 因为太新了用得很少,面试基本不考。
- 数据为什么需要类型？ 数字与字符串
+      <description>推荐阅读《我用了两个月的时间才理解let》
+数据为什么需要类型？ 数字与字符串
 (1)功能不同
 数字是数字，字符串是字符串，要严谨
 数字能加减乘除，字符串不行
@@ -836,7 +823,11 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
 100011=2^5 + 2^1 + 2^0=35
 用十六进制表示二进制
 十六进制是二进制的简写(把每4位改写成1位)
-十六进制：0 1 2 3 4 5 6 7 8 9 A B C D E F</description>
+十六进制：0 1 2 3 4 5 6 7 8 9 A B C D E F
+十六进制没有大于9的数字，后面是字母替代
+JS如何存字符？ 1.英文编号
+转成数字，但是注意‘1’不能用1来表示
+编号表示，用0～127表示所有符号</description>
     </item>
     
     <item>
@@ -932,22 +923,20 @@ abc$匹配字母 abc 并以 abc 结尾，$ 为匹配输入字符串的结束位�
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/js%E8%AF%AD%E6%B3%95/</guid>
-      <description>前言
-1.这节课教的JS版本是ES 6
-2.对ES 6的评价
+      <description>这节课教的JS版本是ES 6
+对ES 6的评价
 为啥说ES 6一半垃圾一半好？
 JS的原创之处并不优秀，JS的优秀之处并非原创。
 因为 ES 不能删除以前的特性，要兼容网站。
 也就是说以前能运行的网站，以后都要能运行。
 优点兼容，稳定。升级的时候以前的代码不需要重写。
-3.JS与ECMAScript(缩写ES)的关系
+JS与ECMAScript(缩写ES)的关系
 ECMAScript是纸上的标准，JS是浏览器的实现。
 纸上标准往往落后于浏览器，先实现，再写进标准。
-4.chrome控制台换行不执行命令快捷键:shift+enter
-5.推荐书籍 阮一峰的免费教程
+推荐书籍 阮一峰的免费教程
 适合入门《网道 JavaScript 教程》
 适合进阶《你不知道的 JavaScript（上卷）》
- 表达式、语句、标识符 一.表达式与语句 1.表达式
+表达式、语句、标识符 一.表达式与语句 1.表达式
 (1)1+2表达式的值是3
 (2)函数调用add(1,2)，这个函数调用也是表达式。它的值为函数的返回值。
 补充：值与返回值是不一样的。只有函数才有返回值。  (3)console.log表达式(属于函数表达式)的值为函数本身
@@ -968,7 +957,8 @@ var a=1是一个语句
 object 和 Object是不同的
 function 和 Function是不同的
 window 和 Window是不同的。平时只用window，大Window从来不用
-三.空格 大部分空格没有实际意义</description>
+三.空格 大部分空格没有实际意义
+1.var a=1和var a = 1没有区别</description>
     </item>
     
     <item>
@@ -1002,8 +992,8 @@ let a=8 +a 输出结果:8  只是表示求一下这个数的值</description>
       
       <guid>https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/</guid>
       <description>MVC是进入Vue/React的必经之路，MVC本来就是模糊的，你觉得MVC是什么就是什么，只要能自圆其说即可。这就是抽象，抽象就是不具体。
- 什么是MVC?  设计模式是个框，什么都能往里装，MVC是框里的一个东西。设计模式就是对通用代码取个名字而已。
- 越抽象能解决的问题就越多。具体问题只能针对具体需求，但抽象问题能针对更多需求。mvc属于设计模式的一种，但我们并不把它称为设计模式。因为它太著名了，每个程序员都知道mvc,它就叫MVC。设计模式就是对通用代码取个名字而已。
+什么是MVC? 设计模式是个框，什么都能往里装，MVC是框里的一个东西。设计模式就是对通用代码取个名字而已。
+越抽象能解决的问题就越多。具体问题只能针对具体需求，但抽象问题能针对更多需求。mvc属于设计模式的一种，但我们并不把它称为设计模式。因为它太著名了，每个程序员都知道mvc,它就叫MVC。设计模式就是对通用代码取个名字而已。
 为什么要有设计模式？
 Don&amp;rsquo;t repeat yourself.DRY原则
 哪里重复了？
@@ -1024,10 +1014,6 @@ MVC是啥？
 M Model(数据模型)负责操作所有数据
 V View(视图)负责所有UI界面
 C Controller(控制器)负责监听用户事件，然后调用M和V更新数据和视图
-面试题
-能说说你对MVC的理解吗？
-中英文全称(80分’)+剩下全靠扯(20分’)
-Model(数据模型)负责操作所有数据,View(视图)负责所有UI界面,Controller(控制器)负责其它。
 示例代码 内容
 1.主要要引入2个东西:模块、类
 2.在index页面中做4个功能:加减乘除、tab切换、左晃右晃、悬浮变色
@@ -1143,7 +1129,7 @@ umd是统一模块定义，兼容各种模块规范(含浏览器) 理论上优�
       <guid>https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/url-%E6%98%AF%E4%BB%80%E4%B9%88/</guid>
       <description>李爵士发明的三样东西 WWW=URL+HTTP+HTML
 今天主要讲解什么是URL
- IP(协议)  IP协议用来表示每个设备的地址。
+IP(协议)  IP协议用来表示每个设备的地址。
  IP是Internet Protocol(网络之间互连的协议)的缩写，是TCP/IP体系中的网络层协议。
 IP主要约定了两件事：
 1.如何定位一台设备
@@ -1190,7 +1176,8 @@ sudo vi /etc/hosts  回车后再输入密码，再回车就可以打开我们的
 3.编辑好后，按 esc键退出,然后输入:wq
 端口port  一台机器可以提供很多服务
 每个服务一个号码，这个号码就叫端口号port
- 一.</description>
+ 一.一台机器可以提供不同服务
+1.要提供HTTP服务最好使用80端口</description>
     </item>
     
     <item>
@@ -1218,10 +1205,9 @@ index.html &amp;lt;a href=&amp;quot;#1&amp;quot;&amp;gt;go to 1&amp;lt;/a&amp;gt
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/webpack%E4%B8%8A/</guid>
-      <description>前端框架Webpack，前端最重要的工具之一。
+      <description>webpack文档、npm文档 前端框架Webpack，前端最重要的工具之一。
 CRM法学webpack,通过11个任务学会webpack。
-webpack文档、npm文档
- 工具
+工具
 webpack@4 和 webpack-dev-server本地预览
 本地预览httpserver没有webpack-dev-server功能强,parcel也能本地预览但与webpack不配套,所以只能用webpack-dev-server。
 webpack这么多插件怎么学？
@@ -1242,7 +1228,7 @@ npx webpack //自动但可能不稳定 //或者./node_modules/.bin/webpack --ver
 2.初始化webpack.config.js
 去除警告： 文档
 (1)新建文件webpack.config.js，打开文档复制粘贴
-const path = require(&#39;path&#39;); module.</description>
+const path = require(&#39;path&#39;); module.exports = { mode: &#39;development&#39; //&#39;production&#39; };  会设置main.</description>
     </item>
     
     <item>
@@ -1256,7 +1242,8 @@ const path = require(&#39;path&#39;); module.</description>
 用webpack生成CSS
 引入css(js import &amp;lsquo;./x.css&amp;rsquo;),通过&#39;style-loader&#39;和&#39;css-loader&#39;把css变成&amp;lt;style&amp;gt;标签 给我个css,通过插件MiniCssExtractPlugin,把css变成文件。把n个css变成1个文件。
 加载器与插件的区别？
-loader是加载器，plugin是插件。 loader永远是1对1，plugin是n对1。loader功能比较单一就是用来加载文件的，plugin功能丰富。
+loader是加载器，plugin是插件。
+loader永远是1对1，plugin是n对1。loader功能比较单一就是用来加载文件的，plugin功能丰富。
 用webpack生成html
 html是通过HtmlWebpackPlugin生成新的html，该html会自动引入css、js。
 面试题(必考)
@@ -1353,41 +1340,36 @@ const App = props =&amp;gt; { const [n, setN] = React.useState(0) const onClick 
     
     <item>
       <title>命令行入门</title>
-      <link>https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/</guid>
-      <description>一.命令缩写 程序员把动词缩写，就变成了命令
-知识点：
-(1)file不是命令没有缩写,recursive和force表示选项，无缩写；
-(2)cd就是改变目录的意思;
-备注： Git Bash 和 git 的关系是（mac系统里的终端就相当于 Git Bash）完全不一样的东西，一个是 bash，一个是 git，两种不同的软件.
-二.文件的增删改查 (终端工具iterm2) 其它事项：
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/</guid>
+      <description>一.命令缩写 程序员把动词缩写，就变成了命令 1.file不是命令没有缩写,recursive和force表示选项，无缩写
+2.cd就是改变目录的意思
+3.Git Bash 和 git 的关系是（mac系统里的终端就相当于 Git Bash）完全不一样的东西，一个是 bash，一个是 git，两种不同的软件.
+二.文件的增删改查 其它事项：
 1.程序员宿命(文件的增删改查，DOM的增删改查，HTTP的增删改查)
-2.无论做什么操作首先要确定现在的位置cd ~/Desktop/
-3.cmd是windows自带的命令行工具缺点多。Cmder更高级需要配置！Mac推荐用iterm2
+2.无论做什么操作首先要确定现在的位置 cd ~/Desktop/
+3.cmd是windows自带的命令行工具缺点多,Cmder更高级需要配置！Mac推荐iterm2
 4.救命快捷键:control+C 用于中断一个命令
 5.clear 清除代码
-6.~ 指用户目录，cd ~ 进入用户目录.注意只能在用户目录里操作！
-7.code demo,用vscode打开文件
+6.~ 指用户目录，cd ~ 进入用户目录
+7.code demo用vscode打开文件
  查文件
  1.用命令行进入桌面 cd ~/Desktop/
 2.查看当前绝对路经pwd
-3.查看当前目录 文件ls
-查看指定目录 子文件ls+文件名
-补充: ls有个潜规则默认不显示.开头的文件,例如.git等等
+3.查看当前目录文件ls
+查看指定目录子文件ls+文件名
+补充: ls有个潜规则默认不显示.开头的文件,例如.git
 4.查看指定文件内容代码 cat+文件
- cd demo/ cat style.css  5.除了cat外，head路径/tail路径/less路径都能查看内容，区别在哪？
-答：1.cat会全部展示包括多余的空格，很少用;(电影里代码一直滚动效果就是用的cat，代码太多时会一直滚)
-2.less可以通过按上下键滚动查看，退出按q键，比cat智能。高亮时要先esc退出。
-3.head默认展示前10行,tail默认展示后10行，但是都可以通过参数选择。例如
-head style.css -n 14//展示前14行
-tail style.css -n 14//展示后14行
- 增加文件
+cd demo/ cat style.css  5.除了cat外，head路径/tail路径/less路径都能查看内容，区别在哪？
+(1)cat会全部展示包括多余的空格，很少用 电影里代码一直滚动效果就是用的cat,代码太多时会一直滚。
+(2)less可以通过按上下键滚动查看，退出按q键，比cat智能,高亮时要先esc
+(3)head默认展示前10行,tail默认展示后10行，但是都可以通过参数选择。
+head style.css -n 14//展示前14行 tail style.css -n 14//展示后14行   增加文件
  创建文件: touch/echo
 1.创建文件touch
-touch 1.txt //若不存在则创建//修改文件最后更新时间
-touch 2.</description>
+touch 1.txt 若不存在则创建,修改文件最后更新时间 touch 2.txt 3.txt 同时创建多个文件  2.</description>
     </item>
     
     <item>
@@ -1399,7 +1381,7 @@ touch 2.</description>
       <description>面试必考
 AJAX(Async JavaScript And XML)
 内容:Ajax异步编程在js里的统一解决方案(js异步编程模型) Promise
- 什么是异步？什么是同步？ 同步：能直接拿到结果
+什么是异步？什么是同步？ 同步：能直接拿到结果
 比如你在医院挂号，拿到号才会离开窗口。
 同步任务可能消耗10ms,也可能需要3s
 总之不拿到结果你是不会离开的
@@ -1425,7 +1407,8 @@ request.onreadystatechange就是我写给浏览器调用的
 意思就是浏览器回头调一下这个函数
 「回头」也有「将来」的意思，如「我回头请你吃饭」
 举例
-1.把函数1给另一个函数2</description>
+1.把函数1给另一个函数2
+function f1(){} function f2(fn){ fn() } f2(f1)  我调用f1没有？没有</description>
     </item>
     
     <item>
@@ -1447,7 +1430,7 @@ import React, { useState, useContext } from &amp;quot;react&amp;quot; import Rea
       <guid>https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/%E6%89%8B%E5%86%99dom%E5%BA%931/</guid>
       <description>手把手教你封装DOM，封装出一些接口，用来操作DOM(页面的节点)。
 把一个复杂的东西打包成服务，然后只需要简单的命令就可以操作它。
- 什么叫封装
+什么叫封装
 举例
 笔记本电脑就是CPU、内存、硬盘、主板、显卡的封装
 用户只需要接触显示器、键盘、鼠标、触控板等设备，即可操作复杂的计算机。
@@ -1501,6 +1484,62 @@ chrome远程调试 -csdn //不看csdn</description>
     </item>
     
     <item>
+      <title>排序算法(上)</title>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8A/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8A/</guid>
+      <description>算法里面最简单的就是排序算法，这节课主要讲选择排序。
+算法入门:四种排序算法(选择、归并、快速、技术)和对应的结构。
+实现minOf2:2个数找出较小的那个 再优化
+析构赋值:把结构拆开，依次复制 let minOf2=([a,b]) =&amp;gt; a &amp;lt; b ? a : b //调用 minOf2([1,2]) //小白调用法 minOf2.call(null,[1,2]) //高手调用法  现成API
+JS内置了Math.min
+Math.min(1,2)
+Math.min.call(null,1,2)
+Math.min.apply(null,[1,2])
+关于Math
+看起来Math像Object一样是构造函数
+实际上Math只是普通对象，唯一一个首字母大写的对象，对象一般首字母小写
+实现minOf3:3个数找出最小的那个 推广，任意长度数组求最小值 递归
+特点
+函数不停调用自己，每次调用的参数略有不同
+当满足某个简单条件时，则实现一个简单的调用
+最终算出结果
+理解
+可以用代入法快速理解递归
+可以用调用栈快速理解递归 解析 代入法，先递进后回归 知识点
+1.numbers.slice(1) 选中从下标1开始的所有数据
+2.Math.min.apply(null,numbers) apply就是把numbers一个个展开调用。call就是把numbers作为一项。
+var arr = [1,3,6,8,2,10]; var minNum = Math.min.apply(null,arr); console.log(minNum); //1  Math.min 可以实现得到数组中最小的一项
+Math.min.apply(null,arr)其中第一个参数null，这个是因为没有对象去调用这个方法，所以直接传递null过去。同理,Math.max.apply可以获得数组里面最大的值。
+实现sort排序(将正整数数组从小到大排序) 排序算法
+思路: 1&amp;rsquo;用递归实现、2&amp;rsquo;用循环实现
+递归思路 选择排序
+例1.将长度为2的数组排序 例2.将长度为3的数组排序
+思路:先求最小值，把最小值放前面。
+然后将后面2个数字进行&amp;quot;2个数的排序&amp;quot;。 let minIndex = (numbers) =&amp;gt; numbers.</description>
+    </item>
+    
+    <item>
+      <title>排序算法(下)</title>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8B/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8B/</guid>
+      <description>所有算法都有2种写法递归和循环。
+目前的minIndex,看着就繁琐。
+let minIndex = (numbers) =&amp;gt; numbers.indexOf(min(numbers)) let min = (numbers) =&amp;gt; { return min( [numbers[0], min(numbers.slice(1))] ) }  minIndex重写
+let minIndex = (numbers) =&amp;gt; let index=0 //默认下标为0开始 for(let i=1;i&amp;lt;numbers.length;i++){//默认从第2个开始比 if(numbers[i]&amp;lt;numbers[index]){ index=i } } return index }  默认返回下标为0(默认第1个数是最小的数)，然后用每个数跟它比。
+哪个数字比它小就把下标置为那个小的数字。
+所有递归都能改为循环
+面试题
+四种排序算法以及时间复杂度
+改写sort:选择排序的循环写法 思路不变:
+每次找到最小的数放前面，然后对后面的数做同样的的事情 ,然后i++。
+let sort = (numbers) =&amp;gt; { if(numbers.length &amp;gt; 2){ let index = minIndex(numbers) let min = numbers[index] numbers.splice(index, 1) return [min].concat(sort(numbers)) }else{ return numbers[0]&amp;lt;numbers[1] ? numbers : numbers.</description>
+    </item>
+    
+    <item>
       <title>数据响应式</title>
       <link>https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
@@ -1529,7 +1568,7 @@ new Vue({ template:` &amp;lt;div&amp;gt; {{n}} &amp;lt;button @click=&amp;quot;a
 数组可以分为队列、栈等
 哈希表(计数排序)
 用来存储key-value对
- 数据结构一:队列Queue 队列Queue:一种特殊的数组,先进先出的数组 什么是队列数据结构?
+数据结构一:队列Queue 队列Queue:一种特殊的数组,先进先出的数组 什么是队列数据结构?
 队列数据结构就是个类似数组的东西，但是它只提供push()入队和shift()出队2个操作。你提供这样的结构和这样的2个操作，你就是队列。 队列专门用来解决排队的问题。
 用call改写
 //queue.push(n) queue.push.call(queue, n) //const m = queue.shift() const m = queue.shift.call(queue)  数据结构二:栈Stack 后进先出的数组 例子:坐电梯超重时，后进先出。 2个操作:压栈push()、弹栈pop()
@@ -1548,24 +1587,27 @@ const createList = (value) =&amp;gt; { return createNode(value) } const appendLi
     
     <item>
       <title>本地仓库</title>
-      <link>https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/</link>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/</link>
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/</guid>
-      <description>使用github要先学会git。 git无需安装，有cmder/gitbash即可，comder内置了gitbash。查看版本号 git &amp;ndash;version
- git与gitbash的关系，傻傻分不清？
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/</guid>
+      <description>使用github要先学会git。
+git无需安装，有cmder/gitbash即可，comder内置了gitbash。
+git与gitbash的关系？
 git 就是一个命令而已，bash就是包含命令的黑框框(iterm2)。这个黑框框(bash命令行)可以运行很多命令其中就包括git，我们在gitbash里面运行git。gitbash相当于Mac的iterm2！
 一. 配置 所有软件都是要先配置的，git的配置如下：
-终端iterm2运行这6行代码：(出错可以重新再运行，运行完这6行才能开始用git)
-git config --global user.name 你的英文名 git config --global user.email 你的邮箱 //最常用的邮箱 git config --global push.default simple git config --global core.quotepath false git config --global core.editor &amp;quot;code --wait&amp;quot; //code是vscode的缩写 git config --global core.autocrlf input  备注：英文名/邮箱跟GitHub无关,可以跟GitHub的用户名和邮箱保持一致。
-测试查看是否配置成功：
- git config —-global —-list  二.git init &amp;amp; git add &amp;amp; git commit  其它：
-1.git解决了什么问题,为什么要git？
+终端运行这6行代码：
+git config --global user.name 你的英文名 git config --global user.email 你的邮箱 git config --global push.default simple git config --global core.quotepath false git config --global core.editor &amp;quot;code --wait&amp;quot; //code是vscode的缩写 git config --global core.autocrlf input  英文名/邮箱跟GitHub无关,可以跟GitHub的用户名和邮箱保持一致。
+出错可以重新再运行，运行完这6行才能开始用git。
+测试是否配置成功: git config —-global —-list
+二.git init &amp;amp; git add &amp;amp; git commit git解决了什么问题,为什么要git？
 版本控制,git可以让你的代码有版本可以随时退到某个版本。
-2.用vscode打开当前目录 code .
-3. 打印当前目录，不包括.开头的
-ls
-4. 查看当前目录结构包含.git ls -a</description>
+用vscode打开当前目录code .
+打印当前目录，不包括.开头的ls
+查看当前目录结构包含.gitls -a
+git init 初始化，创建.git目录放置代码快照(版本)
+快照实现存储版本怎么做？git add + 路径
+选择要提交的文件，路径可以是 . 和 *、 /绝对路径、/相对路径</description>
     </item>
     
     <item>
@@ -1632,14 +1674,15 @@ new Vue({})运行后，template里面的&amp;lt;div&amp;gt;会替换掉页面的
       
       <guid>https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/</guid>
       <description>文档 过渡 &amp;amp; 动画
- 轮播组件slides
+轮播组件slides
 轮播难点在于最末位到首位的切换方式，在讲轮播之前需要讲下动画。 Vue动画支持很多种不同的方式。
-Vue动画方式1 - CSS transition  Vue提供了transition组件
- HTML //先引入Vue(bootCDN) &amp;lt;script src=&amp;quot;https://cdn.bootcdn.net/ajax/libs/vue/2.5.17/vue.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;div id=&amp;quot;demo&amp;quot;&amp;gt; &amp;lt;button v-on:click=&amp;quot;show = !show&amp;quot;&amp;gt; Toggle &amp;lt;/button&amp;gt; //1.写`&amp;lt;transition&amp;gt;` &amp;lt;transition name=&amp;quot;fade&amp;quot;&amp;gt; &amp;lt;p v-if=&amp;quot;show&amp;quot;&amp;gt;hello&amp;lt;/p&amp;gt; &amp;lt;/transition&amp;gt; &amp;lt;/div&amp;gt; CSS //2.写类 .fade-enter-active, .fade-leave-active { transition: all 2s; } .fade-enter, .fade-leave-to { opacity: 0; width:100px } //3.设置初始值 p{ border:1px solid red; width:300px } JS new Vue({ el: &#39;#demo&#39;, data: { show: true } })  步骤
+Vue动画方式1 - CSS transition Vue提供了transition组件
+HTML //先引入Vue(bootCDN) &amp;lt;script src=&amp;quot;https://cdn.bootcdn.net/ajax/libs/vue/2.5.17/vue.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;div id=&amp;quot;demo&amp;quot;&amp;gt; &amp;lt;button v-on:click=&amp;quot;show = !show&amp;quot;&amp;gt; Toggle &amp;lt;/button&amp;gt; //1.写`&amp;lt;transition&amp;gt;` &amp;lt;transition name=&amp;quot;fade&amp;quot;&amp;gt; &amp;lt;p v-if=&amp;quot;show&amp;quot;&amp;gt;hello&amp;lt;/p&amp;gt; &amp;lt;/transition&amp;gt; &amp;lt;/div&amp;gt; CSS //2.写类 .fade-enter-active, .fade-leave-active { transition: all 2s; } .fade-enter, .fade-leave-to { opacity: 0; width:100px } //3.设置初始值 p{ border:1px solid red; width:300px } JS new Vue({ el: &#39;#demo&#39;, data: { show: true } })  步骤
 第1步.在html里写&amp;lt;transition&amp;gt;
 第2步.在css里写.fade开头的一系列类
 最后给需要的属性添加初始值
-对于这些在过渡中切换的类名来说，如果你使用一个没有名字的 ，则v-是这些类名的默认前缀。如果你使用了 &amp;lt;transition name=&amp;quot;fade&amp;quot;&amp;gt;，那么v-enter会替换为fade-enter。</description>
+对于这些在过渡中切换的类名来说，如果你使用一个没有名字的 ，则v-是这些类名的默认前缀。如果你使用了 &amp;lt;transition name=&amp;quot;fade&amp;quot;&amp;gt;，那么v-enter会替换为fade-enter。
+文档 过渡的类名</description>
     </item>
     
     <item>
@@ -1729,11 +1772,16 @@ HTTP 基础概念
       
       <guid>https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/%E8%B5%B7%E6%89%8B%E5%BC%8F/</guid>
       <description>Vue中文文档 、工具@vue/cli文档
- Vue的历史 vue、Angular.js、React.js前端三大主流框架。 MVC中的V是Vue的重点，M和V则被简化。 Vue和vue.js没有区别，vue就是vue.js的简称。 Vue你可以认为是框架也可以说是库，Vue中文英文文档都是尤雨溪写的。
-15年的1.0版本Vue自称是MVVM框架，不是MVC是MVVM，不过这已经成历史了。现在Vue是MV * 框架,意思就是你说MVC、MVVM都行。但是Vue升级到2.0后，它虽然看起来是MVVM框架，但实际不是MVVM框架了。Vue3直接抄袭React。 Vue作者尤雨溪，主要作品: Vue、Vue Router、Vuex、@vue/cli(主要维护者是蒋豪群) Vue2版本vue.runtime.min.js Vue3版本vue.runtime.global.prod.js
+Vue的历史 vue、Angular.js、React.js前端三大主流框架。
+MVC中的V是Vue的重点，M和V则被简化。
+Vue和vue.js没有区别，vue就是vue.js的简称。
+Vue你可以认为是框架也可以说是库，Vue中文英文文档都是尤雨溪写的。
+15年的1.0版本Vue自称是MVVM框架，不是MVC是MVVM，不过这已经成历史了。现在Vue是MV * 框架,意思就是你说MVC、MVVM都行。但是Vue升级到2.0后，它虽然看起来是MVVM框架，但实际不是MVVM框架了。Vue3直接抄袭React。
+Vue作者尤雨溪，主要作品: Vue、Vue Router、Vuex、@vue/cli(主要维护者是蒋豪群) Vue2版本vue.runtime.min.js Vue3版本vue.runtime.global.prod.js
 目标一: 项目搭建 方法一:使用@Vue/cli
- 使用@vue/cli搭建Vue项目 @Vue/cli 是Vue的创建初始化工具，webpack的升级版，帮你把所有的webpack loader、webpack plugin配好了。利用@Vue/cli，不用学webpack也能用Vue。
- 步骤 🔍@vue/cli文档
+使用@vue/cli搭建Vue项目
+@Vue/cli 是Vue的创建初始化工具，webpack的升级版，帮你把所有的webpack loader、webpack plugin配好了。利用@Vue/cli，不用学webpack也能用Vue。
+步骤 🔍@vue/cli文档
 1.打开终端
 cd ~/Desktop/ yarn global add @vue/cli@4.1.0-beta.0 vue --version vue create vue-demo //创建目录vue-demo  2.设置配置(该配置只适合学习，如果是真实项目请自行斟酌选项)
 选错用control+c中断重来
@@ -1746,7 +1794,9 @@ cd vue-demo yarn serve 中断control+c，然后把生成的目录vue-demo拖进�
 不要登录，点击“create sandbox”，选择创建vue沙盒。
 下载至本地:点击File-&amp;gt; Export to ZIP 并解压缩
 方法二:自己从零搭建Vue项目
-目标二.vue.js和vue.runtime.js的使用 做一个简单的&amp;quot;+1&amp;quot;项目</description>
+目标二.vue.js和vue.runtime.js的使用 做一个简单的&amp;quot;+1&amp;quot;项目
+如何使用Vue实例？
+App.vue &amp;lt;template&amp;gt; &amp;lt;div id=&amp;quot;app&amp;quot;&amp;gt; {{n}} &amp;lt;button @click=&amp;quot;add&amp;quot;&amp;gt;+1&amp;lt;/button&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; import HelloWorld from &#39;.</description>
     </item>
     
     <item>
@@ -1758,7 +1808,7 @@ cd vue-demo yarn serve 中断control+c，然后把生成的目录vue-demo拖进�
       <description>面试必考
 ajax和Promise的跨域问题
 跨域一般用2种方案JSONP和CORS
- 跨域  前端与后端的交互。
+跨域  前端与后端的交互。
  关键知识
 1.同源策略 浏览器故意设计的一个功能限制
 2.CORS 突破浏览器限制的一个办法
@@ -1829,7 +1879,7 @@ HelloWord.vue &amp;lt;template&amp;gt; &amp;lt;div class=&amp;quot;hello&amp;quo
       
       <guid>https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/</guid>
       <description>优化server.js
- 优化前
+优化前
 var http = require(&#39;http&#39;) var fs = require(&#39;fs&#39;) var url = require(&#39;url&#39;) var port = process.argv[2] if (!port) { console.log(&#39;请指定端口号好不啦？\nnode server.js 8888 这样不会吗？&#39;) process.exit(1) } var server = http.createServer(function (request, response) { var parsedUrl = url.parse(request.url, true) var pathWithQuery = request.url var queryString = &#39;&#39; if (pathWithQuery.indexOf(&#39;?&#39;) &amp;gt;= 0) { queryString = pathWithQuery.substring(pathWithQuery.indexOf(&#39;?&#39;)) } var path = parsedUrl.pathname var query = parsedUrl.query var method = request.method /******** 从这里开始看，上面不要看 ************/ console.log(&#39;有个傻子发请求过来啦！路径（带查询参数）为：&#39; + pathWithQuery) if (path === &#39;/&#39;) { response.</description>
     </item>
     

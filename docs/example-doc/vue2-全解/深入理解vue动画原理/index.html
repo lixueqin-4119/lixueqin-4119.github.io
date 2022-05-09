@@ -61,14 +61,15 @@
 
 <meta name="description"
   content="文档 过渡 &amp; 动画
- 轮播组件slides
+轮播组件slides
 轮播难点在于最末位到首位的切换方式，在讲轮播之前需要讲下动画。 Vue动画支持很多种不同的方式。
-Vue动画方式1 - CSS transition  Vue提供了transition组件
- HTML //先引入Vue(bootCDN) &lt;script src=&quot;https://cdn.bootcdn.net/ajax/libs/vue/2.5.17/vue.min.js&quot;&gt;&lt;/script&gt; &lt;div id=&quot;demo&quot;&gt; &lt;button v-on:click=&quot;show = !show&quot;&gt; Toggle &lt;/button&gt; //1.写`&lt;transition&gt;` &lt;transition name=&quot;fade&quot;&gt; &lt;p v-if=&quot;show&quot;&gt;hello&lt;/p&gt; &lt;/transition&gt; &lt;/div&gt; CSS //2.写类 .fade-enter-active, .fade-leave-active { transition: all 2s; } .fade-enter, .fade-leave-to { opacity: 0; width:100px } //3.设置初始值 p{ border:1px solid red; width:300px } JS new Vue({ el: &#39;#demo&#39;, data: { show: true } })  步骤
+Vue动画方式1 - CSS transition Vue提供了transition组件
+HTML //先引入Vue(bootCDN) &lt;script src=&quot;https://cdn.bootcdn.net/ajax/libs/vue/2.5.17/vue.min.js&quot;&gt;&lt;/script&gt; &lt;div id=&quot;demo&quot;&gt; &lt;button v-on:click=&quot;show = !show&quot;&gt; Toggle &lt;/button&gt; //1.写`&lt;transition&gt;` &lt;transition name=&quot;fade&quot;&gt; &lt;p v-if=&quot;show&quot;&gt;hello&lt;/p&gt; &lt;/transition&gt; &lt;/div&gt; CSS //2.写类 .fade-enter-active, .fade-leave-active { transition: all 2s; } .fade-enter, .fade-leave-to { opacity: 0; width:100px } //3.设置初始值 p{ border:1px solid red; width:300px } JS new Vue({ el: &#39;#demo&#39;, data: { show: true } })  步骤
 第1步.在html里写&lt;transition&gt;
 第2步.在css里写.fade开头的一系列类
 最后给需要的属性添加初始值
-对于这些在过渡中切换的类名来说，如果你使用一个没有名字的 ，则v-是这些类名的默认前缀。如果你使用了 &lt;transition name=&quot;fade&quot;&gt;，那么v-enter会替换为fade-enter。">
+对于这些在过渡中切换的类名来说，如果你使用一个没有名字的 ，则v-是这些类名的默认前缀。如果你使用了 &lt;transition name=&quot;fade&quot;&gt;，那么v-enter会替换为fade-enter。
+文档 过渡的类名">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -84,7 +85,7 @@ Vue动画方式1 - CSS transition  Vue提供了transition组件
       "item":"https://lixueqin-4119.xyz/docs/example-doc/"},{
       "@type": "ListItem",
       "position": 3 ,
-      "name":"Vue2 全解",
+      "name":"【Vue2 全解】",
       "item":"https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/"},{
       "@type": "ListItem",
       "position": 4 ,
@@ -114,7 +115,7 @@ Vue动画方式1 - CSS transition  Vue提供了transition组件
             "url": "https://lixueqin-4119.xyz/images/icon.png"
         }
         },
-    "description": "文档 过渡 \u0026amp; 动画\n 轮播组件slides\n轮播难点在于最末位到首位的切换方式，在讲轮播之前需要讲下动画。 Vue动画支持很多种不同的方式。\nVue动画方式1 - CSS transition  Vue提供了transition组件\n HTML \/\/先引入Vue(bootCDN) \u0026lt;script src=\u0026quot;https:\/\/cdn.bootcdn.net\/ajax\/libs\/vue\/2.5.17\/vue.min.js\u0026quot;\u0026gt;\u0026lt;\/script\u0026gt; \u0026lt;div id=\u0026quot;demo\u0026quot;\u0026gt; \u0026lt;button v-on:click=\u0026quot;show = !show\u0026quot;\u0026gt; Toggle \u0026lt;\/button\u0026gt; \/\/1.写`\u0026lt;transition\u0026gt;` \u0026lt;transition name=\u0026quot;fade\u0026quot;\u0026gt; \u0026lt;p v-if=\u0026quot;show\u0026quot;\u0026gt;hello\u0026lt;\/p\u0026gt; \u0026lt;\/transition\u0026gt; \u0026lt;\/div\u0026gt; CSS \/\/2.写类 .fade-enter-active, .fade-leave-active { transition: all 2s; } .fade-enter, .fade-leave-to { opacity: 0; width:100px } \/\/3.设置初始值 p{ border:1px solid red; width:300px } JS new Vue({ el: \u0027#demo\u0027, data: { show: true } })  步骤\n第1步.在html里写\u0026lt;transition\u0026gt;\n第2步.在css里写.fade开头的一系列类\n最后给需要的属性添加初始值\n对于这些在过渡中切换的类名来说，如果你使用一个没有名字的 ，则v-是这些类名的默认前缀。如果你使用了 \u0026lt;transition name=\u0026quot;fade\u0026quot;\u0026gt;，那么v-enter会替换为fade-enter。"
+    "description": "文档 过渡 \u0026amp; 动画\n轮播组件slides\n轮播难点在于最末位到首位的切换方式，在讲轮播之前需要讲下动画。 Vue动画支持很多种不同的方式。\nVue动画方式1 - CSS transition Vue提供了transition组件\nHTML \/\/先引入Vue(bootCDN) \u0026lt;script src=\u0026quot;https:\/\/cdn.bootcdn.net\/ajax\/libs\/vue\/2.5.17\/vue.min.js\u0026quot;\u0026gt;\u0026lt;\/script\u0026gt; \u0026lt;div id=\u0026quot;demo\u0026quot;\u0026gt; \u0026lt;button v-on:click=\u0026quot;show = !show\u0026quot;\u0026gt; Toggle \u0026lt;\/button\u0026gt; \/\/1.写`\u0026lt;transition\u0026gt;` \u0026lt;transition name=\u0026quot;fade\u0026quot;\u0026gt; \u0026lt;p v-if=\u0026quot;show\u0026quot;\u0026gt;hello\u0026lt;\/p\u0026gt; \u0026lt;\/transition\u0026gt; \u0026lt;\/div\u0026gt; CSS \/\/2.写类 .fade-enter-active, .fade-leave-active { transition: all 2s; } .fade-enter, .fade-leave-to { opacity: 0; width:100px } \/\/3.设置初始值 p{ border:1px solid red; width:300px } JS new Vue({ el: \u0027#demo\u0027, data: { show: true } })  步骤\n第1步.在html里写\u0026lt;transition\u0026gt;\n第2步.在css里写.fade开头的一系列类\n最后给需要的属性添加初始值\n对于这些在过渡中切换的类名来说，如果你使用一个没有名字的 ，则v-是这些类名的默认前缀。如果你使用了 \u0026lt;transition name=\u0026quot;fade\u0026quot;\u0026gt;，那么v-enter会替换为fade-enter。\n文档 过渡的类名"
 }
 </script><meta property="og:title" content="深入理解Vue动画原理 | 目录 | 博客" />
 <meta property="og:type" content="article" />
@@ -129,14 +130,15 @@ Vue动画方式1 - CSS transition  Vue提供了transition组件
 
 
 <meta property="og:description" content="文档 过渡 &amp; 动画
- 轮播组件slides
+轮播组件slides
 轮播难点在于最末位到首位的切换方式，在讲轮播之前需要讲下动画。 Vue动画支持很多种不同的方式。
-Vue动画方式1 - CSS transition  Vue提供了transition组件
- HTML //先引入Vue(bootCDN) &lt;script src=&quot;https://cdn.bootcdn.net/ajax/libs/vue/2.5.17/vue.min.js&quot;&gt;&lt;/script&gt; &lt;div id=&quot;demo&quot;&gt; &lt;button v-on:click=&quot;show = !show&quot;&gt; Toggle &lt;/button&gt; //1.写`&lt;transition&gt;` &lt;transition name=&quot;fade&quot;&gt; &lt;p v-if=&quot;show&quot;&gt;hello&lt;/p&gt; &lt;/transition&gt; &lt;/div&gt; CSS //2.写类 .fade-enter-active, .fade-leave-active { transition: all 2s; } .fade-enter, .fade-leave-to { opacity: 0; width:100px } //3.设置初始值 p{ border:1px solid red; width:300px } JS new Vue({ el: &#39;#demo&#39;, data: { show: true } })  步骤
+Vue动画方式1 - CSS transition Vue提供了transition组件
+HTML //先引入Vue(bootCDN) &lt;script src=&quot;https://cdn.bootcdn.net/ajax/libs/vue/2.5.17/vue.min.js&quot;&gt;&lt;/script&gt; &lt;div id=&quot;demo&quot;&gt; &lt;button v-on:click=&quot;show = !show&quot;&gt; Toggle &lt;/button&gt; //1.写`&lt;transition&gt;` &lt;transition name=&quot;fade&quot;&gt; &lt;p v-if=&quot;show&quot;&gt;hello&lt;/p&gt; &lt;/transition&gt; &lt;/div&gt; CSS //2.写类 .fade-enter-active, .fade-leave-active { transition: all 2s; } .fade-enter, .fade-leave-to { opacity: 0; width:100px } //3.设置初始值 p{ border:1px solid red; width:300px } JS new Vue({ el: &#39;#demo&#39;, data: { show: true } })  步骤
 第1步.在html里写&lt;transition&gt;
 第2步.在css里写.fade开头的一系列类
 最后给需要的属性添加初始值
-对于这些在过渡中切换的类名来说，如果你使用一个没有名字的 ，则v-是这些类名的默认前缀。如果你使用了 &lt;transition name=&quot;fade&quot;&gt;，那么v-enter会替换为fade-enter。" />
+对于这些在过渡中切换的类名来说，如果你使用一个没有名字的 ，则v-是这些类名的默认前缀。如果你使用了 &lt;transition name=&quot;fade&quot;&gt;，那么v-enter会替换为fade-enter。
+文档 过渡的类名" />
 
 
 
@@ -284,7 +286,7 @@ Vue动画方式1 - CSS transition  Vue提供了transition组件
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">【CSS全解】</a>
         </div>
         
         
@@ -295,7 +297,7 @@ Vue动画方式1 - CSS transition  Vue提供了transition组件
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
         </div>
         
     </li>
@@ -306,7 +308,7 @@ Vue动画方式1 - CSS transition  Vue提供了transition组件
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
         </div>
         
     </li>
@@ -317,7 +319,7 @@ Vue动画方式1 - CSS transition  Vue提供了transition组件
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
         </div>
         
     </li>
@@ -328,7 +330,68 @@ Vue动画方式1 - CSS transition  Vue提供了transition组件
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
         </div>
         
     </li>
@@ -406,68 +469,7 @@ Vue动画方式1 - CSS transition  Vue提供了transition组件
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
-        </div>
-        
-        
-<ul class="ps-6">
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
-        </div>
-        
-    </li>
-    
-    
-</ul>
-
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class=" pb-2 ">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">【HTTP全解】</a>
         </div>
         
         
@@ -517,7 +519,7 @@ Vue动画方式1 - CSS transition  Vue提供了transition组件
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">【JS全解】</a>
         </div>
         
         
@@ -644,7 +646,7 @@ Vue动画方式1 - CSS transition  Vue提供了transition组件
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">【JS编程接口】</a>
         </div>
         
         
@@ -716,7 +718,7 @@ Vue动画方式1 - CSS transition  Vue提供了transition组件
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">【JS进阶】</a>
         </div>
         
         
@@ -755,7 +757,7 @@ Vue动画方式1 - CSS transition  Vue提供了transition组件
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">【React全解】</a>
         </div>
         
         
@@ -849,7 +851,7 @@ Vue动画方式1 - CSS transition  Vue提供了transition组件
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">【Vue2 全解】</a>
         </div>
         
         
@@ -965,7 +967,7 @@ Vue动画方式1 - CSS transition  Vue提供了transition组件
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">【其它】</a>
         </div>
         
         
@@ -993,7 +995,7 @@ Vue动画方式1 - CSS transition  Vue提供了transition组件
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">【前后分离】</a>
         </div>
         
         
@@ -1065,11 +1067,33 @@ Vue动画方式1 - CSS transition  Vue提供了transition组件
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">【算法与数据结构】</a>
         </div>
         
         
 <ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8A/">排序算法(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8B/">排序算法(下)</a>
+        </div>
+        
+    </li>
+    
     
     
     
@@ -1093,7 +1117,7 @@ Vue动画方式1 - CSS transition  Vue提供了transition组件
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">【项目构建】</a>
         </div>
         
         
@@ -1169,16 +1193,12 @@ Vue动画方式1 - CSS transition  Vue提供了transition组件
   
   
 
-  <blockquote>
-<p>文档 <a href="https://vuejs.bootcss.com/guide/transitions.html">过渡 &amp; 动画</a></p>
-</blockquote>
-<p><strong>轮播组件slides</strong></p>
-<p>轮播难点在于最末位到首位的切换方式，在讲轮播之前需要讲下动画。
+  <p>文档 <a href="https://vuejs.bootcss.com/guide/transitions.html">过渡 &amp; 动画</a></p>
+<p><strong>轮播组件slides</strong><br>
+轮播难点在于最末位到首位的切换方式，在讲轮播之前需要讲下动画。
 Vue动画支持很多种不同的方式。</p>
 <h3 id="vue动画方式1---css-transition">Vue动画方式1 - CSS transition</h3>
-<blockquote>
 <p>Vue提供了transition组件</p>
-</blockquote>
 <pre><code class="language-js">HTML
 //先引入Vue(bootCDN)
 &lt;script src=&quot;https://cdn.bootcdn.net/ajax/libs/vue/2.5.17/vue.min.js&quot;&gt;&lt;/script&gt;

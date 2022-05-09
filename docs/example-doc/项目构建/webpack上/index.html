@@ -60,10 +60,9 @@
 <link rel="apple-touch-icon" sizes="180x180" href="https://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
 
 <meta name="description"
-  content="前端框架Webpack，前端最重要的工具之一。
+  content="webpack文档、npm文档 前端框架Webpack，前端最重要的工具之一。
 CRM法学webpack,通过11个任务学会webpack。
-webpack文档、npm文档
- 工具
+工具
 webpack@4 和 webpack-dev-server本地预览
 本地预览httpserver没有webpack-dev-server功能强,parcel也能本地预览但与webpack不配套,所以只能用webpack-dev-server。
 webpack这么多插件怎么学？
@@ -84,7 +83,7 @@ npx webpack //自动但可能不稳定 //或者./node_modules/.bin/webpack --ver
 2.初始化webpack.config.js
 去除警告： 文档
 (1)新建文件webpack.config.js，打开文档复制粘贴
-const path = require(&#39;path&#39;); module.">
+const path = require(&#39;path&#39;); module.exports = { mode: &#39;development&#39; //&#39;production&#39; };  会设置main.">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -100,7 +99,7 @@ const path = require(&#39;path&#39;); module.">
       "item":"https://lixueqin-4119.xyz/docs/example-doc/"},{
       "@type": "ListItem",
       "position": 3 ,
-      "name":"项目构建",
+      "name":"【项目构建】",
       "item":"https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/"},{
       "@type": "ListItem",
       "position": 4 ,
@@ -130,7 +129,7 @@ const path = require(&#39;path&#39;); module.">
             "url": "https://lixueqin-4119.xyz/images/icon.png"
         }
         },
-    "description": "前端框架Webpack，前端最重要的工具之一。\nCRM法学webpack,通过11个任务学会webpack。\nwebpack文档、npm文档\n 工具\nwebpack@4 和 webpack-dev-server本地预览\n本地预览httpserver没有webpack-dev-server功能强,parcel也能本地预览但与webpack不配套,所以只能用webpack-dev-server。\nwebpack这么多插件怎么学？\n重要的\u0026quot;不是用什么\u0026quot;，而是\u0026quot;怎么知道用什么\u0026quot;，要学会搜\u002bCRM法。\n🔍英文关键词\u002bCRM法\n框架 Webpack功能\n转译代码(ES6转为ES5，SCSS转为css)\n构建build\n代码压缩\n代码分析\n安装依赖\n终端:yarn add webpack@4 webpack-cli@3 --dev \/\/webpack-cli用于在命令行中运行webpack  目标一. 用webpack转译JS 1.调用webpack\n(1)新建文件webpack-demo并用vscode打开，新建终端：\nnpm init -y \/\/创建package.json yarn add webpack@4 webpack-cli@3 --dev \/\/安装它的2个依赖 \/\/会多个node_modules的目录。由于是本地安装，不是全局安装,文件在node_modules里的.bin目录下  (2)新建目录src、新建index.js、新建x.js\nimport x from \u0027.\/x.js\u0027 console.log(x) x.js export default \u0027fuck\u0027  (3)运行: 由于是本地安装，运行时只能用绝对路径调用webpack\nnpx webpack \/\/自动但可能不稳定 \/\/或者.\/node_modules\/.bin\/webpack --version \/\/ 手动调用本地webpack  调用后会默认把index.js转变为 main.js。\n会分析js代码，然后将代码变成IE或低版本浏览器可以用的js。\n2.初始化webpack.config.js\n去除警告： 文档\n(1)新建文件webpack.config.js，打开文档复制粘贴\nconst path = require(\u0027path\u0027); module."
+    "description": "webpack文档、npm文档 前端框架Webpack，前端最重要的工具之一。\nCRM法学webpack,通过11个任务学会webpack。\n工具\nwebpack@4 和 webpack-dev-server本地预览\n本地预览httpserver没有webpack-dev-server功能强,parcel也能本地预览但与webpack不配套,所以只能用webpack-dev-server。\nwebpack这么多插件怎么学？\n重要的\u0026quot;不是用什么\u0026quot;，而是\u0026quot;怎么知道用什么\u0026quot;，要学会搜\u002bCRM法。\n🔍英文关键词\u002bCRM法\n框架 Webpack功能\n转译代码(ES6转为ES5，SCSS转为css)\n构建build\n代码压缩\n代码分析\n安装依赖\n终端:yarn add webpack@4 webpack-cli@3 --dev \/\/webpack-cli用于在命令行中运行webpack  目标一. 用webpack转译JS 1.调用webpack\n(1)新建文件webpack-demo并用vscode打开，新建终端：\nnpm init -y \/\/创建package.json yarn add webpack@4 webpack-cli@3 --dev \/\/安装它的2个依赖 \/\/会多个node_modules的目录。由于是本地安装，不是全局安装,文件在node_modules里的.bin目录下  (2)新建目录src、新建index.js、新建x.js\nimport x from \u0027.\/x.js\u0027 console.log(x) x.js export default \u0027fuck\u0027  (3)运行: 由于是本地安装，运行时只能用绝对路径调用webpack\nnpx webpack \/\/自动但可能不稳定 \/\/或者.\/node_modules\/.bin\/webpack --version \/\/ 手动调用本地webpack  调用后会默认把index.js转变为 main.js。\n会分析js代码，然后将代码变成IE或低版本浏览器可以用的js。\n2.初始化webpack.config.js\n去除警告： 文档\n(1)新建文件webpack.config.js，打开文档复制粘贴\nconst path = require(\u0027path\u0027); module.exports = { mode: \u0027development\u0027 \/\/\u0027production\u0027 };  会设置main."
 }
 </script><meta property="og:title" content="Webpack(上) | 目录 | 博客" />
 <meta property="og:type" content="article" />
@@ -144,10 +143,9 @@ const path = require(&#39;path&#39;); module.">
 
 
 
-<meta property="og:description" content="前端框架Webpack，前端最重要的工具之一。
+<meta property="og:description" content="webpack文档、npm文档 前端框架Webpack，前端最重要的工具之一。
 CRM法学webpack,通过11个任务学会webpack。
-webpack文档、npm文档
- 工具
+工具
 webpack@4 和 webpack-dev-server本地预览
 本地预览httpserver没有webpack-dev-server功能强,parcel也能本地预览但与webpack不配套,所以只能用webpack-dev-server。
 webpack这么多插件怎么学？
@@ -168,7 +166,7 @@ npx webpack //自动但可能不稳定 //或者./node_modules/.bin/webpack --ver
 2.初始化webpack.config.js
 去除警告： 文档
 (1)新建文件webpack.config.js，打开文档复制粘贴
-const path = require(&#39;path&#39;); module." />
+const path = require(&#39;path&#39;); module.exports = { mode: &#39;development&#39; //&#39;production&#39; };  会设置main." />
 
 
 
@@ -316,7 +314,7 @@ const path = require(&#39;path&#39;); module." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">【CSS全解】</a>
         </div>
         
         
@@ -327,7 +325,7 @@ const path = require(&#39;path&#39;); module." />
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
         </div>
         
     </li>
@@ -338,7 +336,7 @@ const path = require(&#39;path&#39;); module." />
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
         </div>
         
     </li>
@@ -349,7 +347,7 @@ const path = require(&#39;path&#39;); module." />
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
         </div>
         
     </li>
@@ -360,7 +358,68 @@ const path = require(&#39;path&#39;); module." />
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
         </div>
         
     </li>
@@ -438,68 +497,7 @@ const path = require(&#39;path&#39;); module." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
-        </div>
-        
-        
-<ul class="ps-6">
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
-        </div>
-        
-    </li>
-    
-    
-</ul>
-
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class=" pb-2 ">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">【HTTP全解】</a>
         </div>
         
         
@@ -549,7 +547,7 @@ const path = require(&#39;path&#39;); module." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">【JS全解】</a>
         </div>
         
         
@@ -676,7 +674,7 @@ const path = require(&#39;path&#39;); module." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">【JS编程接口】</a>
         </div>
         
         
@@ -748,7 +746,7 @@ const path = require(&#39;path&#39;); module." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">【JS进阶】</a>
         </div>
         
         
@@ -787,7 +785,7 @@ const path = require(&#39;path&#39;); module." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">【React全解】</a>
         </div>
         
         
@@ -881,7 +879,7 @@ const path = require(&#39;path&#39;); module." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">【Vue2 全解】</a>
         </div>
         
         
@@ -997,7 +995,7 @@ const path = require(&#39;path&#39;); module." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">【其它】</a>
         </div>
         
         
@@ -1025,7 +1023,7 @@ const path = require(&#39;path&#39;); module." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">【前后分离】</a>
         </div>
         
         
@@ -1097,11 +1095,33 @@ const path = require(&#39;path&#39;); module." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">【算法与数据结构】</a>
         </div>
         
         
 <ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8A/">排序算法(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8B/">排序算法(下)</a>
+        </div>
+        
+    </li>
+    
     
     
     
@@ -1125,7 +1145,7 @@ const path = require(&#39;path&#39;); module." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">【项目构建】</a>
         </div>
         
         
@@ -1201,11 +1221,9 @@ const path = require(&#39;path&#39;); module." />
   
   
 
-  <blockquote>
-<p>前端框架Webpack，前端最重要的工具之一。<br>
-<strong>CRM法学webpack,通过11个任务学会webpack。</strong><br>
-<a href="https://www.webpackjs.com/guides/getting-started/#%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85">webpack文档</a>、<a href="https://docs.npmjs.com/cli/v8/configuring-npm/package-json">npm文档</a></p>
-</blockquote>
+  <p><a href="https://www.webpackjs.com/guides/getting-started/#%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85">webpack文档</a>、<a href="https://docs.npmjs.com/cli/v8/configuring-npm/package-json">npm文档</a>
+前端框架Webpack，前端最重要的工具之一。<br>
+<strong>CRM法学webpack,通过11个任务学会webpack。</strong></p>
 <p><strong>工具</strong><br>
 <strong>webpack@4 和 webpack-dev-server</strong>本地预览<br>
 本地预览httpserver没有webpack-dev-server功能强,parcel也能本地预览但与webpack不配套,所以只能用webpack-dev-server。</p>

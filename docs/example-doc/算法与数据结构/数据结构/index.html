@@ -65,7 +65,7 @@
 数组可以分为队列、栈等
 哈希表(计数排序)
 用来存储key-value对
- 数据结构一:队列Queue 队列Queue:一种特殊的数组,先进先出的数组 什么是队列数据结构?
+数据结构一:队列Queue 队列Queue:一种特殊的数组,先进先出的数组 什么是队列数据结构?
 队列数据结构就是个类似数组的东西，但是它只提供push()入队和shift()出队2个操作。你提供这样的结构和这样的2个操作，你就是队列。 队列专门用来解决排队的问题。
 用call改写
 //queue.push(n) queue.push.call(queue, n) //const m = queue.shift() const m = queue.shift.call(queue)  数据结构二:栈Stack 后进先出的数组 例子:坐电梯超重时，后进先出。 2个操作:压栈push()、弹栈pop()
@@ -95,7 +95,7 @@ const createList = (value) =&gt; { return createNode(value) } const appendList =
       "item":"https://lixueqin-4119.xyz/docs/example-doc/"},{
       "@type": "ListItem",
       "position": 3 ,
-      "name":"算法与数据结构",
+      "name":"【算法与数据结构】",
       "item":"https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"},{
       "@type": "ListItem",
       "position": 4 ,
@@ -125,7 +125,7 @@ const createList = (value) =&gt; { return createNode(value) } const appendList =
             "url": "https://lixueqin-4119.xyz/images/icon.png"
         }
         },
-    "description": "目前我们用过的数据结构\n数组(选择排序、归并排序、快速排序)\n数组可以分为队列、栈等\n哈希表(计数排序)\n用来存储key-value对\n 数据结构一:队列Queue 队列Queue:一种特殊的数组,先进先出的数组 什么是队列数据结构?\n队列数据结构就是个类似数组的东西，但是它只提供push()入队和shift()出队2个操作。你提供这样的结构和这样的2个操作，你就是队列。 队列专门用来解决排队的问题。\n用call改写\n\/\/queue.push(n) queue.push.call(queue, n) \/\/const m = queue.shift() const m = queue.shift.call(queue)  数据结构二:栈Stack 后进先出的数组 例子:坐电梯超重时，后进先出。 2个操作:压栈push()、弹栈pop()\nQueue和Stack都是用数组做的数据结构。\n数据结构三:链表Linked List 一个链一个 JS的每个对象实际上就是链表。\n这导致array能够直接访问数组原型的方法，比如说array.push()。 它也可以访问到对象原型上有的方法，比如说array.hasOwnProperty 这是一种非常简洁的实现继承的一种机制。\n链表的好处:可以随时把中间的某个链条给断掉。\n如何做到断掉数组原型？\n将array.__proto__指向对象原型,它就不会再有push这个方法了。\n对于修改东西比较方便。\n创建链表 如何创建链表，在链表上增删改查?\n1.创建只含有一个节点的link_list\nconst createList = (value) =\u0026gt; { \/\/创建只含有一个节点的link_list return { data: value, next: null } } const list = createList(10) console.log(list) 运行:parcel src\/linked_list.html  2.新增其它节点\nconst createList = (value) =\u0026gt; { return createNode(value) } const appendList = (list, value) =\u0026gt; { const node = createNode(value) list."
+    "description": "目前我们用过的数据结构\n数组(选择排序、归并排序、快速排序)\n数组可以分为队列、栈等\n哈希表(计数排序)\n用来存储key-value对\n数据结构一:队列Queue 队列Queue:一种特殊的数组,先进先出的数组 什么是队列数据结构?\n队列数据结构就是个类似数组的东西，但是它只提供push()入队和shift()出队2个操作。你提供这样的结构和这样的2个操作，你就是队列。 队列专门用来解决排队的问题。\n用call改写\n\/\/queue.push(n) queue.push.call(queue, n) \/\/const m = queue.shift() const m = queue.shift.call(queue)  数据结构二:栈Stack 后进先出的数组 例子:坐电梯超重时，后进先出。 2个操作:压栈push()、弹栈pop()\nQueue和Stack都是用数组做的数据结构。\n数据结构三:链表Linked List 一个链一个 JS的每个对象实际上就是链表。\n这导致array能够直接访问数组原型的方法，比如说array.push()。 它也可以访问到对象原型上有的方法，比如说array.hasOwnProperty 这是一种非常简洁的实现继承的一种机制。\n链表的好处:可以随时把中间的某个链条给断掉。\n如何做到断掉数组原型？\n将array.__proto__指向对象原型,它就不会再有push这个方法了。\n对于修改东西比较方便。\n创建链表 如何创建链表，在链表上增删改查?\n1.创建只含有一个节点的link_list\nconst createList = (value) =\u0026gt; { \/\/创建只含有一个节点的link_list return { data: value, next: null } } const list = createList(10) console.log(list) 运行:parcel src\/linked_list.html  2.新增其它节点\nconst createList = (value) =\u0026gt; { return createNode(value) } const appendList = (list, value) =\u0026gt; { const node = createNode(value) list."
 }
 </script><meta property="og:title" content="数据结构 | 目录 | 博客" />
 <meta property="og:type" content="article" />
@@ -144,7 +144,7 @@ const createList = (value) =&gt; { return createNode(value) } const appendList =
 数组可以分为队列、栈等
 哈希表(计数排序)
 用来存储key-value对
- 数据结构一:队列Queue 队列Queue:一种特殊的数组,先进先出的数组 什么是队列数据结构?
+数据结构一:队列Queue 队列Queue:一种特殊的数组,先进先出的数组 什么是队列数据结构?
 队列数据结构就是个类似数组的东西，但是它只提供push()入队和shift()出队2个操作。你提供这样的结构和这样的2个操作，你就是队列。 队列专门用来解决排队的问题。
 用call改写
 //queue.push(n) queue.push.call(queue, n) //const m = queue.shift() const m = queue.shift.call(queue)  数据结构二:栈Stack 后进先出的数组 例子:坐电梯超重时，后进先出。 2个操作:压栈push()、弹栈pop()
@@ -306,7 +306,7 @@ const createList = (value) =&gt; { return createNode(value) } const appendList =
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">【CSS全解】</a>
         </div>
         
         
@@ -317,7 +317,7 @@ const createList = (value) =&gt; { return createNode(value) } const appendList =
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
         </div>
         
     </li>
@@ -328,7 +328,7 @@ const createList = (value) =&gt; { return createNode(value) } const appendList =
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
         </div>
         
     </li>
@@ -339,7 +339,7 @@ const createList = (value) =&gt; { return createNode(value) } const appendList =
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
         </div>
         
     </li>
@@ -350,7 +350,68 @@ const createList = (value) =&gt; { return createNode(value) } const appendList =
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
         </div>
         
     </li>
@@ -428,68 +489,7 @@ const createList = (value) =&gt; { return createNode(value) } const appendList =
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
-        </div>
-        
-        
-<ul class="ps-6">
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
-        </div>
-        
-    </li>
-    
-    
-</ul>
-
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class=" pb-2 ">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">【HTTP全解】</a>
         </div>
         
         
@@ -539,7 +539,7 @@ const createList = (value) =&gt; { return createNode(value) } const appendList =
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">【JS全解】</a>
         </div>
         
         
@@ -666,7 +666,7 @@ const createList = (value) =&gt; { return createNode(value) } const appendList =
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">【JS编程接口】</a>
         </div>
         
         
@@ -738,7 +738,7 @@ const createList = (value) =&gt; { return createNode(value) } const appendList =
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">【JS进阶】</a>
         </div>
         
         
@@ -777,7 +777,7 @@ const createList = (value) =&gt; { return createNode(value) } const appendList =
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">【React全解】</a>
         </div>
         
         
@@ -871,7 +871,7 @@ const createList = (value) =&gt; { return createNode(value) } const appendList =
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">【Vue2 全解】</a>
         </div>
         
         
@@ -987,7 +987,7 @@ const createList = (value) =&gt; { return createNode(value) } const appendList =
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">【其它】</a>
         </div>
         
         
@@ -1015,7 +1015,7 @@ const createList = (value) =&gt; { return createNode(value) } const appendList =
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">【前后分离】</a>
         </div>
         
         
@@ -1087,11 +1087,33 @@ const createList = (value) =&gt; { return createNode(value) } const appendList =
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">【算法与数据结构】</a>
         </div>
         
         
 <ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8A/">排序算法(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8B/">排序算法(下)</a>
+        </div>
+        
+    </li>
+    
     
     
     
@@ -1115,7 +1137,7 @@ const createList = (value) =&gt; { return createNode(value) } const appendList =
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">【项目构建】</a>
         </div>
         
         
@@ -1191,19 +1213,17 @@ const createList = (value) =&gt; { return createNode(value) } const appendList =
   
   
 
-  <blockquote>
-<p>目前我们用过的数据结构</p>
-<p><strong>数组</strong>(选择排序、归并排序、快速排序)</p>
-<p>数组可以分为队列、栈等</p>
-<p><strong>哈希表</strong>(计数排序)</p>
-<p>用来存储key-value对</p>
-</blockquote>
+  <p>目前我们用过的数据结构<br>
+<strong>数组</strong>(选择排序、归并排序、快速排序)<br>
+数组可以分为队列、栈等<br>
+<strong>哈希表</strong>(计数排序)<br>
+用来存储key-value对</p>
 <h3 id="数据结构一队列queuehttpsgithubcomlixueqin-4119js-demo53blobmastersrcmainjs">数据结构一:<a href="https://github.com/lixueqin-4119/js-demo53/blob/master/src/main.js">队列Queue</a></h3>
 <p><strong>队列Queue</strong>:一种特殊的数组,<strong>先进先出</strong>的数组
 <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/53fc68aa96e04f05ad3e902313e13f54~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述">
 <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fddbf507e1d84cf2bb35efde5bf31ff3~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
-<p><strong>什么是队列数据结构?</strong></p>
-<p>队列数据结构就是个类似数组的东西，但是它只提供<code>push()</code>入队和<code>shift()</code>出队2个操作。你提供这样的结构和这样的2个操作，你就是队列。
+<p><strong>什么是队列数据结构?</strong><br>
+队列数据结构就是个类似数组的东西，但是它只提供<code>push()</code>入队和<code>shift()</code>出队2个操作。你提供这样的结构和这样的2个操作，你就是队列。
 队列专门用来解决排队的问题。</p>
 <p><strong>用call改写</strong></p>
 <pre><code class="language-js">//queue.push(n)
@@ -1222,14 +1242,14 @@ const m = queue.shift.call(queue)
 <p><strong>一个链一个</strong>
 <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9c7e55d0933044fbb57610e99f288c6f~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
 <p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8dc27adbef8847e7ad8e114714c4f367~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
-<p><strong>JS的每个对象实际上就是链表。</strong></p>
-<p>这导致array能够直接访问数组原型的方法，比如说array.push()。
+<p><strong>JS的每个对象实际上就是链表。</strong><br>
+这导致array能够直接访问数组原型的方法，比如说array.push()。
 它也可以访问到对象原型上有的方法，比如说array.hasOwnProperty
 这是一种非常简洁的实现继承的一种机制。</p>
-<p><strong>链表的好处:可以随时把中间的某个链条给断掉。</strong></p>
-<p>如何做到断掉数组原型？</p>
-<p>将<code>array.__proto__</code>指向对象原型,它就不会再有push这个方法了。</p>
-<p>对于修改东西比较方便。</p>
+<p><strong>链表的好处:可以随时把中间的某个链条给断掉。</strong><br>
+如何做到断掉数组原型？<br>
+将<code>array.__proto__</code>指向对象原型,它就不会再有push这个方法了。<br>
+对于修改东西比较方便。</p>
 <p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/04244e2706124e2485bd4873d94a3f12~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
 <h4 id="创建链表">创建链表</h4>
 <p>如何创建链表，在链表上增删改查?</p>
@@ -1570,6 +1590,22 @@ const a = { //5.树
 
 
                     
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+        <span class="text-primary-text block font-bold"
+          >Previous</span
+        >
+        <a href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8B/" class="block">排序算法(下)</a>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+    </div>
+  </div>
+
 
                     
 

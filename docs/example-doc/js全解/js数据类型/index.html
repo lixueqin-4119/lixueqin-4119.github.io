@@ -60,15 +60,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="https://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
 
 <meta name="description"
-  content="其它
-1.推荐阅读《我用了两个月的时间才理解 let》
-2.markdown如何输入上下标 输入上标，如x^2 , 则输入x^2
-3.键盘怎么打顿号？中文状态下点击&quot;|&ldquo;键
-4.二进制只有0和1
-5.前6种类型都是简单类型，只有object叫做复杂类型
-6.JS秘密花园收录了JS的各种bug
-7.JS新增了一种类型bigint 因为太新了用得很少,面试基本不考。
- 数据为什么需要类型？ 数字与字符串
+  content="推荐阅读《我用了两个月的时间才理解let》
+数据为什么需要类型？ 数字与字符串
 (1)功能不同
 数字是数字，字符串是字符串，要严谨
 数字能加减乘除，字符串不行
@@ -89,7 +82,11 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
 100011=2^5 &#43; 2^1 &#43; 2^0=35
 用十六进制表示二进制
 十六进制是二进制的简写(把每4位改写成1位)
-十六进制：0 1 2 3 4 5 6 7 8 9 A B C D E F">
+十六进制：0 1 2 3 4 5 6 7 8 9 A B C D E F
+十六进制没有大于9的数字，后面是字母替代
+JS如何存字符？ 1.英文编号
+转成数字，但是注意‘1’不能用1来表示
+编号表示，用0～127表示所有符号">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -105,7 +102,7 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
       "item":"https://lixueqin-4119.xyz/docs/example-doc/"},{
       "@type": "ListItem",
       "position": 3 ,
-      "name":"JS全解",
+      "name":"【JS全解】",
       "item":"https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/"},{
       "@type": "ListItem",
       "position": 4 ,
@@ -126,7 +123,7 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
     },
     "headline": "JS数据类型 | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
     "dateModified": "2020-10-16T00:00:00+00:00",
-    "wordCount":  475 ,
+    "wordCount":  463 ,
     "publisher": {
         "@type": "Person",
         "name": "WANG Chucheng",
@@ -135,7 +132,7 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
             "url": "https://lixueqin-4119.xyz/images/icon.png"
         }
         },
-    "description": "其它\n1.推荐阅读《我用了两个月的时间才理解 let》\n2.markdown如何输入上下标 输入上标，如x^2 , 则输入x^2\n3.键盘怎么打顿号？中文状态下点击\u0026quot;|\u0026ldquo;键\n4.二进制只有0和1\n5.前6种类型都是简单类型，只有object叫做复杂类型\n6.JS秘密花园收录了JS的各种bug\n7.JS新增了一种类型bigint 因为太新了用得很少,面试基本不考。\n 数据为什么需要类型？ 数字与字符串\n(1)功能不同\n数字是数字，字符串是字符串，要严谨\n数字能加减乘除，字符串不行\n字符串能表示电话号码(有时候电话号码还可以有字母)，数字不同\n(2)存储形式不同\nJS中，数字是用64位浮点数的形式存储的\nJS中，字符串是用类似UTF8形式存储的(UCS-2)\nJS是如何存数字的？ 就是把所有数字变成二进制存下来，再用十六进制简化。\n把所有的十进制都转为二进制\n补充：内存里只能存0和1，2都存不了。2就要把它变成1或0。\n二进制\n1.十进制转二进制\n例子：31变成二进制 31 = ?x2^5 \u002b ?x2^4 \u002b ?x2^3 \u002b ?x2^2 \u002b ?x2^1 \u002b ?x2^0\n经过一番尝试 31=0x2^5 \u002b 1x2^4 \u002b 1x2^3 \u002b 1x2^2 \u002b 1x2^1 \u002b 1x2^0\n所以31(十进制)=01 1111(二进制)\n2.二进制转十进制\n例子：100011变成十进制 每位数乘以2的N次方，然后加起来即可\n100011=2^5 \u002b 2^1 \u002b 2^0=35\n用十六进制表示二进制\n十六进制是二进制的简写(把每4位改写成1位)\n十六进制：0 1 2 3 4 5 6 7 8 9 A B C D E F"
+    "description": "推荐阅读《我用了两个月的时间才理解let》\n数据为什么需要类型？ 数字与字符串\n(1)功能不同\n数字是数字，字符串是字符串，要严谨\n数字能加减乘除，字符串不行\n字符串能表示电话号码(有时候电话号码还可以有字母)，数字不同\n(2)存储形式不同\nJS中，数字是用64位浮点数的形式存储的\nJS中，字符串是用类似UTF8形式存储的(UCS-2)\nJS是如何存数字的？ 就是把所有数字变成二进制存下来，再用十六进制简化。\n把所有的十进制都转为二进制\n补充：内存里只能存0和1，2都存不了。2就要把它变成1或0。\n二进制\n1.十进制转二进制\n例子：31变成二进制 31 = ?x2^5 \u002b ?x2^4 \u002b ?x2^3 \u002b ?x2^2 \u002b ?x2^1 \u002b ?x2^0\n经过一番尝试 31=0x2^5 \u002b 1x2^4 \u002b 1x2^3 \u002b 1x2^2 \u002b 1x2^1 \u002b 1x2^0\n所以31(十进制)=01 1111(二进制)\n2.二进制转十进制\n例子：100011变成十进制 每位数乘以2的N次方，然后加起来即可\n100011=2^5 \u002b 2^1 \u002b 2^0=35\n用十六进制表示二进制\n十六进制是二进制的简写(把每4位改写成1位)\n十六进制：0 1 2 3 4 5 6 7 8 9 A B C D E F\n十六进制没有大于9的数字，后面是字母替代\nJS如何存字符？ 1.英文编号\n转成数字，但是注意‘1’不能用1来表示\n编号表示，用0～127表示所有符号"
 }
 </script><meta property="og:title" content="JS数据类型 | 目录 | 博客" />
 <meta property="og:type" content="article" />
@@ -149,15 +146,8 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
 
 
 
-<meta property="og:description" content="其它
-1.推荐阅读《我用了两个月的时间才理解 let》
-2.markdown如何输入上下标 输入上标，如x^2 , 则输入x^2
-3.键盘怎么打顿号？中文状态下点击&quot;|&ldquo;键
-4.二进制只有0和1
-5.前6种类型都是简单类型，只有object叫做复杂类型
-6.JS秘密花园收录了JS的各种bug
-7.JS新增了一种类型bigint 因为太新了用得很少,面试基本不考。
- 数据为什么需要类型？ 数字与字符串
+<meta property="og:description" content="推荐阅读《我用了两个月的时间才理解let》
+数据为什么需要类型？ 数字与字符串
 (1)功能不同
 数字是数字，字符串是字符串，要严谨
 数字能加减乘除，字符串不行
@@ -178,7 +168,11 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
 100011=2^5 &#43; 2^1 &#43; 2^0=35
 用十六进制表示二进制
 十六进制是二进制的简写(把每4位改写成1位)
-十六进制：0 1 2 3 4 5 6 7 8 9 A B C D E F" />
+十六进制：0 1 2 3 4 5 6 7 8 9 A B C D E F
+十六进制没有大于9的数字，后面是字母替代
+JS如何存字符？ 1.英文编号
+转成数字，但是注意‘1’不能用1来表示
+编号表示，用0～127表示所有符号" />
 
 
 
@@ -326,7 +320,7 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">【CSS全解】</a>
         </div>
         
         
@@ -337,7 +331,7 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
         </div>
         
     </li>
@@ -348,7 +342,7 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
         </div>
         
     </li>
@@ -359,7 +353,7 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
         </div>
         
     </li>
@@ -370,7 +364,68 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
         </div>
         
     </li>
@@ -448,68 +503,7 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
-        </div>
-        
-        
-<ul class="ps-6">
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
-        </div>
-        
-    </li>
-    
-    
-</ul>
-
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class=" pb-2 ">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">【HTTP全解】</a>
         </div>
         
         
@@ -559,7 +553,7 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">【JS全解】</a>
         </div>
         
         
@@ -686,7 +680,7 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">【JS编程接口】</a>
         </div>
         
         
@@ -758,7 +752,7 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">【JS进阶】</a>
         </div>
         
         
@@ -797,7 +791,7 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">【React全解】</a>
         </div>
         
         
@@ -891,7 +885,7 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">【Vue2 全解】</a>
         </div>
         
         
@@ -1007,7 +1001,7 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">【其它】</a>
         </div>
         
         
@@ -1035,7 +1029,7 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">【前后分离】</a>
         </div>
         
         
@@ -1107,11 +1101,33 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">【算法与数据结构】</a>
         </div>
         
         
 <ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8A/">排序算法(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8B/">排序算法(下)</a>
+        </div>
+        
+    </li>
+    
     
     
     
@@ -1135,7 +1151,7 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">【项目构建】</a>
         </div>
         
         
@@ -1211,17 +1227,7 @@ JS是如何存数字的？ 就是把所有数字变成二进制存下来，再�
   
   
 
-  <blockquote>
-<p>其它</p>
-<p>1.推荐阅读<a href="https://zhuanlan.zhihu.com/p/28140450">《我用了两个月的时间才理解 let》</a></p>
-<p>2.markdown如何输入上下标
-输入上标，如x^2 , 则输入<code>x^2</code></p>
-<p>3.键盘怎么打顿号？中文状态下点击&quot;|&ldquo;键</p>
-<p>4.二进制只有0和1</p>
-<p>5.前6种类型都是简单类型，只有object叫做复杂类型</p>
-<p>6.JS秘密花园收录了JS的各种bug</p>
-<p>7.JS新增了一种类型bigint 因为太新了用得很少,面试基本不考。</p>
-</blockquote>
+  <p>推荐阅读<a href="https://zhuanlan.zhihu.com/p/28140450">《我用了两个月的时间才理解let》</a></p>
 <h2 id="数据为什么需要类型"><strong>数据为什么需要类型？</strong></h2>
 <p>数字与字符串</p>
 <p>(1)功能不同</p>

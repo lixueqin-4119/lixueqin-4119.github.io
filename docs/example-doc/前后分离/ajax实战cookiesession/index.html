@@ -60,9 +60,9 @@
 <link rel="apple-touch-icon" sizes="180x180" href="https://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
 
 <meta name="description"
-  content="文档：Node.js中文档、Set-Cookie响应头
+  content="Node.js中文文档、Set-Cookie响应头
 内容：动态服务器
- 什么是动态服务器? 静态服务器(网页) VS 动态服务器(网页)
+什么是动态服务器? 静态服务器(网页) VS 动态服务器(网页)
 判断依据
 是否请求了数据库。
 没有请求数据库，就是静态服务器。请求了数据库，就是动态服务器。
@@ -77,7 +77,7 @@ const fs = require(&#39;fs&#39;) //引入fs const usersString = fs.readFileSync(
 把字符串变成数组
 const usersArray = JSON.parse(usersString) console.log(typeof usersString) console.log(usersString) console.log(typeof usersArray) console.log(usersArray) console.log(usersArray instanceof Array)  3.写数据库
 const user3 = { id: 3, name: &#39;李明&#39;, password: &#39;zzz&#39;, age: 25 } usersArray.push(user3)  存到数据库。我们的数据库是文件，文件只能存字符串
-console.log(typeof user3) //object const string = JSON.">
+console.log(typeof user3) //object const string = JSON.stringify(usersArray) fs.">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -93,7 +93,7 @@ console.log(typeof user3) //object const string = JSON.">
       "item":"https://lixueqin-4119.xyz/docs/example-doc/"},{
       "@type": "ListItem",
       "position": 3 ,
-      "name":"前后分离",
+      "name":"【前后分离】",
       "item":"https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/"},{
       "@type": "ListItem",
       "position": 4 ,
@@ -123,7 +123,7 @@ console.log(typeof user3) //object const string = JSON.">
             "url": "https://lixueqin-4119.xyz/images/icon.png"
         }
         },
-    "description": "文档：Node.js中文档、Set-Cookie响应头\n内容：动态服务器\n 什么是动态服务器? 静态服务器(网页) VS 动态服务器(网页)\n判断依据\n是否请求了数据库。\n没有请求数据库，就是静态服务器。请求了数据库，就是动态服务器。\n今天直接用json文件当作数据库。\n步骤 查看代码\n1.新建目录db和文件users.json\n[ {\u0026quot;id\u0026quot;:1,\u0026quot;name\u0026quot;:\u0026quot;李白\u0026quot;,\u0026quot;password\u0026quot;:\u0026quot;xxx\u0026quot;,\u0026quot;age\u0026quot;:18}, {\u0026quot;id\u0026quot;:2,\u0026quot;name\u0026quot;:\u0026quot;李宇春\u0026quot;,\u0026quot;password\u0026quot;:\u0026quot;yyy\u0026quot;,\u0026quot;age\u0026quot;:20} ]  2.读数据库\n新建test.js用来测试数据\nfs用来读文件的，要想获取文件数据，首先要引入fs。\nconst fs = require(\u0027fs\u0027) \/\/引入fs const usersString = fs.readFileSync(\u0027.\/db\/users.json\u0027).toString() console.log(usersString)  toString() 方法返回一个表示该对象的字符串。\n运行:node test.js\n把字符串变成数组\nconst usersArray = JSON.parse(usersString) console.log(typeof usersString) console.log(usersString) console.log(typeof usersArray) console.log(usersArray) console.log(usersArray instanceof Array)  3.写数据库\nconst user3 = { id: 3, name: \u0027李明\u0027, password: \u0027zzz\u0027, age: 25 } usersArray.push(user3)  存到数据库。我们的数据库是文件，文件只能存字符串\nconsole.log(typeof user3) \/\/object const string = JSON."
+    "description": "Node.js中文文档、Set-Cookie响应头\n内容：动态服务器\n什么是动态服务器? 静态服务器(网页) VS 动态服务器(网页)\n判断依据\n是否请求了数据库。\n没有请求数据库，就是静态服务器。请求了数据库，就是动态服务器。\n今天直接用json文件当作数据库。\n步骤 查看代码\n1.新建目录db和文件users.json\n[ {\u0026quot;id\u0026quot;:1,\u0026quot;name\u0026quot;:\u0026quot;李白\u0026quot;,\u0026quot;password\u0026quot;:\u0026quot;xxx\u0026quot;,\u0026quot;age\u0026quot;:18}, {\u0026quot;id\u0026quot;:2,\u0026quot;name\u0026quot;:\u0026quot;李宇春\u0026quot;,\u0026quot;password\u0026quot;:\u0026quot;yyy\u0026quot;,\u0026quot;age\u0026quot;:20} ]  2.读数据库\n新建test.js用来测试数据\nfs用来读文件的，要想获取文件数据，首先要引入fs。\nconst fs = require(\u0027fs\u0027) \/\/引入fs const usersString = fs.readFileSync(\u0027.\/db\/users.json\u0027).toString() console.log(usersString)  toString() 方法返回一个表示该对象的字符串。\n运行:node test.js\n把字符串变成数组\nconst usersArray = JSON.parse(usersString) console.log(typeof usersString) console.log(usersString) console.log(typeof usersArray) console.log(usersArray) console.log(usersArray instanceof Array)  3.写数据库\nconst user3 = { id: 3, name: \u0027李明\u0027, password: \u0027zzz\u0027, age: 25 } usersArray.push(user3)  存到数据库。我们的数据库是文件，文件只能存字符串\nconsole.log(typeof user3) \/\/object const string = JSON.stringify(usersArray) fs."
 }
 </script><meta property="og:title" content="Ajax实战:Cookie、Session | 目录 | 博客" />
 <meta property="og:type" content="article" />
@@ -137,9 +137,9 @@ console.log(typeof user3) //object const string = JSON.">
 
 
 
-<meta property="og:description" content="文档：Node.js中文档、Set-Cookie响应头
+<meta property="og:description" content="Node.js中文文档、Set-Cookie响应头
 内容：动态服务器
- 什么是动态服务器? 静态服务器(网页) VS 动态服务器(网页)
+什么是动态服务器? 静态服务器(网页) VS 动态服务器(网页)
 判断依据
 是否请求了数据库。
 没有请求数据库，就是静态服务器。请求了数据库，就是动态服务器。
@@ -154,7 +154,7 @@ const fs = require(&#39;fs&#39;) //引入fs const usersString = fs.readFileSync(
 把字符串变成数组
 const usersArray = JSON.parse(usersString) console.log(typeof usersString) console.log(usersString) console.log(typeof usersArray) console.log(usersArray) console.log(usersArray instanceof Array)  3.写数据库
 const user3 = { id: 3, name: &#39;李明&#39;, password: &#39;zzz&#39;, age: 25 } usersArray.push(user3)  存到数据库。我们的数据库是文件，文件只能存字符串
-console.log(typeof user3) //object const string = JSON." />
+console.log(typeof user3) //object const string = JSON.stringify(usersArray) fs." />
 
 
 
@@ -302,7 +302,7 @@ console.log(typeof user3) //object const string = JSON." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">【CSS全解】</a>
         </div>
         
         
@@ -313,7 +313,7 @@ console.log(typeof user3) //object const string = JSON." />
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
         </div>
         
     </li>
@@ -324,7 +324,7 @@ console.log(typeof user3) //object const string = JSON." />
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
         </div>
         
     </li>
@@ -335,7 +335,7 @@ console.log(typeof user3) //object const string = JSON." />
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
         </div>
         
     </li>
@@ -346,7 +346,68 @@ console.log(typeof user3) //object const string = JSON." />
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
         </div>
         
     </li>
@@ -424,68 +485,7 @@ console.log(typeof user3) //object const string = JSON." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
-        </div>
-        
-        
-<ul class="ps-6">
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
-        </div>
-        
-    </li>
-    
-    
-</ul>
-
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class=" pb-2 ">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">【HTTP全解】</a>
         </div>
         
         
@@ -535,7 +535,7 @@ console.log(typeof user3) //object const string = JSON." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">【JS全解】</a>
         </div>
         
         
@@ -662,7 +662,7 @@ console.log(typeof user3) //object const string = JSON." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">【JS编程接口】</a>
         </div>
         
         
@@ -734,7 +734,7 @@ console.log(typeof user3) //object const string = JSON." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">【JS进阶】</a>
         </div>
         
         
@@ -773,7 +773,7 @@ console.log(typeof user3) //object const string = JSON." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">【React全解】</a>
         </div>
         
         
@@ -867,7 +867,7 @@ console.log(typeof user3) //object const string = JSON." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">【Vue2 全解】</a>
         </div>
         
         
@@ -983,7 +983,7 @@ console.log(typeof user3) //object const string = JSON." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">【其它】</a>
         </div>
         
         
@@ -1011,7 +1011,7 @@ console.log(typeof user3) //object const string = JSON." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">【前后分离】</a>
         </div>
         
         
@@ -1083,11 +1083,33 @@ console.log(typeof user3) //object const string = JSON." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">【算法与数据结构】</a>
         </div>
         
         
 <ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8A/">排序算法(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8B/">排序算法(下)</a>
+        </div>
+        
+    </li>
+    
     
     
     
@@ -1111,7 +1133,7 @@ console.log(typeof user3) //object const string = JSON." />
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">【项目构建】</a>
         </div>
         
         
@@ -1187,10 +1209,8 @@ console.log(typeof user3) //object const string = JSON." />
   
   
 
-  <blockquote>
-<p>文档：<a href="http://nodejs.cn/api/">Node.js中文档</a>、<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies#set-cookie%E5%93%8D%E5%BA%94%E5%A4%B4%E9%83%A8%E5%92%8Ccookie%E8%AF%B7%E6%B1%82%E5%A4%B4%E9%83%A8">Set-Cookie响应头</a><br>
+  <p><a href="http://nodejs.cn/api/">Node.js中文文档</a>、<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies#set-cookie%E5%93%8D%E5%BA%94%E5%A4%B4%E9%83%A8%E5%92%8Ccookie%E8%AF%B7%E6%B1%82%E5%A4%B4%E9%83%A8">Set-Cookie响应头</a><br>
 内容：动态服务器</p>
-</blockquote>
 <h3 id="什么是动态服务器">什么是动态服务器?</h3>
 <p>静态服务器(网页) VS 动态服务器(网页)<br>
 判断依据<br>
@@ -1233,8 +1253,8 @@ const string = JSON.stringify(usersArray)
 fs.writeFileSync('./db/users.json', string)
 </code></pre>
 <p>每运行一次<strong>node test.js</strong>就会写一次user3</p>
-<p><strong>知识点：</strong></p>
-<p>1.<strong>JSON.stringify()序列化/字符串化</strong><br>
+<p><strong>知识点：</strong><br>
+1.<strong>JSON.stringify()序列化/字符串化</strong><br>
 序列化就是将一个js对象或值转换为符合JSON语法字符串。<br>
 <strong>JSON.parse()反序列化/反字符串化</strong><br>
 反序列化就是解析JSON字符串，构造由字符串描述的js值或对象。<br>
@@ -1248,14 +1268,14 @@ fs.writeFileSync('./db/users.json', string)
 <p>toString()是将<strong>数组</strong>转化成字符串，因此不带[]</p>
 <p>JSON.stringify()将一个js对象或值(一般是对象)转换为符合JSON语法字符串,是带[]的。</p>
 <p>另外JSON.parse()是解析JSON字符串，构造由字符串描述的js值或对象(一般是对象)</p>
-<p><strong>经验</strong></p>
-<p><strong>1.读数据时</strong>需要先将json数据文件toString()转化为字符串，符合JSON语法的字符串,toString也会<strong>反</strong>UTF-8编码。然后再解析JSON字符串JSON.parse()构造由字符串描述的js值或对象。</p>
+<p><strong>经验</strong><br>
+<strong>1.读数据时</strong>需要先将json数据文件toString()转化为字符串，符合JSON语法的字符串,toString也会<strong>反</strong>UTF-8编码。然后再解析JSON字符串JSON.parse()构造由字符串描述的js值或对象。</p>
 <p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f24947ca7ae24555acb55c3a85a51d1a~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
 <p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c5ceb9c1f95246f1a59ca77bcca78bf1~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
 <p><code>JSON.parse()//[object Object],[object Object]</code></p>
 <p><strong>2.写数据时</strong>，需要将数据JSON.stringify()将一个js对象或值转换为符合JSON语法字符串,是带[]的。因为我们的数据库是文件，文件只能存字符串。</p>
-<p><strong>总结</strong>
-/db/users.json<br>
+<p><strong>总结</strong><br>
+db/users.json<br>
 <strong>结构：一个数组</strong></p>
 <pre><code class="language-json">[
   { id: 1, name: '李白', password: 'xxx', age: 18 },

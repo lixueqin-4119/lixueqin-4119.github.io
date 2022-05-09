@@ -61,11 +61,16 @@
 
 <meta name="description"
   content="Vue中文文档 、工具@vue/cli文档
- Vue的历史 vue、Angular.js、React.js前端三大主流框架。 MVC中的V是Vue的重点，M和V则被简化。 Vue和vue.js没有区别，vue就是vue.js的简称。 Vue你可以认为是框架也可以说是库，Vue中文英文文档都是尤雨溪写的。
-15年的1.0版本Vue自称是MVVM框架，不是MVC是MVVM，不过这已经成历史了。现在Vue是MV * 框架,意思就是你说MVC、MVVM都行。但是Vue升级到2.0后，它虽然看起来是MVVM框架，但实际不是MVVM框架了。Vue3直接抄袭React。 Vue作者尤雨溪，主要作品: Vue、Vue Router、Vuex、@vue/cli(主要维护者是蒋豪群) Vue2版本vue.runtime.min.js Vue3版本vue.runtime.global.prod.js
+Vue的历史 vue、Angular.js、React.js前端三大主流框架。
+MVC中的V是Vue的重点，M和V则被简化。
+Vue和vue.js没有区别，vue就是vue.js的简称。
+Vue你可以认为是框架也可以说是库，Vue中文英文文档都是尤雨溪写的。
+15年的1.0版本Vue自称是MVVM框架，不是MVC是MVVM，不过这已经成历史了。现在Vue是MV * 框架,意思就是你说MVC、MVVM都行。但是Vue升级到2.0后，它虽然看起来是MVVM框架，但实际不是MVVM框架了。Vue3直接抄袭React。
+Vue作者尤雨溪，主要作品: Vue、Vue Router、Vuex、@vue/cli(主要维护者是蒋豪群) Vue2版本vue.runtime.min.js Vue3版本vue.runtime.global.prod.js
 目标一: 项目搭建 方法一:使用@Vue/cli
- 使用@vue/cli搭建Vue项目 @Vue/cli 是Vue的创建初始化工具，webpack的升级版，帮你把所有的webpack loader、webpack plugin配好了。利用@Vue/cli，不用学webpack也能用Vue。
- 步骤 🔍@vue/cli文档
+使用@vue/cli搭建Vue项目
+@Vue/cli 是Vue的创建初始化工具，webpack的升级版，帮你把所有的webpack loader、webpack plugin配好了。利用@Vue/cli，不用学webpack也能用Vue。
+步骤 🔍@vue/cli文档
 1.打开终端
 cd ~/Desktop/ yarn global add @vue/cli@4.1.0-beta.0 vue --version vue create vue-demo //创建目录vue-demo  2.设置配置(该配置只适合学习，如果是真实项目请自行斟酌选项)
 选错用control&#43;c中断重来
@@ -78,7 +83,9 @@ cd vue-demo yarn serve 中断control&#43;c，然后把生成的目录vue-demo拖
 不要登录，点击“create sandbox”，选择创建vue沙盒。
 下载至本地:点击File-&gt; Export to ZIP 并解压缩
 方法二:自己从零搭建Vue项目
-目标二.vue.js和vue.runtime.js的使用 做一个简单的&quot;&#43;1&quot;项目">
+目标二.vue.js和vue.runtime.js的使用 做一个简单的&quot;&#43;1&quot;项目
+如何使用Vue实例？
+App.vue &lt;template&gt; &lt;div id=&quot;app&quot;&gt; {{n}} &lt;button @click=&quot;add&quot;&gt;&#43;1&lt;/button&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; import HelloWorld from &#39;.">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -94,7 +101,7 @@ cd vue-demo yarn serve 中断control&#43;c，然后把生成的目录vue-demo拖
       "item":"https://lixueqin-4119.xyz/docs/example-doc/"},{
       "@type": "ListItem",
       "position": 3 ,
-      "name":"Vue2 全解",
+      "name":"【Vue2 全解】",
       "item":"https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/"},{
       "@type": "ListItem",
       "position": 4 ,
@@ -124,7 +131,7 @@ cd vue-demo yarn serve 中断control&#43;c，然后把生成的目录vue-demo拖
             "url": "https://lixueqin-4119.xyz/images/icon.png"
         }
         },
-    "description": "Vue中文文档 、工具@vue\/cli文档\n Vue的历史 vue、Angular.js、React.js前端三大主流框架。 MVC中的V是Vue的重点，M和V则被简化。 Vue和vue.js没有区别，vue就是vue.js的简称。 Vue你可以认为是框架也可以说是库，Vue中文英文文档都是尤雨溪写的。\n15年的1.0版本Vue自称是MVVM框架，不是MVC是MVVM，不过这已经成历史了。现在Vue是MV * 框架,意思就是你说MVC、MVVM都行。但是Vue升级到2.0后，它虽然看起来是MVVM框架，但实际不是MVVM框架了。Vue3直接抄袭React。 Vue作者尤雨溪，主要作品: Vue、Vue Router、Vuex、@vue\/cli(主要维护者是蒋豪群) Vue2版本vue.runtime.min.js Vue3版本vue.runtime.global.prod.js\n目标一: 项目搭建 方法一:使用@Vue\/cli\n 使用@vue\/cli搭建Vue项目 @Vue\/cli 是Vue的创建初始化工具，webpack的升级版，帮你把所有的webpack loader、webpack plugin配好了。利用@Vue\/cli，不用学webpack也能用Vue。\n 步骤 🔍@vue\/cli文档\n1.打开终端\ncd ~\/Desktop\/ yarn global add @vue\/cli@4.1.0-beta.0 vue --version vue create vue-demo \/\/创建目录vue-demo  2.设置配置(该配置只适合学习，如果是真实项目请自行斟酌选项)\n选错用control\u002bc中断重来\n没有截图的使用默认选项。\n多选:用空格键选中或取消 注意: 不要勾选Choose Vue version!\n3.运行\ncd vue-demo yarn serve 中断control\u002bc，然后把生成的目录vue-demo拖进来 open . yarn serve \/\/打开本地预览服务器  现在就可以使用Vue了，还可以用codesandbox.io。\n第1种方式:用命令行创建目录，它会自动帮你安装依赖。\n第2种方式:用codesandbox.io。\n不要登录，点击“create sandbox”，选择创建vue沙盒。\n下载至本地:点击File-\u0026gt; Export to ZIP 并解压缩\n方法二:自己从零搭建Vue项目\n目标二.vue.js和vue.runtime.js的使用 做一个简单的\u0026quot;\u002b1\u0026quot;项目"
+    "description": "Vue中文文档 、工具@vue\/cli文档\nVue的历史 vue、Angular.js、React.js前端三大主流框架。\nMVC中的V是Vue的重点，M和V则被简化。\nVue和vue.js没有区别，vue就是vue.js的简称。\nVue你可以认为是框架也可以说是库，Vue中文英文文档都是尤雨溪写的。\n15年的1.0版本Vue自称是MVVM框架，不是MVC是MVVM，不过这已经成历史了。现在Vue是MV * 框架,意思就是你说MVC、MVVM都行。但是Vue升级到2.0后，它虽然看起来是MVVM框架，但实际不是MVVM框架了。Vue3直接抄袭React。\nVue作者尤雨溪，主要作品: Vue、Vue Router、Vuex、@vue\/cli(主要维护者是蒋豪群) Vue2版本vue.runtime.min.js Vue3版本vue.runtime.global.prod.js\n目标一: 项目搭建 方法一:使用@Vue\/cli\n使用@vue\/cli搭建Vue项目\n@Vue\/cli 是Vue的创建初始化工具，webpack的升级版，帮你把所有的webpack loader、webpack plugin配好了。利用@Vue\/cli，不用学webpack也能用Vue。\n步骤 🔍@vue\/cli文档\n1.打开终端\ncd ~\/Desktop\/ yarn global add @vue\/cli@4.1.0-beta.0 vue --version vue create vue-demo \/\/创建目录vue-demo  2.设置配置(该配置只适合学习，如果是真实项目请自行斟酌选项)\n选错用control\u002bc中断重来\n没有截图的使用默认选项。\n多选:用空格键选中或取消 注意: 不要勾选Choose Vue version!\n3.运行\ncd vue-demo yarn serve 中断control\u002bc，然后把生成的目录vue-demo拖进来 open . yarn serve \/\/打开本地预览服务器  现在就可以使用Vue了，还可以用codesandbox.io。\n第1种方式:用命令行创建目录，它会自动帮你安装依赖。\n第2种方式:用codesandbox.io。\n不要登录，点击“create sandbox”，选择创建vue沙盒。\n下载至本地:点击File-\u0026gt; Export to ZIP 并解压缩\n方法二:自己从零搭建Vue项目\n目标二.vue.js和vue.runtime.js的使用 做一个简单的\u0026quot;\u002b1\u0026quot;项目\n如何使用Vue实例？\nApp.vue \u0026lt;template\u0026gt; \u0026lt;div id=\u0026quot;app\u0026quot;\u0026gt; {{n}} \u0026lt;button @click=\u0026quot;add\u0026quot;\u0026gt;\u002b1\u0026lt;\/button\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;\/template\u0026gt; \u0026lt;script\u0026gt; import HelloWorld from \u0027."
 }
 </script><meta property="og:title" content="起手式 | 目录 | 博客" />
 <meta property="og:type" content="article" />
@@ -139,11 +146,16 @@ cd vue-demo yarn serve 中断control&#43;c，然后把生成的目录vue-demo拖
 
 
 <meta property="og:description" content="Vue中文文档 、工具@vue/cli文档
- Vue的历史 vue、Angular.js、React.js前端三大主流框架。 MVC中的V是Vue的重点，M和V则被简化。 Vue和vue.js没有区别，vue就是vue.js的简称。 Vue你可以认为是框架也可以说是库，Vue中文英文文档都是尤雨溪写的。
-15年的1.0版本Vue自称是MVVM框架，不是MVC是MVVM，不过这已经成历史了。现在Vue是MV * 框架,意思就是你说MVC、MVVM都行。但是Vue升级到2.0后，它虽然看起来是MVVM框架，但实际不是MVVM框架了。Vue3直接抄袭React。 Vue作者尤雨溪，主要作品: Vue、Vue Router、Vuex、@vue/cli(主要维护者是蒋豪群) Vue2版本vue.runtime.min.js Vue3版本vue.runtime.global.prod.js
+Vue的历史 vue、Angular.js、React.js前端三大主流框架。
+MVC中的V是Vue的重点，M和V则被简化。
+Vue和vue.js没有区别，vue就是vue.js的简称。
+Vue你可以认为是框架也可以说是库，Vue中文英文文档都是尤雨溪写的。
+15年的1.0版本Vue自称是MVVM框架，不是MVC是MVVM，不过这已经成历史了。现在Vue是MV * 框架,意思就是你说MVC、MVVM都行。但是Vue升级到2.0后，它虽然看起来是MVVM框架，但实际不是MVVM框架了。Vue3直接抄袭React。
+Vue作者尤雨溪，主要作品: Vue、Vue Router、Vuex、@vue/cli(主要维护者是蒋豪群) Vue2版本vue.runtime.min.js Vue3版本vue.runtime.global.prod.js
 目标一: 项目搭建 方法一:使用@Vue/cli
- 使用@vue/cli搭建Vue项目 @Vue/cli 是Vue的创建初始化工具，webpack的升级版，帮你把所有的webpack loader、webpack plugin配好了。利用@Vue/cli，不用学webpack也能用Vue。
- 步骤 🔍@vue/cli文档
+使用@vue/cli搭建Vue项目
+@Vue/cli 是Vue的创建初始化工具，webpack的升级版，帮你把所有的webpack loader、webpack plugin配好了。利用@Vue/cli，不用学webpack也能用Vue。
+步骤 🔍@vue/cli文档
 1.打开终端
 cd ~/Desktop/ yarn global add @vue/cli@4.1.0-beta.0 vue --version vue create vue-demo //创建目录vue-demo  2.设置配置(该配置只适合学习，如果是真实项目请自行斟酌选项)
 选错用control&#43;c中断重来
@@ -156,7 +168,9 @@ cd vue-demo yarn serve 中断control&#43;c，然后把生成的目录vue-demo拖
 不要登录，点击“create sandbox”，选择创建vue沙盒。
 下载至本地:点击File-&gt; Export to ZIP 并解压缩
 方法二:自己从零搭建Vue项目
-目标二.vue.js和vue.runtime.js的使用 做一个简单的&quot;&#43;1&quot;项目" />
+目标二.vue.js和vue.runtime.js的使用 做一个简单的&quot;&#43;1&quot;项目
+如何使用Vue实例？
+App.vue &lt;template&gt; &lt;div id=&quot;app&quot;&gt; {{n}} &lt;button @click=&quot;add&quot;&gt;&#43;1&lt;/button&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; import HelloWorld from &#39;." />
 
 
 
@@ -304,7 +318,7 @@ cd vue-demo yarn serve 中断control&#43;c，然后把生成的目录vue-demo拖
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">【CSS全解】</a>
         </div>
         
         
@@ -315,7 +329,7 @@ cd vue-demo yarn serve 中断control&#43;c，然后把生成的目录vue-demo拖
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
         </div>
         
     </li>
@@ -326,7 +340,7 @@ cd vue-demo yarn serve 中断control&#43;c，然后把生成的目录vue-demo拖
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
         </div>
         
     </li>
@@ -337,7 +351,7 @@ cd vue-demo yarn serve 中断control&#43;c，然后把生成的目录vue-demo拖
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
         </div>
         
     </li>
@@ -348,7 +362,68 @@ cd vue-demo yarn serve 中断control&#43;c，然后把生成的目录vue-demo拖
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
         </div>
         
     </li>
@@ -426,68 +501,7 @@ cd vue-demo yarn serve 中断control&#43;c，然后把生成的目录vue-demo拖
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
-        </div>
-        
-        
-<ul class="ps-6">
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
-        </div>
-        
-    </li>
-    
-    
-</ul>
-
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class=" pb-2 ">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">【HTTP全解】</a>
         </div>
         
         
@@ -537,7 +551,7 @@ cd vue-demo yarn serve 中断control&#43;c，然后把生成的目录vue-demo拖
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">【JS全解】</a>
         </div>
         
         
@@ -664,7 +678,7 @@ cd vue-demo yarn serve 中断control&#43;c，然后把生成的目录vue-demo拖
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">【JS编程接口】</a>
         </div>
         
         
@@ -736,7 +750,7 @@ cd vue-demo yarn serve 中断control&#43;c，然后把生成的目录vue-demo拖
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">【JS进阶】</a>
         </div>
         
         
@@ -775,7 +789,7 @@ cd vue-demo yarn serve 中断control&#43;c，然后把生成的目录vue-demo拖
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">【React全解】</a>
         </div>
         
         
@@ -869,7 +883,7 @@ cd vue-demo yarn serve 中断control&#43;c，然后把生成的目录vue-demo拖
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">【Vue2 全解】</a>
         </div>
         
         
@@ -985,7 +999,7 @@ cd vue-demo yarn serve 中断control&#43;c，然后把生成的目录vue-demo拖
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">【其它】</a>
         </div>
         
         
@@ -1013,7 +1027,7 @@ cd vue-demo yarn serve 中断control&#43;c，然后把生成的目录vue-demo拖
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">【前后分离】</a>
         </div>
         
         
@@ -1085,11 +1099,33 @@ cd vue-demo yarn serve 中断control&#43;c，然后把生成的目录vue-demo拖
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">【算法与数据结构】</a>
         </div>
         
         
 <ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8A/">排序算法(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8B/">排序算法(下)</a>
+        </div>
+        
+    </li>
+    
     
     
     
@@ -1113,7 +1149,7 @@ cd vue-demo yarn serve 中断control&#43;c，然后把生成的目录vue-demo拖
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">【项目构建】</a>
         </div>
         
         
@@ -1189,23 +1225,19 @@ cd vue-demo yarn serve 中断control&#43;c，然后把生成的目录vue-demo拖
   
   
 
-  <blockquote>
-<p><a href="https://cn.vuejs.org/index.html">Vue中文文档</a> 、<a href="https://cli.vuejs.org/zh/guide/installation.html">工具@vue/cli文档</a></p>
-</blockquote>
+  <p><a href="https://cn.vuejs.org/index.html">Vue中文文档</a> 、<a href="https://cli.vuejs.org/zh/guide/installation.html">工具@vue/cli文档</a></p>
 <h3 id="vue的历史">Vue的历史</h3>
-<p>vue、Angular.js、React.js前端三大主流框架。
-MVC中的V是Vue的重点，M和V则被简化。
-Vue和vue.js没有区别，vue就是vue.js的简称。
+<p>vue、Angular.js、React.js前端三大主流框架。<br>
+MVC中的V是Vue的重点，M和V则被简化。<br>
+Vue和vue.js没有区别，vue就是vue.js的简称。<br>
 Vue你可以认为是框架也可以说是库，Vue中文英文文档都是尤雨溪写的。</p>
-<p>15年的1.0版本Vue自称是MVVM框架，不是MVC是MVVM，不过这已经成历史了。现在Vue是<strong>MV</strong> * 框架,意思就是你说MVC、MVVM都行。但是Vue升级到2.0后，它虽然看起来是MVVM框架，但实际不是MVVM框架了。Vue3直接抄袭React。
-<strong>Vue作者</strong>尤雨溪，<strong>主要作品:</strong> Vue、Vue Router、Vuex、@vue/cli(主要维护者是蒋豪群)
+<p>15年的1.0版本Vue自称是MVVM框架，不是MVC是MVVM，不过这已经成历史了。现在Vue是<strong>MV</strong> * 框架,意思就是你说MVC、MVVM都行。但是Vue升级到2.0后，它虽然看起来是MVVM框架，但实际不是MVVM框架了。Vue3直接抄袭React。</p>
+<p><strong>Vue作者</strong>尤雨溪，<strong>主要作品:</strong> Vue、Vue Router、Vuex、@vue/cli(主要维护者是蒋豪群)
 Vue2版本<code>vue.runtime.min.js</code> Vue3版本<code>vue.runtime.global.prod.js</code></p>
 <h2 id="目标一-项目搭建">目标一: 项目搭建</h2>
-<p><strong>方法一:使用@Vue/cli</strong></p>
-<blockquote>
-<p><strong>使用@vue/cli搭建Vue项目</strong>
+<p><strong>方法一:使用@Vue/cli</strong><br>
+<strong>使用@vue/cli搭建Vue项目</strong><br>
 <strong>@Vue/cli</strong> 是Vue的创建初始化工具，webpack的升级版，帮你把所有的webpack loader、webpack plugin配好了。利用@Vue/cli，不用学webpack也能用Vue。</p>
-</blockquote>
 <p><strong>步骤</strong> 🔍<a href="https://cli.vuejs.org/zh/guide/installation.html">@vue/cli文档</a></p>
 <p><strong>1.打开终端</strong></p>
 <pre><code class="language-git">cd ~/Desktop/

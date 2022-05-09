@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>CSS全解 on 博客</title>
+    <title>【CSS全解】 on 博客</title>
     <link>https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/</link>
-    <description>Recent content in CSS全解 on 博客</description>
+    <description>Recent content in 【CSS全解】 on 博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 07 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>css动画</title>
       <link>https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/</link>
@@ -79,10 +79,8 @@ TL;DR
 在哪查资料
 标准制定者是谁
 2.如何学 -CRM
-copy
-run
-modify
- 前言
+copy、run、modify
+前言
 css 全称叫层叠样式表，是由李爵士的挪威同事赖先生提出的。
 层叠 表现在 &amp;ldquo;样式层叠&amp;rdquo; &amp;ldquo;选择器层叠&amp;rdquo; 和 “文件层叠”。
 2004～2011年的css2.1版本是使用 最广泛的版本 (IE支持)。 从css3开始 分模块升级，不存在css4了。
@@ -100,10 +98,10 @@ css 全称叫层叠样式表，是由李爵士的挪威同事赖先生提出的�
 怀疑某个元素有问题
 就给这个元素加border：1px solid red;
 (3)使用vscode/webstorm看颜色
-(3)工具搜索 🔍w3c css validator在线调试
-三.在哪查资料 1.MDN
-🔍flex mdn
-2.css tricks</description>
+(4)工具搜索 🔍w3c css validator在线调试
+三.在哪查资料 1.MDN 🔍flex mdn
+2.css tricks 🔍flex css tricks
+3.张鑫旭的博客 🔍flex 张鑫旭</description>
     </item>
     
     <item>

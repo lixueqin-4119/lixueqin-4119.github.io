@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>前后分离 on 博客</title>
+    <title>【前后分离】 on 博客</title>
     <link>https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/</link>
-    <description>Recent content in 前后分离 on 博客</description>
+    <description>Recent content in 【前后分离】 on 博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 07 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>AJAX 的原理</title>
       <link>https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/</link>
@@ -17,7 +17,7 @@
       <guid>https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax-%E7%9A%84%E5%8E%9F%E7%90%86/</guid>
       <description>js三座大山之Ajax
 Ajax的全部内容: 用js控制浏览器发请求和收响应
- 背景(原理)
+背景(原理)
 1.Ajax是浏览器推出的一个功能
 浏览器可以发请求，收响应
 浏览器在window上加了一个XMLHttpRequest全局函数
@@ -43,9 +43,9 @@ http://localhost:8888/index.html 注意浏览器路径要一致！ if (path === 
       <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/ajax%E5%AE%9E%E6%88%98cookiesession/</guid>
-      <description>文档：Node.js中文档、Set-Cookie响应头
+      <description>Node.js中文文档、Set-Cookie响应头
 内容：动态服务器
- 什么是动态服务器? 静态服务器(网页) VS 动态服务器(网页)
+什么是动态服务器? 静态服务器(网页) VS 动态服务器(网页)
 判断依据
 是否请求了数据库。
 没有请求数据库，就是静态服务器。请求了数据库，就是动态服务器。
@@ -60,7 +60,7 @@ const fs = require(&#39;fs&#39;) //引入fs const usersString = fs.readFileSync(
 把字符串变成数组
 const usersArray = JSON.parse(usersString) console.log(typeof usersString) console.log(usersString) console.log(typeof usersArray) console.log(usersArray) console.log(usersArray instanceof Array)  3.写数据库
 const user3 = { id: 3, name: &#39;李明&#39;, password: &#39;zzz&#39;, age: 25 } usersArray.push(user3)  存到数据库。我们的数据库是文件，文件只能存字符串
-console.log(typeof user3) //object const string = JSON.</description>
+console.log(typeof user3) //object const string = JSON.stringify(usersArray) fs.</description>
     </item>
     
     <item>
@@ -72,7 +72,7 @@ console.log(typeof user3) //object const string = JSON.</description>
       <description>面试必考
 AJAX(Async JavaScript And XML)
 内容:Ajax异步编程在js里的统一解决方案(js异步编程模型) Promise
- 什么是异步？什么是同步？ 同步：能直接拿到结果
+什么是异步？什么是同步？ 同步：能直接拿到结果
 比如你在医院挂号，拿到号才会离开窗口。
 同步任务可能消耗10ms,也可能需要3s
 总之不拿到结果你是不会离开的
@@ -98,7 +98,8 @@ request.onreadystatechange就是我写给浏览器调用的
 意思就是浏览器回头调一下这个函数
 「回头」也有「将来」的意思，如「我回头请你吃饭」
 举例
-1.把函数1给另一个函数2</description>
+1.把函数1给另一个函数2
+function f1(){} function f2(fn){ fn() } f2(f1)  我调用f1没有？没有</description>
     </item>
     
     <item>
@@ -110,7 +111,7 @@ request.onreadystatechange就是我写给浏览器调用的
       <description>面试必考
 ajax和Promise的跨域问题
 跨域一般用2种方案JSONP和CORS
- 跨域  前端与后端的交互。
+跨域  前端与后端的交互。
  关键知识
 1.同源策略 浏览器故意设计的一个功能限制
 2.CORS 突破浏览器限制的一个办法
@@ -164,7 +165,7 @@ diaoyu-com目录新建server.js,模拟坏人空间
       
       <guid>https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/%E9%9D%99%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8static-server/</guid>
       <description>优化server.js
- 优化前
+优化前
 var http = require(&#39;http&#39;) var fs = require(&#39;fs&#39;) var url = require(&#39;url&#39;) var port = process.argv[2] if (!port) { console.log(&#39;请指定端口号好不啦？\nnode server.js 8888 这样不会吗？&#39;) process.exit(1) } var server = http.createServer(function (request, response) { var parsedUrl = url.parse(request.url, true) var pathWithQuery = request.url var queryString = &#39;&#39; if (pathWithQuery.indexOf(&#39;?&#39;) &amp;gt;= 0) { queryString = pathWithQuery.substring(pathWithQuery.indexOf(&#39;?&#39;)) } var path = parsedUrl.pathname var query = parsedUrl.query var method = request.method /******** 从这里开始看，上面不要看 ************/ console.log(&#39;有个傻子发请求过来啦！路径（带查询参数）为：&#39; + pathWithQuery) if (path === &#39;/&#39;) { response.</description>
     </item>
     

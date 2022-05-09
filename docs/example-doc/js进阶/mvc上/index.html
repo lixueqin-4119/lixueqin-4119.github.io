@@ -61,8 +61,8 @@
 
 <meta name="description"
   content="MVC是进入Vue/React的必经之路，MVC本来就是模糊的，你觉得MVC是什么就是什么，只要能自圆其说即可。这就是抽象，抽象就是不具体。
- 什么是MVC?  设计模式是个框，什么都能往里装，MVC是框里的一个东西。设计模式就是对通用代码取个名字而已。
- 越抽象能解决的问题就越多。具体问题只能针对具体需求，但抽象问题能针对更多需求。mvc属于设计模式的一种，但我们并不把它称为设计模式。因为它太著名了，每个程序员都知道mvc,它就叫MVC。设计模式就是对通用代码取个名字而已。
+什么是MVC? 设计模式是个框，什么都能往里装，MVC是框里的一个东西。设计模式就是对通用代码取个名字而已。
+越抽象能解决的问题就越多。具体问题只能针对具体需求，但抽象问题能针对更多需求。mvc属于设计模式的一种，但我们并不把它称为设计模式。因为它太著名了，每个程序员都知道mvc,它就叫MVC。设计模式就是对通用代码取个名字而已。
 为什么要有设计模式？
 Don&rsquo;t repeat yourself.DRY原则
 哪里重复了？
@@ -83,10 +83,6 @@ MVC是啥？
 M Model(数据模型)负责操作所有数据
 V View(视图)负责所有UI界面
 C Controller(控制器)负责监听用户事件，然后调用M和V更新数据和视图
-面试题
-能说说你对MVC的理解吗？
-中英文全称(80分’)&#43;剩下全靠扯(20分’)
-Model(数据模型)负责操作所有数据,View(视图)负责所有UI界面,Controller(控制器)负责其它。
 示例代码 内容
 1.主要要引入2个东西:模块、类
 2.在index页面中做4个功能:加减乘除、tab切换、左晃右晃、悬浮变色
@@ -116,7 +112,7 @@ main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import�
       "item":"https://lixueqin-4119.xyz/docs/example-doc/"},{
       "@type": "ListItem",
       "position": 3 ,
-      "name":"JS进阶",
+      "name":"【JS进阶】",
       "item":"https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/"},{
       "@type": "ListItem",
       "position": 4 ,
@@ -137,7 +133,7 @@ main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import�
     },
     "headline": "MVC(上) | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
     "dateModified": "2020-10-16T00:00:00+00:00",
-    "wordCount":  1094 ,
+    "wordCount":  1090 ,
     "publisher": {
         "@type": "Person",
         "name": "WANG Chucheng",
@@ -146,7 +142,7 @@ main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import�
             "url": "https://lixueqin-4119.xyz/images/icon.png"
         }
         },
-    "description": "MVC是进入Vue\/React的必经之路，MVC本来就是模糊的，你觉得MVC是什么就是什么，只要能自圆其说即可。这就是抽象，抽象就是不具体。\n 什么是MVC?  设计模式是个框，什么都能往里装，MVC是框里的一个东西。设计模式就是对通用代码取个名字而已。\n 越抽象能解决的问题就越多。具体问题只能针对具体需求，但抽象问题能针对更多需求。mvc属于设计模式的一种，但我们并不把它称为设计模式。因为它太著名了，每个程序员都知道mvc,它就叫MVC。设计模式就是对通用代码取个名字而已。\n为什么要有设计模式？\nDon\u0026rsquo;t repeat yourself.DRY原则\n哪里重复了？\n1.代码级别的重复\n你把相同的3行代码写了2遍，那么你就应该重构它。\n重构:把这3行代码取个名字放到函数里，到时再调用这个函数名。可以取消重复。\n2.页面级别\n你把类似的页面做了10遍，那么你就应该想出一个万金油写法。\n3.mvc就是一个万金油\n所有页面都可以使用MVC来优化代码结构\n不学MVC又怎样？\n1.意大利面条式代码\n2.你将变成外包式程序员\n不停重复自己，不懂得抽象。只会调用API，不能提升自己。\n只会写业务，不会封装，更不会造轮子，更不会加薪。\nMVC是啥？\n每个模块都可以写成3个对象，分别是M、V、C\nM Model(数据模型)负责操作所有数据\nV View(视图)负责所有UI界面\nC Controller(控制器)负责监听用户事件，然后调用M和V更新数据和视图\n面试题\n能说说你对MVC的理解吗？\n中英文全称(80分’)\u002b剩下全靠扯(20分’)\nModel(数据模型)负责操作所有数据,View(视图)负责所有UI界面,Controller(控制器)负责其它。\n示例代码 内容\n1.主要要引入2个东西:模块、类\n2.在index页面中做4个功能:加减乘除、tab切换、左晃右晃、悬浮变色\n3.演示如何用MVC让代码更严谨。\n运行:parcel src\/index.html 用parcel前最好新建js文件，因为没有js可能有bug。  知识点\n1.用新方法:js import引入css\nmain.js import \u0027.\/app1.css\u0027 \/\/不是css import,没有@  补充:@import性能比较低\n新建单独的reset.css文件reset css，统一在main.js里引入。\n让app1占屏幕的1\/4: 设置width和height各50vh\n2.用新方法:js import引入jquery\n 点击\u002b1按钮实现\u002b1,用jquery实现,需要引入jquery\n之前是用\u0026lt;script src=\u0026quot;CDN地址\u0026quot;\u0026gt;引入，现在也用新方法js import\n 方法: 先安装再使用\n安装: yarn init -y yarn add jquery \/\/或npm i jquery 使用:import $ from \u0027jquery\u0027 \/\/引用jquery变量，使用时可直接用$代替jquery \/\/import \u0027jquery\u0027 注:main."
+    "description": "MVC是进入Vue\/React的必经之路，MVC本来就是模糊的，你觉得MVC是什么就是什么，只要能自圆其说即可。这就是抽象，抽象就是不具体。\n什么是MVC? 设计模式是个框，什么都能往里装，MVC是框里的一个东西。设计模式就是对通用代码取个名字而已。\n越抽象能解决的问题就越多。具体问题只能针对具体需求，但抽象问题能针对更多需求。mvc属于设计模式的一种，但我们并不把它称为设计模式。因为它太著名了，每个程序员都知道mvc,它就叫MVC。设计模式就是对通用代码取个名字而已。\n为什么要有设计模式？\nDon\u0026rsquo;t repeat yourself.DRY原则\n哪里重复了？\n1.代码级别的重复\n你把相同的3行代码写了2遍，那么你就应该重构它。\n重构:把这3行代码取个名字放到函数里，到时再调用这个函数名。可以取消重复。\n2.页面级别\n你把类似的页面做了10遍，那么你就应该想出一个万金油写法。\n3.mvc就是一个万金油\n所有页面都可以使用MVC来优化代码结构\n不学MVC又怎样？\n1.意大利面条式代码\n2.你将变成外包式程序员\n不停重复自己，不懂得抽象。只会调用API，不能提升自己。\n只会写业务，不会封装，更不会造轮子，更不会加薪。\nMVC是啥？\n每个模块都可以写成3个对象，分别是M、V、C\nM Model(数据模型)负责操作所有数据\nV View(视图)负责所有UI界面\nC Controller(控制器)负责监听用户事件，然后调用M和V更新数据和视图\n示例代码 内容\n1.主要要引入2个东西:模块、类\n2.在index页面中做4个功能:加减乘除、tab切换、左晃右晃、悬浮变色\n3.演示如何用MVC让代码更严谨。\n运行:parcel src\/index.html 用parcel前最好新建js文件，因为没有js可能有bug。  知识点\n1.用新方法:js import引入css\nmain.js import \u0027.\/app1.css\u0027 \/\/不是css import,没有@  补充:@import性能比较低\n新建单独的reset.css文件reset css，统一在main.js里引入。\n让app1占屏幕的1\/4: 设置width和height各50vh\n2.用新方法:js import引入jquery\n 点击\u002b1按钮实现\u002b1,用jquery实现,需要引入jquery\n之前是用\u0026lt;script src=\u0026quot;CDN地址\u0026quot;\u0026gt;引入，现在也用新方法js import\n 方法: 先安装再使用\n安装: yarn init -y yarn add jquery \/\/或npm i jquery 使用:import $ from \u0027jquery\u0027 \/\/引用jquery变量，使用时可直接用$代替jquery \/\/import \u0027jquery\u0027 注:main."
 }
 </script><meta property="og:title" content="MVC(上) | 目录 | 博客" />
 <meta property="og:type" content="article" />
@@ -161,8 +157,8 @@ main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import�
 
 
 <meta property="og:description" content="MVC是进入Vue/React的必经之路，MVC本来就是模糊的，你觉得MVC是什么就是什么，只要能自圆其说即可。这就是抽象，抽象就是不具体。
- 什么是MVC?  设计模式是个框，什么都能往里装，MVC是框里的一个东西。设计模式就是对通用代码取个名字而已。
- 越抽象能解决的问题就越多。具体问题只能针对具体需求，但抽象问题能针对更多需求。mvc属于设计模式的一种，但我们并不把它称为设计模式。因为它太著名了，每个程序员都知道mvc,它就叫MVC。设计模式就是对通用代码取个名字而已。
+什么是MVC? 设计模式是个框，什么都能往里装，MVC是框里的一个东西。设计模式就是对通用代码取个名字而已。
+越抽象能解决的问题就越多。具体问题只能针对具体需求，但抽象问题能针对更多需求。mvc属于设计模式的一种，但我们并不把它称为设计模式。因为它太著名了，每个程序员都知道mvc,它就叫MVC。设计模式就是对通用代码取个名字而已。
 为什么要有设计模式？
 Don&rsquo;t repeat yourself.DRY原则
 哪里重复了？
@@ -183,10 +179,6 @@ MVC是啥？
 M Model(数据模型)负责操作所有数据
 V View(视图)负责所有UI界面
 C Controller(控制器)负责监听用户事件，然后调用M和V更新数据和视图
-面试题
-能说说你对MVC的理解吗？
-中英文全称(80分’)&#43;剩下全靠扯(20分’)
-Model(数据模型)负责操作所有数据,View(视图)负责所有UI界面,Controller(控制器)负责其它。
 示例代码 内容
 1.主要要引入2个东西:模块、类
 2.在index页面中做4个功能:加减乘除、tab切换、左晃右晃、悬浮变色
@@ -348,7 +340,7 @@ main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import�
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">【CSS全解】</a>
         </div>
         
         
@@ -359,7 +351,7 @@ main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import�
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
         </div>
         
     </li>
@@ -370,7 +362,7 @@ main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import�
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
         </div>
         
     </li>
@@ -381,7 +373,7 @@ main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import�
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
         </div>
         
     </li>
@@ -392,7 +384,68 @@ main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import�
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
         </div>
         
     </li>
@@ -470,68 +523,7 @@ main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import�
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
-        </div>
-        
-        
-<ul class="ps-6">
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
-        </div>
-        
-    </li>
-    
-    
-</ul>
-
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class=" pb-2 ">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">【HTTP全解】</a>
         </div>
         
         
@@ -581,7 +573,7 @@ main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import�
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">【JS全解】</a>
         </div>
         
         
@@ -708,7 +700,7 @@ main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import�
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">【JS编程接口】</a>
         </div>
         
         
@@ -780,7 +772,7 @@ main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import�
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">【JS进阶】</a>
         </div>
         
         
@@ -819,7 +811,7 @@ main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import�
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">【React全解】</a>
         </div>
         
         
@@ -913,7 +905,7 @@ main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import�
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">【Vue2 全解】</a>
         </div>
         
         
@@ -1029,7 +1021,7 @@ main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import�
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">【其它】</a>
         </div>
         
         
@@ -1057,7 +1049,7 @@ main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import�
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">【前后分离】</a>
         </div>
         
         
@@ -1129,11 +1121,33 @@ main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import�
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">【算法与数据结构】</a>
         </div>
         
         
 <ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8A/">排序算法(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8B/">排序算法(下)</a>
+        </div>
+        
+    </li>
+    
     
     
     
@@ -1157,7 +1171,7 @@ main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import�
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">【项目构建】</a>
         </div>
         
         
@@ -1233,15 +1247,11 @@ main.js import &#39;./app1.css&#39; //不是css import,没有@  补充:@import�
   
   
 
-  <blockquote>
-<p>MVC是进入Vue/React的必经之路，MVC本来就是模糊的，你觉得MVC是什么就是什么，只要能自圆其说即可。这就是抽象，抽象就是不具体。</p>
-</blockquote>
+  <p>MVC是进入Vue/React的必经之路，MVC本来就是模糊的，你觉得MVC是什么就是什么，只要能自圆其说即可。这就是抽象，抽象就是不具体。</p>
 <h3 id="什么是mvc">什么是MVC?</h3>
-<blockquote>
-<p>设计模式是个框，什么都能往里装，MVC是框里的一个东西。设计模式就是对通用代码取个名字而已。</p>
-</blockquote>
-<p>越抽象能解决的问题就越多。具体问题只能针对具体需求，但抽象问题能针对更多需求。mvc属于设计模式的一种，但我们并不把它称为设计模式。因为它太著名了，每个程序员都知道mvc,它就叫MVC。设计模式就是对通用代码取个名字而已。<br>
-<strong>为什么要有设计模式？</strong><br>
+<p>设计模式是个框，什么都能往里装，MVC是框里的一个东西。设计模式就是对通用代码取个名字而已。<br>
+越抽象能解决的问题就越多。具体问题只能针对具体需求，但抽象问题能针对更多需求。mvc属于设计模式的一种，但我们并不把它称为设计模式。因为它太著名了，每个程序员都知道mvc,它就叫MVC。设计模式就是对通用代码取个名字而已。</p>
+<p><strong>为什么要有设计模式？</strong><br>
 Don&rsquo;t repeat yourself.DRY原则<br>
 <strong>哪里重复了？</strong><br>
 1.代码级别的重复<br>
@@ -1250,8 +1260,8 @@ Don&rsquo;t repeat yourself.DRY原则<br>
 2.页面级别<br>
 你把类似的页面做了10遍，那么你就应该想出一个万金油写法。<br>
 3.mvc就是一个万金油<br>
-所有页面都可以使用MVC来优化代码结构<br>
-<strong>不学MVC又怎样？</strong><br>
+所有页面都可以使用MVC来优化代码结构</p>
+<p><strong>不学MVC又怎样？</strong><br>
 1.意大利面条式代码<br>
 2.你将变成外包式程序员<br>
 不停重复自己，不懂得抽象。只会调用API，不能提升自己。<br>
@@ -1261,10 +1271,6 @@ Don&rsquo;t repeat yourself.DRY原则<br>
 M Model(数据模型)负责操作所有数据<br>
 V View(视图)负责所有UI界面<br>
 C Controller(控制器)负责监听用户事件，然后调用M和V更新数据和视图</p>
-<p><strong>面试题</strong><br>
-<strong>能说说你对MVC的理解吗？</strong><br>
-中英文全称(80分’)+剩下全靠扯(20分’)<br>
-Model(数据模型)负责操作所有数据,View(视图)负责所有UI界面,Controller(控制器)负责其它。</p>
 <h3 id="示例代码httpsgithubcomlixueqin-4119js-demo1treemastersrc"><a href="https://github.com/lixueqin-4119/js-demo1/tree/master/src">示例代码</a></h3>
 <p><strong>内容</strong><br>
 1.主要要引入2个东西:模块、类<br>

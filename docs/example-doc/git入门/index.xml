@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>【Git入门】 on 博客</title>
+    <link>https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/</link>
+    <description>Recent content in 【Git入门】 on 博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Thu, 07 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>用hugo搭建个人博客</title>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</link>
+      <pubDate>Sat, 07 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</guid>
+      <description>目录
+第一章
+第1节.创建Hugo
+第2节.插入图片
+第3节.创建第2篇博客
+第二章.购买域名
+第三章.配置DNS
+第一章 第1节.创建Hugo Hugo文档
+工具: Hugo是用Go语言实现的一个博客生成器，目前世界上最快的博客生成器。
+步骤 第1步.安装hugo
+brew install hugo hugo version  Windows用户安装:
+1.去Hugo releases页面下载hugo_xxx_Windows-64bit.zip
+2.解压，把hugo.exe放到D:/Software/hugo/hugo.exe
+3.把D:/Software/hugo/加到PATH
+4.重启终端，运行hugo version
+用VSCode打开终端运行hugo -v，看到版本号即成功安装。
+第2步.创建博客的生成器 博客名是你github用户名,全小写
+hugo new site lixueqin-4119.github.io-creator //rm -rf lixueqin-4119.github.io/ 写错可以删掉 ls code lixueqin-4119.github.io-creator/  第3步.添加主题 cd lixueqin-4119.github.io-creator/ git init //安装主题 git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke echo theme = \&amp;quot;ananke\&amp;quot; &amp;gt;&amp;gt; config.toml //ananke主题  第4步.创建新的文章 hugo new posts/开博大吉.md code .  上面的原信息不能改，draft默认不会公布，写完笔记后记得改为false。
+现在我们就可以愉快的写笔记啦。
+第5步.Start the Hugo server hugo server -D  点击read more就可以看到我们的文章了。</description>
+    </item>
+    
+    <item>
+      <title>Git远程仓库 -GitHub</title>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/</guid>
+      <description>Git 包括 本地仓库 和 远程仓库github, git 这个工具有个特点, 它的本地与远程是完全隔开的。在学习远程之前必须先搞熟本地。
+代码需要储存在云端，比如你需要在公司和家里写代码，比如你的笔记本被奶茶泡坏了，比如你不小心运行了rm-rf/ ...
+Github可以存储你的代码，只需要2行命令：
+git remote add origin git@xxxxxxxx git push -u origin master  一.SSH key验证身份 GitHub 是如何知道是 &amp;ldquo;你&amp;quot;在操作 &amp;ldquo;你的代码&amp;rdquo;?
+有人说可以通过验证用户名和密码呀。每次上传时都要输入用户名和密码过于繁琐，有没有别的能验证身份的方式？
+有，SSH key验证
+那SSH key怎么验证的？
+如上图所示，我们需要生成一个公钥上传到GitHub，然后生成一个私钥放到电脑上。当我们上传代码时，代码会用这个私钥加密代码上传。GitHub看不懂加密后的代码便用账号里面的公钥解密。如果能解开就证明是本人，解不开就是别人想偷你代码伪造上传的。公钥私钥是配对的，公钥加密只能找私钥解，私钥加秘只能找公钥。
+如何生成ssh key? Github文档
+步骤
+1.终端运行
+ssh-keygen -t ed25519 -C &amp;quot;your_email@example.com&amp;quot; //修改为你的邮箱  接下来一直回车即可。 出现下图所示即代表成功。 进入.ssh目录可查看当前目录，id_rsa.pub 公钥可以给任何人看, id_rsa私钥 泄露别人就能伪造你的身份篡改你的代码！ 2.打出公钥id_rsa.pub的内容并复制其内容
+cat ~/.ssh/id_rsa.pub  3.打开GitHub，在设置页面的“SSH and GPG keys”选项卡里填入公钥：
+点击按钮“New SSH key”，把copy好的公钥粘贴进 Key，点击“Add SSH key”
+测试公私钥是否配对成功
+ssh -T git@github.com  这里GitHub也给我一个公钥证明它是它，我们两方都在证明自己的身份，输入yes接受它的公钥。当出现“Hi xxx!You are successfully&amp;hellip;”代表已成功关联。</description>
+    </item>
+    
+    <item>
+      <title>命令行入门</title>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/</guid>
+      <description>一.命令缩写 程序员把动词缩写，就变成了命令 1.file不是命令没有缩写,recursive和force表示选项，无缩写
+2.cd就是改变目录的意思
+3.Git Bash 和 git 的关系是（mac系统里的终端就相当于 Git Bash）完全不一样的东西，一个是 bash，一个是 git，两种不同的软件.
+二.文件的增删改查 其它事项：
+1.程序员宿命(文件的增删改查，DOM的增删改查，HTTP的增删改查)
+2.无论做什么操作首先要确定现在的位置 cd ~/Desktop/
+3.cmd是windows自带的命令行工具缺点多,Cmder更高级需要配置！Mac推荐iterm2
+4.救命快捷键:control+C 用于中断一个命令
+5.clear 清除代码
+6.~ 指用户目录，cd ~ 进入用户目录
+7.code demo用vscode打开文件
+ 查文件
+ 1.用命令行进入桌面 cd ~/Desktop/
+2.查看当前绝对路经pwd
+3.查看当前目录文件ls
+查看指定目录子文件ls+文件名
+补充: ls有个潜规则默认不显示.开头的文件,例如.git
+4.查看指定文件内容代码 cat+文件
+cd demo/ cat style.css  5.除了cat外，head路径/tail路径/less路径都能查看内容，区别在哪？
+(1)cat会全部展示包括多余的空格，很少用 电影里代码一直滚动效果就是用的cat,代码太多时会一直滚。
+(2)less可以通过按上下键滚动查看，退出按q键，比cat智能,高亮时要先esc
+(3)head默认展示前10行,tail默认展示后10行，但是都可以通过参数选择。
+head style.css -n 14//展示前14行 tail style.css -n 14//展示后14行   增加文件
+ 创建文件: touch/echo
+1.创建文件touch
+touch 1.txt 若不存在则创建,修改文件最后更新时间 touch 2.txt 3.txt 同时创建多个文件  2.</description>
+    </item>
+    
+    <item>
+      <title>本地仓库</title>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/</guid>
+      <description>使用github要先学会git。
+git无需安装，有cmder/gitbash即可，comder内置了gitbash。
+git与gitbash的关系？
+git 就是一个命令而已，bash就是包含命令的黑框框(iterm2)。这个黑框框(bash命令行)可以运行很多命令其中就包括git，我们在gitbash里面运行git。gitbash相当于Mac的iterm2！
+一. 配置 所有软件都是要先配置的，git的配置如下：
+终端运行这6行代码：
+git config --global user.name 你的英文名 git config --global user.email 你的邮箱 git config --global push.default simple git config --global core.quotepath false git config --global core.editor &amp;quot;code --wait&amp;quot; //code是vscode的缩写 git config --global core.autocrlf input  英文名/邮箱跟GitHub无关,可以跟GitHub的用户名和邮箱保持一致。
+出错可以重新再运行，运行完这6行才能开始用git。
+测试是否配置成功: git config —-global —-list
+二.git init &amp;amp; git add &amp;amp; git commit git解决了什么问题,为什么要git？
+版本控制,git可以让你的代码有版本可以随时退到某个版本。
+用vscode打开当前目录code .
+打印当前目录，不包括.开头的ls
+查看当前目录结构包含.gitls -a
+git init 初始化，创建.git目录放置代码快照(版本)
+快照实现存储版本怎么做？git add + 路径
+选择要提交的文件，路径可以是 . 和 *、 /绝对路径、/相对路径</description>
+    </item>
+    
+  </channel>
+</rss>

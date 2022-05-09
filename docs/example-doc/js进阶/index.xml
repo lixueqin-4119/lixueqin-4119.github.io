@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>JS进阶 on 博客</title>
+    <title>【JS进阶】 on 博客</title>
     <link>https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/</link>
-    <description>Recent content in JS进阶 on 博客</description>
+    <description>Recent content in 【JS进阶】 on 博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;WANG Chucheng&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;MA Ruiqi&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 07 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MVC(上)</title>
       <link>https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/</link>
@@ -16,8 +16,8 @@
       
       <guid>https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/mvc%E4%B8%8A/</guid>
       <description>MVC是进入Vue/React的必经之路，MVC本来就是模糊的，你觉得MVC是什么就是什么，只要能自圆其说即可。这就是抽象，抽象就是不具体。
- 什么是MVC?  设计模式是个框，什么都能往里装，MVC是框里的一个东西。设计模式就是对通用代码取个名字而已。
- 越抽象能解决的问题就越多。具体问题只能针对具体需求，但抽象问题能针对更多需求。mvc属于设计模式的一种，但我们并不把它称为设计模式。因为它太著名了，每个程序员都知道mvc,它就叫MVC。设计模式就是对通用代码取个名字而已。
+什么是MVC? 设计模式是个框，什么都能往里装，MVC是框里的一个东西。设计模式就是对通用代码取个名字而已。
+越抽象能解决的问题就越多。具体问题只能针对具体需求，但抽象问题能针对更多需求。mvc属于设计模式的一种，但我们并不把它称为设计模式。因为它太著名了，每个程序员都知道mvc,它就叫MVC。设计模式就是对通用代码取个名字而已。
 为什么要有设计模式？
 Don&amp;rsquo;t repeat yourself.DRY原则
 哪里重复了？
@@ -38,10 +38,6 @@ MVC是啥？
 M Model(数据模型)负责操作所有数据
 V View(视图)负责所有UI界面
 C Controller(控制器)负责监听用户事件，然后调用M和V更新数据和视图
-面试题
-能说说你对MVC的理解吗？
-中英文全称(80分’)+剩下全靠扯(20分’)
-Model(数据模型)负责操作所有数据,View(视图)负责所有UI界面,Controller(控制器)负责其它。
 示例代码 内容
 1.主要要引入2个东西:模块、类
 2.在index页面中做4个功能:加减乘除、tab切换、左晃右晃、悬浮变色

@@ -63,7 +63,7 @@
   content="面试必考
 ajax和Promise的跨域问题
 跨域一般用2种方案JSONP和CORS
- 跨域  前端与后端的交互。
+跨域  前端与后端的交互。
  关键知识
 1.同源策略 浏览器故意设计的一个功能限制
 2.CORS 突破浏览器限制的一个办法
@@ -123,7 +123,7 @@ diaoyu-com目录新建server.js,模拟坏人空间
       "item":"https://lixueqin-4119.xyz/docs/example-doc/"},{
       "@type": "ListItem",
       "position": 3 ,
-      "name":"前后分离",
+      "name":"【前后分离】",
       "item":"https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/"},{
       "@type": "ListItem",
       "position": 4 ,
@@ -153,7 +153,7 @@ diaoyu-com目录新建server.js,模拟坏人空间
             "url": "https://lixueqin-4119.xyz/images/icon.png"
         }
         },
-    "description": "面试必考\najax和Promise的跨域问题\n跨域一般用2种方案JSONP和CORS\n 跨域  前端与后端的交互。\n 关键知识\n1.同源策略 浏览器故意设计的一个功能限制\n2.CORS 突破浏览器限制的一个办法\n3.JSONP IE时代的妥协\n一.同源策略 1.同源定义\n源\n控制台输入window.origin或location.origin可以得到当前源\n源=协议\u002b域名\u002b端口号\n如果两个url的协议、域名、端口号完全一致，那么这两个url就是同源的。\n举例\nhttps:\/\/qq.com、https:\/\/www.baidu.com不同源 https:\/\/baidu.com、https:\/\/www.baidu.com不同源  完全一致才算同源\n2.同源策略定义\n浏览器规定\n如果JS运行在源A里就只能获取源A的数据，不能获取源B的数据，即不允许跨域。\n举例(省略http协议)\n假设diaoyu.com\/index.html引用了cdn.com\/1.js\n那么就说1.js运行在源diaoyu.com里。注意这跟cdn.com没关系，虽然1.js从它那下载\n所以1.js就只能获取diaoyu.com的数据\n1.js运行在哪个域名里就只能访问这个域名的数据\n这是浏览器的功能，浏览器故意要这样设计的。\n浏览器这么做的目的是为了保护用户隐私。\n怎么保护的？(假设没有同源策略,所有的js可以访问所有的网站的数据)\n以QQ空间为例\n源为https:\/\/user.qzone.qq.com\n假设，当前用户已登陆(登陆信息保存在浏览器Cookie里)，现在可以查看好友列表。\n好友信息是通过Ajax请求\/friends.json获取到的好友列表\n假设，Ajax请求\/friends.json可获取用户好友列表\n目前为止都很正常\n黑客来了\n假设你的女神(黑客)分享https:\/\/qzone-qq.com 给你，实际是钓鱼网站。\n你点开这个网页，这个网页也请求你的好友列表\nhttps:\/\/user.qzone.qq.com\/friends.json\n请问，你的好友列表是不是就被黑客偷走了？是的\\\n问题的根源\n第1次是正常的请求，第2次是黑客的请求。几乎没有区别除了referrer\n控制台的XHR是XMLHttpRequest的缩写也就是ajax的缩写\n同源策略：不同源的页面之间，不准互相访问数据\n实践 完整代码  做2个网站来演示下\n 步骤\n1.创建2个目录qq-com和diaoyu-com\nqq-com目录新建server.js,模拟QQ空间\ndiaoyu-com目录新建server.js,模拟坏人空间\n先打开第1个目录，然后将第2个目录添加到工作区\n安装：yarn global add node-dev 使用：node-dev server.js 8888 \/\/qq-com node-dev server.js 9999 \/\/diaoyu-com  2."
+    "description": "面试必考\najax和Promise的跨域问题\n跨域一般用2种方案JSONP和CORS\n跨域  前端与后端的交互。\n 关键知识\n1.同源策略 浏览器故意设计的一个功能限制\n2.CORS 突破浏览器限制的一个办法\n3.JSONP IE时代的妥协\n一.同源策略 1.同源定义\n源\n控制台输入window.origin或location.origin可以得到当前源\n源=协议\u002b域名\u002b端口号\n如果两个url的协议、域名、端口号完全一致，那么这两个url就是同源的。\n举例\nhttps:\/\/qq.com、https:\/\/www.baidu.com不同源 https:\/\/baidu.com、https:\/\/www.baidu.com不同源  完全一致才算同源\n2.同源策略定义\n浏览器规定\n如果JS运行在源A里就只能获取源A的数据，不能获取源B的数据，即不允许跨域。\n举例(省略http协议)\n假设diaoyu.com\/index.html引用了cdn.com\/1.js\n那么就说1.js运行在源diaoyu.com里。注意这跟cdn.com没关系，虽然1.js从它那下载\n所以1.js就只能获取diaoyu.com的数据\n1.js运行在哪个域名里就只能访问这个域名的数据\n这是浏览器的功能，浏览器故意要这样设计的。\n浏览器这么做的目的是为了保护用户隐私。\n怎么保护的？(假设没有同源策略,所有的js可以访问所有的网站的数据)\n以QQ空间为例\n源为https:\/\/user.qzone.qq.com\n假设，当前用户已登陆(登陆信息保存在浏览器Cookie里)，现在可以查看好友列表。\n好友信息是通过Ajax请求\/friends.json获取到的好友列表\n假设，Ajax请求\/friends.json可获取用户好友列表\n目前为止都很正常\n黑客来了\n假设你的女神(黑客)分享https:\/\/qzone-qq.com 给你，实际是钓鱼网站。\n你点开这个网页，这个网页也请求你的好友列表\nhttps:\/\/user.qzone.qq.com\/friends.json\n请问，你的好友列表是不是就被黑客偷走了？是的\\\n问题的根源\n第1次是正常的请求，第2次是黑客的请求。几乎没有区别除了referrer\n控制台的XHR是XMLHttpRequest的缩写也就是ajax的缩写\n同源策略：不同源的页面之间，不准互相访问数据\n实践 完整代码  做2个网站来演示下\n 步骤\n1.创建2个目录qq-com和diaoyu-com\nqq-com目录新建server.js,模拟QQ空间\ndiaoyu-com目录新建server.js,模拟坏人空间\n先打开第1个目录，然后将第2个目录添加到工作区\n安装：yarn global add node-dev 使用：node-dev server.js 8888 \/\/qq-com node-dev server.js 9999 \/\/diaoyu-com  2."
 }
 </script><meta property="og:title" content="跨域、CORS、JSONP | 目录 | 博客" />
 <meta property="og:type" content="article" />
@@ -170,7 +170,7 @@ diaoyu-com目录新建server.js,模拟坏人空间
 <meta property="og:description" content="面试必考
 ajax和Promise的跨域问题
 跨域一般用2种方案JSONP和CORS
- 跨域  前端与后端的交互。
+跨域  前端与后端的交互。
  关键知识
 1.同源策略 浏览器故意设计的一个功能限制
 2.CORS 突破浏览器限制的一个办法
@@ -362,7 +362,7 @@ diaoyu-com目录新建server.js,模拟坏人空间
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/">【Git入门】</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">【CSS全解】</a>
         </div>
         
         
@@ -373,7 +373,7 @@ diaoyu-com目录新建server.js,模拟坏人空间
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
         </div>
         
     </li>
@@ -384,7 +384,7 @@ diaoyu-com目录新建server.js,模拟坏人空间
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
         </div>
         
     </li>
@@ -395,7 +395,7 @@ diaoyu-com目录新建server.js,模拟坏人空间
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
         </div>
         
     </li>
@@ -406,7 +406,68 @@ diaoyu-com目录新建server.js,模拟坏人空间
     <li class="py-2">
         <div class="">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/nested-chapter/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
+        </div>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class=" pb-2 ">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/">【Git入门】</a>
+        </div>
+        
+        
+<ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">用hugo搭建个人博客</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93-github-/">Git远程仓库 -GitHub</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%85%A5%E9%97%A8/">命令行入门</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/git%E5%85%A5%E9%97%A8/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">本地仓库</a>
         </div>
         
     </li>
@@ -484,68 +545,7 @@ diaoyu-com目录新建server.js,模拟坏人空间
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/">CSS全解</a>
-        </div>
-        
-        
-<ul class="ps-6">
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%8A%A8%E7%94%BB/">css动画</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%9F%BA%E7%A1%80/">css基础</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%AE%9A%E4%BD%8D/">css定位</a>
-        </div>
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class="">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/css%E5%85%A8%E8%A7%A3/css%E5%B8%83%E5%B1%80/">css布局</a>
-        </div>
-        
-    </li>
-    
-    
-</ul>
-
-        
-    </li>
-    
-    
-    
-    
-    <li class="py-2">
-        <div class=" pb-2 ">
-            <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">HTTP全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/http%E5%85%A8%E8%A7%A3/">【HTTP全解】</a>
         </div>
         
         
@@ -595,7 +595,7 @@ diaoyu-com目录新建server.js,模拟坏人空间
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">JS全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E5%85%A8%E8%A7%A3/">【JS全解】</a>
         </div>
         
         
@@ -722,7 +722,7 @@ diaoyu-com目录新建server.js,模拟坏人空间
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">JS编程接口</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/">【JS编程接口】</a>
         </div>
         
         
@@ -794,7 +794,7 @@ diaoyu-com目录新建server.js,模拟坏人空间
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">JS进阶</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/js%E8%BF%9B%E9%98%B6/">【JS进阶】</a>
         </div>
         
         
@@ -833,7 +833,7 @@ diaoyu-com目录新建server.js,模拟坏人空间
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">React全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/">【React全解】</a>
         </div>
         
         
@@ -927,7 +927,7 @@ diaoyu-com目录新建server.js,模拟坏人空间
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">Vue2 全解</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/">【Vue2 全解】</a>
         </div>
         
         
@@ -1043,7 +1043,7 @@ diaoyu-com目录新建server.js,模拟坏人空间
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">云服务器</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%85%B6%E5%AE%83/">【其它】</a>
         </div>
         
         
@@ -1071,7 +1071,7 @@ diaoyu-com目录新建server.js,模拟坏人空间
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">前后分离</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB/">【前后分离】</a>
         </div>
         
         
@@ -1143,11 +1143,33 @@ diaoyu-com目录新建server.js,模拟坏人空间
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">【算法与数据结构】</a>
         </div>
         
         
 <ul class="ps-6">
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8A/">排序算法(上)</a>
+        </div>
+        
+    </li>
+    
+    
+    
+    
+    <li class="py-2">
+        <div class="">
+            <a class=" hover:text-eureka"
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B8%8B/">排序算法(下)</a>
+        </div>
+        
+    </li>
+    
     
     
     
@@ -1171,7 +1193,7 @@ diaoyu-com目录新建server.js,模拟坏人空间
     <li class="py-2">
         <div class=" pb-2 ">
             <a class=" hover:text-eureka"
-                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">项目构建</a>
+                href="https://lixueqin-4119.xyz/docs/example-doc/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">【项目构建】</a>
         </div>
         
         
@@ -1247,12 +1269,10 @@ diaoyu-com目录新建server.js,模拟坏人空间
   
   
 
-  <blockquote>
-<p>面试必考</p>
-<p>ajax和Promise的跨域问题</p>
-<p>跨域一般用2种方案JSONP和CORS</p>
-</blockquote>
-<h3 id="跨域"><a href=""></a>跨域</h3>
+  <p>面试必考<br>
+ajax和Promise的跨域问题<br>
+跨域一般用2种方案JSONP和CORS</p>
+<h3 id="跨域">跨域</h3>
 <blockquote>
 <p>前端与后端的交互。</p>
 </blockquote>
@@ -1260,7 +1280,7 @@ diaoyu-com目录新建server.js,模拟坏人空间
 <strong>1.同源策略</strong> 浏览器故意设计的一个功能限制<br>
 <strong>2.CORS</strong> 突破浏览器限制的一个办法<br>
 <strong>3.JSONP</strong> IE时代的妥协</p>
-<h3 id="一同源策略"><a href=""></a>一.同源策略</h3>
+<h3 id="一同源策略">一.同源策略</h3>
 <p><strong>1.同源定义</strong><br>
 <strong>源</strong><br>
 控制台输入window.origin或location.origin可以得到当前源<br>
@@ -1662,8 +1682,8 @@ const string = `window['{{xxx}}']({{ data }})`
   <ul>
     <li>
       <ul>
-        <li><a href="#跨域"><a href=""></a>跨域</a></li>
-        <li><a href="#一同源策略"><a href=""></a>一.同源策略</a></li>
+        <li><a href="#跨域">跨域</a></li>
+        <li><a href="#一同源策略">一.同源策略</a></li>
       </ul>
     </li>
     <li><a href="#实践完整代码httpseditorcsdnnetmdnot_checkout1articleid122953054"><a href=""></a>实践 <a href="https://editor.csdn.net/md/?not_checkout=1&amp;articleId=122953054">完整代码</a></a>
