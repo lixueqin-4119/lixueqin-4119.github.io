@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>computed 和 watch | 目录 | 博客</title>
+<title>手写Redux(3) | 目录 | 博客</title>
 
 <meta name="generator" content="Hugo Eureka 0.9.1" />
 <link rel="stylesheet" href="https://lixueqin-4119.xyz/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
@@ -60,18 +60,10 @@
 <link rel="apple-touch-icon" sizes="180x180" href="https://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
 
 <meta name="description"
-  content="Vue2 options文档
- 响应式原理options.data
-1.data会被Vue监听
-2.会被Vue实例代理,vm就是data的代理
-3.每次对data的读写都会被Vue监控。不管你是读写它的本身还是读写代理都会被监控，data对象会被篡改,本来的n会变成get n和set n。
-4.Vue会在data变化时更新UI
-data变化时除了更新UI，还能做些啥？
-一.Computed 计算属性  1.用途:被计算出来的属性就是计算属性
-2.缓存： 如果依赖的属性没有变化，就不会重新计算
-getter/setter默认不会做缓存，Vue做了特殊处理
- 例1:用户名展示
-new Vue({ data: { user: { email: &quot;1231231231@qq.com&quot;, nickname: &quot;小白&quot;, phone: &quot;13812345678&quot;//手机号用string存，因为有时候会出现&#43;86 } }, computed: { //计算属性 displayName: { get() { const user = this.user; return user.nickname || user.email || user.phone; }, set(value) { console.log(value); this.user.nickname = value; } } }, // Don&#39;t repeat yourself // 用 computed 来计算 displayName template: ` &lt;div&gt; {{displayName}} &lt;!">
+  content="Redux文档-store
+API封装技巧 内容:分别模拟封装store的三个方法
+ getState() dispatch(action) subscribe(listener)  封装前代码
+redux.js import React, { useState, useContext, useEffect } from &quot;react&quot; const store = { state: undefined, reducer: undefined, setState(newState) { console.log(newState) store.state = newState store.listeners.map(fn =&gt; fn(store.state)) }, listeners: [], subscribe(fn) { store.listeners.push(fn) //订阅 return () =&gt; { //取消订阅 const index = store.listeners.indexOf(fn) store.listeners.splice(index) } } } export const createStore = (reducer, initState) =&gt; { store.state = initState store.reducer = reducer return store } const changed = (oldState, newState) =&gt; { let changed = false for (let key in oldState) { if (oldState[key] !">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -87,12 +79,12 @@ new Vue({ data: { user: { email: &quot;1231231231@qq.com&quot;, nickname: &quot;
       "item":"https://lixueqin-4119.xyz/docs/example-doc/"},{
       "@type": "ListItem",
       "position": 3 ,
-      "name":"【Vue2 全解】",
-      "item":"https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/"},{
+      "name":"【React全解】",
+      "item":"https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/"},{
       "@type": "ListItem",
       "position": 4 ,
-      "name":"computed 和 watch",
-      "item":"https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/"}]
+      "name":"手写Redux(3)",
+      "item":"https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99redux3/"}]
 }
 </script>
 
@@ -104,11 +96,11 @@ new Vue({ data: { user: { email: &quot;1231231231@qq.com&quot;, nickname: &quot;
     "@type": "Article",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/"
+        "@id": "https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99redux3/"
     },
-    "headline": "computed 和 watch | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
+    "headline": "手写Redux(3) | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
     "dateModified": "2020-10-16T00:00:00+00:00",
-    "wordCount":  754 ,
+    "wordCount":  720 ,
     "publisher": {
         "@type": "Person",
         "name": "WANG Chucheng",
@@ -117,32 +109,24 @@ new Vue({ data: { user: { email: &quot;1231231231@qq.com&quot;, nickname: &quot;
             "url": "https://lixueqin-4119.xyz/images/icon.png"
         }
         },
-    "description": "Vue2 options文档\n 响应式原理options.data\n1.data会被Vue监听\n2.会被Vue实例代理,vm就是data的代理\n3.每次对data的读写都会被Vue监控。不管你是读写它的本身还是读写代理都会被监控，data对象会被篡改,本来的n会变成get n和set n。\n4.Vue会在data变化时更新UI\ndata变化时除了更新UI，还能做些啥？\n一.Computed 计算属性  1.用途:被计算出来的属性就是计算属性\n2.缓存： 如果依赖的属性没有变化，就不会重新计算\ngetter\/setter默认不会做缓存，Vue做了特殊处理\n 例1:用户名展示\nnew Vue({ data: { user: { email: \u0026quot;1231231231@qq.com\u0026quot;, nickname: \u0026quot;小白\u0026quot;, phone: \u0026quot;13812345678\u0026quot;\/\/手机号用string存，因为有时候会出现\u002b86 } }, computed: { \/\/计算属性 displayName: { get() { const user = this.user; return user.nickname || user.email || user.phone; }, set(value) { console.log(value); this.user.nickname = value; } } }, \/\/ Don\u0027t repeat yourself \/\/ 用 computed 来计算 displayName template: ` \u0026lt;div\u0026gt; {{displayName}} \u0026lt;!"
+    "description": "Redux文档-store\nAPI封装技巧 内容:分别模拟封装store的三个方法\n getState() dispatch(action) subscribe(listener)  封装前代码\nredux.js import React, { useState, useContext, useEffect } from \u0026quot;react\u0026quot; const store = { state: undefined, reducer: undefined, setState(newState) { console.log(newState) store.state = newState store.listeners.map(fn =\u0026gt; fn(store.state)) }, listeners: [], subscribe(fn) { store.listeners.push(fn) \/\/订阅 return () =\u0026gt; { \/\/取消订阅 const index = store.listeners.indexOf(fn) store.listeners.splice(index) } } } export const createStore = (reducer, initState) =\u0026gt; { store.state = initState store.reducer = reducer return store } const changed = (oldState, newState) =\u0026gt; { let changed = false for (let key in oldState) { if (oldState[key] !"
 }
-</script><meta property="og:title" content="computed 和 watch | 目录 | 博客" />
+</script><meta property="og:title" content="手写Redux(3) | 目录 | 博客" />
 <meta property="og:type" content="article" />
 
 
 <meta property="og:image" content="https://lixueqin-4119.xyz/images/icon.png">
 
 
-<meta property="og:url" content="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/" />
+<meta property="og:url" content="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99redux3/" />
 
 
 
 
-<meta property="og:description" content="Vue2 options文档
- 响应式原理options.data
-1.data会被Vue监听
-2.会被Vue实例代理,vm就是data的代理
-3.每次对data的读写都会被Vue监控。不管你是读写它的本身还是读写代理都会被监控，data对象会被篡改,本来的n会变成get n和set n。
-4.Vue会在data变化时更新UI
-data变化时除了更新UI，还能做些啥？
-一.Computed 计算属性  1.用途:被计算出来的属性就是计算属性
-2.缓存： 如果依赖的属性没有变化，就不会重新计算
-getter/setter默认不会做缓存，Vue做了特殊处理
- 例1:用户名展示
-new Vue({ data: { user: { email: &quot;1231231231@qq.com&quot;, nickname: &quot;小白&quot;, phone: &quot;13812345678&quot;//手机号用string存，因为有时候会出现&#43;86 } }, computed: { //计算属性 displayName: { get() { const user = this.user; return user.nickname || user.email || user.phone; }, set(value) { console.log(value); this.user.nickname = value; } } }, // Don&#39;t repeat yourself // 用 computed 来计算 displayName template: ` &lt;div&gt; {{displayName}} &lt;!" />
+<meta property="og:description" content="Redux文档-store
+API封装技巧 内容:分别模拟封装store的三个方法
+ getState() dispatch(action) subscribe(listener)  封装前代码
+redux.js import React, { useState, useContext, useEffect } from &quot;react&quot; const store = { state: undefined, reducer: undefined, setState(newState) { console.log(newState) store.state = newState store.listeners.map(fn =&gt; fn(store.state)) }, listeners: [], subscribe(fn) { store.listeners.push(fn) //订阅 return () =&gt; { //取消订阅 const index = store.listeners.indexOf(fn) store.listeners.splice(index) } } } export const createStore = (reducer, initState) =&gt; { store.state = initState store.reducer = reducer return store } const changed = (oldState, newState) =&gt; { let changed = false for (let key in oldState) { if (oldState[key] !" />
 
 
 
@@ -859,7 +843,7 @@ new Vue({ data: { user: { email: &quot;1231231231@qq.com&quot;, nickname: &quot;
     
     <li class="py-2">
         <div class="">
-            <a class=" hover:text-eureka"
+            <a class=" text-eureka  hover:text-eureka"
                 href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99redux3/">手写Redux(3)</a>
         </div>
         
@@ -887,7 +871,7 @@ new Vue({ data: { user: { email: &quot;1231231231@qq.com&quot;, nickname: &quot;
     
     <li class="py-2">
         <div class="">
-            <a class=" text-eureka  hover:text-eureka"
+            <a class=" hover:text-eureka"
                 href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/">computed 和 watch</a>
         </div>
         
@@ -1194,7 +1178,7 @@ new Vue({ data: { user: { email: &quot;1231231231@qq.com&quot;, nickname: &quot;
             <div class="flex">
                 <div class="w-full lg:w-3/4 px-6">
                     <article class="prose">
-  <h1 class="mb-4">computed 和 watch</h1>
+  <h1 class="mb-4">手写Redux(3)</h1>
 
   <div
   class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
@@ -1219,386 +1203,287 @@ new Vue({ data: { user: { email: &quot;1231231231@qq.com&quot;, nickname: &quot;
   
   
 
-  <blockquote>
-<p><a href="https://cn.vuejs.org/v2/api/#%E9%80%89%E9%A1%B9-%E6%95%B0%E6%8D%AE">Vue2 options文档</a></p>
-</blockquote>
-<p><strong>响应式原理options.data</strong></p>
-<p>1.data会被Vue监听</p>
-<p>2.会被<strong>Vue实例代理</strong>,vm就是data的代理</p>
-<p>3.每次对data的<strong>读写都会被</strong>Vue监控。不管你是读写它的本身还是读写代理都会被监控，data对象会被篡改,本来的n会变成<code>get n</code>和<code>set n</code>。</p>
-<p>4.Vue会在data变化时更新UI</p>
-<p><strong>data变化时除了更新UI，还能做些啥？</strong></p>
-<h2 id="一computed-计算属性">一.Computed 计算属性</h2>
-<blockquote>
-<p><strong>1.用途:被计算出来的属性就是计算属性</strong></p>
-<p><strong>2.缓存：</strong> 如果依赖的属性没有变化，就不会重新计算</p>
-<p>getter/setter默认不会做缓存，Vue做了特殊处理</p>
-</blockquote>
-<p><strong>例1:用户名展示</strong></p>
-<pre><code class="language-js">new Vue({
-  data: {
-    user: {
-      email: &quot;1231231231@qq.com&quot;,
-      nickname: &quot;小白&quot;,
-      phone: &quot;13812345678&quot;//手机号用string存，因为有时候会出现+86
-    }
+  <p><a href="https://redux.js.org/api/store">Redux文档-store</a></p>
+<h3 id="api封装技巧">API封装技巧</h3>
+<p>内容:分别模拟封装store的三个方法</p>
+<ul>
+<li>getState()</li>
+<li>dispatch(action)</li>
+<li>subscribe(listener)</li>
+</ul>
+<p><strong>封装前代码</strong></p>
+<pre><code class="language-js">redux.js
+import React, { useState, useContext, useEffect } from &quot;react&quot;
+
+const store = {
+  state: undefined,
+  reducer: undefined,
+  setState(newState) {
+    console.log(newState)
+    store.state = newState
+    store.listeners.map(fn =&gt; fn(store.state))
   },
-  computed: { //计算属性
-    displayName: {
-      get() {
-        const user = this.user;
-        return user.nickname || user.email || user.phone;
-      },
-      set(value) {
-        console.log(value);
-        this.user.nickname = value;
-      }
-    }
-  },
-  // Don't repeat yourself
-  // 用 computed 来计算 displayName
-  template: `
-    &lt;div&gt;
-      {{displayName}}
- &lt;!-- {{user.nickname || user.email || user.phone}} --&gt;
-      &lt;div&gt;
-        {{displayName}}
- &lt;!-- {{user.nickname || user.email || user.phone}} --&gt;
-        &lt;button @click=&quot;add&quot;&gt;set&lt;/button&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  `,
-  methods: {
-    add() {
-      console.log(&quot;add&quot;);
-      this.displayName = &quot;小红&quot;;
+  listeners: [],
+  subscribe(fn) {
+    store.listeners.push(fn) //订阅
+    return () =&gt; { //取消订阅
+      const index = store.listeners.indexOf(fn)
+      store.listeners.splice(index)
     }
   }
-}).$mount(&quot;#app&quot;);
-</code></pre>
-<p><strong>什么时候用computed？</strong></p>
-<p>如果我想在页面的100处展示<code>{{user.nickname || user.email || user.phone}}</code>，那就需要把这行代码复制100次。假如需求变了:调整顺序，那就需要一个个修改。为了解决这个问题可以用<code>computed</code>计算属性。</p>
-<p><strong>计算属性的好处：</strong><br>
-让一些“根据其它属性计算而来的属性”变成一个属性，比如displayName。</p>
-<p><strong>怎么设置修改一个属性？</strong><a href="https://cn.vuejs.org/v2/api/#computed">文档</a> <br>
-<img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e2a1e3aaf8c7474bba2f11883441be2d~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
-<blockquote>
-<p><strong>1&rsquo; key(属性名):函数</strong></p>
-<p><strong>2&rsquo; <code>key:{get:Function,set:Function}</code></strong></p>
-</blockquote>
-<pre><code class="language-js">computed: {
-    displayName: { //key:{get:Function,set:Function}
-      get() {
-        const user = this.user;
-        return user.nickname || user.email || user.phone;
-      },
-      set(value) {
-        this.user.nickname = value;
-      }
-    }
-  },
-</code></pre>
-<p><strong>例2:<a href="https://codesandbox.io/s/bold-matsumoto-efn0i">列表展示</a></strong></p>
-<pre><code class="language-js">let id = 0;
-const createUser = (name, gender) =&gt; { //DRY原则：1.封装createUser
-  id += 1;
-  return { id, name, gender };
-};
-new Vue({
-  data() {
-    return {
-      users: [
-        createUser(&quot;小百&quot;, &quot;男&quot;),//直接调用已封装的createUser
-        createUser(&quot;圆圆&quot;, &quot;女&quot;),
-        createUser(&quot;小新&quot;, &quot;男&quot;),
-        createUser(&quot;小白&quot;, &quot;女&quot;)
-      ],
-    displayUsers: []
-    };
-  },
-  created() {
-    this.displayUsers = this.users
-  },
-  methods: {
-    showMale() {
-    //把性别男的filter出来，将得到的新数组的地址赋值给displayUsers
-      this.displayUsers = this.users.filter(u =&gt; u.gender === &quot;男&quot;)
-    },
-    showFemale() {
-      this.displayUsers = this.users.filter(u =&gt; u.gender === &quot;女&quot;)
-    },
-    showAll() {
-      this.displayUsers = this.users
-    }
-  },
-    // 如何给三个按钮加事件处理函数
-    // 思路一：点击之后改users
-    // 思路二：使用computed
-  template: `
-  &lt;div&gt;
-    &lt;div&gt;
-      &lt;button @click=&quot;showAll&quot;&gt;全部&lt;/button&gt;
-      &lt;button @click=&quot;showMale&quot;&gt;男&lt;/button&gt;
-      &lt;button @click=&quot;showFemale&quot;&gt;女&lt;/button&gt;
-    &lt;/div&gt;
-    &lt;ul&gt;
-      &lt;li v-for=&quot;(u,index) in displayUsers&quot; :key=&quot;index&quot;&gt;
-        {{u.name}} - {{u.gender}}
-      &lt;/li&gt;
-   &lt;/ul&gt;
-  &lt;/div&gt;
-  `
-}).$mount(&quot;#app&quot;);
-</code></pre>
-<p><strong>使用computed</strong></p>
-<pre><code class="language-js">let id = 0;
-const createUser = (name, gender) =&gt; {
-  id += 1;
-  return { id, name, gender };
-};
-new Vue({
-  data() {
-    return {
-      users: [
-        createUser(&quot;方方&quot;, &quot;男&quot;),
-        createUser(&quot;圆圆&quot;, &quot;女&quot;),
-        createUser(&quot;小新&quot;, &quot;男&quot;),
-        createUser(&quot;小葵&quot;, &quot;女&quot;)
-      ],
-      //displayUsers: []
-      gender: &quot;&quot;
-    };
-  },
-  computed: {
-    //使用computed思路
-    displayUsers() {
-      const hash = {
-        male: &quot;男&quot;,
-        female: &quot;女&quot;
-      };
-      const { users, gender } = this; //析构赋值
+}
 
-      if (gender === &quot;&quot;) {
-        return users;
-      } else if (typeof gender === &quot;string&quot;) {
-        return users.filter((u) =&gt; u.gender === hash[gender]);
-      } else {
-        throw new Error(&quot;gender 的值是意外的值&quot;);
-      }
-    }
-  },
-  methods: {
-    setGender(string) {
-      this.gender = string;
-    }
-  },
-  // 如何给三个按钮加事件处理函数
-  // 思路一：点击之后改users
-  // 思路二：使用computed
-  template: `
-    &lt;div&gt;
-      &lt;div&gt;
-        &lt;button @click=&quot;setGender('')&quot;&gt;全部&lt;/button&gt;
-        &lt;button @click=&quot;setGender('male')&quot;&gt;男&lt;/button&gt;
-        &lt;button @click=&quot;setGender('female')&quot;&gt;女&lt;/button&gt;
-        &lt;/div&gt;
-      &lt;ul&gt;
-        &lt;li v-for=&quot;(u,index) in displayUsers&quot; :key=&quot;index&quot;&gt;
-          {{u.name}} - {{u.gender}}
-        &lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/div&gt;
-  `
-}).$mount(&quot;#app&quot;);
-</code></pre>
-<p>computed让逻辑更清晰</p>
-<p><strong>知识点</strong><br>
-<strong>1.Vue循环 v-for</strong><br>
-<strong>注意:<code>v-for</code>后面必须接key</strong><br>
-<code>v-for=&quot;u in users&quot;</code>把<code>users</code>里面的每一项取名为<code>u</code>,
-后面就可以直接使用u，代表我们遍历到的那个东西。</p>
-<pre><code class="language-js">&lt;li v-for=&quot;(u,index) in users&quot; :key=&quot;index&quot;&gt;{{u.name}} - {{u.gender}}&lt;/li&gt;
-//&lt;li v-for=&quot;u in users&quot; :key=&quot;u.id&quot;&gt;{{u.name}} - {{u.gender}}&lt;/li&gt;
-</code></pre>
-<h2 id="二watch-监听侦听">二.Watch 监听/侦听</h2>
-<blockquote>
-<p><strong>用途：</strong> 当数据变化时，执行一个函数</p>
-</blockquote>
-<p><a href="https://codesandbox.io/s/lucid-shamir-cpcw3">例1</a></p>
-<p><strong>watch默认不监听第1次的值。watch是“完美的实现历史功能”的一个方法。</strong></p>
-<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4f3dc019de22427696dc6e57701eb5ff~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
-<h4 id="撤销功能">撤销功能</h4>
-<p>思路：就是把某项弹出来，再用from值覆盖。</p>
-<pre><code class="language-js">[ { &quot;from&quot;: 0, &quot;to&quot;: 1 }, { &quot;from&quot;: 1, &quot;to&quot;: 2 } ]
-比如撤销第2项:就是把最后项pop，提取from值:const old = last.from,
-再用from值覆盖掉当前n:this.n = old
-</code></pre>
-<p>虽然第2项被删掉了，但是又增加了一条<code>from 2 to 1</code>这是因为撤销操作也被watch了，如何解决？vuejs官方<a href="https://github.com/vuejs/vue">github</a></p>
-<blockquote>
-<p><strong>解决思路</strong>:<strong>watch就是监听它的变化的</strong>。你要做的是:自己控制，用变量控制。例如<code> inUndoMode: false</code>是否处在撤销模式</p>
-<p>默认不在撤销模式，当点击<strong>撤销</strong>时才处于<strong>撤销模式</strong>。</p>
-<p>watch判断下:如果当前不在撤销模式就push,如果在撤销模式就直接return</p>
-<p>设置处于撤销模式<code>this.inUndoMode = true</code>watch就不会记录n的变化了。</p>
-</blockquote>
-<p><strong>注意:当前代码中watch是异步</strong>,所以watch没有发现它在撤销模式。</p>
-<pre><code class="language-js">new Vue({
-  data: {
-    n: 0,
-    history: [],
-    inUndoMode: false //默认不在撤销模式
-  },
-  watch: {
-    n(newValue, oldValue) {
-      console.log(`在不在撤销模式：${this.inUndoMode ? '在' : '不在'}`)
-      if (!this.inUndoMode) { //如果当前不在撤销模式就push
-        this.history.push({ from: oldValue, to: newValue })
-      }
-    }
-  },
-  template: `
-  &lt;div&gt;
-    {{n}}
-    &lt;hr /&gt;
-    &lt;button @click=&quot;add1&quot;&gt;+1&lt;/button&gt;
-    &lt;button @click=&quot;add2&quot;&gt;+2&lt;/button&gt;
-    &lt;button @click=&quot;minus1&quot;&gt;-1&lt;/button&gt;
-    &lt;button @click=&quot;minus2&quot;&gt;-2&lt;/button&gt;
-    &lt;hr/&gt;
-    &lt;button @click=&quot;undo&quot;&gt;撤销&lt;/button&gt;
-    &lt;hr/&gt;
+export const createStore = (reducer, initState) =&gt; {
+  store.state = initState
+  store.reducer = reducer
+  return store
+}
 
-    {{history}}
-  &lt;/div&gt;
-  `,
-  methods: {
-    add1() {
-      this.n += 1;
-    },
-    add2() {
-      this.n += 2;
-    },
-    minus1() {
-      this.n -= 1;
-    },
-    minus2() {
-      this.n -= 2;
-    },
-    undo() {
-      const last = this.history.pop() //拿到最后项
-      console.log(last)
-      const old = last.from //取出from值
-      this.inUndoMode = true
-      this.n = old //watch n的函数会异步调用，不会立即得结果
-      this.$nextTick(() =&gt; { //setTimeout
-        this.inUndoMode = false
-      }, 0)
+const changed = (oldState, newState) =&gt; {
+  let changed = false
+  for (let key in oldState) {
+    if (oldState[key] !== newState[key]) {
+      changed = true
     }
   }
-}).$mount(&quot;#app&quot;);
-</code></pre>
-<p>异步结果要想先得到值，可以将下一步也改成异步状态,比如<code>setTimeout</code>
-watch用的<strong>异步接口</strong>是Vue自己封装的叫<code>this.$nextTick</code></p>
-<p><strong>例2 模拟computed</strong></p>
-<pre><code class="language-js">new Vue({
-  data: {
-    user: {
-      email: &quot;fangfang@qq.com&quot;,
-      nickname: &quot;方方&quot;,
-      phone: &quot;13812312312&quot;
-    },
-    displayName: &quot;&quot;
-  },
-  watch: {
-    &quot;user.email&quot;: {
-      handler: &quot;changed&quot;,
-      immediate: true //第一次渲染时也触发watch
-    },
-    &quot;user.nickname&quot;: {
-      handler: &quot;changed&quot;,
-      immediate: true //第一次渲染时也触发watch
-    },
-    &quot;user.phone&quot;: {
-      handler: &quot;changed&quot;,
-      immediate: true //第一次渲染时也触发watch
-    }
-  },
-  template: `
-    &lt;div&gt;
-       {{displayName}}
-       &lt;button @click=&quot;user.nickname=undefined&quot;&gt;remove nickname&lt;/button&gt;
-    &lt;/div&gt;
-  `,
-  methods: {
-    changed() {
-      console.log(arguments);
-      const user = this.user;
-      this.displayName = user.nickname || user.email || user.phone;
-    }
-  }
-}).$mount(&quot;#app&quot;);
-</code></pre>
-<p><strong>watch默认不监听第1次的值。</strong><br>
-所以页面中的{{displayName}}不显示，当点击按钮后才会重新触发计算displayName</p>
-<p><strong>如何展示第1次计算出来的displayName？</strong><br>
-先把它变成<strong>对象</strong>，然后添加<code>handler(){...},immediate:true</code><br>
-<strong>优先使用computed，computed不满足就使用watch.</strong><br>
-它们都是在数据变化时执行一个函数，只不过computed着重于依赖之间的变化以及缓存，watch着重于变化时去执行什么东西而不是得出一个结果。</p>
-<p><strong>对watch来说或者对Vue的所有监听器来说，什么叫做变化？</strong><br>
-1.当改变 <strong>简单的数据类型</strong> 的值时，值变了就是变了。<br>
-2.如果改变 <strong>对象里面的简单类型</strong>，就只做值的对比。值变了才是变了，值没变就是没变。<br>
-比如<code>obj: { a: &quot;a&quot; }</code>改成<code>a: &quot;ahi&quot;</code>，obj没变，因为地址没变，<strong>只是改了里面的值</strong>。obj.a变了。<br>
-3.如果你把一个 <strong>对象的地址</strong> 变了，Vue才会认为这个对象变了。<br>
-里面的依然是比较值。</p>
-<p>比如<code>obj: { a: &quot;a&quot; }</code>改成<code>obj: { a: &quot;a&quot; }</code>，obj变了，因为地址变了，<strong>obj赋给了一个新的对象。</strong><br>
-但是<strong>obj.a</strong>没变，因为值没变。<br>
-简单类型看值，复杂类型(对象)看地址，其实就是===的规则。</p>
-<p>4.<strong>增加需求:</strong> 只要对象里任何一个属性变了就都算obj变了。<br>
-Vue提供了一个选项<code>deep:true</code> <strong>方法</strong>:添加<code>handler(){}、deep:true</code></p>
-<h4 id="watch语法">watch语法</h4>
-<p><a href="https://cn.vuejs.org/v2/api/#watch">推荐文档</a></p>
-<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0f0b01f7a3c844aebdb62cd8d9dc392a~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
-<p>watch接收一个对象，对象的key必须是string，value可以是<code>string</code>或<code>函数</code>或<code>对象</code>或<code>数组</code>。</p>
-<p><strong>语法一</strong></p>
-<pre><code class="language-js">watch: { //不要使用箭头函数来定义watch函数
-  a: function (val, oldVal) { ... }, //这两个参数是Vue传给你的
-  b(){ ... },
-  c:[f1,f2],//当c变化时依次执行f1、f2
-  d:'methodName', //当d变化时会去methods里面找对应名字的函数,方法名
-  e:{handle:fn,deep:true,immediate:true}, //immediate立即调用
-   //handler: function (val, oldVal) { /* ... */ },
-  'object.a':function(){ ... } //在object.a变化时执行
-  //这里的function最好不要省，主要看webpack版本
-</code></pre>
-<p><strong>不要使用箭头函数来定义watch函数</strong></p>
-<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7721b524779e43cf9c8279eb557bc1fe~tplv-k3u1fbpfcp-zoom-1.image" alt=""></p>
-<p>箭头函数是没有this的，这个this是它外面函数的this。</p>
-<p>new Vue()不是函数，是<strong>函数调用</strong>。所以箭头函数的外层函数是全局作用域，全局作用域的this是全局对象<code>window或global</code></p>
-<p><strong>语法二</strong><br>
-<code>vm.$watch('xxx',fn,{deep:...,immediate:..})</code>加$防止冲突<br>
-其中<code>'xxx'</code>可以改为一个返回字符串的函数</p>
-<p>也可以移到里面</p>
-<pre><code class="language-js">//是否与DOM有关
+  return changed
+}
 
-//如果与DOM无关就放到created，当实例被创建到内存时监听n,一旦n变了就执行函数...
-created(){
-  this.$watch('n',fn,{deep:...,immediate:..})
+export const connect = (selector, mapDispatchToProps) =&gt; (Component) =&gt; {
+  return (props) =&gt; {
+    const dispatch = (action) =&gt; {
+      setState(store.reducer(state, action))
+    }
+    const { state, setState } = useContext(appContext);
+    const [, update] = useState({})
+    const data = selector ? selector(state) : { state: state } 
+    const dispatchers = mapDispatchToProps ? mapDispatchToProps(dispatch) : { dispatch }
+    useEffect(() =&gt; {
+      return store.subscribe(() =&gt; { //取消selector重复订阅
+        const newDate = selector ? selector(store.state) : { state: store.state }
+        if (changed(data, newDate)) {
+          console.log('update')
+          update({})
+        }
+      })
+    }, [selector])//添加依赖
+    return &lt;Component {...props} {...data} {...dispatchers} /&gt;
+  }
+}
+export const appContext = React.createContext(null)
+export const Provider = ({ store, children }) =&gt; {
+  return (
+    &lt;appContext.Provider value={store}&gt;
+        {children}
+    &lt;/appContext.Provider &gt;
+  )
 }
 </code></pre>
-<p><strong>computed VS watch</strong><br>
-watch当数据变化时，执行一个函数<br>
-computed如果一个数据变了，我就计算出一个新的属性。</p>
-<p><strong>面试题(常考)</strong><br>
-<strong>computed 与 watch有什么区别？</strong><br>
-computed是计算属性的意思，watch是监听的意思。<br>
-<strong>computed:</strong><br>
-1.computed是用来计算出一个值的，这个值在调用的时候不需要加括号，可以当属性样用。<br>
-2.根据依赖自动缓存，如果依赖不变computed值就不会重新计算。</p>
-<p><strong>watch:</strong><br>
-1.watch是用来监听的，它有2个选项immediate和deep。<br>
-2.immediate表示是否在第一次渲染的时候要执行这个函数。<br>
-deep如果我们监听一个对象那么是否要看里面的属性的变化。<br>
-定义:如果某个属性变化了我就去执行这个函数。<br>
-这就是computed 和 watch的区别。</p>
+<h4 id="getstate">getState()</h4>
+<p>目前我们的store属性太多了，如何<strong>隐藏属性</strong>并<strong>构造出getState</strong></p>
+<p><strong>第一部分.把state变成getState</strong>
+把state放到上面变成let变量,在store内声明getState并return state。</p>
+<pre><code class="language-js">let state = undefined
+const store = {
+  getState() {
+    return state
+  },
+}
+</code></pre>
+<p>审查代码,把所有用到state的地方(<code>store.state</code>)改成<code>state</code>,把上下文里的state去掉，这样它就会直接从外面的变量里去读。
+刷新手动测试，如果我们写了单元测试的代码会更好点，但是没有写只能手动的测试。</p>
+<p><strong>第二部分.把一些不必要的变量隐藏起来</strong><br>
+<strong>1.把reducer隐藏起来，不能暴露出去容易被人改。</strong><br>
+直接放到外面</p>
+<pre><code class="language-js">let reducer = undefined
+</code></pre>
+<p>审查代码,把所有用到reducer的地方(<code>store.reducer</code>)改成<code>reducer</code>,对于<code>重名的reducer</code>,可以把我们内部的reducer改为<code>_reducer</code>或者将<code>重名的reducer</code>改为<code>_reducer</code></p>
+<p><strong>2.隐藏listeners</strong></p>
+<pre><code class="language-js">let listeners = []
+</code></pre>
+<h3 id="封装dispatchaction">封装dispatch(action)</h3>
+<p>先将<code>setState</code>隐藏起来，直接娜上去。</p>
+<pre><code class="language-js">const setState = (newState) =&gt; {
+  console.log(newState)
+  state = newState
+  listeners.map(fn =&gt; fn(state))
+}
+</code></pre>
+<p>审查代码<br>
+这样的话我们的dispatch就不需要从上下文里拿了(可以删掉了)，直接去引用外面的就可以了。<br>
+既然dispatch里的<code>setState、reducer、state</code>都是引用外面的，那dispatch可以直接放到外面(store)。<br>
+修改所有用到dispatch的地方，如果不想改的话还有种方法：声明dispatch=store.dispatch</p>
+<pre><code class="language-js">const dispatch = store.dispatch
+</code></pre>
+<p>下面就可以直接使用dispatch了。<br>
+replaceReducer(nextReducer)很少用。<br>
+<strong>封装后的代码</strong></p>
+<pre><code class="language-js">import React, { useState, useContext, useEffect } from &quot;react&quot;
+let state = undefined
+let reducer = undefined
+let listeners = []
+const setState = (newState) =&gt; {
+  console.log(newState)
+  state = newState
+  listeners.map(fn =&gt; fn(state)) 
+}
+
+const store = {
+  getState() {
+    return state
+  },
+  dispatch: (action) =&gt; {
+    setState(reducer(state, action)) 
+  },
+  subscribe(fn) {
+    listeners.push(fn) //订阅
+    return () =&gt; { //取消订阅
+      const index = store.listeners.indexOf(fn)
+      listeners.splice(index)
+    }
+  }
+}
+const dispatch = store.dispatch 
+
+export const createStore = (_reducer, initState) =&gt; {
+  state = initState
+  reducer = _reducer
+  return store
+}
+
+const changed = (oldState, newState) =&gt; {
+  let changed = false
+  for (let key in oldState) {
+    if (oldState[key] !== newState[key]) {
+      changed = true
+    }
+  }
+  return changed
+}
+
+export const connect = (selector, mapDispatchToProps) =&gt; (Component) =&gt; {
+  return (props) =&gt; {
+    const [, update] = useState({})
+    const data = selector ? selector(state) : { state: state } 
+    const dispatchers = mapDispatchToProps ? mapDispatchToProps(dispatch) : { dispatch }
+    useEffect(() =&gt; {
+      return store.subscribe(() =&gt; { //取消selector重复订阅
+        const newDate = selector ? selector(state) : { state: state }
+          if (changed(data, newDate)) {
+            console.log('update')
+            update({})
+          }
+        })
+      }, [selector])
+      return &lt;Component {...props} {...data} {...dispatchers} /&gt;
+    }
+}
+export const appContext = React.createContext(null)
+
+export const Provider = ({ store, children }) =&gt; {
+  return (
+    &lt;appContext.Provider value={store}&gt;
+      {children}
+    &lt;/appContext.Provider &gt;
+  )
+}
+</code></pre>
+<h3 id="让redux支持-函数action">让Redux支持 函数Action</h3>
+<p>目前redux不支持异步action,如果要让redux支持异步action怎么做？怎么实现待会再说，现在先搞清楚目的:为何我们要让redux支持异步action。</p>
+<p><strong>异步更新user.name</strong><br>
+目前是frank,当我点击<code>异步获取user</code>3s后就会变成<code>3s后的frank</code>,也就是说我去异步更新user.name</p>
+<pre><code class="language-js">index.js
+const ajax = () =&gt; {
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      resolve({data: {name: '3秒后的frank'}})
+    }, 3000)
+  })
+}
+
+const fetchUser = (dispatch)=&gt;{
+  ajax('/user').then(response =&gt; {
+    dispatch({type:'updateUser', payload:response.data})
+  })
+}
+const UserModifier = connect(null, null)(({state, dispatch}) =&gt; {
+//let prevDispatch = dispatch
+//var dispatch = (fn) =&gt; {
+//  fn(prevDispatch)
+// }  
+  console.log(&quot;UserModifier执行了&quot; + Math.random())
+  const onClick = (e) =&gt; {
+    dispatch(fetchUser)
+  //fetchUser(dispatch) 需要传dispatch
+  }
+  return &lt;div&gt;
+    &lt;div&gt;User: {state.user.name}&lt;/div&gt;
+    &lt;button onClick={onClick}&gt;异步获取 user&lt;/button&gt;
+  &lt;/div&gt;
+})
+</code></pre>
+<p><code>fetchUser(dispatch)</code>不优美，我们把它写成<code>dispatch(fetchUser)</code>，但是这里的dispatch与<code>props里的dispatch</code>重名了，我们可以将<code>props里的dispatch</code>改为<code>prevDispatch</code></p>
+<p><strong>目的清楚了:</strong> 之所以需要异步action实际上是因为我们不想写出<code>fetchUser(dispatch)</code>这样的代码，我们希望写出的是<code>dispatch(fetchUser)</code>，如果按照以前的观点来看dispatch后面接的是action，那现在fetchUser就是个action。这个fetchUser不是之前的由<code>type、payload组成的对象的action</code>，而是一个<code>函数action</code>。那我们把这种函数action就叫做<strong>异步action</strong>。</p>
+<p>我们需要redux支持异步action目的是不写出<code>fetchUser(dispatch)</code>而是写出<code>dispatch(fetchUser)</code>这样的代码。</p>
+<p><strong>那如何实现<code>dispatch(fetchUser)</code>？</strong></p>
+<pre><code class="language-js">redux.js
+let dispatch = store.dispatch
+const prevDispatch = dispatch
+dispatch = (action) =&gt; { 
+  if (action instanceof Function) {//函数，如果是函数就调用action,并传个dispatch给它
+    action(dispatch) //这里是dispatch(既能处理函数又能处理对象)
+  } else { //对象，如果是普通action就传给之前的
+    prevDispatch(action)
+  }
+}
+</code></pre>
+<p>现在我们的redux就支持了异步的redux,支持的方法:没有使用中间件而是直接对我们的dispatch进行改写，如果它是函数就让它重新dispatch,如果不是函数就直接用原始的dispatch调用action。</p>
+<h3 id="让redux支持-promise-action">让Redux支持 Promise Action</h3>
+<p>目的:支持promise的数据而不是直接的数据</p>
+<pre><code class="language-js">const ajax = () =&gt; {
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      resolve({ data: { name: '3秒后的frank' } })
+    }, 3000)
+  })
+}
+const UserModifier = connect(null, null)(({ state, dispatch }) =&gt; {
+  console.log(&quot;UserModifier执行了&quot; + Math.random())
+  const onClick = (e) =&gt; {
+    dispatch({type:'updateUser',payload:ajax('/user').then(response=&gt;response.data)})
+  //dispatch(fetchUser)
+  }
+  ...
+})
+</code></pre>
+<p>之前payload传的是同步对象，现在改传异步对象。<br>
+这种就比<code>dispatch(fetchUser)</code>更明确一点，直接表示要创建的类型是<code>{type:'updateUser'}</code>,因为<code>fetchUser</code>看名字容易误以为要创建的是fetchUser，实际上创建的是updateUser。</p>
+<pre><code class="language-js">redux.js
+const prevDispatch2 = dispatch
+dispatch = (action) =&gt; {
+  if (action.payload instanceof Promise) {
+    action.payload.then(data =&gt; {
+      dispatch({ ...action, payload: data })
+    })
+  } else {
+    prevDispatch2(action)
+  }
+}
+</code></pre>
+<p>如果payload是promise，我就在promise后面加个then，then里面拿到data之后，就把data放到payload里面。</p>
+<p>上节讲了对action的扩展，一个让action支持函数，一个让action支持promise，现在来讲下中间件。</p>
+<p><strong>为什么要用中间件？</strong><br>
+因为这2个功能redux并没有内置，第一个功能是支持函数，第二个功能是支持payload为promise。<br>
+不支持，我们该怎么办呢？<br>
+于是redux说，你在创建store时可以传第三个参数，<strong>第三个参数就是中间件</strong>。</p>
+<p><strong>写法：</strong> applyMiddleware(a,b)</p>
+<pre><code class="language-js">index.js
+const store=createStore(reducer,initState,applyMiddleware(reduxThunk,reduxPromise))
+</code></pre>
+<p><strong>阅读redux-thunk和redux-promise源码:</strong><br>
+redux-thunk就是一个标准的Redux middleware。<br>
+它的核心代码其实只有两行，就是判断每个经过它的action：如果是function类型，就调用这个function（并传入 dispatch和getState及extraArgument为参数），而不是任由让它到达reducer，因为reducer是个纯函数，Redux规定到达reducer的action必须是一个plain object类型。</p>
+<p>跟我们封装的代码差不多，这就是middleware，middleware就是你可以自己去<strong>修饰dispatch</strong>。</p>
 
 </article>
 
@@ -1616,11 +1501,13 @@ deep如果我们监听一个对象那么是否要看里面的属性的变化。<
   >
     <div>
       
+        <span class="text-primary-text block font-bold"
+          >Previous</span
+        >
+        <a href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99redux2/" class="block">手写Redux(2)</a>
+      
     </div>
     <div class="mt-4 md:mt-0 md:text-right">
-      
-        <span class="text-primary-text block font-bold">Next</span>
-        <a href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/" class="block">Vue Router -前端路由实现的思路</a>
       
     </div>
   </div>
@@ -1648,15 +1535,16 @@ deep如果我们监听一个对象那么是否要看里面的属性的变化。<
 >
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#一computed-计算属性">一.Computed 计算属性</a></li>
-    <li><a href="#二watch-监听侦听">二.Watch 监听/侦听</a>
+    <li>
       <ul>
-        <li>
+        <li><a href="#api封装技巧">API封装技巧</a>
           <ul>
-            <li><a href="#撤销功能">撤销功能</a></li>
-            <li><a href="#watch语法">watch语法</a></li>
+            <li><a href="#getstate">getState()</a></li>
           </ul>
         </li>
+        <li><a href="#封装dispatchaction">封装dispatch(action)</a></li>
+        <li><a href="#让redux支持-函数action">让Redux支持 函数Action</a></li>
+        <li><a href="#让redux支持-promise-action">让Redux支持 Promise Action</a></li>
       </ul>
     </li>
   </ul>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>computed 和 watch | 目录 | 博客</title>
+<title>手写Redux(2) | 目录 | 博客</title>
 
 <meta name="generator" content="Hugo Eureka 0.9.1" />
 <link rel="stylesheet" href="https://lixueqin-4119.xyz/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
@@ -60,18 +60,25 @@
 <link rel="apple-touch-icon" sizes="180x180" href="https://lixueqin-4119.xyz/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
 
 <meta name="description"
-  content="Vue2 options文档
- 响应式原理options.data
-1.data会被Vue监听
-2.会被Vue实例代理,vm就是data的代理
-3.每次对data的读写都会被Vue监控。不管你是读写它的本身还是读写代理都会被监控，data对象会被篡改,本来的n会变成get n和set n。
-4.Vue会在data变化时更新UI
-data变化时除了更新UI，还能做些啥？
-一.Computed 计算属性  1.用途:被计算出来的属性就是计算属性
-2.缓存： 如果依赖的属性没有变化，就不会重新计算
-getter/setter默认不会做缓存，Vue做了特殊处理
- 例1:用户名展示
-new Vue({ data: { user: { email: &quot;1231231231@qq.com&quot;, nickname: &quot;小白&quot;, phone: &quot;13812345678&quot;//手机号用string存，因为有时候会出现&#43;86 } }, computed: { //计算属性 displayName: { get() { const user = this.user; return user.nickname || user.email || user.phone; }, set(value) { console.log(value); this.user.nickname = value; } } }, // Don&#39;t repeat yourself // 用 computed 来计算 displayName template: ` &lt;div&gt; {{displayName}} &lt;!">
+  content="目录
+1.Selectorconnect的第一个参数
+2.mapDispatchToPropsconnect的第二个参数
+3.connect的意义
+4.封装Provider和createStore
+Selector Selector是connect的第一个参数，由React-Redux库提供。
+Selector的第1个功能:实现简写 目前我们的User组件只用到了state.user
+const User=connect( ({state}) =&gt; { return &lt;div&gt; User:{state.user.name} &lt;/div&gt; })  所以如果我们可以提供一个选择函数,比如说connect的第一个参数我们用()来表达，这样我们就可以在这里直接拿到user,下面就不需要state也能直接拿到user了。
+index.js const User = connect( state =&gt; { return {user:state.user} })( ({user}) =&gt; { return &lt;div&gt; User:{user.name} &lt;/div&gt; })  这种做法什么时候有意义？
+如果我们拿数据的.很长，比如{state.xxx.yyy.zzz.user.name},这种方法可以快速获取到局部state。
+这只是API的实现，我们还没有对它进行代码的编写。
+代码实现
+步骤
+1.添加参数selector
+来到redux.js给connect函数添加一个参数(selector)=&gt;。
+先接受一个参数selector再接受第二个参数Component
+2.使用参数
+把state传进去，data就是用户需要的所有数据，再把data放到&lt;Component /&gt;的props后面。
+redux.js export const connect = (selector) =&gt; (Component) =&gt; { return (props) =&gt; { //const data = selector(state) const data=selector ? selector(state) : {state:state} .">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -87,12 +94,12 @@ new Vue({ data: { user: { email: &quot;1231231231@qq.com&quot;, nickname: &quot;
       "item":"https://lixueqin-4119.xyz/docs/example-doc/"},{
       "@type": "ListItem",
       "position": 3 ,
-      "name":"【Vue2 全解】",
-      "item":"https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/"},{
+      "name":"【React全解】",
+      "item":"https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/"},{
       "@type": "ListItem",
       "position": 4 ,
-      "name":"computed 和 watch",
-      "item":"https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/"}]
+      "name":"手写Redux(2)",
+      "item":"https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99redux2/"}]
 }
 </script>
 
@@ -104,11 +111,11 @@ new Vue({ data: { user: { email: &quot;1231231231@qq.com&quot;, nickname: &quot;
     "@type": "Article",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/"
+        "@id": "https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99redux2/"
     },
-    "headline": "computed 和 watch | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
+    "headline": "手写Redux(2) | 目录 | 博客","datePublished": "2020-10-16T00:00:00+00:00",
     "dateModified": "2020-10-16T00:00:00+00:00",
-    "wordCount":  754 ,
+    "wordCount":  872 ,
     "publisher": {
         "@type": "Person",
         "name": "WANG Chucheng",
@@ -117,32 +124,39 @@ new Vue({ data: { user: { email: &quot;1231231231@qq.com&quot;, nickname: &quot;
             "url": "https://lixueqin-4119.xyz/images/icon.png"
         }
         },
-    "description": "Vue2 options文档\n 响应式原理options.data\n1.data会被Vue监听\n2.会被Vue实例代理,vm就是data的代理\n3.每次对data的读写都会被Vue监控。不管你是读写它的本身还是读写代理都会被监控，data对象会被篡改,本来的n会变成get n和set n。\n4.Vue会在data变化时更新UI\ndata变化时除了更新UI，还能做些啥？\n一.Computed 计算属性  1.用途:被计算出来的属性就是计算属性\n2.缓存： 如果依赖的属性没有变化，就不会重新计算\ngetter\/setter默认不会做缓存，Vue做了特殊处理\n 例1:用户名展示\nnew Vue({ data: { user: { email: \u0026quot;1231231231@qq.com\u0026quot;, nickname: \u0026quot;小白\u0026quot;, phone: \u0026quot;13812345678\u0026quot;\/\/手机号用string存，因为有时候会出现\u002b86 } }, computed: { \/\/计算属性 displayName: { get() { const user = this.user; return user.nickname || user.email || user.phone; }, set(value) { console.log(value); this.user.nickname = value; } } }, \/\/ Don\u0027t repeat yourself \/\/ 用 computed 来计算 displayName template: ` \u0026lt;div\u0026gt; {{displayName}} \u0026lt;!"
+    "description": "目录\n1.Selectorconnect的第一个参数\n2.mapDispatchToPropsconnect的第二个参数\n3.connect的意义\n4.封装Provider和createStore\nSelector Selector是connect的第一个参数，由React-Redux库提供。\nSelector的第1个功能:实现简写 目前我们的User组件只用到了state.user\nconst User=connect( ({state}) =\u0026gt; { return \u0026lt;div\u0026gt; User:{state.user.name} \u0026lt;\/div\u0026gt; })  所以如果我们可以提供一个选择函数,比如说connect的第一个参数我们用()来表达，这样我们就可以在这里直接拿到user,下面就不需要state也能直接拿到user了。\nindex.js const User = connect( state =\u0026gt; { return {user:state.user} })( ({user}) =\u0026gt; { return \u0026lt;div\u0026gt; User:{user.name} \u0026lt;\/div\u0026gt; })  这种做法什么时候有意义？\n如果我们拿数据的.很长，比如{state.xxx.yyy.zzz.user.name},这种方法可以快速获取到局部state。\n这只是API的实现，我们还没有对它进行代码的编写。\n代码实现\n步骤\n1.添加参数selector\n来到redux.js给connect函数添加一个参数(selector)=\u0026gt;。\n先接受一个参数selector再接受第二个参数Component\n2.使用参数\n把state传进去，data就是用户需要的所有数据，再把data放到\u0026lt;Component \/\u0026gt;的props后面。\nredux.js export const connect = (selector) =\u0026gt; (Component) =\u0026gt; { return (props) =\u0026gt; { \/\/const data = selector(state) const data=selector ? selector(state) : {state:state} ."
 }
-</script><meta property="og:title" content="computed 和 watch | 目录 | 博客" />
+</script><meta property="og:title" content="手写Redux(2) | 目录 | 博客" />
 <meta property="og:type" content="article" />
 
 
 <meta property="og:image" content="https://lixueqin-4119.xyz/images/icon.png">
 
 
-<meta property="og:url" content="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/" />
+<meta property="og:url" content="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99redux2/" />
 
 
 
 
-<meta property="og:description" content="Vue2 options文档
- 响应式原理options.data
-1.data会被Vue监听
-2.会被Vue实例代理,vm就是data的代理
-3.每次对data的读写都会被Vue监控。不管你是读写它的本身还是读写代理都会被监控，data对象会被篡改,本来的n会变成get n和set n。
-4.Vue会在data变化时更新UI
-data变化时除了更新UI，还能做些啥？
-一.Computed 计算属性  1.用途:被计算出来的属性就是计算属性
-2.缓存： 如果依赖的属性没有变化，就不会重新计算
-getter/setter默认不会做缓存，Vue做了特殊处理
- 例1:用户名展示
-new Vue({ data: { user: { email: &quot;1231231231@qq.com&quot;, nickname: &quot;小白&quot;, phone: &quot;13812345678&quot;//手机号用string存，因为有时候会出现&#43;86 } }, computed: { //计算属性 displayName: { get() { const user = this.user; return user.nickname || user.email || user.phone; }, set(value) { console.log(value); this.user.nickname = value; } } }, // Don&#39;t repeat yourself // 用 computed 来计算 displayName template: ` &lt;div&gt; {{displayName}} &lt;!" />
+<meta property="og:description" content="目录
+1.Selectorconnect的第一个参数
+2.mapDispatchToPropsconnect的第二个参数
+3.connect的意义
+4.封装Provider和createStore
+Selector Selector是connect的第一个参数，由React-Redux库提供。
+Selector的第1个功能:实现简写 目前我们的User组件只用到了state.user
+const User=connect( ({state}) =&gt; { return &lt;div&gt; User:{state.user.name} &lt;/div&gt; })  所以如果我们可以提供一个选择函数,比如说connect的第一个参数我们用()来表达，这样我们就可以在这里直接拿到user,下面就不需要state也能直接拿到user了。
+index.js const User = connect( state =&gt; { return {user:state.user} })( ({user}) =&gt; { return &lt;div&gt; User:{user.name} &lt;/div&gt; })  这种做法什么时候有意义？
+如果我们拿数据的.很长，比如{state.xxx.yyy.zzz.user.name},这种方法可以快速获取到局部state。
+这只是API的实现，我们还没有对它进行代码的编写。
+代码实现
+步骤
+1.添加参数selector
+来到redux.js给connect函数添加一个参数(selector)=&gt;。
+先接受一个参数selector再接受第二个参数Component
+2.使用参数
+把state传进去，data就是用户需要的所有数据，再把data放到&lt;Component /&gt;的props后面。
+redux.js export const connect = (selector) =&gt; (Component) =&gt; { return (props) =&gt; { //const data = selector(state) const data=selector ? selector(state) : {state:state} ." />
 
 
 
@@ -848,7 +862,7 @@ new Vue({ data: { user: { email: &quot;1231231231@qq.com&quot;, nickname: &quot;
     
     <li class="py-2">
         <div class="">
-            <a class=" hover:text-eureka"
+            <a class=" text-eureka  hover:text-eureka"
                 href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99redux2/">手写Redux(2)</a>
         </div>
         
@@ -887,7 +901,7 @@ new Vue({ data: { user: { email: &quot;1231231231@qq.com&quot;, nickname: &quot;
     
     <li class="py-2">
         <div class="">
-            <a class=" text-eureka  hover:text-eureka"
+            <a class=" hover:text-eureka"
                 href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/computed-%E5%92%8C-watch/">computed 和 watch</a>
         </div>
         
@@ -1194,7 +1208,7 @@ new Vue({ data: { user: { email: &quot;1231231231@qq.com&quot;, nickname: &quot;
             <div class="flex">
                 <div class="w-full lg:w-3/4 px-6">
                     <article class="prose">
-  <h1 class="mb-4">computed 和 watch</h1>
+  <h1 class="mb-4">手写Redux(2)</h1>
 
   <div
   class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
@@ -1207,7 +1221,7 @@ new Vue({ data: { user: { email: &quot;1231231231@qq.com&quot;, nickname: &quot;
   </div>
   <div class="me-6 my-2">
     <i class="fas fa-clock me-1"></i>
-    <span>4 min read</span>
+    <span>5 min read</span>
   </div>
 
   
@@ -1219,386 +1233,376 @@ new Vue({ data: { user: { email: &quot;1231231231@qq.com&quot;, nickname: &quot;
   
   
 
-  <blockquote>
-<p><a href="https://cn.vuejs.org/v2/api/#%E9%80%89%E9%A1%B9-%E6%95%B0%E6%8D%AE">Vue2 options文档</a></p>
-</blockquote>
-<p><strong>响应式原理options.data</strong></p>
-<p>1.data会被Vue监听</p>
-<p>2.会被<strong>Vue实例代理</strong>,vm就是data的代理</p>
-<p>3.每次对data的<strong>读写都会被</strong>Vue监控。不管你是读写它的本身还是读写代理都会被监控，data对象会被篡改,本来的n会变成<code>get n</code>和<code>set n</code>。</p>
-<p>4.Vue会在data变化时更新UI</p>
-<p><strong>data变化时除了更新UI，还能做些啥？</strong></p>
-<h2 id="一computed-计算属性">一.Computed 计算属性</h2>
-<blockquote>
-<p><strong>1.用途:被计算出来的属性就是计算属性</strong></p>
-<p><strong>2.缓存：</strong> 如果依赖的属性没有变化，就不会重新计算</p>
-<p>getter/setter默认不会做缓存，Vue做了特殊处理</p>
-</blockquote>
-<p><strong>例1:用户名展示</strong></p>
-<pre><code class="language-js">new Vue({
-  data: {
-    user: {
-      email: &quot;1231231231@qq.com&quot;,
-      nickname: &quot;小白&quot;,
-      phone: &quot;13812345678&quot;//手机号用string存，因为有时候会出现+86
-    }
+  <p>目录<br>
+1.<code>Selector</code>connect的第一个参数<br>
+2.<code>mapDispatchToProps</code>connect的第二个参数<br>
+3.connect的意义<br>
+4.封装Provider和createStore</p>
+<h3 id="selector">Selector</h3>
+<p><code>Selector</code>是connect的第一个参数，由React-Redux库提供。</p>
+<h4 id="selector的第1个功能实现简写">Selector的第1个功能:实现简写</h4>
+<p>目前我们的User组件只用到了state.user</p>
+<pre><code class="language-js">const User=connect( ({state}) =&gt; {
+  return &lt;div&gt; User:{state.user.name} &lt;/div&gt;
+})
+</code></pre>
+<p>所以如果我们可以提供一个选择函数,比如说connect的第一个参数我们用()来表达，这样我们就可以在这里直接拿到<code>user</code>,下面就不需要state也能直接拿到user了。</p>
+<pre><code class="language-js">index.js
+const User = connect( state =&gt; {
+  return {user:state.user} 
+})( ({user}) =&gt; {
+  return &lt;div&gt; User:{user.name} &lt;/div&gt;
+})
+</code></pre>
+<p><strong>这种做法什么时候有意义？</strong><br>
+如果我们拿数据的<code>.</code>很长，比如<code>{state.xxx.yyy.zzz.user.name}</code>,这种方法可以快速获取到局部state。<br>
+<strong>这只是API的实现，我们还没有对它进行代码的编写。</strong></p>
+<p><strong>代码实现</strong><br>
+步骤<br>
+<strong>1.添加参数selector</strong><br>
+来到redux.js给connect函数添加一个参数<code>(selector)=&gt;</code>。<br>
+先接受一个参数<code>selector</code>再接受第二个参数<code>Component</code><br>
+<strong>2.使用参数</strong><br>
+把state传进去，data就是用户需要的所有数据，再把data放到<code>&lt;Component /&gt;</code>的props后面。</p>
+<pre><code class="language-js">redux.js
+export const connect = (selector) =&gt; (Component) =&gt; {
+ return (props) =&gt; {
+ //const data = selector(state)
+  const data=selector ? selector(state) : {state:state}
+  ...
+  return &lt;Component {...props} {...data} /&gt;
+  }
+}     
+</code></pre>
+<p><strong>错误处理</strong><br>
+如果用户没有传state怎么办？<br>
+没传data就是全局state，传了的话就是局部state。<br>
+所以要加个判断<code>const data = selector ? selector(state) : {state:state}</code></p>
+<p><strong>3.最后把所有用到connect的地方都改下</strong></p>
+<pre><code class="language-js">index.js
+const User = connect( (state) =&gt; {
+  return { user: state.user }
+})( ({ user }) =&gt; {
+  return &lt;div&gt; User:{user.name} &lt;/div&gt;
+})
+//这里先不传留个空
+const UserModifier=connect()(({ dispatch, state })=&gt; {...}
+</code></pre>
+<p>这就是改造user的过程。<br>
+selector除了能实现简写的功能，还有个非常重要的作用</p>
+<h4 id="selector的第2个功能实现精确渲染">Selector的第2个功能:实现精确渲染</h4>
+<p>组件只在自己的数据变化时render。<br>
+比如说一个组件用到了user,那么如果是其它数据group变化了，不应该渲染用<strong>到了user的组件</strong></p>
+<p><strong>步骤</strong><br>
+<strong>1.添加数据&rsquo;前端组&rsquo;放到第3个儿子里</strong></p>
+<pre><code class="language-js">redux.js
+export const store = {
+  state: {
+    user: { name: 'frank', age: 18 },
+    group: { name: '前端组' } 
   },
-  computed: { //计算属性
-    displayName: {
-      get() {
-        const user = this.user;
-        return user.nickname || user.email || user.phone;
-      },
-      set(value) {
-        console.log(value);
-        this.user.nickname = value;
-      }
-    }
-  },
-  // Don't repeat yourself
-  // 用 computed 来计算 displayName
-  template: `
-    &lt;div&gt;
-      {{displayName}}
- &lt;!-- {{user.nickname || user.email || user.phone}} --&gt;
-      &lt;div&gt;
-        {{displayName}}
- &lt;!-- {{user.nickname || user.email || user.phone}} --&gt;
-        &lt;button @click=&quot;add&quot;&gt;set&lt;/button&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  `,
-  methods: {
-    add() {
-      console.log(&quot;add&quot;);
-      this.displayName = &quot;小红&quot;;
+}
+
+index.js
+const 小儿子 = connect(state =&gt; {
+  return { group: state.group }
+})(({ group }) =&gt; { 
+  console.log('小儿子执行了', +Math.random())
+  return &lt;section&gt;小儿子&lt;div&gt;Group:{group.name}&lt;/div&gt;&lt;/section&gt;
+})
+</code></pre>
+<p><strong>点击二儿子修改user,发现小儿子的group竟然也触发了，怎么改？</strong><br>
+在connect的wrapper里做检查:如果data没变就不要渲染<br>
+之前的代码是如果store变化了就直接update,现在添加条件判断。</p>
+<p><strong>2.添加条件判断</strong><br>
+我先看下你的新数据是什么，然后再看data和newData是否变化了。<br>
+<code>newData</code>得到的过程和data是一样的，只不过你是之前的，上一次的data。这一次是在你订阅发生变化之后我得到的新的state<code>store.state</code><br>
+然后再看下新旧数据有没有变化</p>
+<p>怎么看有没有变化呢？<br>
+做个遍历，对于每个旧数据我来看下旧数据的user是否<code>===</code>新数据的user,旧数据的group<code>===</code>新数据的group,只要有一个变化了就算变化，那我就更新。</p>
+<p>一般来说，你的useEffect里面用到了哪些来自于属性的东西，都得写在它的依赖里面，比如这个selector就得写在依赖里。</p>
+<pre><code class="language-js">redux.js
+const changed = (oldState, newState) =&gt; {
+  let changed = false
+  for (let key in oldState) {
+    if (oldState[key] !== newState[key]) {
+      changed = true
     }
   }
-}).$mount(&quot;#app&quot;);
-</code></pre>
-<p><strong>什么时候用computed？</strong></p>
-<p>如果我想在页面的100处展示<code>{{user.nickname || user.email || user.phone}}</code>，那就需要把这行代码复制100次。假如需求变了:调整顺序，那就需要一个个修改。为了解决这个问题可以用<code>computed</code>计算属性。</p>
-<p><strong>计算属性的好处：</strong><br>
-让一些“根据其它属性计算而来的属性”变成一个属性，比如displayName。</p>
-<p><strong>怎么设置修改一个属性？</strong><a href="https://cn.vuejs.org/v2/api/#computed">文档</a> <br>
-<img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e2a1e3aaf8c7474bba2f11883441be2d~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
-<blockquote>
-<p><strong>1&rsquo; key(属性名):函数</strong></p>
-<p><strong>2&rsquo; <code>key:{get:Function,set:Function}</code></strong></p>
-</blockquote>
-<pre><code class="language-js">computed: {
-    displayName: { //key:{get:Function,set:Function}
-      get() {
-        const user = this.user;
-        return user.nickname || user.email || user.phone;
-      },
-      set(value) {
-        this.user.nickname = value;
-      }
-    }
-  },
-</code></pre>
-<p><strong>例2:<a href="https://codesandbox.io/s/bold-matsumoto-efn0i">列表展示</a></strong></p>
-<pre><code class="language-js">let id = 0;
-const createUser = (name, gender) =&gt; { //DRY原则：1.封装createUser
-  id += 1;
-  return { id, name, gender };
-};
-new Vue({
-  data() {
-    return {
-      users: [
-        createUser(&quot;小百&quot;, &quot;男&quot;),//直接调用已封装的createUser
-        createUser(&quot;圆圆&quot;, &quot;女&quot;),
-        createUser(&quot;小新&quot;, &quot;男&quot;),
-        createUser(&quot;小白&quot;, &quot;女&quot;)
-      ],
-    displayUsers: []
-    };
-  },
-  created() {
-    this.displayUsers = this.users
-  },
-  methods: {
-    showMale() {
-    //把性别男的filter出来，将得到的新数组的地址赋值给displayUsers
-      this.displayUsers = this.users.filter(u =&gt; u.gender === &quot;男&quot;)
-    },
-    showFemale() {
-      this.displayUsers = this.users.filter(u =&gt; u.gender === &quot;女&quot;)
-    },
-    showAll() {
-      this.displayUsers = this.users
-    }
-  },
-    // 如何给三个按钮加事件处理函数
-    // 思路一：点击之后改users
-    // 思路二：使用computed
-  template: `
-  &lt;div&gt;
-    &lt;div&gt;
-      &lt;button @click=&quot;showAll&quot;&gt;全部&lt;/button&gt;
-      &lt;button @click=&quot;showMale&quot;&gt;男&lt;/button&gt;
-      &lt;button @click=&quot;showFemale&quot;&gt;女&lt;/button&gt;
-    &lt;/div&gt;
-    &lt;ul&gt;
-      &lt;li v-for=&quot;(u,index) in displayUsers&quot; :key=&quot;index&quot;&gt;
-        {{u.name}} - {{u.gender}}
-      &lt;/li&gt;
-   &lt;/ul&gt;
-  &lt;/div&gt;
-  `
-}).$mount(&quot;#app&quot;);
-</code></pre>
-<p><strong>使用computed</strong></p>
-<pre><code class="language-js">let id = 0;
-const createUser = (name, gender) =&gt; {
-  id += 1;
-  return { id, name, gender };
-};
-new Vue({
-  data() {
-    return {
-      users: [
-        createUser(&quot;方方&quot;, &quot;男&quot;),
-        createUser(&quot;圆圆&quot;, &quot;女&quot;),
-        createUser(&quot;小新&quot;, &quot;男&quot;),
-        createUser(&quot;小葵&quot;, &quot;女&quot;)
-      ],
-      //displayUsers: []
-      gender: &quot;&quot;
-    };
-  },
-  computed: {
-    //使用computed思路
-    displayUsers() {
-      const hash = {
-        male: &quot;男&quot;,
-        female: &quot;女&quot;
-      };
-      const { users, gender } = this; //析构赋值
+  return changed
+}
 
-      if (gender === &quot;&quot;) {
-        return users;
-      } else if (typeof gender === &quot;string&quot;) {
-        return users.filter((u) =&gt; u.gender === hash[gender]);
-      } else {
-        throw new Error(&quot;gender 的值是意外的值&quot;);
-      }
-    }
-  },
-  methods: {
-    setGender(string) {
-      this.gender = string;
-    }
-  },
-  // 如何给三个按钮加事件处理函数
-  // 思路一：点击之后改users
-  // 思路二：使用computed
-  template: `
-    &lt;div&gt;
-      &lt;div&gt;
-        &lt;button @click=&quot;setGender('')&quot;&gt;全部&lt;/button&gt;
-        &lt;button @click=&quot;setGender('male')&quot;&gt;男&lt;/button&gt;
-        &lt;button @click=&quot;setGender('female')&quot;&gt;女&lt;/button&gt;
-        &lt;/div&gt;
-      &lt;ul&gt;
-        &lt;li v-for=&quot;(u,index) in displayUsers&quot; :key=&quot;index&quot;&gt;
-          {{u.name}} - {{u.gender}}
-        &lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/div&gt;
-  `
-}).$mount(&quot;#app&quot;);
-</code></pre>
-<p>computed让逻辑更清晰</p>
-<p><strong>知识点</strong><br>
-<strong>1.Vue循环 v-for</strong><br>
-<strong>注意:<code>v-for</code>后面必须接key</strong><br>
-<code>v-for=&quot;u in users&quot;</code>把<code>users</code>里面的每一项取名为<code>u</code>,
-后面就可以直接使用u，代表我们遍历到的那个东西。</p>
-<pre><code class="language-js">&lt;li v-for=&quot;(u,index) in users&quot; :key=&quot;index&quot;&gt;{{u.name}} - {{u.gender}}&lt;/li&gt;
-//&lt;li v-for=&quot;u in users&quot; :key=&quot;u.id&quot;&gt;{{u.name}} - {{u.gender}}&lt;/li&gt;
-</code></pre>
-<h2 id="二watch-监听侦听">二.Watch 监听/侦听</h2>
-<blockquote>
-<p><strong>用途：</strong> 当数据变化时，执行一个函数</p>
-</blockquote>
-<p><a href="https://codesandbox.io/s/lucid-shamir-cpcw3">例1</a></p>
-<p><strong>watch默认不监听第1次的值。watch是“完美的实现历史功能”的一个方法。</strong></p>
-<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4f3dc019de22427696dc6e57701eb5ff~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
-<h4 id="撤销功能">撤销功能</h4>
-<p>思路：就是把某项弹出来，再用from值覆盖。</p>
-<pre><code class="language-js">[ { &quot;from&quot;: 0, &quot;to&quot;: 1 }, { &quot;from&quot;: 1, &quot;to&quot;: 2 } ]
-比如撤销第2项:就是把最后项pop，提取from值:const old = last.from,
-再用from值覆盖掉当前n:this.n = old
-</code></pre>
-<p>虽然第2项被删掉了，但是又增加了一条<code>from 2 to 1</code>这是因为撤销操作也被watch了，如何解决？vuejs官方<a href="https://github.com/vuejs/vue">github</a></p>
-<blockquote>
-<p><strong>解决思路</strong>:<strong>watch就是监听它的变化的</strong>。你要做的是:自己控制，用变量控制。例如<code> inUndoMode: false</code>是否处在撤销模式</p>
-<p>默认不在撤销模式，当点击<strong>撤销</strong>时才处于<strong>撤销模式</strong>。</p>
-<p>watch判断下:如果当前不在撤销模式就push,如果在撤销模式就直接return</p>
-<p>设置处于撤销模式<code>this.inUndoMode = true</code>watch就不会记录n的变化了。</p>
-</blockquote>
-<p><strong>注意:当前代码中watch是异步</strong>,所以watch没有发现它在撤销模式。</p>
-<pre><code class="language-js">new Vue({
-  data: {
-    n: 0,
-    history: [],
-    inUndoMode: false //默认不在撤销模式
-  },
-  watch: {
-    n(newValue, oldValue) {
-      console.log(`在不在撤销模式：${this.inUndoMode ? '在' : '不在'}`)
-      if (!this.inUndoMode) { //如果当前不在撤销模式就push
-        this.history.push({ from: oldValue, to: newValue })
-      }
-    }
-  },
-  template: `
-  &lt;div&gt;
-    {{n}}
-    &lt;hr /&gt;
-    &lt;button @click=&quot;add1&quot;&gt;+1&lt;/button&gt;
-    &lt;button @click=&quot;add2&quot;&gt;+2&lt;/button&gt;
-    &lt;button @click=&quot;minus1&quot;&gt;-1&lt;/button&gt;
-    &lt;button @click=&quot;minus2&quot;&gt;-2&lt;/button&gt;
-    &lt;hr/&gt;
-    &lt;button @click=&quot;undo&quot;&gt;撤销&lt;/button&gt;
-    &lt;hr/&gt;
-
-    {{history}}
-  &lt;/div&gt;
-  `,
-  methods: {
-    add1() {
-      this.n += 1;
-    },
-    add2() {
-      this.n += 2;
-    },
-    minus1() {
-      this.n -= 1;
-    },
-    minus2() {
-      this.n -= 2;
-    },
-    undo() {
-      const last = this.history.pop() //拿到最后项
-      console.log(last)
-      const old = last.from //取出from值
-      this.inUndoMode = true
-      this.n = old //watch n的函数会异步调用，不会立即得结果
-      this.$nextTick(() =&gt; { //setTimeout
-        this.inUndoMode = false
-      }, 0)
+export const connect = (selector) =&gt; (Component) =&gt; {
+  return (props) =&gt; {
+    const { state, setState } = useContext(appContext);
+    const [, update] = useState({})
+    const data=selector ? selector(state) : {state:state} 
+      useEffect(() =&gt; {
+        store.subscribe(() =&gt; {
+        //先看下你的新数据是什么
+          const newDate = selector ? selector(store.state) :
+             { state: store.state }
+        //然后看data和newData是否变化了
+          if (changed(data, newDate)) {
+            console.log('update')
+            update({})
+          }
+        })
+    //注意这里最好 取消订阅，否则在selector变化时会出现重复订阅
+      }, [selector]) //添加依赖
     }
   }
-}).$mount(&quot;#app&quot;);
 </code></pre>
-<p>异步结果要想先得到值，可以将下一步也改成异步状态,比如<code>setTimeout</code>
-watch用的<strong>异步接口</strong>是Vue自己封装的叫<code>this.$nextTick</code></p>
-<p><strong>例2 模拟computed</strong></p>
-<pre><code class="language-js">new Vue({
-  data: {
-    user: {
-      email: &quot;fangfang@qq.com&quot;,
-      nickname: &quot;方方&quot;,
-      phone: &quot;13812312312&quot;
-    },
-    displayName: &quot;&quot;
-  },
-  watch: {
-    &quot;user.email&quot;: {
-      handler: &quot;changed&quot;,
-      immediate: true //第一次渲染时也触发watch
-    },
-    &quot;user.nickname&quot;: {
-      handler: &quot;changed&quot;,
-      immediate: true //第一次渲染时也触发watch
-    },
-    &quot;user.phone&quot;: {
-      handler: &quot;changed&quot;,
-      immediate: true //第一次渲染时也触发watch
-    }
-  },
-  template: `
-    &lt;div&gt;
-       {{displayName}}
-       &lt;button @click=&quot;user.nickname=undefined&quot;&gt;remove nickname&lt;/button&gt;
-    &lt;/div&gt;
-  `,
-  methods: {
-    changed() {
-      console.log(arguments);
-      const user = this.user;
-      this.displayName = user.nickname || user.email || user.phone;
+<p><strong>如果你不做取消订阅</strong>，可能在你意想不到的情况下，它会做不停的订阅。
+比如说，我们再添加个state依赖<code>[selector,state]</code>,就会导致下面这种情况:你一次输入n个字母，每次改变都会订阅，按的越多订阅的越多，积累了订阅，就会导致订阅了n次。这是因为只要state变化了，它就会重新订阅。
+<img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9cc3545c20214689ac8c79b56ef8b185~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
+<p>当然这只是示例，state是不需要写在这里的。但是我们还是要处理下selector，防止会出现重复订阅的情况，<strong>那怎么处理？</strong></p>
+<p><strong>3.取消订阅：预防selector重复订阅</strong><br>
+之前已经写好了取消订阅函数<br>
+拿到取消订阅函数，把取消订阅return就好了</p>
+<pre><code class="language-js">export const store = {
+  ...
+  subscribe(fn) {
+    store.listeners.push(fn) 
+    return () =&gt; {
+      const index = store.listeners.indexOf(fn)
+      store.listeners.splice(index)
     }
   }
-}).$mount(&quot;#app&quot;);
-</code></pre>
-<p><strong>watch默认不监听第1次的值。</strong><br>
-所以页面中的{{displayName}}不显示，当点击按钮后才会重新触发计算displayName</p>
-<p><strong>如何展示第1次计算出来的displayName？</strong><br>
-先把它变成<strong>对象</strong>，然后添加<code>handler(){...},immediate:true</code><br>
-<strong>优先使用computed，computed不满足就使用watch.</strong><br>
-它们都是在数据变化时执行一个函数，只不过computed着重于依赖之间的变化以及缓存，watch着重于变化时去执行什么东西而不是得出一个结果。</p>
-<p><strong>对watch来说或者对Vue的所有监听器来说，什么叫做变化？</strong><br>
-1.当改变 <strong>简单的数据类型</strong> 的值时，值变了就是变了。<br>
-2.如果改变 <strong>对象里面的简单类型</strong>，就只做值的对比。值变了才是变了，值没变就是没变。<br>
-比如<code>obj: { a: &quot;a&quot; }</code>改成<code>a: &quot;ahi&quot;</code>，obj没变，因为地址没变，<strong>只是改了里面的值</strong>。obj.a变了。<br>
-3.如果你把一个 <strong>对象的地址</strong> 变了，Vue才会认为这个对象变了。<br>
-里面的依然是比较值。</p>
-<p>比如<code>obj: { a: &quot;a&quot; }</code>改成<code>obj: { a: &quot;a&quot; }</code>，obj变了，因为地址变了，<strong>obj赋给了一个新的对象。</strong><br>
-但是<strong>obj.a</strong>没变，因为值没变。<br>
-简单类型看值，复杂类型(对象)看地址，其实就是===的规则。</p>
-<p>4.<strong>增加需求:</strong> 只要对象里任何一个属性变了就都算obj变了。<br>
-Vue提供了一个选项<code>deep:true</code> <strong>方法</strong>:添加<code>handler(){}、deep:true</code></p>
-<h4 id="watch语法">watch语法</h4>
-<p><a href="https://cn.vuejs.org/v2/api/#watch">推荐文档</a></p>
-<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0f0b01f7a3c844aebdb62cd8d9dc392a~tplv-k3u1fbpfcp-zoom-1.image" alt="在这里插入图片描述"></p>
-<p>watch接收一个对象，对象的key必须是string，value可以是<code>string</code>或<code>函数</code>或<code>对象</code>或<code>数组</code>。</p>
-<p><strong>语法一</strong></p>
-<pre><code class="language-js">watch: { //不要使用箭头函数来定义watch函数
-  a: function (val, oldVal) { ... }, //这两个参数是Vue传给你的
-  b(){ ... },
-  c:[f1,f2],//当c变化时依次执行f1、f2
-  d:'methodName', //当d变化时会去methods里面找对应名字的函数,方法名
-  e:{handle:fn,deep:true,immediate:true}, //immediate立即调用
-   //handler: function (val, oldVal) { /* ... */ },
-  'object.a':function(){ ... } //在object.a变化时执行
-  //这里的function最好不要省，主要看webpack版本
-</code></pre>
-<p><strong>不要使用箭头函数来定义watch函数</strong></p>
-<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7721b524779e43cf9c8279eb557bc1fe~tplv-k3u1fbpfcp-zoom-1.image" alt=""></p>
-<p>箭头函数是没有this的，这个this是它外面函数的this。</p>
-<p>new Vue()不是函数，是<strong>函数调用</strong>。所以箭头函数的外层函数是全局作用域，全局作用域的this是全局对象<code>window或global</code></p>
-<p><strong>语法二</strong><br>
-<code>vm.$watch('xxx',fn,{deep:...,immediate:..})</code>加$防止冲突<br>
-其中<code>'xxx'</code>可以改为一个返回字符串的函数</p>
-<p>也可以移到里面</p>
-<pre><code class="language-js">//是否与DOM有关
-
-//如果与DOM无关就放到created，当实例被创建到内存时监听n,一旦n变了就执行函数...
-created(){
-  this.$watch('n',fn,{deep:...,immediate:..})
+}
+export const connect = (selector) =&gt; (Component) =&gt; {
+  return (props) =&gt; {
+    ...
+    useEffect(() =&gt; {
+      const unsubscribe = store.subscribe(() =&gt; {
+        const newDate = selector ? selector(store.state) :
+           { state: store.state }
+        if (changed(data, newDate)) {
+          console.log('update')
+          update({})
+        }
+      })
+      return unsubscribe //取消订阅
+    }, [selector])//添加依赖
+    ...
+  }
 }
 </code></pre>
-<p><strong>computed VS watch</strong><br>
-watch当数据变化时，执行一个函数<br>
-computed如果一个数据变了，我就计算出一个新的属性。</p>
-<p><strong>面试题(常考)</strong><br>
-<strong>computed 与 watch有什么区别？</strong><br>
-computed是计算属性的意思，watch是监听的意思。<br>
-<strong>computed:</strong><br>
-1.computed是用来计算出一个值的，这个值在调用的时候不需要加括号，可以当属性样用。<br>
-2.根据依赖自动缓存，如果依赖不变computed值就不会重新计算。</p>
-<p><strong>watch:</strong><br>
-1.watch是用来监听的，它有2个选项immediate和deep。<br>
-2.immediate表示是否在第一次渲染的时候要执行这个函数。<br>
-deep如果我们监听一个对象那么是否要看里面的属性的变化。<br>
-定义:如果某个属性变化了我就去执行这个函数。<br>
-这就是computed 和 watch的区别。</p>
+<h3 id="mapdispatchtoprops">mapDispatchToProps</h3>
+<pre><code class="language-js">connect(selector,mapDispatchToProps)
+//connect的第二个参数`mapDispatchToProps`
+</code></pre>
+<p><strong><code>mapDispatchToProps</code>还是传一个函数，这个函数需要return一个对象。</strong><br>
+这个函数接受一个dispatch,return的是你要更新的东西,比如说我要updateUser。
+<code>updateUser</code>就是直接调用dispatch，dispatch第一个参数是它的action，第二个参数是payload,payload接受一个对象，这个对象需要外部传进来。</p>
+<pre><code class="language-js">const UserModifier = connect(null, (dispatch) =&gt; {
+  return {
+    updateUser: (attrs) =&gt; {
+      dispatch({ type: 'updateUser', payload: attrs })
+    }
+  }
+})(({ updateUser, state }) =&gt; {
+  const onChange = (e) =&gt; {
+    updateUser({ name: e.target.value })
+  }
+  ...
+  })
+</code></pre>
+<p>显的里面的组件很简洁:onChange的时候从props里拿到updateUser,然后把user的信息给传进去。<br>
+虽然上面变丑了，但是后续可以继续优化，这里先不讲。</p>
+<p>接下来<strong>实现connect的第二个参数<code>mapDispatchToProps</code></strong>。<br>
+先把它传进来，它怎么用呢？<br>
+看下有没有传，如果传了<code>mapDispatchToProps</code>就把<code>dispatch</code>传给这个函数，否则就使用dispatch。</p>
+<pre><code class="language-js">redux.js
+export const connect = (selector, mapDispatchToProps) =&gt; (Component) =&gt; {
+  return (props) =&gt; {
+    const dispatch = (action) =&gt; { setState(reducer(state, action)) }
+    ...
+    const dispatchers = mapDispatchToProps ? 
+      mapDispatchToProps(dispatch) : { dispatch }
+    ...
+    return &lt;Component {...props} {...data} {...dispatchers} /&gt;
+  }
+}
+</code></pre>
+<p><code>&lt;Component /&gt;</code>就不需要使用dispatch了，而是使用我自己创建的<code>dispatchers</code><br>
+这样我们的dispatch也搞定了。</p>
+<h3 id="connect的意义">connect的意义</h3>
+<p>之前我们说过connect是为了让组件与全局的state就行结合，但实际上你可以发现它的函数的调用形式很奇怪。它为什么先要传一个<code>MapStateToProps、MapDispatchToProps</code>然后再传一个组件呢，为什么不直接三个参数。实际上它是有考虑的。</p>
+<pre><code class="language-js">connect(
+  MapStateToProps,
+  MapDispatchToProps)
+  (组件)
+)
+</code></pre>
+<p><strong>优化代码</strong><br>
+User用到了user,userModifier也用到了user,实际上这两个应该用到的是同一个selector。<br>
+我们可以抽取公共selector。同样dispatch也是如此。</p>
+<pre><code class="language-js">const userSelector = state =&gt; {
+  return { user: state.user }
+}
+const userDispatcher = (dispatch) =&gt; {
+  return {
+    updateUser: (attrs) =&gt; {
+      dispatch({ type: 'updateUser', payload: attrs })
+    }
+  }
+}
+
+const User = connect(userSelector)(({ user }) =&gt; {
+  return &lt;div&gt; User:{user.name} &lt;/div&gt;
+})
+const UserModifier = connect(userSelector, userDispatcher)(({ updateUser, state }) =&gt; {
+ ...
+})
+</code></pre>
+<p>connect实际上是给了你一种提取读写接口的一种方式，这样你就不用重复的去告诉React怎么读写，但是我们还可以再进一步。<br>
+connect可以调用两次的另外一个意义是：我们可以直接把这两个部分抽取出来。</p>
+<pre><code class="language-js">const connectToUser = connect(userSelector, userDispatcher)
+
+const User = connectToUser(({ user }) =&gt; {
+  return &lt;div&gt; User:{user.name} &lt;/div&gt;
+})
+const UserModifier = connectToUser(({ updateUser, user }) =&gt; {
+  const onChange = (e) =&gt; {
+    updateUser({ name: e.target.value })
+  }
+  return &lt;div&gt;
+    &lt;input value={user.name} onChange={onChange} /&gt;
+  &lt;/div&gt;
+})
+</code></pre>
+<p>所以任何的一个组件如果想要数据，直接给自己声明一个connect就可以拿到读和写。
+那我们可以创建一个目录connecters，里面可以写各种connectToUser.js。</p>
+<p><strong>在src下新建目录<code>connecters</code>，新建文件<code>connectToUser.js</code></strong></p>
+<pre><code class="language-js">connectToUser.js
+//把读写接口复制过来
+import { connect } from &quot;../redux&quot;
+
+const userSelector = state =&gt; {
+    return { user: state.user }
+}
+const userDispatcher = (dispatch) =&gt; {
+    return {
+        updateUser: (attrs) =&gt; { dispatch({ type: 'updateUser', payload: attrs }) }
+    }
+}
+export const connectToUser = connect(userSelector, userDispatcher)
+</code></pre>
+<p>使用</p>
+<pre><code class="language-js">index.js
+import { connectToUser } from './connecters/connectToUser'
+</code></pre>
+<p>现在我们就知道了，MapStateToProps是用来封装读、MapDispatchToProps是用来封装写，connect是用来封装读和写，也就是封装一个资源，你可以对这个资源进行读写，然后你只要再传一个组件就行了。</p>
+<p>之所以分成两次调用就是为了方便你先调用一次得到一个半成品，然后等你想用一个组件的时候就可以调用不同的组件。这个半成品可以跟任何组件相结合，它会把读写接口传给任何的组件，这就是connect的意义。</p>
+<h3 id="封装provider和createstore">封装Provider和createStore</h3>
+<p><strong>1.createStore的用法</strong></p>
+<pre><code class="language-js">创建store
+createStore(reducer,initState)
+</code></pre>
+<p><strong>打开redux.js</strong><br>
+1.store里面的数据(state)不应该是写死的，redux不应该知道外面的数据是怎样的。<br>
+2.reducer也不应该是写死的，如果我们不知道数据，理论上我们应该不可能知道如何创建新的数据。<br>
+所以我们应该让state和reducer是从外部传进来的。</p>
+<p>使用API <code>createStore</code></p>
+<pre><code class="language-js">redux.js
+const store = {
+    state: undefined,
+    reducer: undefined,
+    setState(newState) {
+        console.log(newState)
+        store.state = newState
+        store.listeners.map(fn =&gt; fn(store.state))
+    },
+    listeners: [],
+    subscribe(fn) {
+        store.listeners.push(fn) //订阅
+        return () =&gt; { //取消订阅
+            const index = store.listeners.indexOf(fn)
+            store.listeners.splice(index)
+        }
+    }
+}
+export const store = {
+  state: undefined,
+  reducer: undefined,
+}
+export const createStore = (reducer, initState) =&gt; {
+  store.state = initState
+  store.reducer = reducer
+  return store //return
+}
+</code></pre>
+<pre><code class="language-js">index.js
+import { appContext, createStore, connect } from &quot;./redux&quot;
+
+const reducer = (state, { type, payload }) =&gt; {
+  if (type === 'updateUser') {
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        ...payload
+      }
+    }
+  } else {
+    return state
+  }
+}
+const initState = {
+  user: { name: 'frank', age: 18 },
+  group: { name: '前端组' }
+}
+const store = createStore(reducer, initState)
+
+export const connect = (selector, mapDispatchToProps) =&gt; (Component) =&gt; {
+  return (props) =&gt; {
+    const dispatch = (action) =&gt; {
+      setState(store.reducer(state, action)) //用到reducer的改为store.reducer
+    }
+}
+</code></pre>
+<p>createStore是用来方便用户把初始化状态以及reducer传到我们的redux里。
+现在我们就完成了对createStore的创建。</p>
+<p>redux.js export了三个变量:<br>
+<code>createStore</code>用来创建store，<code>connect</code>用于把组件和store连起来，<code>appContext</code>是上下文，用于在任何地方读取store。</p>
+<h3 id="封装provider">封装Provider</h3>
+<p>关于上下文，redux文档中是这样写的：</p>
+<pre><code class="language-js">&lt;Provider store={store}&gt;
+&lt;/Provider&gt;
+</code></pre>
+<p><strong>如何封装<code>Provider</code>变成redux文档中的写法？</strong></p>
+<pre><code class="language-js">&lt;appContext.Provider value={store}&gt;
+  &lt;大儿子 /&gt;
+  &lt;二儿子 /&gt;
+  &lt;小儿子 /&gt;
+&lt;/appContext.Provider &gt;
+</code></pre>
+<p><strong>方法:</strong><br>
+1.封装<code>Provider</code>,<code>Provider</code>应该是一个组件，因为它可以接受属性。</p>
+<pre><code class="language-js">redux.js
+export const Provider = ({ store, children }) =&gt; { //封装Provider
+  return (
+    &lt;appContext.Provider value={store}&gt;
+      {children}
+    &lt;/appContext.Provider &gt;
+  )
+}
+</code></pre>
+<p>2.使用上下文</p>
+<pre><code class="language-js">index.js
+import { Provider, createStore, connect } from &quot;./redux&quot;
+export const App = () =&gt; {
+  return (
+    &lt;Provider store={store}&gt;
+      &lt;大儿子 /&gt;
+      &lt;二儿子 /&gt;
+      &lt;小儿子 /&gt;
+    &lt;/Provider &gt;
+  )
+}
+</code></pre>
+<p>目前我们的redux和真正redux的接口几乎是一致的，通过手写redux,你基本上已经完全理解redux的思想了。</p>
 
 </article>
 
@@ -1616,11 +1620,16 @@ deep如果我们监听一个对象那么是否要看里面的属性的变化。<
   >
     <div>
       
+        <span class="text-primary-text block font-bold"
+          >Previous</span
+        >
+        <a href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99-redux/" class="block">手写 Redux</a>
+      
     </div>
     <div class="mt-4 md:mt-0 md:text-right">
       
         <span class="text-primary-text block font-bold">Next</span>
-        <a href="https://lixueqin-4119.xyz/docs/example-doc/vue2-%E5%85%A8%E8%A7%A3/vue-router-%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%80%9D%E8%B7%AF/" class="block">Vue Router -前端路由实现的思路</a>
+        <a href="https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99redux3/" class="block">手写Redux(3)</a>
       
     </div>
   </div>
@@ -1648,15 +1657,18 @@ deep如果我们监听一个对象那么是否要看里面的属性的变化。<
 >
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#一computed-计算属性">一.Computed 计算属性</a></li>
-    <li><a href="#二watch-监听侦听">二.Watch 监听/侦听</a>
+    <li>
       <ul>
-        <li>
+        <li><a href="#selector">Selector</a>
           <ul>
-            <li><a href="#撤销功能">撤销功能</a></li>
-            <li><a href="#watch语法">watch语法</a></li>
+            <li><a href="#selector的第1个功能实现简写">Selector的第1个功能:实现简写</a></li>
+            <li><a href="#selector的第2个功能实现精确渲染">Selector的第2个功能:实现精确渲染</a></li>
           </ul>
         </li>
+        <li><a href="#mapdispatchtoprops">mapDispatchToProps</a></li>
+        <li><a href="#connect的意义">connect的意义</a></li>
+        <li><a href="#封装provider和createstore">封装Provider和createStore</a></li>
+        <li><a href="#封装provider">封装Provider</a></li>
       </ul>
     </li>
   </ul>

@@ -184,5 +184,44 @@ const App = props =&amp;gt; { const [n, setN] = React.useState(0) const onClick 
 import React, { useState, useContext } from &amp;quot;react&amp;quot; import ReactDOM from &#39;react-dom&#39; import &#39;./style.css&#39; const appContext = React.createContext(null) const App = () =&amp;gt; { const [appState, setAppState] = useState({ user: { name: &#39;frank&#39;, age: 18 } }) const contextValue = { appState, setAppState } //封装成一个对象，塞给上下文 return ( &amp;lt;appContext.Provider value={contextValue}&amp;gt; &amp;lt;大儿子 /&amp;gt; &amp;lt;二儿子 /&amp;gt; &amp;lt;小儿子 /&amp;gt; &amp;lt;/appContext.Provider &amp;gt; ) } const 大儿子 = () =&amp;gt; &amp;lt;section&amp;gt;大儿子&amp;lt;User /&amp;gt;&amp;lt;/section&amp;gt; const 二儿子 = () =&amp;gt; &amp;lt;section&amp;gt;二儿子&amp;lt;UserModifier /&amp;gt;&amp;lt;/section&amp;gt; const 小儿子 = () =&amp;gt; &amp;lt;section&amp;gt;小儿子&amp;lt;/section&amp;gt; const User = () =&amp;gt; { //获取信息 const contextValue = useContext(appContext) return &amp;lt;div&amp;gt; User:{contextValue.</description>
     </item>
     
+    <item>
+      <title>手写Redux(2)</title>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99redux2/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99redux2/</guid>
+      <description>目录
+1.Selectorconnect的第一个参数
+2.mapDispatchToPropsconnect的第二个参数
+3.connect的意义
+4.封装Provider和createStore
+Selector Selector是connect的第一个参数，由React-Redux库提供。
+Selector的第1个功能:实现简写 目前我们的User组件只用到了state.user
+const User=connect( ({state}) =&amp;gt; { return &amp;lt;div&amp;gt; User:{state.user.name} &amp;lt;/div&amp;gt; })  所以如果我们可以提供一个选择函数,比如说connect的第一个参数我们用()来表达，这样我们就可以在这里直接拿到user,下面就不需要state也能直接拿到user了。
+index.js const User = connect( state =&amp;gt; { return {user:state.user} })( ({user}) =&amp;gt; { return &amp;lt;div&amp;gt; User:{user.name} &amp;lt;/div&amp;gt; })  这种做法什么时候有意义？
+如果我们拿数据的.很长，比如{state.xxx.yyy.zzz.user.name},这种方法可以快速获取到局部state。
+这只是API的实现，我们还没有对它进行代码的编写。
+代码实现
+步骤
+1.添加参数selector
+来到redux.js给connect函数添加一个参数(selector)=&amp;gt;。
+先接受一个参数selector再接受第二个参数Component
+2.使用参数
+把state传进去，data就是用户需要的所有数据，再把data放到&amp;lt;Component /&amp;gt;的props后面。
+redux.js export const connect = (selector) =&amp;gt; (Component) =&amp;gt; { return (props) =&amp;gt; { //const data = selector(state) const data=selector ? selector(state) : {state:state} .</description>
+    </item>
+    
+    <item>
+      <title>手写Redux(3)</title>
+      <link>https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99redux3/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://lixueqin-4119.xyz/docs/example-doc/react-%E5%85%A8%E8%A7%A3/%E6%89%8B%E5%86%99redux3/</guid>
+      <description>Redux文档-store
+API封装技巧 内容:分别模拟封装store的三个方法
+ getState() dispatch(action) subscribe(listener)  封装前代码
+redux.js import React, { useState, useContext, useEffect } from &amp;quot;react&amp;quot; const store = { state: undefined, reducer: undefined, setState(newState) { console.log(newState) store.state = newState store.listeners.map(fn =&amp;gt; fn(store.state)) }, listeners: [], subscribe(fn) { store.listeners.push(fn) //订阅 return () =&amp;gt; { //取消订阅 const index = store.listeners.indexOf(fn) store.listeners.splice(index) } } } export const createStore = (reducer, initState) =&amp;gt; { store.state = initState store.reducer = reducer return store } const changed = (oldState, newState) =&amp;gt; { let changed = false for (let key in oldState) { if (oldState[key] !</description>
+    </item>
+    
   </channel>
 </rss>
